@@ -169,12 +169,34 @@ a:hover{ opacity: .9; }
 .brandtext{ font-weight: 750; color: var(--text); }
 
 .icon-btn{
+  width: 40px;              /* 고정 */
+  height: 40px;             /* 고정 */
   border: 1px solid var(--line);
   background: var(--panel);
   color: var(--text);
   border-radius: 12px;
-  padding: 8px 10px;
-  cursor:pointer;
+  padding: 0;               /* 패딩 제거(크기 흔들림 방지) */
+  cursor: pointer;
+
+  display: inline-flex;     /* 중앙정렬 */
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;           /* 레이아웃 변화 방지 */
+  line-height: 1;           /* 텍스트 흔들림 방지 */
+}
+
+/* 아이콘 자체도 고정 */
+#themeIcon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;              /* 고정 */
+  height: 18px;             /* 고정 */
+  font-size: 18px;          /* 고정 */
+  line-height: 1;           /* 고정 */
+  transform: translateY(-0.5px); /* 선택: 시각적으로 딱 중앙 맞추기 */
 }
 
 .hero{ padding: 42px 0 18px; }
