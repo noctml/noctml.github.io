@@ -3,8 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Personal website (coming soon)" />
-  <title>My Page</title>
+  <meta name="description" content="Wooseok Song · Personal website (coming soon)" />
+  <title>Wooseok Song</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+
+  <!-- (선택) 공유 미리보기 -->
+  <meta property="og:title" content="Wooseok Song" />
+  <meta property="og:description" content="Personal website (coming soon)" />
+  <meta property="og:type" content="website" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -12,111 +20,142 @@
 <body>
   <a class="skip" href="#main">본문으로 바로가기</a>
 
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="dot"></span>
-        <span>Wooseok Song</span>
-      </a>
+  <div class="layout" id="top">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <div class="sidebar-card">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/avatar.jpg" alt="Wooseok Song profile photo" />
+        </div>
 
-      <nav class="menu" aria-label="Primary">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <div class="who">
+          <div class="name">Wooseok Song</div>
+          <div class="tagline">Personal Website · Coming soon</div>
+        </div>
 
-      <button id="themeBtn" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">
-        <span id="themeIcon" aria-hidden="true">☾</span>
-      </button>
+        <div class="info">
+          <div class="info-row">
+            <span class="label">Status</span>
+            <span class="value">준비중</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Location</span>
+            <span class="value">Korea</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Links</span>
+            <span class="value">
+              <a href="https://github.com/noctml" target="_blank" rel="noreferrer">GitHub</a>
+            </span>
+          </div>
+        </div>
+
+        <div class="sidebar-actions">
+          <a class="btn" href="mailto:pdwytime@gmail.com">Email</a>
+          <a class="btn ghost" href="#contact">Contact</a>
+        </div>
+
+        <nav class="side-nav" aria-label="Section navigation">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a class="backtop" href="#top">Top ↑</a>
+        </nav>
+
+        <p class="tiny muted">© <span id="year"></span> Wooseok Song</p>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brandline">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="brandtext">Wooseok Song</span>
+          </div>
+
+          <button id="themeBtn" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">
+            <span id="themeIcon" aria-hidden="true">☀</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="container">
+        <section class="hero">
+          <p class="kicker">Personal Website</p>
+          <h1>준비중입니다.</h1>
+          <p class="sub">곧 업데이트할게요. (Currently building.)</p>
+
+          <div class="meta">
+            <span class="pill">🚧 Coming soon</span>
+            <span class="pill">✨ Minimal</span>
+            <span class="pill">🧊 Light gray</span>
+          </div>
+        </section>
+
+        <section id="work" class="section">
+          <div class="section-head">
+            <h2>Work</h2>
+            <p class="muted">정리 중입니다.</p>
+          </div>
+
+          <div class="grid">
+            <article class="card">
+              <h3>Project A</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+
+            <article class="card">
+              <h3>Project B</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+
+            <article class="card">
+              <h3>Project C</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+
+            <article class="card">
+              <h3>Project D</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+          </div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="section-head">
+            <h2>About</h2>
+            <p class="muted">소개는 곧 추가됩니다.</p>
+          </div>
+
+          <div class="panel">
+            <p class="muted">
+              안녕하세요. 현재 웹사이트를 정리하고 있어요. 조금만 기다려주세요 :)
+            </p>
+          </div>
+        </section>
+
+        <section id="contact" class="section">
+          <div class="section-head">
+            <h2>Contact</h2>
+            <p class="muted">연락은 아래로.</p>
+          </div>
+
+          <div class="contact">
+            <a class="btn" href="mailto:pdwytime@gmail.com">pdwytime@gmail.com</a>
+            <a class="btn ghost" href="https://github.com/noctml" target="_blank" rel="noreferrer">github</a>
+          </div>
+
+          <p class="tiny muted">Last updated: <span id="updated"></span></p>
+        </section>
+      </main>
     </div>
-  </header>
-
-  <main id="main" class="container">
-    <section class="hero" id="top">
-      <p class="kicker">Personal Website</p>
-      <h1>준비중입니다.</h1>
-      <p class="sub">
-        곧 업데이트할게요. (Currently building.)
-      </p>
-
-      <div class="cta">
-        <a class="btn" href="#contact">연락하기</a>
-        <a class="btn ghost" href="#work">작업물</a>
-      </div>
-
-      <div class="meta">
-        <span class="pill">🚧 Coming soon</span>
-        <span class="pill">✨ Minimal</span>
-      </div>
-    </section>
-
-    <section id="work" class="section">
-      <div class="section-head">
-        <h2>Work</h2>
-        <p class="muted">정리 중입니다.</p>
-      </div>
-
-      <div class="grid">
-        <article class="card">
-          <h3>Project A</h3>
-          <p class="muted">준비중</p>
-          <span class="badge">Coming soon</span>
-        </article>
-
-        <article class="card">
-          <h3>Project B</h3>
-          <p class="muted">준비중</p>
-          <span class="badge">Coming soon</span>
-        </article>
-
-        <article class="card">
-          <h3>Project C</h3>
-          <p class="muted">준비중</p>
-          <span class="badge">Coming soon</span>
-        </article>
-
-        <article class="card">
-          <h3>Project D</h3>
-          <p class="muted">준비중</p>
-          <span class="badge">Coming soon</span>
-        </article>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="section-head">
-        <h2>About</h2>
-        <p class="muted">소개는 곧 추가됩니다.</p>
-      </div>
-
-      <div class="panel">
-        <p class="muted">
-          안녕하세요. 현재 웹사이트를 정리하고 있어요. 조금만 기다려주세요 :)
-        </p>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="section-head">
-        <h2>Contact</h2>
-        <p class="muted">연락은 아래로.</p>
-      </div>
-
-      <div class="contact">
-        <a class="btn" href="mailto:pdwytime@gmail.com">pdwytime@gmail.com</a>
-        <a class="btn ghost" href="https://github.com/noctml" target="_blank" rel="noreferrer">github</a>
-      </div>
-
-      <p class="tiny muted">© <span id="year"></span> Wooseok Song. All rights reserved.</p>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span class="muted">Last updated: <span id="updated"></span></span>
-      <a class="muted" href="#top">Back to top ↑</a>
-    </div>
-  </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>

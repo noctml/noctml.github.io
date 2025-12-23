@@ -1,35 +1,35 @@
 (() => {
   const root = document.documentElement;
 
-  // Footer dates
+  // Dates
   const year = document.getElementById("year");
   const updated = document.getElementById("updated");
   if (year) year.textContent = new Date().getFullYear();
   if (updated) updated.textContent = new Date().toISOString().slice(0, 10);
 
-  // Theme toggle (minimal)
+  // Theme toggle (default: light)
+  // - light(기본): 아무 속성 없음
+  // - dark: data-theme="dark"
   const themeBtn = document.getElementById("themeBtn");
   const themeIcon = document.getElementById("themeIcon");
 
   const saved = localStorage.getItem("theme");
-  if (saved) root.setAttribute("data-theme", saved);
+  if (saved === "dark") root.setAttribute("data-theme", "dark");
 
   const syncIcon = () => {
-    const isLight = root.getAttribute("data-theme") === "light";
-    if (themeIcon) themeIcon.textContent = isLight ? "☀" : "☾";
+    const isDark = root.getAttribute("data-theme") === "dark";
+    if (themeIcon) themeIcon.textContent = isDark ? "☾" : "☀";
   };
   syncIcon();
 
   themeBtn?.addEventListener("click", () => {
-    const cur = root.getAttribute("data-theme");
-    const next = cur === "light" ? "" : "light";
-
-    if (next) {
-      root.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    } else {
+    const isDark = root.getAttribute("data-theme") === "dark";
+    if (isDark) {
       root.removeAttribute("data-theme");
-      localStorage.setItem("theme", "");
+      localStorage.setItem("theme", "light");
+    } else {
+      root.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
     }
     syncIcon();
   });
