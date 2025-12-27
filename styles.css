@@ -286,3 +286,25 @@ a:hover{ opacity: .9; }
   .sidebar-card{ position: relative; top: 0; }
   .grid{ grid-template-columns: 1fr; }
 }
+
+.list{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap: 12px;
+  padding: 14px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel2);
+  box-shadow: var(--shadow);
+}
+
+.row-title{ font-weight: 700; }
+.row-sub{ font-size: 13px; margin-top: 2px; }
+.arrow{ color: var(--muted); }

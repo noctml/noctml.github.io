@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Wooseok Song · Personal website (coming soon)" />
+  <meta name="description" content="Wooseok Song · Paper Reviews" />
   <title>Wooseok Song</title>
 
   <!-- Favicon -->
@@ -11,7 +11,7 @@
 
   <!-- (선택) 공유 미리보기 -->
   <meta property="og:title" content="Wooseok Song" />
-  <meta property="og:description" content="Personal website (coming soon)" />
+  <meta property="og:description" content="Paper Reviews & Notes" />
   <meta property="og:type" content="website" />
 
   <link rel="stylesheet" href="styles.css" />
@@ -30,13 +30,13 @@
 
         <div class="who">
           <div class="name">Wooseok Song</div>
-          <div class="tagline">Personal Website · Coming soon</div>
+          <div class="tagline">Paper Reviews · Notes</div>
         </div>
 
         <div class="info">
           <div class="info-row">
-            <span class="label">Status</span>
-            <span class="value">준비중</span>
+            <span class="label">Focus</span>
+            <span class="value">Deep Visual SLAM</span>
           </div>
           <div class="info-row">
             <span class="label">Location</span>
@@ -56,6 +56,7 @@
         </div>
 
         <nav class="side-nav" aria-label="Section navigation">
+          <a href="#paper-reviews">Paper Reviews</a>
           <a href="#work">Work</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
@@ -82,22 +83,61 @@
       </header>
 
       <main id="main" class="container">
+        <!-- HERO: Paper review 중심으로 변경 -->
         <section class="hero">
-          <p class="kicker">Personal Website</p>
-          <h1>준비중입니다.</h1>
-          <p class="sub">곧 업데이트할게요. (Currently building.)</p>
+          <p class="kicker">Read & Write</p>
+          <h1>글쓰는 개발자</h1>
+          <p class="sub">이해한 것들을 정리하고 기록합니다.</p>
 
-          <div class="meta">
-            <span class="pill">🚧 Coming soon</span>
-            <span class="pill">✨ Minimal</span>
-            <span class="pill">🧊 Light gray</span>
+        </section>
+
+        <!-- 메인 섹션: Paper Reviews -->
+        <section id="paper-reviews" class="section">
+          <div class="section-head">
+            <h2>Paper Reviews</h2>
+            <p class="muted">읽은 논문들</p>
+          </div>
+
+          <div class="list">
+            <!-- 예시(추가할 때 복붙해서 쓰면 됨)
+            <a class="row" href="NOTION_LINK" target="_blank" rel="noreferrer">
+              <div>
+                <div class="row-title">논문 제목</div>
+                <div class="row-sub muted">한 줄 요약 (작성 중 / Done)</div>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+            -->
+
+            <!-- ORB-SLAM2 -->
+            <a class="row"
+               href="https://www.notion.so/2c4f65f113f4804383c8fe66045a9ed3?source=copy_link"
+               target="_blank" rel="noreferrer">
+              <div>
+                <div class="row-title">ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras</div>
+                <div class="row-sub muted">Visual SLAM의 정석 (Done)</div>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+
+            <a class="row"
+               href="https://www.notion.so/2cff65f113f48158affbf56f53bca629?source=copy_link"
+               target="_blank" rel="noreferrer">
+              <div>
+                <div class="row-title">DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras</div>
+                <div class="row-sub muted">딥러닝을 적용한 Visual SLAM (In Progress)</div>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+            
           </div>
         </section>
 
+        <!-- Work는 우선순위 낮춰서 아래로 -->
         <section id="work" class="section">
           <div class="section-head">
             <h2>Work</h2>
-            <p class="muted">정리 중입니다.</p>
+            <p class="muted">프로젝트는 추후 업데이트 예정</p>
           </div>
 
           <div class="grid">
