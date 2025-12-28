@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Wooseok Song · Paper Reviews" />
+  <title>Wooseok Song</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+
+  <!-- (선택) 공유 미리보기 -->
+  <meta property="og:title" content="Wooseok Song" />
+  <meta property="og:description" content="Paper Reviews & Notes" />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <a class="skip" href="#main">본문으로 바로가기</a>
+
+  <div class="layout" id="top">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <div class="sidebar-card">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/avatar.jpg" alt="Wooseok Song profile photo" />
+        </div>
+
+        <div class="who">
+          <div class="name">Wooseok Song</div>
+          <div class="tagline">Paper Reviews · Notes</div>
+        </div>
+
+        <div class="info">
+          <div class="info-row">
+            <span class="label">Focus</span>
+            <span class="value">Deep Visual SLAM</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Location</span>
+            <span class="value">Korea</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Links</span>
+            <span class="value">
+              <a href="https://github.com/noctml" target="_blank" rel="noreferrer">GitHub</a>
+            </span>
+          </div>
+        </div>
+
+        <div class="sidebar-actions">
+          <a class="btn" href="mailto:pdwytime@gmail.com">Email</a>
+          <a class="btn ghost" href="#contact">Contact</a>
+        </div>
+
+        <nav class="side-nav" aria-label="Section navigation">
+          <a href="#paper-reviews">Paper Reviews</a>
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a class="backtop" href="#top">Top ↑</a>
+        </nav>
+
+        <p class="tiny muted">© <span id="year"></span> Wooseok Song</p>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brandline">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="brandtext">Wooseok Song</span>
+          </div>
+
+          <button id="themeBtn" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">
+            <span id="themeIcon" aria-hidden="true">☀</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="container">
+        <!-- HERO: Paper review 중심으로 변경 -->
+        <section class="hero">
+          <p class="kicker">Read & Write</p>
+          <h1>글쓰는 개발자</h1>
+          <p class="sub">이해한 것들을 정리하고 기록합니다.</p>
+
+        </section>
+
+        <!-- 메인 섹션: Paper Reviews -->
+        <section id="paper-reviews" class="section">
+          <div class="section-head">
+            <h2>Paper Reviews</h2>
+            <p class="muted">읽은 논문들</p>
+          </div>
+
+          <div class="list">
+            <!-- 예시(추가할 때 복붙해서 쓰면 됨)
+            <a class="row" href="NOTION_LINK" target="_blank" rel="noreferrer">
+              <div>
+                <div class="row-title">논문 제목</div>
+                <div class="row-sub muted">한 줄 요약 (작성 중 / Done)</div>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+            -->
+
+            <!-- ORB-SLAM2 -->
+            <a class="row"
+               href="https://www.notion.so/2c4f65f113f4804383c8fe66045a9ed3?source=copy_link"
+               target="_blank" rel="noreferrer">
+              <div>
+                <div class="row-title">ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras</div>
+                <div class="row-sub muted">Visual SLAM의 정석 (Done)</div>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+
+            <a class="row"
+               href="https://www.notion.so/2cff65f113f48158affbf56f53bca629?source=copy_link"
+               target="_blank" rel="noreferrer">
+              <div>
+                <div class="row-title">DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras</div>
+                <div class="row-sub muted">딥러닝을 적용한 Visual SLAM (In Progress)</div>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+            
+          </div>
+        </section>
+
+        <!-- Work는 우선순위 낮춰서 아래로 -->
+        <section id="work" class="section">
+          <div class="section-head">
+            <h2>Work</h2>
+            <p class="muted">프로젝트는 추후 업데이트 예정</p>
+          </div>
+
+          <div class="grid">
+            <article class="card">
+              <h3>Project A</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+
+            <article class="card">
+              <h3>Project B</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+
+            <article class="card">
+              <h3>Project C</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+
+            <article class="card">
+              <h3>Project D</h3>
+              <p class="muted">준비중</p>
+              <span class="badge">Coming soon</span>
+            </article>
+          </div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="section-head">
+            <h2>About</h2>
+            <p class="muted">소개는 곧 추가됩니다.</p>
+          </div>
+
+          <div class="panel">
+            <p class="muted">
+              안녕하세요. 현재 웹사이트를 정리하고 있어요. 조금만 기다려주세요 :)
+            </p>
+          </div>
+        </section>
+
+        <section id="contact" class="section">
+          <div class="section-head">
+            <h2>Contact</h2>
+            <p class="muted">연락은 아래로.</p>
+          </div>
+
+          <div class="contact">
+            <a class="btn" href="mailto:pdwytime@gmail.com">pdwytime@gmail.com</a>
+            <a class="btn ghost" href="https://github.com/noctml" target="_blank" rel="noreferrer">github</a>
+          </div>
+
+          <p class="tiny muted">Last updated: <span id="updated"></span></p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -3,71 +3,275 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Wooseok Song · Paper Reviews" />
+  <meta name="description" content="Wooseok Song · Paper Reviews & Work" />
   <title>Wooseok Song</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png" />
-
-  <!-- (선택) 공유 미리보기 -->
   <meta property="og:title" content="Wooseok Song" />
-  <meta property="og:description" content="Paper Reviews & Notes" />
+  <meta property="og:description" content="Paper Reviews & Work" />
   <meta property="og:type" content="website" />
 
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Sidebar */
+    .sidebar-card{
+      display:flex;
+      flex-direction:column;
+      min-height: calc(100dvh - 40px);
+    }
+    .side-nav{ display:none !important; }
+    .sidebar-actions{ display:none !important; }
+
+    .sidebar-bottom{
+      margin-top:auto;
+      display:grid;
+      gap:10px;
+      padding-top:12px;
+    }
+    .btn.small{
+      padding:8px 10px;
+      font-size:13px;
+      border-radius:12px;
+      width:100%;
+      text-align:center;
+    }
+
+    /* Section header + pager */
+    .section-head.row{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:12px;
+    }
+    .pager{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pager .page-indicator{
+      font-size:12px;
+      color:var(--muted);
+      min-width:52px;
+      text-align:center;
+    }
+    .pager-btn{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:var(--panel2);
+      box-shadow:var(--shadow);
+      color:var(--text);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .pager-btn:active{ transform: translateY(1px); }
+    .pager-btn[disabled]{
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    /* Fixed frame to prevent layout jump */
+    .paper-frame{
+      min-height: calc(5 * 64px);
+      display:grid;
+      gap:10px;
+    }
+
+    /* Work: 3 rows x 2 cols fixed */
+    .work-frame{
+      min-height: calc(3 * 196px + 2 * 14px);
+    }
+
+    .grid.fixed-rows{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+      grid-auto-rows: 196px;
+    }
+
+    /* Paper rows */
+    .row.fixed{
+      min-height:64px;
+      display:flex;
+      align-items:center;
+    }
+
+    /* Disabled state */
+    .is-disabled{
+      opacity:0.45;
+      pointer-events:none;
+    }
+    .coming-text{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* Keep footer text exactly */
+    #updated, #year{ display:none; }
+
+    /* Work cards: keep identical sizing */
+    #workGrid { grid-auto-rows: 196px; }
+    #workGrid .card{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      text-decoration:none;
+      color:inherit;
+      overflow:hidden;
+    }
+
+    /* Work card layout */
+    .work-card{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .work-thumb{
+      height:110px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .work-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .work-body{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-height: 0;
+    }
+    .work-title{
+      font-weight: 750;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+    }
+    .work-desc{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.25;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+    }
+    .work-meta{
+      margin-top:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:12px;
+      color: var(--muted);
+      padding-top: 2px;
+    }
+
+    /* Work placeholders keep same frame */
+    .card.placeholder{
+      opacity:0.45;
+      pointer-events:none;
+    }
+    .card.placeholder .work-thumb,
+    .card.placeholder .work-title,
+    .card.placeholder .work-desc,
+    .card.placeholder .work-date{
+      border-radius:10px;
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      border:1px solid var(--line);
+      color:transparent;
+    }
+    .card.placeholder .work-title{ height:16px; width:72%; }
+    .card.placeholder .work-desc{ height:12px; width:88%; }
+    .card.placeholder .work-date{ height:12px; width:40%; }
+
+    /* Unpublished card: same structure, show "준비중입니다" */
+    .work-unpub{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .work-unpub .work-thumb{
+      position:relative;
+    }
+    .work-unpub .work-thumb::after{
+      content:"준비중입니다";
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      color:var(--muted);
+      background: color-mix(in srgb, var(--bg) 35%, transparent);
+      backdrop-filter: blur(2px);
+    }
+  </style>
 </head>
 
 <body>
   <a class="skip" href="#main">본문으로 바로가기</a>
 
   <div class="layout" id="top">
-    <!-- LEFT SIDEBAR -->
     <aside class="sidebar" aria-label="Sidebar">
       <div class="sidebar-card">
-        <div class="avatar-wrap">
-          <img class="avatar" src="assets/avatar.jpg" alt="Wooseok Song profile photo" />
-        </div>
-
-        <div class="who">
-          <div class="name">Wooseok Song</div>
-          <div class="tagline">Paper Reviews · Notes</div>
-        </div>
-
-        <div class="info">
-          <div class="info-row">
-            <span class="label">Focus</span>
-            <span class="value">Deep Visual SLAM</span>
+        <div>
+          <div class="avatar-wrap">
+            <img class="avatar" src="assets/avatar.jpg" alt="Wooseok Song profile photo" />
           </div>
-          <div class="info-row">
-            <span class="label">Location</span>
-            <span class="value">Korea</span>
+
+          <div class="who">
+            <div class="name">Wooseok Song</div>
+            <div class="tagline">Paper Reviews · Work</div>
           </div>
-          <div class="info-row">
-            <span class="label">Links</span>
-            <span class="value">
-              <a href="https://github.com/noctml" target="_blank" rel="noreferrer">GitHub</a>
-            </span>
+
+          <div class="info">
+            <div class="info-row">
+              <span class="label">Focus</span>
+              <span class="value">Deep Visual SLAM</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Location</span>
+              <span class="value">Korea</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Links</span>
+              <span class="value">
+                <a href="https://github.com/noctml" target="_blank" rel="noreferrer">GitHub</a>
+              </span>
+            </div>
           </div>
         </div>
 
-        <div class="sidebar-actions">
-          <a class="btn" href="mailto:pdwytime@gmail.com">Email</a>
-          <a class="btn ghost" href="#contact">Contact</a>
+        <div class="sidebar-bottom">
+          <a class="btn small" href="mailto:pdwytime@gmail.com">Email</a>
+          <p class="tiny muted">© 2025 wooseoksong</p>
         </div>
-
-        <nav class="side-nav" aria-label="Section navigation">
-          <a href="#paper-reviews">Paper Reviews</a>
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          <a class="backtop" href="#top">Top ↑</a>
-        </nav>
-
-        <p class="tiny muted">© <span id="year"></span> Wooseok Song</p>
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <div class="content">
       <header class="topbar">
         <div class="topbar-inner">
@@ -83,120 +287,261 @@
       </header>
 
       <main id="main" class="container">
-        <!-- HERO: Paper review 중심으로 변경 -->
         <section class="hero">
           <p class="kicker">Read & Write</p>
           <h1>글쓰는 개발자</h1>
           <p class="sub">이해한 것들을 정리하고 기록합니다.</p>
-
         </section>
 
-        <!-- 메인 섹션: Paper Reviews -->
         <section id="paper-reviews" class="section">
-          <div class="section-head">
-            <h2>Paper Reviews</h2>
-            <p class="muted">읽은 논문들</p>
+          <div class="section-head row">
+            <div>
+              <h2>Paper Reviews</h2>
+              <p class="muted">각 항목을 클릭하면 Notion 페이지로 이동합니다.</p>
+            </div>
+            <div class="pager" aria-label="Paper reviews pagination">
+              <button class="pager-btn" id="paperPrev" aria-label="Previous paper review page">←</button>
+              <span class="page-indicator" id="paperPageInfo">1 / 1</span>
+              <button class="pager-btn" id="paperNext" aria-label="Next paper review page">→</button>
+            </div>
           </div>
 
-          <div class="list">
-            <!-- 예시(추가할 때 복붙해서 쓰면 됨)
-            <a class="row" href="NOTION_LINK" target="_blank" rel="noreferrer">
-              <div>
-                <div class="row-title">논문 제목</div>
-                <div class="row-sub muted">한 줄 요약 (작성 중 / Done)</div>
-              </div>
-              <span class="arrow">→</span>
-            </a>
-            -->
-
-            <!-- ORB-SLAM2 -->
-            <a class="row"
-               href="https://www.notion.so/2c4f65f113f4804383c8fe66045a9ed3?source=copy_link"
-               target="_blank" rel="noreferrer">
-              <div>
-                <div class="row-title">ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras</div>
-                <div class="row-sub muted">Visual SLAM의 정석 (Done)</div>
-              </div>
-              <span class="arrow">→</span>
-            </a>
-
-            <a class="row"
-               href="https://www.notion.so/2cff65f113f48158affbf56f53bca629?source=copy_link"
-               target="_blank" rel="noreferrer">
-              <div>
-                <div class="row-title">DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras</div>
-                <div class="row-sub muted">딥러닝을 적용한 Visual SLAM (In Progress)</div>
-              </div>
-              <span class="arrow">→</span>
-            </a>
-            
-          </div>
+          <div class="paper-frame" id="paperList"></div>
         </section>
 
-        <!-- Work는 우선순위 낮춰서 아래로 -->
         <section id="work" class="section">
-          <div class="section-head">
-            <h2>Work</h2>
-            <p class="muted">프로젝트는 추후 업데이트 예정</p>
+          <div class="section-head row">
+            <div>
+              <h2>Work</h2>
+              <p class="muted">프로젝트는 추후 업데이트 예정</p>
+            </div>
+            <div class="pager" aria-label="Work pagination">
+              <button class="pager-btn" id="workPrev" aria-label="Previous work page">←</button>
+              <span class="page-indicator" id="workPageInfo">1 / 1</span>
+              <button class="pager-btn" id="workNext" aria-label="Next work page">→</button>
+            </div>
           </div>
 
-          <div class="grid">
-            <article class="card">
-              <h3>Project A</h3>
-              <p class="muted">준비중</p>
-              <span class="badge">Coming soon</span>
-            </article>
-
-            <article class="card">
-              <h3>Project B</h3>
-              <p class="muted">준비중</p>
-              <span class="badge">Coming soon</span>
-            </article>
-
-            <article class="card">
-              <h3>Project C</h3>
-              <p class="muted">준비중</p>
-              <span class="badge">Coming soon</span>
-            </article>
-
-            <article class="card">
-              <h3>Project D</h3>
-              <p class="muted">준비중</p>
-              <span class="badge">Coming soon</span>
-            </article>
+          <div class="work-frame">
+            <div class="grid fixed-rows" id="workGrid"></div>
           </div>
         </section>
 
-        <section id="about" class="section">
-          <div class="section-head">
-            <h2>About</h2>
-            <p class="muted">소개는 곧 추가됩니다.</p>
-          </div>
-
-          <div class="panel">
-            <p class="muted">
-              안녕하세요. 현재 웹사이트를 정리하고 있어요. 조금만 기다려주세요 :)
-            </p>
-          </div>
-        </section>
-
-        <section id="contact" class="section">
-          <div class="section-head">
-            <h2>Contact</h2>
-            <p class="muted">연락은 아래로.</p>
-          </div>
-
-          <div class="contact">
-            <a class="btn" href="mailto:pdwytime@gmail.com">pdwytime@gmail.com</a>
-            <a class="btn ghost" href="https://github.com/noctml" target="_blank" rel="noreferrer">github</a>
-          </div>
-
-          <p class="tiny muted">Last updated: <span id="updated"></span></p>
-        </section>
+        <span id="updated"></span>
       </main>
     </div>
   </div>
 
   <script src="script.js"></script>
+
+  <script>
+    const paperReviews = [
+      {
+        title: "ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras",
+        desc: "Visual SLAM의 정석 (Done)",
+        href: "https://www.notion.so/2c4f65f113f4804383c8fe66045a9ed3?source=copy_link",
+        published: true
+      },
+      {
+        title: "DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras",
+        desc: "딥러닝을 적용한 Visual SLAM (In Progress)",
+        href: "https://www.notion.so/2cff65f113f48158affbf56f53bca629?source=copy_link",
+        published: true
+      }
+    ];
+
+    /* Work item format
+      {
+        title: string,
+        desc: string,
+        date: "YYYY-MM-DD",
+        thumb: "path/to/image.jpg",
+        href: "https://..." or "#",
+        published: boolean
+      }
+    */
+    const workItems = [
+      { title: "Project A", desc: "설명 한 줄", date: "2025-12-01", thumb: "assets/work/thumb_a.jpg", href: "#", published: false },
+      { title: "Project B", desc: "설명 한 줄", date: "2025-12-02", thumb: "assets/work/thumb_b.jpg", href: "#", published: false },
+      { title: "Project C", desc: "설명 한 줄", date: "2025-12-03", thumb: "assets/work/thumb_c.jpg", href: "#", published: false },
+      { title: "Project D", desc: "설명 한 줄", date: "2025-12-04", thumb: "assets/work/thumb_d.jpg", href: "#", published: false }
+    ];
+
+    function chunk(arr, size) {
+      const out = [];
+      for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+      return out;
+    }
+
+    function padToSize(arr, size, fillerFactory) {
+      const out = arr.slice();
+      while (out.length < size) out.push(fillerFactory(out.length));
+      return out;
+    }
+
+    function pageCount(pages) {
+      return Math.max(1, pages.length);
+    }
+
+    const PAPER_PAGE_SIZE = 5;
+    const paperPages = chunk(paperReviews, PAPER_PAGE_SIZE);
+    let paperPage = 0;
+
+    const paperListEl = document.getElementById("paperList");
+    const paperPrevEl = document.getElementById("paperPrev");
+    const paperNextEl = document.getElementById("paperNext");
+    const paperInfoEl = document.getElementById("paperPageInfo");
+
+    function renderPaper() {
+      const total = pageCount(paperPages);
+      const realPage = paperPages[paperPage] || [];
+
+      const page = padToSize(realPage, PAPER_PAGE_SIZE, () => ({
+        title: "준비중",
+        desc: "준비중",
+        href: "#",
+        published: false,
+        __placeholder: true
+      }));
+
+      paperListEl.innerHTML = page.map(item => {
+        const disabled = (!item.published);
+        const cls = disabled ? "row fixed is-disabled" : "row fixed";
+
+        return `
+          <a class="${cls}" href="${item.href}" ${disabled ? "" : `target="_blank" rel="noreferrer"`}>
+            <div>
+              <div class="row-title">${item.title}</div>
+              <div class="row-sub muted">${item.__placeholder ? "" : item.desc}</div>
+              ${disabled ? `<div class="coming-text">준비중입니다</div>` : ``}
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        `;
+      }).join("");
+
+      paperInfoEl.textContent = `${paperPage + 1} / ${total}`;
+      paperPrevEl.disabled = (paperPage === 0);
+      paperNextEl.disabled = (paperPage === total - 1);
+    }
+
+    paperPrevEl.addEventListener("click", () => {
+      if (paperPage === 0) return;
+      paperPage -= 1;
+      renderPaper();
+    });
+
+    paperNextEl.addEventListener("click", () => {
+      const total = pageCount(paperPages);
+      if (paperPage === total - 1) return;
+      paperPage += 1;
+      renderPaper();
+    });
+
+    const WORK_PAGE_SIZE = 6;
+    const workPages = chunk(workItems, WORK_PAGE_SIZE);
+    let workPage = 0;
+
+    const workGridEl = document.getElementById("workGrid");
+    const workPrevEl = document.getElementById("workPrev");
+    const workNextEl = document.getElementById("workNext");
+    const workInfoEl = document.getElementById("workPageInfo");
+
+    function safeText(s) {
+      return String(s || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function renderWork() {
+      const total = Math.max(1, workPages.length);
+      const realPage = workPages[workPage] || [];
+      const page = padToSize(realPage, WORK_PAGE_SIZE, () => ({
+        __placeholder: true
+      }));
+
+      workGridEl.innerHTML = page.map(item => {
+        if (item.__placeholder) {
+          return `
+            <div class="card placeholder" aria-hidden="true">
+              <div class="work-card">
+                <div class="work-thumb"></div>
+                <div class="work-body">
+                  <div class="work-title">placeholder</div>
+                  <div class="work-desc">placeholder</div>
+                  <div class="work-meta">
+                    <span class="work-date">placeholder</span>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        const published = !!item.published && item.href && item.href !== "#";
+        const title = safeText(item.title);
+        const desc = safeText(item.desc);
+        const date = safeText(item.date);
+        const thumb = safeText(item.thumb || "");
+
+        if (!published) {
+          return `
+            <div class="card is-disabled" aria-disabled="true">
+              <div class="work-unpub">
+                <div class="work-thumb">
+                  ${thumb ? `<img src="${thumb}" alt="${title} thumbnail" loading="lazy" />` : ``}
+                </div>
+                <div class="work-body">
+                  <div class="work-title">${title || "준비중"}</div>
+                  <div class="work-desc"></div>
+                  <div class="work-meta">
+                    <span class="work-date">${date || ""}</span>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <a class="card" href="${item.href}" target="_blank" rel="noreferrer" style="text-decoration:none;">
+            <div class="work-card">
+              <div class="work-thumb">
+                ${thumb ? `<img src="${thumb}" alt="${title} thumbnail" loading="lazy" />` : ``}
+              </div>
+              <div class="work-body">
+                <div class="work-title">${title}</div>
+                <div class="work-desc">${desc}</div>
+                <div class="work-meta">
+                  <span class="work-date">${date}</span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </a>
+        `;
+      }).join("");
+
+      workInfoEl.textContent = `${workPage + 1} / ${total}`;
+      workPrevEl.disabled = (workPage === 0);
+      workNextEl.disabled = (workPage === total - 1);
+    }
+
+    workPrevEl.addEventListener("click", () => {
+      if (workPage === 0) return;
+      workPage -= 1;
+      renderWork();
+    });
+
+    workNextEl.addEventListener("click", () => {
+      const total = Math.max(1, workPages.length);
+      if (workPage >= total - 1) return;
+      workPage += 1;
+      renderWork();
+    });
+
+    renderPaper();
+    renderWork();
+  </script>
 </body>
 </html>
