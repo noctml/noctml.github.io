@@ -451,3 +451,23 @@ a:hover{ opacity: .9; }
   border-radius: 14px;
   box-shadow: 0 10px 40px rgba(0,0,0,.18);
 }
+
+.post-body figure.image img,
+.post-body figure img,
+.post-body img {
+  max-width: 100% !important;
+  width: auto !important;   /* <- 인라인 width:2106px 같은거 무시 */
+  height: auto !important;
+  display: block;
+}
+
+/* 혹시 figure 자체가 넓어지는 경우까지 방지 */
+.post-body figure.image,
+.post-body figure {
+  max-width: 100%;
+}
+
+/* 최후 안전장치: 가로 스크롤 자체를 숨김(원인 해결 후에도 남으면 유지) */
+.post-body {
+  overflow-x: hidden;
+}
