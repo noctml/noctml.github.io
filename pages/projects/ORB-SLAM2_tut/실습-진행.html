@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Wooseok Song · Paper Reviews &amp; Work" name="description"/>
+<title>실습 진행</title>
+<link href="../../../assets/favicon.png" rel="icon" type="image/png"/>
+<meta content="Wooseok Song" property="og:title"/>
+<meta content="Paper Reviews &amp; Work" property="og:description"/>
+<meta content="website" property="og:type"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
+<link href="styles.css" rel="stylesheet"/>
+<style>
+    /* Sidebar */
+    .sidebar-card{
+      display:flex;
+      flex-direction:column;
+      min-height: calc(100dvh - 40px);
+    }
+    .side-nav{ display:none !important; }
+    .sidebar-actions{ display:none !important; }
+
+    .sidebar-bottom{
+      margin-top:auto;
+      display:grid;
+      gap:10px;
+      padding-top:12px;
+    }
+    .btn.small{
+      padding:8px 10px;
+      font-size:13px;
+      border-radius:12px;
+      width:100%;
+      text-align:center;
+    }
+
+    /* Section header + pager */
+    .section-head.row{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:12px;
+    }
+    .pager{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pager .page-indicator{
+      font-size:12px;
+      color:var(--muted);
+      min-width:52px;
+      text-align:center;
+    }
+    .pager-btn{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:var(--panel2);
+      box-shadow:var(--shadow);
+      color:var(--text);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .pager-btn:active{ transform: translateY(1px); }
+    .pager-btn[disabled]{
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    /* Fixed frame to prevent layout jump */
+    .paper-frame{
+      min-height: calc(5 * 64px);
+      display:grid;
+      gap:10px;
+    }
+
+    /* Work: 3 rows x 2 cols fixed */
+    .work-frame{
+      min-height: calc(3 * 196px + 2 * 14px);
+    }
+
+    .grid.fixed-rows{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+      grid-auto-rows: 196px;
+    }
+
+    /* Paper rows */
+    .row.fixed{
+      min-height:64px;
+      display:flex;
+      align-items:center;
+    }
+
+    /* Disabled state */
+    .is-disabled{
+      opacity:0.45;
+      pointer-events:none;
+    }
+    .coming-text{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* Keep footer text exactly */
+    #updated, #year{ display:none; }
+
+    /* Work cards: keep identical sizing */
+    #workGrid { grid-auto-rows: 196px; }
+    #workGrid .card{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      text-decoration:none;
+      color:inherit;
+      overflow:hidden;
+    }
+
+    /* Work card layout */
+    .work-card{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .work-thumb{
+      height:110px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .work-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .work-body{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-height: 0;
+    }
+    .work-title{
+      font-weight: 750;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+    }
+    .work-desc{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.25;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+    }
+    .work-meta{
+      margin-top:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:12px;
+      color: var(--muted);
+      padding-top: 2px;
+    }
+
+    /* Work placeholders keep same frame */
+    .card.placeholder{
+      opacity:0.45;
+      pointer-events:none;
+    }
+    .card.placeholder .work-thumb,
+    .card.placeholder .work-title,
+    .card.placeholder .work-desc,
+    .card.placeholder .work-date{
+      border-radius:10px;
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      border:1px solid var(--line);
+      color:transparent;
+    }
+    .card.placeholder .work-title{ height:16px; width:72%; }
+    .card.placeholder .work-desc{ height:12px; width:88%; }
+    .card.placeholder .work-date{ height:12px; width:40%; }
+
+    /* Unpublished card: same structure, show "준비중입니다" */
+    .work-unpub{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .work-unpub .work-thumb{
+      position:relative;
+    }
+    .work-unpub .work-thumb::after{
+      content:"준비중입니다";
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      color:var(--muted);
+      background: color-mix(in srgb, var(--bg) 35%, transparent);
+      backdrop-filter: blur(2px);
+    }
+    .post-body mark,
+    .post-body span[style*="background"],
+    .post-body span[style*="background-color"]{
+      background: rgba(194, 194, 194, 0.22) !important;
+      color: inherit !important;
+      padding: 0.08em 0.22em;
+      border-radius: 4px;
+    }
+  </style>
+<style>
+/* Notion content normalization (optional) */
+.post-body img { max-width: 100%; height: auto; border-radius: 14px; border:1px solid var(--line); }
+.post-body a { text-decoration: underline; text-underline-offset: 3px; }
+.post-body pre, .post-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+.post-body pre { padding: 14px; border-radius: 14px; background: var(--panel2); border: 1px solid var(--line); overflow:auto; }
+.post-body blockquote { margin: 12px 0; padding: 12px 14px; border-left: 3px solid var(--line); background: var(--panel2); border-radius: 14px; }
+.post-body table { width:100%; border-collapse: collapse; overflow:hidden; border-radius: 14px; border: 1px solid var(--line); }
+.post-body th, .post-body td { border-bottom: 1px solid var(--line); padding: 10px 12px; vertical-align: top; }
+.post-body hr { border:0; border-top: 1px solid var(--line); margin: 18px 0; }
+
+/* ─────────────────────────────────────────
+   Notion quote(blockquote)에서는
+   형광펜(하이라이트) 효과 완전 무시
+   ───────────────────────────────────────── */
+
+.post-body blockquote mark,
+.post-body blockquote span[style*="background"],
+.post-body blockquote span[style*="background-color"]{
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+</style>
+
+</head>
+<body>
+<a class="skip" href="#main">본문으로 바로가기</a>
+<div class="layout" id="top">
+<aside aria-label="Sidebar" class="sidebar">
+<div class="sidebar-card">
+<div>
+<div class="avatar-wrap">
+<img alt="Wooseok Song profile photo" class="avatar" src="../../../assets/avatar.jpg"/>
+</div>
+<div class="who">
+<div class="name">Wooseok Song</div>
+<div class="tagline">Paper Reviews · Work</div>
+</div>
+<div class="info">
+<div class="info-row">
+<span class="label">Focus</span>
+<span class="value">Deep Visual SLAM</span>
+</div>
+<div class="info-row">
+<span class="label">Location</span>
+<span class="value">Korea</span>
+</div>
+<div class="info-row">
+<span class="label">Links</span>
+<span class="value">
+<a href="https://github.com/noctml" rel="noreferrer" target="_blank">GitHub</a>
+</span>
+</div>
+</div>
+</div>
+<div class="sidebar-bottom">
+<a class="btn small" href="mailto:pdwytime@gmail.com">Email</a>
+<p class="tiny muted">© 2025 wooseoksong</p>
+</div>
+</div>
+</aside>
+<div class="content">
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brandline">
+<span aria-hidden="true" class="dot"></span>
+<span class="brandtext">Wooseok Song</span>
+</div>
+<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme">
+<span aria-hidden="true" id="themeIcon">☀</span>
+</button>
+</div>
+</header>
+<main class="container" id="main">
+<section class="section">
+<div class="panel">
+<h1 style="margin:0 0 10px; font-size:28px; letter-spacing:-0.01em;">실습 진행</h1>
+<div class="page-subtitle" id="pageSubtitle" hidden></div>
+<div class="post-body"><div dir="ltr" style="display:contents"><figure class="block-color-gray_background callout" id="2c4f65f1-13f4-809a-8207-d800ce15c95b" style="white-space:pre-wrap;display:flex"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div dir="auto" style="display:contents"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">로그</summary><div class="indented"><div dir="auto" style="display:contents"><p class="" id="2c4f65f1-13f4-806a-aea3-d96f290185e2"><strong>2025/10/31</strong> 📅<div class="indented"><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2c4f65f1-13f4-80db-a75d-fd166e414c18"><li style="list-style-type:disc">ORB-SLAM2 환경 설정 내용 추가</li></ul></div></div></p></div><div dir="auto" style="display:contents"><p class="" id="2c4f65f1-13f4-80fd-86ba-d3f85990ab51"><strong>2025/12/05</strong> 📅<div class="indented"><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2c4f65f1-13f4-800f-9a2e-c01925e7de81"><li style="list-style-type:disc">KITTI, TUM dataset을 이용한 예제 실습 내용 추가</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2c4f65f1-13f4-80a3-a9a2-f58e29e7377b"><li style="list-style-type:disc">ros 연동 시도 → 실패</li></ul></div></div></p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-801d-bb3f-e9ca3166d035"><strong>2025/12/20</strong> 📅<div class="indented"><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-800b-95d0-f75563a3a7e6"><li style="list-style-type:disc">KITTI, TUM dataset 관련 명령어 입력 수정<div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-8026-8961-dfda2f5604e2"><li style="list-style-type:circle">각 시퀀스별로 올바른 카메라 파라미터 및 associate file로 수정</li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-806b-aa6f-f44d1f25cf76"><li style="list-style-type:disc">TUM dataset을 이용한 RGB-D SLAM 영상 추가</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-8059-9127-d24084ae3c41"><li style="list-style-type:disc">Dense Map Reconstruction 내용 추가</li></ul></div></div></p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80c9-a7c0-d8d9be0469b0">
+</p></div></div></details></div></div></figure></div><div dir="auto" style="display:contents"><hr id="2c4f65f1-13f4-808c-963a-f4f928329aac"/></div><div dir="auto" style="display:contents"><h3 class="block-color-gray_background" id="2bff65f1-13f4-803a-8b5e-c782bfc3beb9"><strong>환경 설정 </strong></h3></div><div dir="auto" style="display:contents"><ul class="toggle" id="2cff65f1-13f4-80be-bd3a-d772274c1093"><li><details open=""><summary><strong>과정</strong></summary><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29cf65f1-13f4-80d4-bd24-daf6df203587"><li style="list-style-type:disc">conda 환경 설정<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29cf65f1-13f4-8067-bcb7-cc6eb323950f"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">conda create -n orb-slam_env python=3.8 -y
+conda activate orb-slam_env</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29cf65f1-13f4-801c-b161-de8251280050">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29cf65f1-13f4-8001-b1a8-fc1bbe1208e3"><li style="list-style-type:disc">의존성 패키지 설치<div dir="auto" style="display:contents"><ul class="toggle" id="29df65f1-13f4-803e-9d34-dd126e237de9"><li><details open=""><summary><strong>사전 준비</strong></summary><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8051-a448-c5e0084261d5"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo apt install build-essential cmake git pkg-config libgtk-3-dev \
+ libavcodec-dev libavformat-dev libswscale-dev libv4l-dev \
+ libxvidcore-dev libx264-dev libjpeg-dev libpng-dev libtiff-dev \
+ gfortran openexr libatlas-base-dev python3-dev python3-numpy \
+ libtbb2 libtbb-dev libdc1394-22-dev</code></pre></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="29cf65f1-13f4-8087-95eb-de6d9503ce0a"><li><details open=""><summary><strong>opencv</strong></summary><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-80d9-b18e-d67bff1fc22b"><li style="list-style-type:disc">기존에 설치되어있던 버전 삭제<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80c4-9f10-e6bef72e5c24"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo apt purge -y 'libopencv*' 'opencv*'
+sudo apt autoremove -y
+
+pip3 show opencv-python opencv-python-headless opencv-contrib-python opencv-contrib-python-headless
+pip3 uninstall -y opencv-python opencv-python-headless opencv-contrib-python opencv-contrib-python-headless
+
+# 해당 환경 활성화 후
+conda remove -y opencv opencv-python
+# 남은 의존 패키지 정리(선택)
+conda clean -a -y</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-802a-9537-c4c9795b8126">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-807f-b301-f451b29cefcf"><li style="list-style-type:disc">잘 삭제되었는지 확인<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80d3-b52a-f48aa3eab27a"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># pkg-config로 확인(없어야 정상)
+pkg-config --modversion opencv4 2&gt;/dev/null || echo "opencv4 not found (OK)"
+
+# 파이썬에서 확인(없어야 정상)
+python3 - &lt;&lt;'PY'
+import importlib.util
+print(importlib.util.find_spec("cv2"))
+PY</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-80fa-9cf5-d4b80ade9fd5">
+</p></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-800f-b5d8-e08f5a4121fd">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-80bf-ad83-e3a842c3fbd7"><li style="list-style-type:disc">3.4.9 버전 설치<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29cf65f1-13f4-80d0-b641-cb1c2d5a5570"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">git clone https://github.com/opencv/opencv.git
+git clone https://github.com/opencv/opencv_contrib.git
+cd opencv_contrib
+git checkout 3.4.9
+
+cd ../opencv
+git checkout 3.4.9
+mkdir build &amp;&amp; cd build
+cmake -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules ..
+make -j8 
+sudo make install
+sudo ldconfig
+
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+-D CMAKE_INSTALL_PREFIX=/usr/local \
+-D WITH_TBB=ON \
+-D ENABLE_FAST_MATH=1 \
+-D CUDA_FAST_MATH=1 \
+-D WITH_CUBLAS=1 \
+-D WITH_CUDA=ON \
+-D BUILD_opencv_cudacodec=OFF \
+-D WITH_CUDNN=ON \
+-D OPENCV_DNN_CUDA=ON \
+-D CUDA_ARCH_BIN=7.5 \
+-D WITH_V4L=ON \
+-D WITH_QT=OFF \
+-D WITH_OPENGL=ON \
+-D WITH_GSTREAMER=ON \
+-D OPENCV_GENERATE_PKGCONFIG=ON \
+-D OPENCV_PC_FILE_NAME=opencv.pc \
+-D OPENCV_ENABLE_NONFREE=ON \
+-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
+-D INSTALL_PYTHON_EXAMPLES=OFF \
+-D INSTALL_C_EXAMPLES=OFF \
+-D BUILD_EXAMPLES=OFF .. \
+-D PYTHON3_INCLUDE_DIR=/usr/include/python3.8 \
+-D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/lib/python3/dist-packages/numpy/core/include/ \
+-D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages \
+-D PYTHON3_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.8.so ..</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8020-833c-cb259ec0adff">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-80ea-9b57-d111b81d5634"><li style="list-style-type:disc">cv_bridge도 마찬가지로 설치<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8031-b642-d73e0fdd15f7"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># 0) ROS 기본 환경
+source /opt/ros/noetic/setup.bash
+
+# 1) catkin 도구 없으면 설치
+sudo apt update
+sudo apt install -y python3-catkin-tools python3-rosdep
+
+# 2) OpenCV 3.4.9 경로(당신이 설치한 경로에 맞게)
+export OpenCV_DIR=/opt/opencv-3.4.9/share/OpenCV
+export LD_LIBRARY_PATH=/opt/opencv-3.4.9/lib:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=/opt/opencv-3.4.9/lib/pkgconfig:$PKG_CONFIG_PATH
+
+# 3) 오버레이 워크스페이스 생성 (cv_bridge만 빌드)
+mkdir -p ~/cv_bridge_ws/src
+cd ~/cv_bridge_ws/src
+git clone -b noetic https://github.com/ros-perception/vision_opencv.git
+cd ..
+
+# 4) rosdep로 의존 설치 (opencv 관련 키는 건너뛰어 OpenCV4 끌려오는 것 방지)
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y \
+  --skip-keys="opencv opencv3 libopencv-dev"
+
+# 5) OpenCV3를 가리키도록 CMake 인자 주고 빌드
+catkin config --extend /opt/ros/noetic --cmake-args -DOpenCV_DIR=$OpenCV_DIR
+catkin build cv_bridge image_geometry
+
+# 6) 이 오버레이를 활성화
+source ~/cv_bridge_ws/devel/setup.bash
+
+# 7) 확인: 이제 cv_bridge가 보여야 함
+rospack find cv_bridge || echo "cv_bridge 여전히 안보임"
+</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8015-8ad4-c411d14cab19">
+</p></div></li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="29cf65f1-13f4-80e7-ba8d-c5f6f5e4ae42"><li><details open=""><summary><strong>eigen</strong></summary><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-808e-991c-ccf296a4c108"><li style="list-style-type:disc">eigen3 설치<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29cf65f1-13f4-808b-bcea-e303812631d6"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo apt install libeigen3-dev</code></pre></div></li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="29cf65f1-13f4-806a-bdc1-e4cece28f054"><li><details open=""><summary><strong>pangolin </strong>⭐</summary><div dir="auto" style="display:contents"><blockquote class="" id="29df65f1-13f4-8009-a0ac-c8dcb3e3913b"><strong>여기서 한 번이라도 실수하면 빌드가 실패하니, 꼭 꼼꼼히 수정해주세요!</strong></blockquote></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80fe-8659-fc932b7908c8"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">git clone --recursive https://github.com/stevenlovegrove/Pangolin.git
+cd Pangolin
+code .</code></pre></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29cf65f1-13f4-80d7-a3e6-ebcdd822a6ab"><li style="list-style-type:disc"><code>catch2</code> 관련 오류를 피하기 위해  <code>Pangolin/scripts/install_prerequisites.sh</code> 파일에서 <code>if</code>문 중에 <code>“apt”</code> 관련 부분에 있는 <code>PKGS_RECOMMENDED+=(libjpeg-dev libpng-dev catch2)</code> 를 주석처리<div dir="ltr" style="display:contents"><figure class="image" id="29cf65f1-13f4-8089-a32a-d185aaf06b96"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/Screenshot_from_2025-10-31_02-35-51.png" style="width:626.0069580078125px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-801a-84c7-f0c043c30729">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-8022-8d79-c0d3d41e707f"><li style="list-style-type:disc"><code>install_prerequisites.sh</code> 파일 실행<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-805b-9e76-d491c1796ac1"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">./scripts/install_prerequisites.sh recommended</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8005-a6a0-c24feeb8452e">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-8012-9300-cf6599272ed5"><li style="list-style-type:disc">아까 위에서 <code>catch2</code> 오류를 피하기 위한 줄을 다시 주석해제 해주고, branch 버전 교체<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80fe-954f-c139fa0aff65"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># 현재 ~/your_ws/src/Pangolin에 있다고 가정
+git checkout v0.5</code></pre></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-8012-89b2-c5eac78b757f"><li style="list-style-type:circle">여기서 주의할 점은 위에서 미리 branch를 바꾸면 안됨 (만약 바꾸게 되면 <code>install_prerequisites.sh </code>파일이 사라짐)</li></ul></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8005-a16f-d864d2712b84">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="29df65f1-13f4-8050-a62b-f6bf74c77b01"><strong>여기서부터 내부 파일 수정이 이루어지니 차근차근 꼼꼼히 진행 바랍니다 </strong>⭐⭐⭐</blockquote></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-805c-809d-c769d0d6f8b7"><li style="list-style-type:disc"><code>Pangolin/CMakeModules/FindFFMPEG.cmake</code> 파일에서 대략 #63, #64번째 줄에 있는 아래 코드를<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8080-bf4d-c845914c496a"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">  sizeof(AVFormatContext::max_analyze_duration2);
+}" HAVE_FFMPEG_MAX_ANALYZE_DURATION2</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8011-bf66-c15f0c068e57">아래 코드로 수정</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8044-a3cc-ca921e061f9e"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">  sizeof(AVFormatContext::max_analyze_duration);
+}" HAVE_FFMPEG_MAX_ANALYZE_DURATION</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8047-b2b2-ec2ba26bad3f">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-803f-9768-eae35c0d59e2"><li style="list-style-type:disc"><code>Pangolin/src/video/drivers/ffmpeg.cpp</code> 파일에서 대략 #37번째 줄(<code>namespace pangolin</code> 바로 윗줄)에 아래 코드를 추가<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80e5-8763-e0ab8dbb4192"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#define CODEC_FLAG_GLOBAL_HEADER AV_CODEC_FLAG_GLOBAL_HEADER</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8037-a1e5-cc303f575d10">
+</p></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-804e-8a43-ce2243154bd9">추가적으로 대략 #78, #79번째 줄에 있는 아래 코드를</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8045-a32d-d0d7214be375"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">TEST_PIX_FMT_RETURN(XVMC_MPEG2_MC);
+TEST_PIX_FMT_RETURN(XVMC_MPEG2_IDCT);</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-808e-bb96-f80be0890cc1">아래 코드로 수정</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8035-a05e-ea0c994f23bf"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#ifdef FF_API_XVMC
+	TEST_PIX_FMT_RETURN(XVMC_MPEG2_MC);
+	TEST_PIX_FMT_RETURN(XVMC_MPEG2_IDCT);
+#endif</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-80ca-a5d1-da2c2e3fbac1"><br/>대략 #101번째에서 #105번째에 있는 아래 코드도</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80ac-b115-d42a8e8604b3"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">TEST_PIX_FMT_RETURN(VDPAU_H264);
+TEST_PIX_FMT_RETURN(VDPAU_MPEG1);
+TEST_PIX_FMT_RETURN(VDPAU_MPEG2);
+TEST_PIX_FMT_RETURN(VDPAU_WMV3);
+TEST_PIX_FMT_RETURN(VDPAU_VC1);</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8075-a201-fa1584a32357">아래 코드로 수정</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80bc-953d-c34070353eca"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#ifdef FF_API_VDPAU
+	TEST_PIX_FMT_RETURN(VDPAU_H264);
+	TEST_PIX_FMT_RETURN(VDPAU_MPEG1);
+	TEST_PIX_FMT_RETURN(VDPAU_MPEG2);
+	TEST_PIX_FMT_RETURN(VDPAU_WMV3);
+	TEST_PIX_FMT_RETURN(VDPAU_VC1);
+#endif</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-802f-beba-e93a2de3a097"><br/>마지막으로 대략 #127번째 줄에 있는 아래 코드를</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8084-b6c2-d96e07b48f44"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">	TEST_PIX_FMT_RETURN(VDPAU_MPEG4);</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8019-bd32-e8659281ccfb">아래 코드로 수정</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80aa-8e86-c8e6b4a6acec"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#ifdef FF_API_VDPAU
+	TEST_PIX_FMT_RETURN(VDPAU_MPEG4);
+#endif</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8002-a0d4-ebfe75361814">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-80bf-89dc-de87847a0771"><li style="list-style-type:disc"><code>Pangolin/include/pangolin/video/drivers/ffmpeg.h</code> 파일에서 대략 #53번째 줄(<code>namespace pangolin</code> 바로 윗줄)에 아래 코드를 추가<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8070-ad38-fb61cf9991dc"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#define AV_CODEC_FLAG_GLOBAL_HEADER (1 &lt;&lt; 22)
+#define CODEC_FLAG_GLOBAL_HEADER AV_CODEC_FLAG_GLOBAL_HEADER
+#define AVFMT_RAWPICTURE 0x0020</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-80d4-b9cc-eaba51912abd">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-80c1-8c7c-cf5fc7d35d6a"><li style="list-style-type:disc"><code>Pangolin/src/display/device/display_x11.cpp</code> 파일에서 대략 #115번째 줄에 있는 아래 코드를<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-804a-84e8-e608a77d7f1f"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">GLXFBConfig* fbc = glXChooseFBConfig(display, DefaultScreen(display), visual_attribs, &amp;fbcount);</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-80b6-a7fd-cf8f345f69da">아래 코드로 수정</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80d1-81ef-ff8a6c587712"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">GLXFBConfig* fbc = glXGetFBConfigs(display, DefaultScreen(display), &amp;fbcount);</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8081-8961-deb2cf947cfd"><div class="indented"><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-80e4-b727-c855c7f03999">추가적으로 대략 #115번째 줄에 있는 아래 코드를</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80c9-b56f-def11cfbc76f"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">{
+	throw std::runtime_error("Pangolin in X11: ...");
+}</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8008-aabf-ec219e892838">아래 코드처럼 주석처리</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8071-b746-ed80ed2b6046"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">{
+	// throw std::runtime_error("Pangolin in X11: ...");
+}</code></pre></div></div></p></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-806f-aa34-f1cd209fdc61">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="29df65f1-13f4-80d4-8897-d71b7f9c8b2b">여기서부터는 빌드 과정입니다</blockquote></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-8070-b91f-f2cd41a8ec4b"><li style="list-style-type:disc">Pangolin 빌드<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-808c-8f5f-d36ef51a8e16"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># 현재 ~/your_ws/src/Pangolin에 있다고 가정
+cmake -B build
+cmake --build build
+
+cd build
+sudo make install</code></pre></div></li></ul></div></details></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8029-b3d5-c94f90a8ecf8"><div class="indented"><div dir="auto" style="display:contents"><ul class="toggle" id="29cf65f1-13f4-800e-8802-df87926c2064"><li><details open=""><summary>orb-slam2 설치</summary><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29cf65f1-13f4-807c-8864-f979ee6e7f7c"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">git clone https://github.com/raulmur/ORB_SLAM2.git ORB_SLAM2
+cd ORB_SLAM2
+code .</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8035-ac62-c2dbfcca60f2">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29cf65f1-13f4-8007-a9bb-fb24bb0533fe"><li style="list-style-type:disc"><code>ORB_SLAM2/include/System.h</code> 파일에서 <code>#include &lt;unistd.h&gt;</code> 추가<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8066-82f0-f33f03a3a89a"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#ifndef SYSTEM_H
+#define SYSTEM_H
+
+#include &lt;unistd.h&gt; // 추가
+#include &lt;string&gt;</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-809f-a5f5-ecd6cb6eafd1">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-805e-b646-d66bc236be15"><li style="list-style-type:disc"><code>ORB_SLAM2/include/LoopClosing.h</code> 파일에서 대략 #49, #50번째 줄에 있는 아래 코드를<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8021-9d8d-e0d6112d07e8"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">typedef map&lt;KeyFrame*,g2o::Sim3,std::less&lt;KeyFrame*&gt;,
+        Eigen::aligned_allocator&lt;std::pair&lt;const KeyFrame*, g2o::Sim3&gt; &gt; &gt; KeyFrameAndPose;
+</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8047-b961-cec0cb5a97fe">아래 코드로 수정</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8066-b1ef-f5cffd22d718"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">typedef map&lt;KeyFrame*,g2o::Sim3,std::less&lt;KeyFrame*&gt;,
+        Eigen::aligned_allocator&lt;std::pair&lt;KeyFrame *const, g2o::Sim3&gt; &gt; &gt; KeyFrameAndPose;</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-80c8-b172-fc607dbce61a">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-80b6-965a-f2b428f5d2b1"><li style="list-style-type:disc">orb-slam2 빌드<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29cf65f1-13f4-80cf-bfd5-def2a4cef3f7"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># 현재 ~/your_ws/src/ORB_SLAM2에 있다고 가정
+chmod +x build.sh
+./build.sh</code></pre></div><div dir="ltr" style="display:contents"><figure class="image" id="29df65f1-13f4-809b-9345-c699197194ea"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/Screenshot_from_2025-10-31_13-15-29.png" style="width:625.9791870117188px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8047-ac68-c3ab12ccd0d6">위와 같이 잘 빌드가 된다면 성공!</p></div></li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="29df65f1-13f4-80d9-b7dd-f29f2d0d807e"><li><details open=""><summary>ros1 연동</summary><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-8065-9abb-d34b4d948d56"><li style="list-style-type:disc">Intel RealSense SDK 2.0 설치<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8010-8f5c-ef63fd89b4d5"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo mkdir -p /etc/apt/keyrings
+
+curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp | sudo tee /etc/apt/keyrings/librealsense.pgp &gt; /dev/null
+
+echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo `lsb_release -cs` main" | \
+sudo tee /etc/apt/sources.list.d/librealsense.list
+
+sudo apt-get update
+
+sudo apt-get install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg -y
+
+realsense-viewer</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8059-922a-c015b09194cc">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-8079-8de8-d31f13b4310c"><li style="list-style-type:disc">Intel RealSense ROS 설치<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-80bb-b3bb-cab83d3b8699"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># Create a catkin workspace Ubuntu
+mkdir -p ~/realsense-ros_ws/src
+cd ~/realsense-ros_ws/src/
+
+# Intel RealSense ROS
+git clone https://github.com/IntelRealSense/realsense-ros.git
+cd realsense-ros/
+git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1`cd ..
+catkin_init_workspace
+
+cd ..
+catkin_make clean
+catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
+catkin_make install</code></pre></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29df65f1-13f4-8092-80d9-d03cc128481c"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">echo "source ~/realsense-ros_ws/devel/setup.bash" &gt;&gt; ~/.bashrc
+source ~/.bashrc
+
+echo "source ~/realsense-ros_ws/devel/setup.zsh" &gt;&gt; ~/.zshrc
+source ~/.zshrc</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="29df65f1-13f4-8055-8054-e355ee513082">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29df65f1-13f4-80b4-88c3-ff35e8f60302"><li style="list-style-type:disc">opencv 환경 설정 수정 및 확인<div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29ef65f1-13f4-8082-bd20-c9ef6dedc115"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># 표준 ROS 먼저
+source /opt/ros/noetic/setup.bash
+
+# 그 다음, 네가 빌드한 cv_bridge(3.4) 오버레이
+source ~/opencv_ws/devel/setup.bash
+
+# 마지막으로 ORB_SLAM2 rosbuild 경로만 prepend (덮어쓰지 말기)
+export ROS_PACKAGE_PATH=$HOME/orb-slam_ws/src/ORB_SLAM2/Examples/ROS:$ROS_PACKAGE_PATH
+
+# 확인
+rospack find cv_bridge    # ← ~/cv_ws/... 를 가리켜야 함 ( /opt/ros/noetic 이면 실패)
+echo "$CMAKE_PREFIX_PATH" | tr ':' '\n' | head
+
+./build_ros.sh</code></pre></div></li></ul></div></details></li></ul></div></div></p></div><div dir="auto" style="display:contents"><p class="" id="29ef65f1-13f4-8013-8c0f-cf0ac31e9476">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><hr id="29ef65f1-13f4-8075-aeaf-d9b43e69a17c"/></div><div dir="auto" style="display:contents"><h3 class="block-color-gray_background" id="2bff65f1-13f4-80b9-af11-f49dbdec5374"><strong>예제 실습 </strong></h3></div><div dir="auto" style="display:contents"><blockquote class="" id="2ddf65f1-13f4-807c-8e76-ddb03f140698"><strong>Monocular Example - KITTI dataset </strong></blockquote></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8061-a7d0-fbe6bf6d9759">나는 00 시퀀스를 사용할 것이기 때문에, KITTI00-02.yaml 파일을 입력으로 넣어주었다.</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29ef65f1-13f4-80e1-8fa5-c76d29b621ba"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># execute ORB-SLAM2
+./Examples/Monocular/mono_kitti Vocabulary/ORBvoc.txt \
+Examples/Monocular/KITTI00-02.yaml \
+/home/wooseok/dataset/kitti/odometry/data_odometry_gray/dataset/sequences/00</code></pre></div><div dir="ltr" style="display:contents"><figure id="2bff65f1-13f4-80a2-a58a-c33f33cd38d4"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/orbslam_4x.mp4" type="video/mp4"/></video></div><figcaption><strong>kitti odometry dataset으로 ORB-SLAM2를 수행한 영상 (4배속)</strong><br/>진행하면서 느낀건 orb descriptor를 통해 corner와 같은 특징을 잡아내는 모습을 visualization하여 볼 수 있어서 좋았구, 중간중간에 loop closure가 일어나는 모습도 확인할 수 있어서 신기했다.</figcaption></figure></div><div dir="auto" style="display:contents"><p class="" id="2ddf65f1-13f4-8037-a20b-eb0902515661">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2ddf65f1-13f4-8002-a36d-c30fdfaa6053">아래는 실습한 코드가 어떻게 동작하는지 분석해본 페이지이다.</p></div><div dir="ltr" style="display:contents"><figure class="link-to-page" id="2ddf65f1-13f4-80f8-b133-fca3a9b87d38"><a href="https://www.notion.so/ORB-SLAM2-monocular-2ddf65f113f480f8b133fca3a9b87d38?pvs=21">ORB-SLAM2 (monocular)</a></figure></div><div dir="auto" style="display:contents"><p class="" id="2ddf65f1-13f4-8008-8906-d24febd7359e">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2ddf65f1-13f4-802e-94da-c0aa32ed8f0c">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8035-993e-c2ede7ac1464">
+</p></div><div dir="auto" style="display:contents"><p class="block-color-gray_background" id="2cff65f1-13f4-8016-b8a1-e53d433f2ddc"><strong>RGB-D Example - TUM dataset </strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-80c6-9aaa-f4f907f43bd9"><li style="list-style-type:disc">데이터셋<div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80f3-8afd-d9fd711053ef"><div class="source"><a href="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/rgbd_dataset_freiburg1_room.zip">rgbd_dataset_freiburg1_room.zip</a></div></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80d6-aaef-c99f2bcd6334">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-809c-b4f1-e264d3d92453"><li style="list-style-type:disc"><strong>associate file</strong><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8032-8436-e3600abfe6dc">RGB-D 데이터셋(e.g. TUM)을 이용하려면 실행 명령어에 associate file을 같이 넣어줘야 한다.</p></div><div dir="ltr" style="display:contents"><figure class="image" id="2cff65f1-13f4-802f-af8d-f106f6ba7abc"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/Screenshot_from_2025-12-21_00-39-04.png" style="width:287.96875px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80b2-97c3-f73f034dce03">위 그림에서 보이는 것처럼 ORB-SLAM2에서는 TUM 데이터셋의 여러 시퀀스들에 대한 associate file을 예시로 제공한다. 만약 위 예시에 없는 데이터셋을 이용한다면 아래 명령어를 통해 직접 생성해주자.</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="2cff65f1-13f4-80f4-9613-e230919e76ba"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">python associate.py PATH_TO_SEQUENCE/rgb.txt \
+PATH_TO_SEQUENCE/depth.txt &gt; associations.txt</code></pre></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8003-9414-e3931b698aef">나는 freiburg1_room(fr1_room) 시퀀스를 이용할 것이기 때문에, 미리 만들어진 fr1_room.txt 파일을 그대로 사용했다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80f6-8e53-da8bf9ecee65">(또한 freiburg1 관련 시퀀스는 TUM1.yaml을 써주면 된다)</p></div><div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80e3-a89b-ea7a2fddbcb2"><div class="source"><a href="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/TUM1.yaml">TUM1.yaml</a></div></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80b9-a580-cf7260d72a06">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8052-aea1-c990a4705e7d">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-802c-929d-e29a09a36a96"><li style="list-style-type:disc"><strong>명령어</strong><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="2cff65f1-13f4-807e-88ee-c7fb74fec085"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># execute ORB-SLAM2
+./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt \
+Examples/RGB-D/TUM1.yaml \
+/home/wooseok/dataset/tum/rgbd_dataset_freiburg1_room \
+Examples/RGB-D/associations/fr1_room.txt</code></pre></div><div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80af-bc62-fe3c39cf48b4"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/Screencast_from_12-21-2025_12_50_11_AM.mp4" type="video/mp4"/></video></div></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80f6-83b7-ef44b0b8af79">
+</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-8070-839d-c6b60eaa82dd"><li style="list-style-type:disc"><strong>결과 (output)</strong><div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80da-bbb0-ebb1328ec357"><div class="source"><a href="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/KeyFrameTrajectory.txt">KeyFrameTrajectory.txt</a></div></figure></div><div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80fc-a929-db90d0ee19b8"><div class="source"><a href="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/CameraTrajectory.txt">CameraTrajectory.txt</a></div></figure></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-803f-b2c6-faf4e58c44d8">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-8045-8232-fe7affa0cc05"><li style="list-style-type:disc"><strong>Dense Map Reconstruction</strong><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-8045-a566-fe7ccf8063f5"><li style="list-style-type:circle">결과<div dir="auto" style="display:contents"><ul class="toggle" id="2cff65f1-13f4-80a2-b6da-cc5734ec489e"><li><details open=""><summary>사진</summary><div dir="ltr" style="display:contents"><figure class="image" id="2cff65f1-13f4-801e-8686-d08d951a53fc"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/view_00.jpg" style="width:528px"/></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="2cff65f1-13f4-800c-8ebc-c10b129968b6"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/view.jpg" style="width:528px"/></figure></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="2cff65f1-13f4-807b-a262-d550ef682c72"><li><details open=""><summary>영상</summary><div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80ea-89fa-dda829f8aa5b"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/tum.mp4" type="video/mp4"/></video></div><figcaption>확실히 dense map이라 무거워서 그런지 렌더링에 있어서 버벅거림이 있는 모습을 보여준다.</figcaption></figure></div><div dir="ltr" style="display:contents"><figure id="2daf65f1-13f4-8077-84df-ee1629131916"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/downsampled.mp4" type="video/mp4"/></video></div><figcaption>voxel downsampling 적용 (voxel_size = 0.05)</figcaption></figure></div><div dir="auto" style="display:contents"><p class="" id="2daf65f1-13f4-804e-98f2-d596c44b4b20">
+</p></div></details></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2cff65f1-13f4-80f0-b76c-ed472b20022f"><li style="list-style-type:circle">코드<div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-8059-ba2b-d9f9c56eda3e"><div class="source"><a href="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/tsdf.ipynb">tsdf.ipynb</a></div></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8060-b4e6-f487d103f9c6">
+</p></div></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-809d-a99a-c2e9dbd45e8c">
+</p></div><div dir="auto" style="display:contents"><hr id="2c0f65f1-13f4-8090-81b2-c818e915a962"/></div><div dir="auto" style="display:contents"><blockquote class="" id="2bff65f1-13f4-80c5-bc1e-e55fe59faac9"><strong>카메라 실습</strong></blockquote></div><div dir="auto" style="display:contents"><p class="" id="2bff65f1-13f4-8027-9d1a-c31f0f26f9bf">(예정)</p></div><div dir="auto" style="display:contents"><p class="" id="2bff65f1-13f4-808d-bdde-e113d253cad7">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2daf65f1-13f4-80a8-97b6-d42390996134">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2bff65f1-13f4-8018-a09d-deddc5beb068">
+</p></div><div dir="auto" style="display:contents"><hr id="29ff65f1-13f4-804c-a530-e6e14a209b01"/></div><div dir="auto" style="display:contents"><blockquote class="" id="2daf65f1-13f4-80b8-8368-d65ea3800b47"><strong>이슈</strong></blockquote></div><div dir="auto" style="display:contents"><ul class="toggle" id="2c0f65f1-13f4-8066-8372-d37fe71d6c6a"><li><details open=""><summary><strong>ros 실습 (실패)</strong></summary><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="2c0f65f1-13f4-80c7-8239-f4cee64a410d"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">./build_ros.sh</code></pre></div><div dir="ltr" style="display:contents"><figure class="image" id="2c0f65f1-13f4-80e4-b323-dccfa68e8d1a" style="text-align:left"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/%EC%8B%A4%EC%8A%B5%20%EC%A7%84%ED%96%89/Screenshot_from_2025-12-05_22-38-28.png" style="width:624px"/><figcaption>이전에는 계속 오류나다가 갑자기 빌드가 성공해서 당황… (아마 opnecv 재빌드랑, 환경 변수 관련 설정을 다시 해주니 됐던 것 같다..) </figcaption></figure></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-8015-9373-fca9f3a92807">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-80bf-a503-ee52c80d014f"><code>segmentation fault (core dumped)</code> 오류 발생…<div class="indented"><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-8058-8be8-c698cb79780e">→ ros1 noetic 환경에서는  opencv 4.x 버전이 default로 동작하는 것 같아, 이후 아무리 시도해봐도 여기서 막혔다…</p></div></div></p></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-807b-befd-de3397b05001">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="2bff65f1-13f4-8057-a966-fb8e1b57f2d3"><li><details open=""><summary><strong>기타 이슈</strong></summary><div dir="auto" style="display:contents"><p class="" id="29ff65f1-13f4-8041-a1f7-d3f6b0093bab"><code>undefined reference to symbol '_ZNK2cv8FileNodecviEv’</code> </p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29ff65f1-13f4-8076-9a23-e8b797d7d579"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># libopencv_{}.so를 ORB_SLAM2/lib에 복사
+whereis libopencv_imgproc
+ls -l /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so*  
+ls -l /usr/lib/x86_64-linux-gnu/libopencv_core.so*
+
+
+sudo cp /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so /home/wooseok/orb-slam_ws/src/ORB_SLAM2/lib
+sudo cp /usr/lib/x86_64-linux-gnu/libopencv_core.so /home/wooseok/orb-slam_ws/src/ORB_SLAM2/lib</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29ff65f1-13f4-804f-a6cd-d6566af4105b">
+</p></div><div dir="auto" style="display:contents"><p class="" id="29ff65f1-13f4-8031-b874-d8ce033bce58"><code>ORB_SLAM2/Examples/ROS/ORB_SLAM2/CMakeLists.txt</code> 수정</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29ff65f1-13f4-805a-a4e4-ef2695bf299e"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># ORB_SLAM2/Examples/ROS/ORB_SLAM2/CMakeLists.txt 에 path 추가
+
+# find_package(OpenCV 3.0 QUIET)
+# find_package(OpenCV 4.0 QUIET)
+find_package(OpenCV QUIET)
+
+set(LIBS
+${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM2.so
+
+# 아래 추가!
+${PROJECT_SOURCE_DIR}/../../../lib/libopencv_core.so
+${PROJECT_SOURCE_DIR}/../../../lib/libopencv_imgproc.so
+)</code></pre></div><div dir="auto" style="display:contents"><p class="" id="29ff65f1-13f4-805b-83c7-c93e546dd669">
+</p></div><div dir="auto" style="display:contents"><p class="" id="29ff65f1-13f4-80e1-bd88-dde47c3b6ce7">☑️ <code>cv_bridge</code> 관련 오류</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="29ff65f1-13f4-809a-94cf-ec20b26c24ba"><li style="list-style-type:disc">CMakeLists.txt 파일에서 버전 4에서 3으로 낮추기</li></ul></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29ff65f1-13f4-800c-a145-e345b7da7292"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># 빌드할 opencv 버전 세팅 4 -&gt; 3
+set(_opencv_version 3)
+find_package(OpenCV 3 QUIET)
+# set(_opencv_version 4)
+# find_package(OpenCV 4 QUIET)
+if(NOT OpenCV_FOUND)
+  message(STATUS "Did not find OpenCV 4, trying OpenCV 3")
+  set(_opencv_version 3)
+endif()
+</code></pre></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-8063-8e41-fc4769fb4e6f">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2bff65f1-13f4-8071-9740-fc2acd0569ed">☑️ <code>ros build</code> 관련 오류</p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29ef65f1-13f4-809c-a9dd-c7646af93560"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># opencv 재빌드
+cd ~/opencv_ws/build
+rm -rf *
+cmake -D CMAKE_BUILD_TYPE=Release \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D WITH_QT=OFF \
+      -D WITH_GTK=ON \
+      -D WITH_OPENGL=ON \
+      ../src/opencv
+make -j$(nproc)
+sudo make install
+sudo ldconfig
+
+# ros 패키지 위치 관련 환경변수 설정
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/home/wooseok/orb-slam_ws/src/ORB_SLAM2/Examples/ROS</code></pre></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-801c-83b6-ecce767d56cf">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-8006-9f7e-ddc4d4b72569">☑️<strong> </strong><code>rosrun</code> 명령어 관련 <code>segmentation fault</code> 오류</p></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-80dd-930d-c9a81dddd185">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2c0f65f1-13f4-803c-aa9d-ccdecdbf9824"><li style="list-style-type:disc">아래 <code>eigen 3.2.10</code> 버전이 잘 된다고 하여 기존 <code>eigen</code>을 지우고 새로 설치해주었다<div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-800e-9091-cd931a939ee1"><a href="https://gitlab.com/libeigen/eigen/-/releases/3.2.10">https://gitlab.com/libeigen/eigen/-/releases/3.2.10</a></p></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-8022-8e6f-d0be94bc0f54">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2c0f65f1-13f4-80ed-89c9-e475c6087aa3"><li style="list-style-type:disc">추가로 <code>sudo apt install</code>로 설치한게 아니어서, ORB SLAM2 패키지에서 수동으로 설치한 <code>eigen</code>의 경로를 인식시키기 위해 따로 심볼릭 링크를 만들어주었다</li></ul></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="2c0f65f1-13f4-804f-9b2f-e59b038b2394"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo ln -s /home/wooseok/Downloads/eigen-3.2.10 /usr/include/eigen3</code></pre></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-80ac-a454-c78e47b3f8f9">
+</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="2c0f65f1-13f4-8075-9731-dce44c2f05bb"><li style="list-style-type:disc"><code>opencv</code> 버전 호환때문에, <code>ros</code> 연동은 포기…</li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8081-8c71-d1ffe2279b01">
+</p></div></div>
+
+<section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+    <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+
+    <script src="https://giscus.app/client.js"
+      data-repo="noctml/noctml.github.io"
+      data-repo-id="R_kgDOQthLvQ"
+      data-category="General"
+      data-category-id="DIC_kwDOQthLvc4C1ZaY"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="ko"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</div>
+
+</div>
+</section>
+</main>
+</div>
+</div>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lightboxClose" type="button" aria-label="Close">×</button>
+  <img id="lightboxImg" alt="preview"/>
+</div>
+
+<script src="/data.js"></script>
+<script>
+(() => {
+  const d = window.SITE_DATA || {};
+
+  // paperReviews + projects 합쳐서 매칭
+  const list = [
+    ...(d.paperReviews || []),
+    ...(d.projects || []),
+  ];
+
+  let path = decodeURIComponent(location.pathname).replace(/\\/g, "/");
+  const idx = path.lastIndexOf("/pages/");
+  if (idx !== -1) path = path.slice(idx + 1);
+  path = path.replace(/^\//, "").normalize("NFC");
+
+  const item = list.find(x =>
+    ((x.href || "").replace(/^\//, "").normalize("NFC")) === path
+  );
+
+  if (!item || !item.title) return;
+
+  const el = document.getElementById("pageSubtitle") || document.getElementById("paperTitle");
+  if (!el) return;
+
+  el.textContent = item.title;
+  el.hidden = false;
+})();
+</script>
+
+<script src="script.js" defer></script>
+
+</body>
+
+</html>

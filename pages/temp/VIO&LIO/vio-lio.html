@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Wooseok Song · Paper Reviews &amp; Work" name="description"/>
+<title>VIO? LIO?</title>
+<link href="../../assets/favicon.png" rel="icon" type="image/png"/>
+<meta content="Wooseok Song" property="og:title"/>
+<meta content="Paper Reviews &amp; Work" property="og:description"/>
+<meta content="website" property="og:type"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
+<link href="styles.css" rel="stylesheet"/>
+<style>
+    /* Sidebar */
+    .sidebar-card{
+      display:flex;
+      flex-direction:column;
+      min-height: calc(100dvh - 40px);
+    }
+    .side-nav{ display:none !important; }
+    .sidebar-actions{ display:none !important; }
+
+    .sidebar-bottom{
+      margin-top:auto;
+      display:grid;
+      gap:10px;
+      padding-top:12px;
+    }
+    .btn.small{
+      padding:8px 10px;
+      font-size:13px;
+      border-radius:12px;
+      width:100%;
+      text-align:center;
+    }
+
+    /* Section header + pager */
+    .section-head.row{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:12px;
+    }
+    .pager{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pager .page-indicator{
+      font-size:12px;
+      color:var(--muted);
+      min-width:52px;
+      text-align:center;
+    }
+    .pager-btn{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:var(--panel2);
+      box-shadow:var(--shadow);
+      color:var(--text);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .pager-btn:active{ transform: translateY(1px); }
+    .pager-btn[disabled]{
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    /* Fixed frame to prevent layout jump */
+    .paper-frame{
+      min-height: calc(5 * 64px);
+      display:grid;
+      gap:10px;
+    }
+
+    /* Work: 3 rows x 2 cols fixed */
+    .work-frame{
+      min-height: calc(3 * 196px + 2 * 14px);
+    }
+
+    .grid.fixed-rows{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+      grid-auto-rows: 196px;
+    }
+
+    /* Paper rows */
+    .row.fixed{
+      min-height:64px;
+      display:flex;
+      align-items:center;
+    }
+
+    /* Disabled state */
+    .is-disabled{
+      opacity:0.45;
+      pointer-events:none;
+    }
+    .coming-text{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* Keep footer text exactly */
+    #updated, #year{ display:none; }
+
+    /* Work cards: keep identical sizing */
+    #workGrid { grid-auto-rows: 196px; }
+    #workGrid .card{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      text-decoration:none;
+      color:inherit;
+      overflow:hidden;
+    }
+
+    /* Work card layout */
+    .work-card{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .work-thumb{
+      height:110px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .work-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .work-body{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-height: 0;
+    }
+    .work-title{
+      font-weight: 750;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+    }
+    .work-desc{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.25;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+    }
+    .work-meta{
+      margin-top:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:12px;
+      color: var(--muted);
+      padding-top: 2px;
+    }
+
+    /* Work placeholders keep same frame */
+    .card.placeholder{
+      opacity:0.45;
+      pointer-events:none;
+    }
+    .card.placeholder .work-thumb,
+    .card.placeholder .work-title,
+    .card.placeholder .work-desc,
+    .card.placeholder .work-date{
+      border-radius:10px;
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      border:1px solid var(--line);
+      color:transparent;
+    }
+    .card.placeholder .work-title{ height:16px; width:72%; }
+    .card.placeholder .work-desc{ height:12px; width:88%; }
+    .card.placeholder .work-date{ height:12px; width:40%; }
+
+    /* Unpublished card: same structure, show "준비중입니다" */
+    .work-unpub{
+      height:196px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .work-unpub .work-thumb{
+      position:relative;
+    }
+    .work-unpub .work-thumb::after{
+      content:"준비중입니다";
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      color:var(--muted);
+      background: color-mix(in srgb, var(--bg) 35%, transparent);
+      backdrop-filter: blur(2px);
+    }
+    .post-body mark,
+    .post-body span[style*="background"],
+    .post-body span[style*="background-color"]{
+      background: color-mix(in srgb, var(--text) 12%, transparent) !important;
+      color: inherit !important;
+      padding: 0.1em 0.2em;
+      border-radius: 4px;
+    }
+  </style>
+<style>
+/* Notion content normalization (optional) */
+.post-body img { max-width: 100%; height: auto; border-radius: 14px; border:1px solid var(--line); }
+.post-body a { text-decoration: underline; text-underline-offset: 3px; }
+.post-body pre, .post-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+.post-body pre { padding: 14px; border-radius: 14px; background: var(--panel2); border: 1px solid var(--line); overflow:auto; }
+.post-body blockquote { margin: 12px 0; padding: 12px 14px; border-left: 3px solid var(--line); background: var(--panel2); border-radius: 14px; }
+.post-body table { width:100%; border-collapse: collapse; overflow:hidden; border-radius: 14px; border: 1px solid var(--line); }
+.post-body th, .post-body td { border-bottom: 1px solid var(--line); padding: 10px 12px; vertical-align: top; }
+.post-body hr { border:0; border-top: 1px solid var(--line); margin: 18px 0; }
+</style>
+<!-- <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      // 코드 블록/프리 영역에서는 수식 파싱 안 하게(깨짐 방지)
+      skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script> -->
+</head>
+<body>
+<a class="skip" href="#main">본문으로 바로가기</a>
+<div class="layout" id="top">
+<aside aria-label="Sidebar" class="sidebar">
+<div class="sidebar-card">
+<div>
+<div class="avatar-wrap">
+<img alt="Wooseok Song profile photo" class="avatar" src="../../assets/avatar.jpg"/>
+</div>
+<div class="who">
+<div class="name">Wooseok Song</div>
+<div class="tagline">Paper Reviews · Work</div>
+</div>
+<div class="info">
+<div class="info-row">
+<span class="label">Focus</span>
+<span class="value">Deep Visual SLAM</span>
+</div>
+<div class="info-row">
+<span class="label">Location</span>
+<span class="value">Korea</span>
+</div>
+<div class="info-row">
+<span class="label">Links</span>
+<span class="value">
+<a href="https://github.com/noctml" rel="noreferrer" target="_blank">GitHub</a>
+</span>
+</div>
+</div>
+</div>
+<div class="sidebar-bottom">
+<a class="btn small" href="mailto:pdwytime@gmail.com">Email</a>
+<p class="tiny muted">© 2025 wooseoksong</p>
+</div>
+</div>
+</aside>
+<div class="content">
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brandline">
+<span aria-hidden="true" class="dot"></span>
+<span class="brandtext">Wooseok Song</span>
+</div>
+<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme">
+<span aria-hidden="true" id="themeIcon">☀</span>
+</button>
+</div>
+</header>
+<main class="container" id="main">
+<section class="section">
+<div class="panel">
+<h1 style="margin:0 0 10px; font-size:28px; letter-spacing:-0.01em;">VIO? LIO?</h1>
+<div class="post-body"><div dir="auto" style="display:contents"><blockquote class="" id="2def65f1-13f4-8050-94d5-e1ca43f92e0e"><strong>Visual or Lidar Inertial Odometry가 뭘까?</strong></blockquote></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8011-84ee-d070028f88dc">일단 그 전에 IMU에 대해서 간략히 알아보자.</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8049-a14a-deeed34f965f">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8029-b197-e147ef933abb">IMU는 가속도계(accelerometer)와 자이로스코프(gyroscope)로 이루어져있으며, 각 센서에서 나오는 출력값을 적분하여 <strong>[ 가속도 → 속도 → 위치 ]</strong>, <strong>[각속도 → 자세(orientation)]</strong>를 계산한다.</p></div><div dir="ltr" style="display:contents"><figure class="image" id="2def65f1-13f4-80e8-ba96-d93b777816c5" style="text-align:left"><img src="assets/vio-lio/VIO%20LIO/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-12-23_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.49.25.jpg" style="width:576px"/><figcaption>출처: <a href="https://www.youtube.com/watch?v=fG-JQlzQxWQ">https://www.youtube.com/watch?v=fG-JQlzQxWQ</a></figcaption></figure></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8031-bef3-ed0791015d54">하지만 IMU는 아주 작은 편향(bias)와 노이즈가 있기 때문에 시간이 지날수록 이로 인한 오차가 누적되는 문제가 발생할 수 있다. 따라서 IMU는 보통 혼자서 위치추정에 사용되지는 않으며, 다른 센서와 함께 사용했을 때 더 정확한 위치추정이 가능하다.</p></div><div dir="ltr" style="display:contents"><figure class="image" id="2def65f1-13f4-80ad-81c4-d4c6b027e039"><img src="assets/vio-lio/VIO%20LIO/image.png" style="width:2880px"/><figcaption>출처: <a href="https://www.youtube.com/watch?v=fG-JQlzQxWQ">https://www.youtube.com/watch?v=fG-JQlzQxWQ</a></figcaption></figure></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-800a-819f-ec5a3494f496">함께 사용되는 센서로 GNSS가 있는데, IMU와의 특징을 비교하면 아래와 같다.</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8003-a413-e49a2005fd66">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8042-8f3a-ed0c89e539bb"><strong>IMU:</strong> 위치 업데이트가 빠르지만, 오차로 인해 drift가 발생한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-804d-92ea-fbbfb1266650"><strong>GNSS:</strong> 위치 업데이트가 느리지만, 절대 위치를 알려준다.</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8028-918c-d8cc55e6a841">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-80db-a0de-cc23925e6f58">따라서 절대 위치를 업데이트 해주는 GNSS를 이용하여 IMU의 값을 보정하는게 핵심이고, 여기서 사용되는 알고리즘이 <strong>kalman filter</strong>이다.</p></div><div dir="ltr" style="display:contents"><figure class="image" id="2def65f1-13f4-80a6-8f2c-f48febcffaf5"><img src="assets/vio-lio/VIO%20LIO/image%201.png" style="width:710px"/><figcaption>출처: <a href="https://en.wikipedia.org/wiki/Extended_Kalman_filter">https://en.wikipedia.org/wiki/Extended_Kalman_filter</a></figcaption></figure></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8052-95da-ecb05be1d10e">IMU는 회전 및 비선형 적분을 다루기 때문에 Linear Kalman Filter를 사용할 수 없다. 따라서 비선형 모델인 <strong>Extended Kalman Filter</strong>를 사용하고, 이는 크게 Predict와 Update 과정으로 나뉜다.</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-80d3-ba74-dc1dbb654eed"><strong>Predict:</strong> IMU 입력으로 다음 상태를 예측하고, 예측 불확실성(공분산)을 업데이트하는 과정</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8051-9158-d09ed8a448a5"><strong>Update:</strong> GNSS 등의 측정과 예측 상태를 비교하여 kalman gain을 계산하고, 이를 기반으로 상태(state)와 IMU bias를 보정하는 과정</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-809d-b2a9-ea8bbb7cea6a">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8087-b548-fed000600db6">여기까지 IMU에 대한 설명이었고, 그러면 IMU를 활용한 Visual or Lidar Inertial Odometry에 대해 알아보자</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-8063-9341-eb761ef84783">Visual Odometry는 카메라 센서를 이용해 특징점을 추적(track)하고, 프레임 간의 기하학적 관계를 통해 상대적인 이동(odometry)을 추정하는 기술이다.</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-808a-837b-f23297175e38">Visual Inertial Odometry는 여기에 고주파 IMU 센서를 결합하여, 카메라 프레임 사이의 연속적인 움직임을 예측하고, 빠른 회전, 모션 블러, 스케일 모호성과 같은 시각적 한계를 보완함으로써, 보다 안정적이고 정확한 상대 위치 추정을 수행한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2def65f1-13f4-802b-b4f1-f86ded1158f8">Lidar Inertial Odometry도 센서가 라이다인점을 제외하면 개념은 VIO와 비슷하다.</p></div></div>
+
+<section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+    <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+
+    <script src="https://giscus.app/client.js"
+      data-repo="noctml/noctml.github.io"
+      data-repo-id="R_kgDOQthLvQ"
+      data-category="General"
+      data-category-id="DIC_kwDOQthLvc4C1ZaY"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="ko"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</div>
+
+</div>
+</section>
+</main>
+</div>
+</div>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lightboxClose" type="button" aria-label="Close">×</button>
+  <img id="lightboxImg" alt="preview"/>
+</div>
+
+<script src="script.js" defer></script>
+
+</body>
+
+</html>

@@ -288,16 +288,16 @@
 
       <main id="main" class="container">
         <section class="hero">
-          <p class="kicker">Read & Write</p>
-          <h1>글쓰는 개발자</h1>
-          <p class="sub">이해한 것들을 정리하고 기록합니다.</p>
+          <!-- <p class="kicker">Lets,</p> -->
+          <h1>기록하자</h1>
+          <p class="sub">그리고 살아남자...</p>
         </section>
 
         <section id="paper-reviews" class="section">
           <div class="section-head row">
             <div>
               <h2>Paper Reviews</h2>
-              <p class="muted">각 항목을 클릭하면 Notion 페이지로 이동합니다.</p>
+              <p class="muted">읽은 논문 정리</p>
             </div>
             <div class="pager" aria-label="Paper reviews pagination">
               <button class="pager-btn" id="paperPrev" aria-label="Previous paper review page">←</button>
@@ -312,8 +312,8 @@
         <section id="work" class="section">
           <div class="section-head row">
             <div>
-              <h2>Work</h2>
-              <p class="muted">프로젝트는 추후 업데이트 예정</p>
+              <h2>Projects</h2>
+              <p class="muted">코드 실습 및 여러가지...</p>
             </div>
             <div class="pager" aria-label="Work pagination">
               <button class="pager-btn" id="workPrev" aria-label="Previous work page">←</button>
@@ -332,40 +332,18 @@
     </div>
   </div>
 
+  <script src="data.js"></script>
   <script src="script.js"></script>
 
   <script>
-    const paperReviews = [
-      {
-        title: "ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras",
-        desc: "Visual SLAM의 정석 (Done)",
-        href: "https://www.notion.so/2c4f65f113f4804383c8fe66045a9ed3?source=copy_link",
-        published: true
-      },
-      {
-        title: "DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras",
-        desc: "딥러닝을 적용한 Visual SLAM (In Progress)",
-        href: "https://www.notion.so/2cff65f113f48158affbf56f53bca629?source=copy_link",
-        published: true
-      }
-    ];
-
-    /* Work item format
-      {
-        title: string,
-        desc: string,
-        date: "YYYY-MM-DD",
-        thumb: "path/to/image.jpg",
-        href: "https://..." or "#",
-        published: boolean
-      }
-    */
-    const workItems = [
-      { title: "Project A", desc: "설명 한 줄", date: "2025-12-01", thumb: "assets/work/thumb_a.jpg", href: "#", published: false },
-      { title: "Project B", desc: "설명 한 줄", date: "2025-12-02", thumb: "assets/work/thumb_b.jpg", href: "#", published: false },
-      { title: "Project C", desc: "설명 한 줄", date: "2025-12-03", thumb: "assets/work/thumb_c.jpg", href: "#", published: false },
-      { title: "Project D", desc: "설명 한 줄", date: "2025-12-04", thumb: "assets/work/thumb_d.jpg", href: "#", published: false }
-    ];
+    const paperReviews = window.SITE_DATA.paperReviews || [];
+    const workItems    = window.SITE_DATA.projects || [];
+    // const workItems = [
+    //   { title: "Project A", desc: "설명 한 줄", date: "2025-12-01", thumb: "assets/work/thumb_a.jpg", href: "#", published: false },
+    //   { title: "Project B", desc: "설명 한 줄", date: "2025-12-02", thumb: "assets/work/thumb_b.jpg", href: "#", published: false },
+    //   { title: "Project C", desc: "설명 한 줄", date: "2025-12-03", thumb: "assets/work/thumb_c.jpg", href: "#", published: false },
+    //   { title: "Project D", desc: "설명 한 줄", date: "2025-12-04", thumb: "assets/work/thumb_d.jpg", href: "#", published: false }
+    // ];
 
     function chunk(arr, size) {
       const out = [];
@@ -392,6 +370,7 @@
     const paperNextEl = document.getElementById("paperNext");
     const paperInfoEl = document.getElementById("paperPageInfo");
 
+    // for Paper Review
     function renderPaper() {
       const total = pageCount(paperPages);
       const realPage = paperPages[paperPage] || [];
@@ -409,7 +388,7 @@
         const cls = disabled ? "row fixed is-disabled" : "row fixed";
 
         return `
-          <a class="${cls}" href="${item.href}" ${disabled ? "" : `target="_blank" rel="noreferrer"`}>
+          <a class="${cls}" href="${item.href}">
             <div>
               <div class="row-title">${item.title}</div>
               <div class="row-sub muted">${item.__placeholder ? "" : item.desc}</div>
@@ -424,6 +403,30 @@
       paperPrevEl.disabled = (paperPage === 0);
       paperNextEl.disabled = (paperPage === total - 1);
     }
+
+    // for Projects
+    function renderProjects(items){
+      const root = document.getElementById("projectsList");
+      if (!root) return;
+
+      root.innerHTML = items.map(item => {
+        const disabled = !item.published;
+        const cls = "rowlink" + (disabled ? " disabled" : "");
+        const href = disabled ? "#" : item.href;
+
+        return `
+          <a class="${cls}" href="${href}" ${disabled ? 'aria-disabled="true"' : ""}>
+            <div>
+              <div class="row-title">${item.title}</div>
+              <div class="row-sub muted">${disabled ? "" : item.desc}</div>
+              ${disabled ? `<div class="coming-text">준비중입니다</div>` : ``}
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        `;
+      }).join("");
+    }
+
 
     paperPrevEl.addEventListener("click", () => {
       if (paperPage === 0) return;
@@ -504,7 +507,7 @@
         }
 
         return `
-          <a class="card" href="${item.href}" target="_blank" rel="noreferrer" style="text-decoration:none;">
+          <a class="card" href="${item.href}" style="text-decoration:none;">
             <div class="work-card">
               <div class="work-thumb">
                 ${thumb ? `<img src="${thumb}" alt="${title} thumbnail" loading="lazy" />` : ``}
