@@ -259,6 +259,48 @@
   padding: 0 !important;
   border-radius: 0 !important;
 }
+
+/* ===============================
+   YouTube / Video Embed Styling
+   =============================== */
+
+.post-body figure {
+  margin: 28px auto;
+  text-align: center;
+}
+
+.post-body .yt-embed {
+  max-width: 600px;          /* ← 영상 최대 크기 */
+  margin: 0 auto;
+}
+
+.post-body .yt-embed .frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;       /* 16:9 비율 */
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #000;
+}
+
+.post-body .yt-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* 캡션도 영상 폭 기준으로 */
+.post-body figure figcaption {
+  max-width: 600px;
+  margin: 10px auto 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
 </style>
 
 </head>
@@ -454,7 +496,7 @@ c-10,0,-16.667,5,-20,15z M410 15 H367 v585 v0 v585 h43z"></path></svg></span></s
 </p></div><div dir="auto" style="display:contents"><blockquote class="" id="2cff65f1-13f4-80ab-8ef8-ec09402c1cbf"><strong>D. Timing Results</strong></blockquote></div><div dir="ltr" style="display:contents"><figure class="image" id="2cff65f1-13f4-8083-865c-d8c4b5991a48" style="text-align:center"><img src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_5736b9b31ca7.png" style="width:576px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-800a-8971-daef210f68a6">위 표는 각 데이터셋(EuRoC, KITTI, TUM)의 대표적인 시퀀스(V2_02, 07, fr3_office)들에 대해 ORB-SLAM2의 수행 시간을 정리한 것이다. 해당 시퀀스들은 하나의 loop만을 포함하기 때문에 full BA와 loop closing thread의 일부 작업이 한 번만 수행이 되어, 한 번 실행된 시간만 측정해서 보고한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80d9-bb26-d9d87230d8de">각 데이터셋에서 사용된 센서들에 대해, 한 프레임당 처리 시간의 한계를 프레임율(FPS)의 역(inverse)로 계산할 수 있는데, 예를 들어 EuRoC 데이터셋에서는 20HZ로 받아오고 있으니, 프레임당 처리 시간 한계는 <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><msub><mn>20</mn><mrow><mi>H</mi><mi>Z</mi></mrow></msub></mfrac></mrow><annotation encoding="application/x-tex"> 
 \frac{1}{20_{HZ}}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:1.2904em;vertical-align:-0.4453em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight"><span class="mord mtight">0</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">Z</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1433em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4453em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span>≈ 50ms 가 된다. 하지만 위 표에서 EuRoC 데이터셋에 대한 ORB-SLAM2의 평균 Tracking Time은 41.66ms으로, 프레임당 처리 시간 한계보다 짧기 때문에 <strong>실시간(real-time)으로 동작이 가능</strong>하다고 한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80ac-8a12-f4ae85a70bfd">또한 위 표를 보면 <strong>stereo 데이터셋인 EuRoC</strong>과 <strong>RGB-D 데이터셋인 TUM</strong>의 <strong>ORB Extraction</strong> 수행 시간에 대해, 동일한 1000개의 ORB를 추출하는 시간이 비슷하게 측정된 것을 볼 수 있다. 즉, 다시 말해서 2장(stereo)의 프레임에서 1000개의 ORB 특징을 추출하는 시간과 1장(mono)의 frame에서 ORB 특징을 추출하는 시간이 비슷하게 측정된 것을 의미하며, 이는 ORB Extraction 과정이 병렬로(parallelized) 처리되었기 때문이다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-803f-a0d7-ed1f2e7d642b">표의 맨 아래를 보면 loop에 포함된 keyframe의 개수가 명시된 것을 확인할 수 있는데, KITTI 시퀀스의 TUM 시퀀스에 비해 loop에서 검출된 keyframe의 개수가 더 많은 반면에, 최적화 작업(loop fusion, pose-graph optimization, full BA)의 수행 시간은 TUM 시퀀스가 더 오래걸린 것을 확인할 수 있다. 이는 TUM 시퀀스의 covisibility graph가 KITTI 시퀀스보다 더 촘촘하게(dense) 형성되어 있기 때문이며, 최적화 작업의 처리 시간은 keyframe의 개수가 아닌 covisibility의 밀집도(density)에 비례한다는 것을 보여준다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80e6-af25-f4d5f9104121">
 </p></div><div dir="auto" style="display:contents"><h3 class="block-color-brown_background" id="2cff65f1-13f4-8065-b749-f483396d211b"><strong>V. CONCLUSION </strong></h3></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80bf-badc-f302c8a277f0">ORB-SLAM2는 monocular, stereo, RGB-D 입력을 통한 full SLAM 시스템을 표준 CPU 환경에서 실시간으로 제공하며, 이는 relocalization, loop closing, map reusing과 같은 기능을 포함한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8099-bcfe-c9ab2e098fcc">또한 광범위한 환경에서 장기간 위치추정 및 전역적으로 일관된 지도를 제공하며, 특히 위치추정(localization) 시스템은 강건하고, 가볍고, drfit가 없으며, relocalization을 제공한다. (해당 위치추정 기능은 가상현실의 잘 만들어진 지도에서 유저의 viewpoint를 tracking할 때 유용하게 쓰일 수 있다고 한다)</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8098-8e72-d45f1dd4f90c">ORB-SLAM2은 KITTI 데이터셋에서 stereo SLAM sota를 달성하였고, 이미 매핑된 지역에 대해서는 zero-drift localization을 수행했다고 한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8036-bb38-da785cd8e387">놀랍게도 RGB-D 결과에서 가장 정확한 camera localization이 필요하다는 가정하에, BA는 direct method인 ICP 보다 더 좋은 성능을 보이며, 더 적은 연산 비용과 GPU 없이 실시간으로 돌아간다는 추가적인 이점도 가진다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80a0-844b-d6df904f97c2">
-</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80a4-95d6-d7d7795f91a2">아래 영상에서는 증강현실에서 적용한 사례도 보여준다.</p></div><div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80ff-9fda-f68524b17f29"><div class="source"><a href="https://www.youtube.com/watch?v=kPwy8yA4CKM">https://www.youtube.com/watch?v=kPwy8yA4CKM</a></div></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-804f-8e2e-f50320f77698">
+</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80a4-95d6-d7d7795f91a2">아래 영상에서는 증강현실에서 적용한 사례도 보여준다.</p></div><div dir="ltr" style="display:contents"><figure id="2cff65f1-13f4-80ff-9fda-f68524b17f29"><div class="source"><div class="yt-embed"><div class="frame"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="True" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/kPwy8yA4CKM" title="YouTube video"></iframe></div></div></div></figure></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-804f-8e2e-f50320f77698">
 </p></div><div dir="auto" style="display:contents"><hr id="2cff65f1-13f4-80e4-b1e6-f2838333501b"/></div><div dir="auto" style="display:contents"><h3 class="block-color-gray_background" id="2cff65f1-13f4-805d-ae9c-f2baba2635b7">느낀점 </h3></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80f7-ae0b-de7d6abf6cf9">visual slam을 입문하기에 좋은 논문이라고 생각했다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80c7-8da7-df31d40445da">visual slam의 종류, 최근 트렌드 및 문제점, 제안하는 파이프라인 및 최적화 방법, 사용한 데이터셋의 종류 및 설명까지 아주 알차게 배웠다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80a3-9102-ec07d4ceb9e7">중간에 covisibility graph와 minimum spanning tree의 개념이 생소했고, local BA의 수식부분이 좀 헷갈려서 이해하는데 시간이 좀 걸렸지만, 그래도 지금 생각하면 시간내서 이해하길 잘했다는 생각이 들었다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8045-be16-cc14fdbc359e">특히 마지막 부분의 최적화 수행시간 관련해서도 covisibility graph가 최적화 시간에 직접적으로 관여한다는 것이 인상깊었고, ORB-SLAM2가 왜 실시간으로 동작할 수 있는지 수치적으로 이해할 수 있어서 좋았다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80e1-a108-c3e6f91d7b40">
 </p></div><div dir="auto" style="display:contents"><h3 class="block-color-red_background" id="2cff65f1-13f4-80c5-a555-e3e45cffe2b3">향후 계획 </h3></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-80fc-a11c-d0d28a2575cb">ORB-SLAM 논문을 스킵하고 봐서 그런지, 내용에서 설명이 생략되거나 간단하게만 언급된 내용들이 많았다. (scale drfit, spanning tree의 propagation, loop fusion 등)</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8000-a31b-f00698e1e3d0">따라서 ORB-SLAM 공부를 통해 부족한 개념을 메꾸는 것을 우선으로 하고, 향후에는 딥러닝을 적용한 visual SLAM 방법론들을 찾아보고 정리해볼 예정이다.</p></div><div dir="auto" style="display:contents"><p class="" id="2cff65f1-13f4-8095-860a-c1d389565a5b">
 </p></div></div>
