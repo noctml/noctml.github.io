@@ -471,3 +471,39 @@ a:hover{ opacity: .9; }
 .post-body {
   overflow-x: hidden;
 }
+
+/* Notion-like media alignment: don't force centering */
+.post-body figure {
+  margin: 18px 0;
+  text-align: left;          /* ← 중앙정렬 강제 해제 */
+}
+
+/* images/videos left aligned, responsive */
+.post-body img,
+.post-body video {
+  display: block;
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0;                 /* ← auto(중앙) 금지 */
+}
+
+/* caption: follow Notion style (usually left) */
+.post-body figcaption {
+  margin: 8px 0 0;
+  text-align: left;          /* ← 중앙정렬 강제 해제 */
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(100, 116, 139, 0.95);
+}
+
+/* YouTube embed: also don't force centering */
+.post-body .yt-embed {
+  margin: 18px 0;
+  max-width: 100%;           /* ← 고정폭 + auto center 제거 */
+}
+
+.post-body .yt-embed .frame {
+  width: 100%;
+  max-width: 100%;
+}

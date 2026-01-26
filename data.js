@@ -32,7 +32,7 @@ window.SITE_DATA = {
             href: "pages/projects/ORB-SLAM2_tut/",
             published: true,
             tags: ["ORB-SLAM2", "Visual SLAM", "GitHub"],
-            thumb: "pages/projects/ORB-SLAM2_tut/assets/실습-진행/media/media_6e1be0e7619d.jpg"
+            thumb: "pages/projects/ORB-SLAM2_tut/assets/thumb/media_6e1be0e7619d.jpg"
         },
     ]
 };
