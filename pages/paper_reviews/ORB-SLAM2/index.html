@@ -507,9 +507,15 @@ c-10,0,-16.667,5,-20,15z M410 15 H367 v585 v0 v585 h43z"></path></svg></span></s
   if (idx !== -1) path = path.slice(idx + 1);
   path = path.replace(/^\//, "").normalize("NFC");
 
-  const item = list.find(x =>
-    ((x.href || "").replace(/^\//, "").normalize("NFC")) === path
-  );
+  const norm = (s) => {
+    s = (s || "").replace(/^\//, "").normalize("NFC");
+    s = s.replace(/index\.html$/i, "");      // index.html 제거
+    s = s.replace(/\/+$/, "");              // 끝 슬래시 제거
+    return s + "/";                         // 항상 하나 붙이기
+  };
+
+
+  const item = list.find(x => norm(x.href) === norm(path));
 
   if (!item || !item.title) return;
 
