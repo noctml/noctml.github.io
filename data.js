@@ -3,7 +3,7 @@ window.SITE_DATA = {
             {
                 title: "ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras",
                 desc: "Visual SLAM의 정석",
-                href: "pages/paper_reviews/ORB-SLAM2/",
+                href: "pages/paper_reviews/ORB-SLAM2/index.html",
                 published: true
             },
             {
