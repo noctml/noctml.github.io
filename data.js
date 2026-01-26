@@ -29,7 +29,7 @@ window.SITE_DATA = {
         {
             title: "ORB-SLAM2",
             desc: "오픈소스 실습",
-            href: "pages/projects/ORB-SLAM2_tut/실습-진행.html",
+            href: "pages/projects/ORB-SLAM2_tut/",
             published: true,
             tags: ["ORB-SLAM2", "Visual SLAM", "GitHub"],
             thumb: "pages/projects/ORB-SLAM2_tut/assets/실습-진행/실습 진행/view.jpg"
