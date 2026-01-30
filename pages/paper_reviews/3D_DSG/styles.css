@@ -488,3 +488,17 @@ a:hover{ opacity: .9; }
 .post-body blockquote * {
   text-align: left !important;
 }
+
+
+.post-body p,
+.post-body ul,
+.post-body ol,
+.post-body div {
+  margin-left: 15px;   /* 원하는 여백 */
+}
+
+/* callout 안은 제외 */
+.post-body .callout,
+.post-body .callout * {
+  margin-left: 0 !important;
+}

@@ -24,6 +24,12 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/3D_DSG/",
                 published: true
             },
+            {
+                title: "SLIM-VDB: A Real-Time 3D Probabilistic Semantic Mapping Framework",
+                desc: "OpenVDB를 이용하여 효율적인 메모리 활용 및 연산을 이끌어낸 경량 Semantic Mapping 시스템",
+                href: "pages/paper_reviews/SLIM-VDB/",
+                published: true
+            },
         ],
         projects: [
         {
