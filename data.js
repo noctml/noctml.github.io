@@ -30,6 +30,12 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/SLIM-VDB/",
                 published: true
             },
+            {
+                title: "Khronos: A Unified Approach for Spatio-Temporal Metric-Semantic SLAM in Dynamic Environments",
+                desc: "시공간 지도를 형성하며 동시에 위치를 추정하는 변화 탐지 SLAM",
+                href: "pages/paper_reviews/Khronos/",
+                published: true
+            },
         ],
         projects: [
         {
