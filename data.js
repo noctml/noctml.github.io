@@ -36,6 +36,12 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/Khronos/",
                 published: true
             },
+            {
+                title: "NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis",
+                desc: "MLP를 이용해 3D 장면을 연속적으로 표현하고 novel view에서 새로운 시점을 합성",
+                href: "pages/paper_reviews/NeRF/",
+                published: true
+            },
         ],
         projects: [
         {
