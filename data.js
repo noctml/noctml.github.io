@@ -42,6 +42,12 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/NeRF/",
                 published: true
             },
+            {
+                title: "VGGT: Visual Geometry Grounded Transformer",
+                desc: "multi-view geometry를 single feed-forward transformer로 해결하는 모델",
+                href: "pages/paper_reviews/VGGT/",
+                published: true
+            },
         ],
         projects: [
         {
