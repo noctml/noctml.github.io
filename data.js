@@ -48,6 +48,12 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/VGGT/",
                 published: true
             },
+            {
+                title: "VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold",
+                desc: "VGGT submap을 SL(4)에서 최적화해 monocular projective ambiguity를 해결하는 SLAM",
+                href: "pages/paper_reviews/VGGT-SLAM/",
+                published: true
+            },
         ],
         projects: [
         {
