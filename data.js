@@ -54,6 +54,12 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/VGGT-SLAM/",
                 published: true
             },
+            {
+                title: "Chamelion: Reliable Change Detection for Long-Term LiDAR Mapping in Transient Environments",
+                desc: "4D CNN을 사용한 scan-map 변화탐지 및 장기 map 업데이트 시스템",
+                href: "pages/paper_reviews/Chamelion/",
+                published: true
+            },
         ],
         projects: [
         {
