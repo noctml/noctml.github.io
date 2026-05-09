@@ -10,26 +10,43 @@
   // Theme toggle (default: light)
   const themeBtn = document.getElementById("themeBtn");
   const themeIcon = document.getElementById("themeIcon");
+  const themes = ["light", "dark-gray", "dark"];
+  const themeLabels = {
+    light: "Light",
+    "dark-gray": "Dark gray",
+    dark: "Dark"
+  };
+  const themeIcons = {
+    light: "☀",
+    "dark-gray": "◐",
+    dark: "☾"
+  };
 
   const saved = localStorage.getItem("theme");
-  if (saved === "dark") root.setAttribute("data-theme", "dark");
+  let currentTheme = themes.includes(saved) ? saved : "light";
 
-  const syncIcon = () => {
-    const isDark = root.getAttribute("data-theme") === "dark";
-    if (themeIcon) themeIcon.textContent = isDark ? "☾" : "☀";
+  const applyTheme = (theme, persist = true) => {
+    currentTheme = themes.includes(theme) ? theme : "light";
+    if (currentTheme === "light") {
+      root.removeAttribute("data-theme");
+    } else {
+      root.setAttribute("data-theme", currentTheme);
+    }
+
+    if (persist) localStorage.setItem("theme", currentTheme);
+    if (themeIcon) themeIcon.textContent = themeIcons[currentTheme];
+    if (themeBtn) {
+      const label = `${themeLabels[currentTheme]} theme`;
+      themeBtn.setAttribute("aria-label", label);
+      themeBtn.setAttribute("title", label);
+    }
   };
-  syncIcon();
+
+  applyTheme(currentTheme, false);
 
   themeBtn?.addEventListener("click", () => {
-    const isDark = root.getAttribute("data-theme") === "dark";
-    if (isDark) {
-      root.removeAttribute("data-theme");
-      localStorage.setItem("theme", "light");
-    } else {
-      root.setAttribute("data-theme", "dark");
-      localStorage.setItem("theme", "dark");
-    }
-    syncIcon();
+    const nextIndex = (themes.indexOf(currentTheme) + 1) % themes.length;
+    applyTheme(themes[nextIndex]);
   });
 })();
 

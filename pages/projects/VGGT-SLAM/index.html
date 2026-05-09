@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Wooseok Song · Paper Reviews &amp; Work" name="description"/>
+<title>실습 진행</title>
+<link href="../../../assets/favicon.png" rel="icon" type="image/png"/>
+<meta content="Wooseok Song" property="og:title"/>
+<meta content="Paper Reviews &amp; Work" property="og:description"/>
+<meta content="website" property="og:type"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 바로가기</a>
+<div class="layout" id="top">
+<aside aria-label="Sidebar" class="sidebar">
+<div class="sidebar-card">
+<div>
+<div class="avatar-wrap">
+<img alt="Wooseok Song profile photo" class="avatar" src="../../../assets/avatar.jpg"/>
+</div>
+<div class="who">
+<div class="name">Wooseok Song</div>
+<div class="tagline">Paper Reviews · Work</div>
+</div>
+<div class="info">
+<div class="info-row">
+<span class="label">Focus</span>
+<span class="value">Deep Visual SLAM</span>
+</div>
+<div class="info-row">
+<span class="label">Location</span>
+<span class="value">Korea</span>
+</div>
+<div class="info-row">
+<span class="label">Links</span>
+<span class="value">
+<a href="https://github.com/noctml" rel="noreferrer" target="_blank">GitHub</a>
+</span>
+</div>
+</div>
+</div>
+<div class="sidebar-bottom">
+<a class="btn small" href="mailto:pdwytime@gmail.com">Email</a>
+<p class="tiny muted">© 2025 wooseoksong</p>
+</div>
+</div>
+</aside>
+<div class="content">
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brandline">
+<span aria-hidden="true" class="dot"></span>
+<span class="brandtext">Wooseok Song</span>
+</div>
+<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme">
+<span aria-hidden="true" id="themeIcon">☀</span>
+</button>
+</div>
+</header>
+<main class="container" id="main">
+<section class="section">
+<div class="panel">
+<h1 style="margin:0 0 10px; font-size:28px; letter-spacing:-0.01em;">실습 진행</h1>
+<div class="page-subtitle" id="pageSubtitle" hidden></div>
+<div class="post-body"><div dir="auto" style="display:contents"><blockquote class="" id="32af65f1-13f4-802d-ac77-f030871c9644"><strong>실습 (SLAM only)</strong></blockquote></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32cf65f1-13f4-80b4-963d-c1e117c9bf1c"><li style="list-style-type:disc"><strong>결과</strong><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-8030-92bd-d59c03d977b5"><li><details open=""><summary><strong>office 데이터셋 </strong><mark class="highlight-teal"><strong>(default)</strong></mark></summary><div dir="auto" style="display:contents"><div class="column-list" id="32af65f1-13f4-8043-8c14-e23458627081"><div dir="auto" style="display:contents"><div class="column" id="32af65f1-13f4-80c0-8891-f6dd3ed964e2" style="width:31.25%"><div dir="ltr" style="display:contents"><figure class="image" id="32af65f1-13f4-80fd-980e-d4be9f119691"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_f58800e22a2b.png" style="width:709.982666015625px"/><figcaption>외부</figcaption></figure></div></div></div><div dir="auto" style="display:contents"><div class="column" id="32af65f1-13f4-806b-87e1-e99bbd1b806f" style="width:68.75%"><div dir="ltr" style="display:contents"><figure class="image" id="32af65f1-13f4-8041-9efc-dab625a60847"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_0967d51397e1.png" style="width:709.96533203125px"/><figcaption>내부</figcaption></figure></div></div></div></div></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-80c4-832c-e2f4bf4e489e"><li><details open=""><summary><strong>커스텀 데이터셋</strong></summary><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80ff-853b-ca54d981dfc4"><li style="list-style-type:disc">nr_room<div dir="ltr" style="display:contents"><figure id="32af65f1-13f4-8099-909c-db92efd02e46"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_a61606f95898.mp4" type="video/mp4"/></video></div></figure></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80ae-98c6-cf49f6aba09d"><li style="list-style-type:disc">library<div dir="ltr" style="display:contents"><figure id="32af65f1-13f4-808d-b624-cd62d36535c0"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_bae2c9aef4db.mp4" type="video/mp4"/></video></div><figcaption>vggt-slam 4배속 (중간에 OOM 떠서 끊음)</figcaption></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="32af65f1-13f4-80fe-82eb-c5c774ef7fac"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_2dabfbcab1f4.png" style="width:432px"/><figcaption>약간 다운샘플링된 지도</figcaption></figure></div></li></ul></div></details></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8067-9a92-c0bab49397d5"><li style="list-style-type:disc"><strong>과정</strong><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-800d-9919-c01f7258e523"><li><details open=""><summary><strong>Content</strong></summary><div dir="auto" style="display:contents"><blockquote class="" id="30cf65f1-13f4-80cf-bf15-f89d1d8efaa0"><strong>실습 세팅</strong></blockquote></div><div dir="ltr" style="display:contents"><figure id="30cf65f1-13f4-8027-b45c-f3c92a1c5828"><a class="bookmark source" href="https://github.com/MIT-SPARK/VGGT-SLAM?tab=readme-ov-file#quick-start"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">GitHub - MIT-SPARK/VGGT-SLAM: VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold</div><div class="bookmark-description">VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold - MIT-SPARK/VGGT-SLAM</div></div><div class="bookmark-href"><img class="icon bookmark-icon" src="https://github.com/fluidicon.png"/>https://github.com/MIT-SPARK/VGGT-SLAM?tab=readme-ov-file#quick-start</div></div><img class="bookmark-image" src="https://opengraph.githubassets.com/dca525d447e95845ac050cffea54db564e2eda83c36ccc07b656805f36289653/MIT-SPARK/VGGT-SLAM"/></a></figure></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-80d0-a08b-cea02d265407"><strong>GPU:</strong> 5070ti</p></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-8099-9778-f36059e223fb"><strong>CUDA:</strong> 12.8 nightly</p></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-80d2-bfb9-eb2809b57c02">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="30cf65f1-13f4-80bf-9037-ee41b6607829"><strong>명령어</strong></blockquote></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="30cf65f1-13f4-80a3-b0ee-e96d95dbde33"><code style="white-space:pre-wrap;word-break:break-all">git clone https://github.com/MIT-SPARK/VGGT-SLAM
+cd VGGT-SLAM
+
+conda create -n vggt-slam python=3.11
+conda activate vggt-slam
+
+chmod +x setup.sh
+./setup.sh
+
+unzip office_loop.zip
+python3 main.py --image_folder office_loop --max_loops 1 --vis_map</code></pre></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-8004-87d0-efeb34233293">
+</p></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-801c-8047-f602eef20ad4">만약 <code>FileNotFoundError: [Errno 2] No such file or directory: '/home/wooseok(vggt-sl(vggt-sl(vggt((v(vggt(</code>와 같은 오류가 난다면,</p></div><div dir="ltr" style="display:contents"><figure id="30cf65f1-13f4-803d-aa3a-d0fca8b5c935"><a class="bookmark source" href="https://github.com/serizba/salad/releases"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Releases · serizba/salad</div><div class="bookmark-description">Release page for serizba/salad</div></div><div class="bookmark-href"><img class="icon bookmark-icon" src="https://github.com/fluidicon.png"/>https://github.com/serizba/salad/releases</div></div><img class="bookmark-image" src="https://opengraph.githubassets.com/274fe9fa917e/serizba/salad"/></a></figure></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-801f-90c7-da5409e7e844">위 사이트에서 <code><strong>dino_salad.ckpt</strong></code> 다운 받은 후, 아래 명령어 실행</p></div><div dir="auto" style="display:contents"><pre class="code code-wrap" id="30cf65f1-13f4-8070-9277-f1443b987b3d"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">cd ~/Download
+mv dino_salad.ckpt ~/.cache/torch/hub/checkpoints/
+
+# 다시 실행
+python3 main.py --image_folder office_loop --max_loops 1 --vis_map</code></pre></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-8019-a00f-c712166ec195">
+</p></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-8044-a98f-f7b076a3ce08"><code>cuda kernel</code> 오류가 나서 <code>cuda 12.8 nightly</code>로 재설치</p></div><div dir="auto" style="display:contents"><pre class="code code-wrap" id="30cf65f1-13f4-8048-8ce3-c9d1255f2696"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">pip uninstall torch torchvision torchaudio -y
+
+pip install --pre torch torchvision torchaudio \
+--index-url https://download.pytorch.org/whl/nightly/cu128
+
+# 실행
+python3 main.py --image_folder office_loop --max_loops 1 --vis_map</code></pre></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-80ea-b5d7-ce30e6eda0da">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="30cf65f1-13f4-8026-b24e-f6f15beadab1"><strong>사용한 데이터셋</strong></blockquote></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-8064-88a2-fa18f7c5e236"><strong>Office Loop</strong></p></div><div dir="auto" style="display:contents"><div class="column-list" id="30cf65f1-13f4-80e8-8f36-ebaa1f6d6d50"><div dir="auto" style="display:contents"><div class="column" id="30cf65f1-13f4-8022-a2f5-f02c349cdbc7" style="width:50%"><div dir="ltr" style="display:contents"><figure class="image" id="30cf65f1-13f4-8057-9fcc-faa05e9d6b10"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_e5940e56727a.jpg" style="width:709.982666015625px"/></figure></div></div></div><div dir="auto" style="display:contents"><div class="column" id="30cf65f1-13f4-80b4-b145-f2f47d085c05" style="width:50%"><div dir="ltr" style="display:contents"><figure class="image" id="30cf65f1-13f4-80b9-be82-e392a2004a59"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_0032774ae72f.jpg" style="width:331.97918701171875px"/></figure></div></div></div></div></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="30cf65f1-13f4-80f2-96d1-e4d5ee93f9f8"><li style="list-style-type:disc"><strong>종류:</strong> RGB Image</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="30cf65f1-13f4-80c8-b957-fb722e246432"><li style="list-style-type:disc"><strong>수량:</strong> 473장</li></ul></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-80ef-b243-c8ace70c1f39">
+</p></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-8099-b623-e6651c8f3057">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="30cf65f1-13f4-8026-a48b-c22a830df815"><strong>결과 </strong></blockquote></div><div dir="auto" style="display:contents"><div class="column-list" id="30cf65f1-13f4-80aa-9dc7-e5403ed1d7bb"><div dir="auto" style="display:contents"><div class="column" id="30cf65f1-13f4-8035-92d7-ec26a4b20c2d" style="width:31.25%"><div dir="ltr" style="display:contents"><figure class="image" id="30cf65f1-13f4-8065-bc73-fe4b184e40dc"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_f58800e22a2b.png" style="width:709.982666015625px"/><figcaption>외부</figcaption></figure></div></div></div><div dir="auto" style="display:contents"><div class="column" id="30cf65f1-13f4-80c6-8b92-df2e4e1b8733" style="width:68.75%"><div dir="ltr" style="display:contents"><figure class="image" id="30cf65f1-13f4-809c-89cf-f7ce7ba62479"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_0967d51397e1.png" style="width:709.96533203125px"/><figcaption>내부</figcaption></figure></div></div></div></div></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-804a-bd4c-e8d62cddf823">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="30cf65f1-13f4-8014-b778-c4ac4a2cc088"><strong>커스텀 데이터로 실습</strong></blockquote></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-80c6-8d43-cb03f35c2361"><strong>남령룸 데이터셋</strong></p></div><div dir="auto" style="display:contents"><pre class="code code-wrap" id="30df65f1-13f4-80e2-89bf-c9dcee495fab"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">python3 main.py --image_folder datasets/nr_vggt --max_loops 1 --vis_map</code></pre></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-80d0-b080-faadc625f59f">
+</p></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-80b7-835f-d2d1b5486b86">돌아는 가지만, 너무 느려서 중간에 끊음</p></div><div dir="ltr" style="display:contents"><figure class="image" id="30df65f1-13f4-80b8-994b-e84ec691b99e"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_0007bbd028d7.png" style="width:709.96533203125px"/></figure></div><div dir="ltr" style="display:contents"><figure id="30df65f1-13f4-80e0-97e3-ecbf77d3aab5"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_a61606f95898.mp4" type="video/mp4"/></video></div></figure></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-8082-a8fe-f36174bca49e">
+</p></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-808a-ad63-f51d52db4e72">
+</p></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-8011-a8ac-ed19c93e3219"><strong>도서관 데이터셋</strong></p></div><div dir="auto" style="display:contents"><pre class="code code-wrap" id="30df65f1-13f4-80ee-bccb-eb72c0aae5ea"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">python3 main.py --image_folder datasets/library --max_loops 1 --vis_map</code></pre></div><div dir="ltr" style="display:contents"><figure id="30df65f1-13f4-804b-a5ec-ed6bab836ad7"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_bae2c9aef4db.mp4" type="video/mp4"/></video></div><figcaption>vggt-slam 4배속 (중간에 OOM 떠서 끊음)</figcaption></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="30df65f1-13f4-80e5-bad9-fdc9e22e40b5"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_2dabfbcab1f4.png" style="width:528px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-80bb-82f9-d0e9c8b601e3">
+</p></div><div dir="auto" style="display:contents"><ul class="toggle" id="30df65f1-13f4-80f7-84fb-ede78e254c97"><li><details open=""><summary><strong>Appendix</strong></summary><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-808b-84db-f1cd751bff5e">이전에 mapanything으로 4층 도서관 데이터셋 안해본듯 하여 해봄</p></div><div dir="auto" style="display:contents"><blockquote class="" id="30df65f1-13f4-8035-847b-c8363a39fae0"><strong>mapanything</strong></blockquote></div><div dir="auto" style="display:contents"><pre class="code code-wrap" id="30df65f1-13f4-80ef-ba92-e142eb961619"><code class="language-bash" style="white-space:pre-wrap;word-break:break-all"># 도서관 데이터셋
+python scripts/demo_colmap.py \
+--images_dir=/home/wooseok/dataset/library \
+--output_dir=/home/wooseok/dataset/library_ma \
+--save_glb \
+--voxel_fraction=0.001 \
+--voxel_size=0.001</code></pre></div><div dir="ltr" style="display:contents"><figure class="image" id="30df65f1-13f4-8063-96be-cb5bb1c9588b"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_0f92e5d7851d.png" style="width:681.99658203125px"/></figure></div><div dir="auto" style="display:contents"><div class="column-list" id="30df65f1-13f4-8011-9fb7-fe22e0ccb2fe"><div dir="auto" style="display:contents"><div class="column" id="30df65f1-13f4-8043-863b-c3df0c534af0" style="width:50%"><div dir="ltr" style="display:contents"><figure class="image" id="30df65f1-13f4-80c2-921a-cce4543f1511"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_3b760d7400e7.png" style="width:384px"/></figure></div></div></div><div dir="auto" style="display:contents"><div class="column" id="30df65f1-13f4-800a-a328-fdf78ec41ad5" style="width:49.99999999999999%"><div dir="ltr" style="display:contents"><figure class="image" id="30df65f1-13f4-802c-b5ac-fec215cb6217"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_cc6b2ea3f849.png" style="width:317.9861145019531px"/></figure></div></div></div></div></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-8087-a2c8-e6660f0be1e7">너무 작게 나와서, 간신히 확대해야 보임</p></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-8052-8a7b-cf84d61a544f">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="30df65f1-13f4-80c1-b67f-c91e93a49436"><strong>3dgut</strong></blockquote></div><div dir="auto" style="display:contents"><pre class="code code-wrap" id="30df65f1-13f4-80e4-976d-fb581bdb2e29"><code class="language-bash" style="white-space:pre-wrap;word-break:break-all"># library_ma
+python train.py --config-name apps/colmap_3dgut.yaml \
+path=data/library_ma out_dir=runs experiment_name=ma \
+dataset.downsample_factor=1 with_gui=False export_ply.enabled=true</code></pre></div><div dir="ltr" style="display:contents"><figure id="30df65f1-13f4-80e1-8912-c62e598624f7"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_c8949aebfd12.mp4" type="video/mp4"/></video></div></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="30df65f1-13f4-80f1-8638-fa7c2f225644"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_e1b50786153f.png" style="width:440.95489501953125px"/></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="30df65f1-13f4-8055-856e-dd131b73866e"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_96b01cec1c81.png" style="width:501.9618225097656px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-8010-9eb9-ded40e6138f5">
+</p></div><div dir="auto" style="display:contents"><p class="" id="30df65f1-13f4-80f9-a140-c2b274b99ff5">그리 결과가 좋지는 않았음</p></div></details></li></ul></div></details></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="32cf65f1-13f4-804b-b763-d278e4b57642">
+</p></div><div dir="auto" style="display:contents"><blockquote class="" id="32cf65f1-13f4-800a-b0d6-d012c219e000"><strong>실습 (SLAM with open-set semantic search)</strong></blockquote></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32cf65f1-13f4-80d7-aeea-c4ee7a7cd0db"><li style="list-style-type:disc"><strong>querying 결과</strong><div dir="auto" style="display:contents"><ul class="toggle" id="32cf65f1-13f4-80ea-9eb6-d6cb6c0e5df6"><li><details open=""><summary><strong>office 데이터셋 </strong><mark class="highlight-teal"><strong>(default)</strong></mark></summary><div dir="auto" style="display:contents"><p class="" id="32cf65f1-13f4-808f-8f4e-c6a29c3e137d"><strong>Image Querying</strong></p></div><div dir="auto" style="display:contents"><div class="column-list" id="32cf65f1-13f4-80d6-816e-cdb86ac6032e"><div dir="auto" style="display:contents"><div class="column" id="32cf65f1-13f4-8025-adbf-d13d41cd590f" style="width:50%"><div dir="ltr" style="display:contents"><figure class="image" id="32cf65f1-13f4-80df-a1cd-d17b95235146"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_6376857a37f6.png" style="width:443.9375px"/></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="32cf65f1-13f4-80fc-a852-c20bbb05d9c4"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_f778d22f1c79.png" style="width:504.984375px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="32cf65f1-13f4-8045-b453-e7169e2b0a70">
+</p></div></div></div><div dir="auto" style="display:contents"><div class="column" id="32cf65f1-13f4-8054-a103-cb03d6f42a49" style="width:50%"><div dir="ltr" style="display:contents"><figure class="image" id="32cf65f1-13f4-806d-9638-ccda703ca292"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_1a22d3ebcb6f.png" style="width:627.953125px"/></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="32cf65f1-13f4-80fc-906d-e4a92cc0fdfb"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_47cba68f0f7d.png" style="width:502.96875px"/></figure></div><div dir="auto" style="display:contents"><p class="" id="32cf65f1-13f4-804f-b802-eab98ecc318f">
+</p></div></div></div></div></div><div dir="auto" style="display:contents"><p class="" id="32cf65f1-13f4-8036-9c7e-f253fdf41f4c"><strong>OBB</strong></p></div><div dir="ltr" style="display:contents"><figure class="image" id="32cf65f1-13f4-807d-8918-ee53da593868"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_0ee44c1c09b7.png" style="width:384px"/></figure></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32cf65f1-13f4-80b9-a20c-c46191a7db4e"><li><details open=""><summary><strong>커스텀 데이터셋</strong></summary><div dir="auto" style="display:contents"><p class="" id="32cf65f1-13f4-8029-84ae-d495d9761372">(갑자기 다 OOM 떠서 일단 중지…)</p></div></details></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32cf65f1-13f4-80c7-b513-c8069bbba9e0"><li><details open=""><summary><strong>과정</strong></summary><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32cf65f1-13f4-8060-9f04-ead608be23ee"><li style="list-style-type:disc"><strong>office 데이터셋</strong><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32cf65f1-13f4-809b-b87d-d4e60171c348"><code class="language-markdown" style="white-space:pre-wrap;word-break:break-all">python3 main.py --image_folder datasets/office_loop \
+--max_loops 1 \
+--vis_map \
+--run_os \
+--log_results</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32cf65f1-13f4-80a2-bbbb-e909de5902fe"><li style="list-style-type:disc"><strong>커스텀 데이터셋 (nr_room)</strong><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32cf65f1-13f4-8059-afd8-fa3bc83f03c6"><code class="language-markdown" style="white-space:pre-wrap;word-break:break-all">python3 main.py --image_folder datasets/nr_vggt \
+--max_loops 1 \
+--vis_map \
+--run_os \
+--log_results \
+--submap_size 8</code></pre></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="32cf65f1-13f4-8041-aafb-c164dcfc57a6">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><hr id="30df65f1-13f4-8095-8b3f-de2e8ab5cc1e"/></div><div dir="auto" style="display:contents"><blockquote class="" id="32af65f1-13f4-80f5-97e9-ed64a2b7acc6"><strong>코드 분석</strong></blockquote></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-80c3-8815-d8c1eebd930f"><li><details open=""><summary><code><strong>main.py</strong></code></summary><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-805c-be17-e7105ba43a96">먼저 <code><strong>main.py</strong></code>를 보니, 여러 헤더를 <code>import</code>하고 있었다.</p></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-805d-af34-f5505d7d8b97"><li><details open=""><summary><code><strong>헤더</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32af65f1-13f4-8018-a15f-fef716196172"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">import os
+import glob
+import time
+import argparse
+
+import numpy as np
+import torch
+from torchvision.transforms.functional import to_pil_image
+from tqdm.auto import tqdm
+import cv2
+import matplotlib.pyplot as plt
+
+import vggt_slam.slam_utils as utils
+from vggt_slam.solver import Solver
+from vggt_slam.submap import Submap
+
+from vggt.models.vggt import VGGT</code></pre></div></details></li></ul></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8066-ac35-f4a685b18323">눈에 띄는 것은<strong> GPU를 활용한 SLAM</strong>이다 보니 <code>pytorch</code>를 활용하는 듯 보였고, 외부에서 <code>slam_utils</code>, <code>solver</code>, <code>submap</code>, <code>vggt</code>를 <code>import</code>해주고 있었다.</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-804b-ac67-fbecd6b87e59">다음은 터미널 명령어를 통해 받을 수 있는 <code>argument</code>들을 살펴보자</p></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-80d1-80f5-cd3bead2a193"><li><details open=""><summary><code><strong>인자</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32af65f1-13f4-8094-a028-d00b71b39968"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">parser = argparse.ArgumentParser(description="VGGT-SLAM demo")
+parser.add_argument("--image_folder", type=str, default="examples/kitchen/images/", help="Path to folder containing images")
+parser.add_argument("--vis_map", action="store_true", help="Visualize point cloud in viser as it is being build, otherwise only show the final map")
+parser.add_argument("--vis_voxel_size", type=float, default=None, help="Voxel size for downsampling the point cloud in the viewer (e.g. 0.05 for 5 cm). Default: no downsampling")
+parser.add_argument("--run_os", action="store_true", help="Enable open-set semantic search with Perception Encoder CLIP and SAM3")
+parser.add_argument("--vis_flow", action="store_true", help="Visualize optical flow from RAFT for keyframe selection")
+parser.add_argument("--log_results", action="store_true", help="save txt file with results")
+parser.add_argument("--skip_dense_log", action="store_true", help="by default, logging poses and logs dense point clouds. If this flag is set, dense logging is skipped")
+parser.add_argument("--log_path", type=str, default="poses.txt", help="Path to save the log file")
+parser.add_argument("--submap_size", type=int, default=16, help="Number of new frames per submap, does not include overlapping frames or loop closure frames")
+parser.add_argument("--overlapping_window_size", type=int, default=1, help="ONLY DEFAULT OF 1 SUPPORTED RIGHT NOW. Number of overlapping frames, which are used in SL(4) estimation")
+parser.add_argument("--max_loops", type=int, default=1, help="ONLY DEFAULT OF 1 SUPPORTED RIGHT NOW or 0 to disable loop closures.")
+parser.add_argument("--min_disparity", type=float, default=50, help="Minimum disparity to generate a new keyframe")
+parser.add_argument("--conf_threshold", type=float, default=25.0, help="Initial percentage of low-confidence points to filter out")
+parser.add_argument("--lc_thres", type=float, default=0.95, help="Threshold for image retrieval. Range: [0, 1.0]. Higher = more loop closures")</code></pre></div></details></li></ul></div><div dir="ltr" style="display:contents"><table class="simple-table" id="32af65f1-13f4-80c7-8944-ea29a89c55e6"><thead class="simple-table-header"><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-800f-9d7e-f69c50c667d9"><th class="simple-table-header-color simple-table-header" id="PyAt" style="width:237px">Argument</th><th class="simple-table-header-color simple-table-header" id="]leI">Type</th><th class="simple-table-header-color simple-table-header" id="wwDT" style="width:242px">Default</th><th class="simple-table-header-color simple-table-header" id="no&gt;\" style="width:428.6875px">Description</th></tr></div></thead><tbody><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80ac-96dc-f047f07bc8a0"><td class="" id="PyAt" style="width:237px"><code>--image_folder</code></td><td class="" id="]leI">str</td><td class="" id="wwDT" style="width:242px"><code>"examples/kitchen/images/"</code></td><td class="" id="no&gt;\" style="width:428.6875px">입력 이미지 폴더 경로</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-8010-ab25-fce36fe8c1b9"><td class="" id="PyAt" style="width:237px"><code>--vis_map</code></td><td class="" id="]leI">flag (bool)</td><td class="" id="wwDT" style="width:242px">False</td><td class="" id="no&gt;\" style="width:428.6875px">포인트 클라우드를 viser로 실시간 시각화 (미설정 시 최종 맵만 표시)</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-8018-a2f3-f6778ac4bc3e"><td class="" id="PyAt" style="width:237px"><code>--vis_voxel_size</code></td><td class="" id="]leI">float</td><td class="" id="wwDT" style="width:242px">None</td><td class="" id="no&gt;\" style="width:428.6875px">시각화 시 포인트 클라우드 다운샘플링 voxel 크기 (예: 0.05 = 5cm)</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80ad-9058-df5dd6faf304"><td class="" id="PyAt" style="width:237px"><code>--run_os</code></td><td class="" id="]leI">flag (bool)</td><td class="" id="wwDT" style="width:242px">False</td><td class="" id="no&gt;\" style="width:428.6875px">Perception Encoder CLIP + SAM3 기반 open-set semantic search 활성화</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-8075-ade1-fb8afea494d4"><td class="" id="PyAt" style="width:237px"><code>--vis_flow</code></td><td class="" id="]leI">flag (bool)</td><td class="" id="wwDT" style="width:242px">False</td><td class="" id="no&gt;\" style="width:428.6875px">RAFT optical flow를 keyframe 선택 과정에서 시각화</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80ca-9e2c-ce35934ecb1a"><td class="" id="PyAt" style="width:237px"><code>--log_results</code></td><td class="" id="]leI">flag (bool)</td><td class="" id="wwDT" style="width:242px">False</td><td class="" id="no&gt;\" style="width:428.6875px">결과를 txt 파일로 저장</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-803a-b22b-c2b7444b863f"><td class="" id="PyAt" style="width:237px"><code>--skip_dense_log</code></td><td class="" id="]leI">flag (bool)</td><td class="" id="wwDT" style="width:242px">False</td><td class="" id="no&gt;\" style="width:428.6875px">dense point cloud 로그 생략 (기본은 포함)</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80b1-a67a-e6d7b9370f47"><td class="" id="PyAt" style="width:237px"><code>--log_path</code></td><td class="" id="]leI">str</td><td class="" id="wwDT" style="width:242px"><code>"poses.txt"</code></td><td class="" id="no&gt;\" style="width:428.6875px">로그 파일 저장 경로</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80f9-8b07-e8ee3c281c67"><td class="" id="PyAt" style="width:237px"><code>--submap_size</code></td><td class="" id="]leI">int</td><td class="" id="wwDT" style="width:242px">16</td><td class="" id="no&gt;\" style="width:428.6875px">서브맵당 새 프레임 수 (overlap/loop closure 제외)</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80f0-bc81-ffc4c01c6d5e"><td class="" id="PyAt" style="width:237px"><code>--overlapping_window_size</code></td><td class="" id="]leI">int</td><td class="" id="wwDT" style="width:242px">1</td><td class="" id="no&gt;\" style="width:428.6875px">overlap 프레임 수 (현재 1만 지원)</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80fd-bd59-ca13e22db416"><td class="" id="PyAt" style="width:237px"><code>--max_loops</code></td><td class="" id="]leI">int</td><td class="" id="wwDT" style="width:242px">1</td><td class="" id="no&gt;\" style="width:428.6875px">loop closure 최대 횟수 (1 또는 0만 지원)</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-8047-93cd-d0f996c0f2de"><td class="" id="PyAt" style="width:237px"><code>--min_disparity</code></td><td class="" id="]leI">float</td><td class="" id="wwDT" style="width:242px">50</td><td class="" id="no&gt;\" style="width:428.6875px">새로운 keyframe 생성 최소 disparity</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-80db-a257-c5b4b1ea5baa"><td class="" id="PyAt" style="width:237px"><code>--conf_threshold</code></td><td class="" id="]leI">float</td><td class="" id="wwDT" style="width:242px">25.0</td><td class="" id="no&gt;\" style="width:428.6875px">초기 low-confidence 포인트 필터링 비율 (%)</td></tr></div><div dir="ltr" style="display:contents"><tr id="32af65f1-13f4-8045-8deb-c48a6f16b551"><td class="" id="PyAt" style="width:237px"><code>--lc_thres</code></td><td class="" id="]leI">float</td><td class="" id="wwDT" style="width:242px">0.95</td><td class="" id="no&gt;\" style="width:428.6875px">loop closure용 이미지 retrieval threshold (0~1, 높을수록 엄격)</td></tr></div></tbody></table></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80b5-bcde-f7a5cb7802de">여기서 중요하게 봐야 할 파라미터들을 추려보면 아래와 같다.</p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-800d-a777-cdb297b8622f"><li style="list-style-type:disc"><code>--submap_size</code><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80c5-b194-dbda67c876f6"><li style="list-style-type:circle">하나의 submap을 구성하는 프레임 수를 의미하는 파라미터<div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80e0-8b9b-c2986f9d13ec">→ 클 수록 loop closure의 영향을 더 많이 받아 더 높은 성능을 끌어냄</p></div></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-807d-a579-c6c713b2babb"><li style="list-style-type:disc"><code>--overlapping_window_size</code><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80df-8007-c077b19a4af3"><li style="list-style-type:circle">각 인접 submap이 몇 개의 프레임을 공유할지 결정하는 파라미터</li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8018-801b-c0c8042b9876"><li style="list-style-type:disc"><code>--max_loops</code><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8054-abab-e9b325e77894"><li style="list-style-type:circle">현재 submap에 대한 loop 후보를 몇 개 찾을 것인지에 대한 파라미터</li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80b3-921d-cdd49c83cfad"><li style="list-style-type:disc"><code>--min_disparity</code> <div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80e9-935e-ffd74447ab26"><li style="list-style-type:circle"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mtext>disparity</mtext></msub></mrow><annotation encoding="application/x-tex">\tau_\text{disparity}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord text mtight"><span class="mord mtight">disparity</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>: 현재 프레임과 마지막 keyframe간 평균 이동량을 의미하는 파라미터<div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80ca-8190-f19a544d1702">→ 새로운 keyframe을 만들지 판단하는 기준이 됌</p></div></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80c3-bd66-cfab090f4fdf"><li style="list-style-type:disc"><code>--conf_threshold</code><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80ee-bf2b-ccedd334918e"><li style="list-style-type:circle"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mtext>conf</mtext></msub></mrow><annotation encoding="application/x-tex">\tau_{\text{conf}}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">conf</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>: 전체 confidence <style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">C</mi></mrow><annotation encoding="application/x-tex">\mathcal{C}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal" style="margin-right:0.05834em;">C</span></span></span></span></span><span>﻿</span></span>의 평균값을 의미하는 파라미터<div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8084-8eb0-dbdc900bb6f9">→ 이보다 작은 값을 가진 point를 pruning함</p></div></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80ea-8165-c1800df7ab27"><li style="list-style-type:disc"><code>--lc_thres</code><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8062-ab37-ceb5602d03ed"><li style="list-style-type:circle">loop closure 후보를 찾기 위한 파라미터<div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80df-8847-fc3c1a062d8a">→ 특정 submap의 similarity가 이보다 커야지 후보로 인정</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-801a-907c-d10f2419991b">
+</p></div></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-8004-a88d-ea3a623ef94f"><li><details open=""><summary><code><strong>main 함수</strong></code></summary><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-809e-a246-fb79b686478f"><li><details open=""><summary><code><strong>초기화</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32af65f1-13f4-8071-806c-fd452d8f8217"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def main():
+    """
+    Main function that wraps the entire pipeline of VGGT-SLAM.
+    """
+    args = parser.parse_args()
+
+    use_optical_flow_downsample = True
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Using device: {device}")
+
+    solver = Solver(
+        init_conf_threshold=args.conf_threshold,
+        lc_thres=args.lc_thres,
+        vis_voxel_size=args.vis_voxel_size
+    )
+
+    print("Initializing and loading VGGT model...")</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8041-8c3c-c4264a63caa4">Argument를 받아와, Solver에 대한 객체를 생성해주고 있다.</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8004-acf8-c111ded134f3">또한 opeical flow에 대해 downsampling option을 적용하는듯 보이며, 연산에 필요한 하드웨어 디바이스를 정의해주고 있다.</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-80c8-ad34-ca7932ac7d6d"><li><details open=""><summary><code><strong>query 옵션 체크</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32af65f1-13f4-80e8-b972-f32a9a3d28ad"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">    if args.run_os:
+        from sam3.model_builder import build_sam3_image_model
+        from sam3.model.sam3_image_processor import Sam3Processor
+        import core.vision_encoder.pe as pe
+        import core.vision_encoder.transforms as transforms
+
+        sam3_model = build_sam3_image_model()
+        processor = Sam3Processor(sam3_model, confidence_threshold=0.50)
+
+        clip_model = pe.CLIP.from_config("PE-Core-L14-336", pretrained=True)  # Downloads from HF
+        clip_model = clip_model.cuda()
+        clip_tokenizer = transforms.get_text_tokenizer(clip_model.context_length)
+        clip_preprocess = transforms.get_image_transform(clip_model.image_size)
+    else:
+        clip_model, clip_preprocess = None, None
+        clip_tokenizer = None</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8024-81b3-c138cdb52e5b">CLIP과 SAM3를 기반으로 open-set semantic search를 진행할지 확인하는 조건문</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-804d-9da8-e032b18ac926">(현재는 기본값이 <code>false</code>로 설정되어 있어 그냥 넘어감)</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-808b-b29a-d2b0b045f043">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-802a-b6b0-cc8fd2fef1c2"><li><details open=""><summary><code><strong>모델 로딩</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32af65f1-13f4-8018-a32e-c063722af820"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">    model = VGGT()
+    _URL = "https://huggingface.co/facebook/VGGT-1B/resolve/main/model.pt"
+    model.load_state_dict(torch.hub.load_state_dict_from_url(_URL))
+
+    model.eval()
+    model = model.to(torch.bfloat16)  # use half precision
+    model = model.to(device)
+
+    # Use the provided image folder path
+    print(f"Loading images from {args.image_folder}...")
+    image_names = [f for f in glob.glob(os.path.join(args.image_folder, "*")) 
+               if "depth" not in os.path.basename(f).lower() and "txt" not in os.path.basename(f).lower() 
+               and "db" not in os.path.basename(f).lower()]
+
+    image_names = utils.sort_images_by_number(image_names)
+    downsample_factor = 1
+    image_names = utils.downsample_images(image_names, downsample_factor)
+    print(f"Found {len(image_names)} images")</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80b0-841b-e90becc64eda">hugging face에서 pre-trained된 <strong>VGGT-1B</strong> 모델을 가져와주었고, 이를 바로 평가모드로 설정해 주었다. 또한 추론 단위는 <code>bfloat16</code>을 사용한다.</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8051-8bf4-f4add7778d82">이미지에 부적절한 네이밍이 있는지 확인하고, 원하는 비율로 downsampling을 진행해준다</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-809c-86b1-f97f7d554fec">(현재는 기본값이 <code>1</code>로 설정되어 있어 그냥 downsampling 안하는 것과 동일함)</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8009-9345-fb63529c3531">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-804b-8b8a-e1f7a546dbff"><li><details open=""><summary><code><strong>SLAM</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32af65f1-13f4-805b-a010-fde0622a2d3d"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">    image_names_subset = []
+    count = 0
+    image_count = 0
+    total_time_start = time.time()
+    keyframe_time = utils.Accumulator()
+    backend_time = utils.Accumulator()
+    for image_name in tqdm(image_names):
+        if use_optical_flow_downsample:
+            with keyframe_time:
+                img = cv2.imread(image_name)
+                enough_disparity = solver.flow_tracker.compute_disparity(img, args.min_disparity, args.vis_flow)
+                if enough_disparity:
+                    image_names_subset.append(image_name)
+                    image_count += 1
+        else:
+            image_names_subset.append(image_name)
+
+        # Run submap processing if enough images are collected or if it's the last group of images.
+        if len(image_names_subset) == args.submap_size + args.overlapping_window_size or image_name == image_names[-1]:
+            count += 1
+            print(image_names_subset)
+            t1 = time.time()
+            predictions = solver.run_predictions(image_names_subset, model, args.max_loops, clip_model, clip_preprocess)
+            print("Solver total time", time.time() - t1)
+            print(count, "submaps processed")
+
+            solver.add_points(predictions)
+
+            with backend_time:
+                solver.graph.optimize()
+
+            loop_closure_detected = len(predictions["detected_loops"]) &gt; 0
+            if args.vis_map:
+                if loop_closure_detected:
+                    solver.update_all_submap_vis()
+                else:
+                    solver.update_latest_submap_vis()
+            
+            # Reset for next submap.
+            image_names_subset = image_names_subset[-args.overlapping_window_size:]
+
+    total_time = time.time() - total_time_start
+    average_fps = total_time / image_count
+    print(image_count, "frames processed")
+    print("Total time:", total_time)
+    print(f"Total time for VGGT calls: {solver.vggt_timer.total_time:.4f}s")
+    print("Average VGGT time per frame:", solver.vggt_timer.total_time / image_count)
+    print("Average loop closure time per frame:", solver.loop_closure_timer.total_time / image_count)
+    print("Average keyframe selection time per frame:", keyframe_time.total_time / image_count)
+    print("Average backend time per frame:", backend_time.total_time / image_count)
+    print("Average semantic time per frame:", solver.clip_timer.total_time / image_count)
+    print("Average total time per frame:", total_time / image_count)
+    print("Average FPS:", 1 / average_fps)
+        
+    print("Total number of submaps in map", solver.map.get_num_submaps())
+    print("Total number of loop closures in map", solver.graph.get_num_loops())</code></pre></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80cc-93cf-f36b7109bf11"><li style="list-style-type:disc"><strong>변수</strong><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80c6-96a5-da07b632f59e"><code>image_names_subset</code>: submap을 의미</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-806f-884d-ede845dfac77"><code>count</code>: 지금까지 처리한 submap 개수</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8016-bdcd-cc3837cc371e"><code>image_count</code>: 현재 submap 내부의 프레임 개수</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80e9-889c-c4a1ce366707"><code>total_time_start</code>: 전체 연산 과정에 걸리는 시간을 측정하기 위한 변수</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8082-9a1c-ce3b7b5800ef"><code>keyframe_time</code>: keyframe 추출에 걸리는 시간을 측정하기 위한 변수</p></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-80f6-b64d-ee15427a62eb"><code>backend_time</code>: back-end 과정에 걸리는 시간을 측정하기 위한 변수</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8093-96b5-c092bdd0a107"><li style="list-style-type:disc"><strong>과정</strong><div dir="auto" style="display:contents"><ol class="numbered-list" id="32af65f1-13f4-8046-b282-c51b083e469d" start="1" type="1"><li><strong>keyframe 받기</strong><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8004-a69f-d780da256bd3"><li style="list-style-type:disc">모든 이미지에 대해서 <code>use_optical_flow_downsample</code> 옵션이 켜져 있고, 평균 disparity가 <code>min_disparity</code>를 초과하는 경우에 대해서만 새로운 keyframe을 받음<div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-802d-a271-eebb7788f4e8">(현재는 기본값으로 <code>use_optical_flow_downsample</code> 옵션이 켜져있고, 만약 꺼진 경우에는 그냥 다음 이미지를 계속 새로운 keyframe으로 받음)</p></div></li></ul></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-804e-a581-d3739ff83650" start="2" type="1"><li><strong>submap 처리하기</strong><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80b0-b16f-df69389d6e32"><li style="list-style-type:disc">현재 submap 내부 프레임 개수가 <code>submap_size</code> + <code>overlapping_window_size</code>일 때, 하나의 submap이 다 채워졌다고 판단하고 <strong>아래 과정</strong> 수행<div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80b7-a245-fc786ab763bd" start="1" type="1"><li>submap <code>count</code> 증가</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8002-abf2-c74125f4de0c" start="2" type="1"><li><code>solver.run_predictions</code>을 통해 VGGT로 특징점 추출<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8025-87ff-c29ed545548a"><li style="list-style-type:disc"><code>solver.add_points</code>를 통해 추출한 특징점 추가</li></ul></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80b6-b115-e3fda20f6e23" start="3" type="a"><li>SLAM back-end<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80a4-adeb-e86ee66516c6"><li style="list-style-type:disc"><code>solver.graph.optimize</code>를 통해 graph optimization 수행</li></ul></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8072-b94c-e5ee5e304b1d" start="4" type="a"><li><code>vis_map</code>을 통해 SLAM mapping 시각화 유무 결정</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8086-a94e-c0b8be184540" start="5" type="a"><li>다음 submap을 현재 submap의 마지막 <code>overlapping_window_size</code>개수의 프레임으로 초기화</li></ol></div></li></ul></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80e1-a9b5-f6a41f0d172c" start="3" type="1"><li><strong>결과 출력하기</strong><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8051-96a4-d5ff6f35c572"><li style="list-style-type:disc">각 과정별 수행 시간, 평균 fps, 생성된 submap 개수 등 출력<br/></li></ul></div></li></ol></div></li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-802d-bb45-d76eed6bea24"><li><details open=""><summary><code><strong>query 옵션 실행</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32af65f1-13f4-80c4-a325-f95e261a186d"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">    if args.run_os:
+        while True:
+            # Prompt user for text input
+            query = input("\nEnter text query or q to quit: ").strip()
+            if len(query) == 0:
+                print("Empty query. Exiting.")
+                return
+            
+            if query == "q":
+                print("Exiting.")
+                return
+            
+            start_time = time.time()
+            text_emb = utils.compute_text_embeddings(clip_model, clip_tokenizer, query)
+            overall_best_score, overall_best_submap_id, overall_best_frame_index = solver.map.retrieve_best_semantic_frame(text_emb)
+
+            found_submap = solver.map.get_submap(overall_best_submap_id)
+
+            # Display image
+            best_img = found_submap.get_frame_at_index(overall_best_frame_index)
+            print("Score:", overall_best_score)
+            with torch.no_grad():
+                # convert torch image to PIL
+                best_img = to_pil_image(best_img)
+                inference_state = processor.set_image(best_img)
+                output = processor.set_text_prompt(state=inference_state, prompt=query)
+                masks, boxes, scores = output["masks"], output["boxes"], output["scores"]
+                print(f"Found {masks.shape[0]} masks from SAM3 for the prompt '{query}'")
+                print("Scores:", scores.cpu().numpy())
+
+            print("Time taken for query:", time.time() - start_time)
+
+            masked_img = utils.overlay_masks(best_img, masks)
+            masked_img.show()
+
+            for i in range(masks.shape[0]):
+                mask = masks[i].cpu().numpy()
+                obb_center, obb_extent, obb_rotation = utils.compute_obb_from_points(found_submap.get_points_in_mask(overall_best_frame_index, mask, solver.graph))
+                solver.viewer.visualize_obb(
+                    center=obb_center,
+                    extent=obb_extent,
+                    rotation=obb_rotation,
+                    color=(255, 0, 0),
+                    line_width=8.0,
+                )</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-809a-bc2f-c1fac53634e9"><code>run_os</code>가 <strong>true</strong>일 경우, 부가 옵션을 실행</p></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8061-9470-e3361badeb97"><strong>부가 옵션</strong></p></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-809d-a94a-e14537677153" start="1" type="1"><li>query를 입력받고, CLIP을 통해 가장 관련있는 프레임 찾기</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80f4-abc4-decb3ac5a96b" start="2" type="1"><li>해당 프레임에 SAM3 query segmentation을 적용해, object mask 추출하기</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8080-b143-ff0e696eed14" start="3" type="1"><li>object mask에 대응하는 3차원 점을 찾고, 이를 map에서 box로 표시</li></ol></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8031-a80c-c07123c09212">
+</p></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80e2-909e-f2fca6f2a98a">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-80ee-a175-c10d57e4bc39"><li><details open=""><summary><code><strong>부가 옵션 체크</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80dd-8c57-d95b801ac335"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">    if not args.vis_map:
+        # just show the map after all submaps have been processed
+        solver.update_all_submap_vis()
+
+    if args.log_results:
+        solver.map.write_poses_to_file(args.log_path, solver.graph, kitti_format=False)
+
+        # Log the full point cloud as one file, used for visualization.
+        # solver.map.write_points_to_file(solver.graph, args.log_path.replace(".txt", "_points.pcd"))
+
+        if not args.skip_dense_log:
+            # Log the dense point cloud for each submap.
+            solver.map.save_framewise_pointclouds(solver.graph, args.log_path.replace(".txt", "_logs"))</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-806c-b748-cbfff37491ba"><strong>부가 옵션</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8059-9ae4-c77e2f92edba"><li style="list-style-type:disc"><code>vis_map</code>이 <strong>false</strong>일 경우, 모든 submap이 처리된 후에 시각화 진행</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-809a-b1a4-dd10daf25d34"><li style="list-style-type:disc"><code>log_results</code>가 <strong>true</strong>일 경우, pose, full point cloud를 파일로 저장<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8019-9915-e64932cdb099"><li style="list-style-type:circle"><code>skip_dense_log</code>가 <strong>true</strong>이면, 각 submap별 dense point cloud 저장</li></ul></div></li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80ae-bf86-ecb3d40d99a6">
+</p></div></details></li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><p class="" id="32af65f1-13f4-8091-b0aa-fdaf865881fd">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-8038-8ea9-d8a52eb212ae"><li><details open=""><summary><code><strong>slam_utils.py</strong></code></summary><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-80b1-9247-ebe6ccc26ae8"><li><details open=""><summary><code><strong>헤더</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-8060-8e08-cce49de8a8c0"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">import os
+import re
+import numpy as np
+import matplotlib
+import scipy
+import time
+from PIL import Image
+from torchvision import transforms as TF
+import torch</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-807a-9377-e13bbe3e4657">필요한 패키지 import (딱히 특별한 부분은 없음)</p></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8055-a8c0-ff8ac9812d06">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-809b-b1e7-c1a276a51ac3"><li><details open=""><summary><code><strong>slice_with_overlap</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80bc-a4d6-c0c2306f64d4"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def slice_with_overlap(lst, n, k):
+    if n &lt;= 0 or k &lt; 0:
+        raise ValueError("n must be greater than 0 and k must be non-negative")
+    result = []
+    i = 0
+    while i &lt; len(lst):
+        result.append(lst[i:i + n])
+        i += max(1, n - k)  # Ensure progress even if k &gt;= n
+    return result</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80f2-8d31-e739b8771161"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80b5-996c-d7865151bc1f"><li style="list-style-type:disc"><code><strong>lst</strong></code><strong>:</strong> 이미지 배열</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8097-a482-ed553dd5dbe7"><li style="list-style-type:disc"><code><strong>n</strong></code><strong>:</strong> submap 크기</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8083-a13a-cc0c615272ba"><li style="list-style-type:disc"><code><strong>k</strong></code><strong>:</strong> overlapping window 크기</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-805e-b69d-c9928960eaff">
+</p></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8065-90a1-fc91f3cfa177"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-801c-a0e7-fa6dea129e65"><li style="list-style-type:disc">overlap을 고려해서 submap을 생성하고, 이를 반환하는 함수</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80b8-989a-e78abe53c07d">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-805b-abc6-c6a7a6c35c6b"><li><details open=""><summary><code><strong>sort_images_by_number</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80b3-946d-ebe70a5e3496"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def sort_images_by_number(image_paths):
+    def extract_number(path):
+        filename = os.path.basename(path)
+        # Look for digits followed immediately by a dot and the extension
+        match = re.search(r'\d+(?:\.\d+)?(?=\.[^.]+$)', filename)
+        return float(match.group()) if match else float('inf')
+
+    return sorted(image_paths, key=extract_number)</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8073-981f-c4b523b71061"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80e2-9c0e-da6fd94cb5dd"><li style="list-style-type:disc"><code><strong>image_paths</strong></code><strong>:</strong> 이미지 경로</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8001-a667-c57af324b1be"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80cf-865d-d2f2edeb3f02"><li style="list-style-type:disc">이미지 경로에 들어있는 정보를 기반으로 파일을 정렬하여 반환하는 함수</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8000-94ec-f4d6bd22c8ad"><strong>과정</strong></p></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80f8-9602-fc374a426690" start="1" type="1"><li>경로에서 파일 이름을 찾고, 포함된 숫자를 추출</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80a5-bed7-f6d9d83109dc" start="2" type="1"><li>숫자 유무에 따라 조건 수행<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8042-aa92-c7668bf4b949"><li style="list-style-type:disc">숫자를 찾으면<div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8030-a17e-f4b6ebd50e43">→ float형으로 변환하여 정렬 수행</p></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8006-a534-e61bb292fe74"><li style="list-style-type:disc">숫자를 못찾으면<div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8035-8fa3-d3414334c52f">→ infinity를 return하여 가장 뒤쪽에 정렬 수행</p></div></li></ul></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80a0-80ed-f5aa0734479d" start="3" type="1"><li>정렬된 값 반환</li></ol></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8068-9d16-e3ad50e3a0b6">
+</p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-807b-9511-db7aaf94220d"><li><details open=""><summary><code><strong>downsample_images</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80f6-9961-e9f0aae40334"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def downsample_images(image_names, downsample_factor):
+    """
+    Downsamples a list of image names by keeping every `downsample_factor`-th image.
+    
+    Args:
+        image_names (list of str): List of image filenames.
+        downsample_factor (int): Factor to downsample the list. E.g., 2 keeps every other image.
+
+    Returns:
+        list of str: Downsampled list of image filenames.
+    """
+    return image_names[::downsample_factor]</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80aa-8582-f0b36e5842fd"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8030-a919-f5c8aa2e29be"><li style="list-style-type:disc"><code><strong>image_names</strong></code><strong>:</strong> 이미지 배열</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80a3-9e89-e339dd091ab8"><li style="list-style-type:disc"><code><strong>downsample_factor</strong></code><strong>:</strong> 다운샘플링 비율</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-804d-b8ce-cc0ab61aa36d"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8073-9624-f6f52043c18f"><li style="list-style-type:disc"><code>downsample_factor</code> 단위로 프레임을 샘플링하여 반환하는 함수</li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-8081-8509-d6efeb5f5586"><li><details open=""><summary><code><strong>decompose_camera</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80fd-a89e-cd5dc48131ae"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def decompose_camera(P, no_inverse=False):
+    """
+    Decompose a 3x4 or 4x4 camera projection matrix P into intrinsics K,
+    rotation R, and translation t.
+    """
+    if P.shape[0] != 3:
+        P = P / P[-1,-1]
+        P = P[0:3, :]
+
+    # Ensure P is (3,4)
+    assert P.shape == (3, 4)
+
+    # Left 3x3 part
+    M = P[:, :3]
+
+    # RQ decomposition
+    K, R = scipy.linalg.rq(M)
+
+    # Make sure intrinsics have positive diagonal
+    if K[0,0] &lt; 0:
+        K[:,0] *= -1
+        R[0,:] *= -1
+    if K[1,1] &lt; 0:
+        K[:,1] *= -1
+        R[1,:] *= -1
+    if K[2,2] &lt; 0:
+        K[:,2] *= -1
+        R[2,:] *= -1
+
+    scale = K[2,2]
+    # print("Scale factor from K[2,2]:", scale)
+    if not no_inverse:
+        R = np.linalg.inv(R)
+        t = -R @ np.linalg.inv(K) @ P[:, 3]
+    else:
+        t = np.linalg.inv(K) @ P[:, 3]
+    K = K / scale
+    
+    return K, R, t, scale</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-800f-b8bf-e7232bce0391"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8027-b75c-d66276605288"><li style="list-style-type:disc"><code><strong>P</strong></code><strong>: </strong>투영행렬</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80cb-a841-c563d00b0536"><li style="list-style-type:disc"><code><strong>no_inverse</strong></code><strong>:</strong> </li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-801f-89e7-d38569a8c3a0"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8062-8b31-c5543586b005"><li style="list-style-type:disc">카메라 투영행렬 <code>P</code>를 내부 파라미터(<code>K</code>), 회전(<code>R</code>), 이동(<code>t</code>)으로 분해하여 정규화 이전 <code>scale</code>과 함께 반환하는 함수</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8052-9568-d42fe19774db"><strong>과정</strong></p></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-807b-9655-cdc9400173c5" start="1" type="1"><li>만약 <code>P</code>가 <strong>4x4</strong>면, 정규화 후 <strong>3x4</strong>로 변환</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80ce-ab3d-dd9e770eaf4b" start="2" type="1"><li><code>P</code>의 <strong>왼쪽 3x3 부분</strong>을 <code>M</code>으로 설정</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-801b-9118-ce2c7a007851" start="3" type="1"><li><code>M</code>을 <code>K</code>, <code>R</code>로 분해<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8078-9aed-cf657648ff1f"><li style="list-style-type:disc">여기서 <code>K</code>의 대각선 양수 보정 (양수여야 의미 있음)</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80ac-af8c-fb1ab6c11e1d"><li style="list-style-type:disc"><code>K</code> 정규화 (카메라 행렬은 스케일이 애매함 (homogeneous))</li></ul></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8025-b01f-d1212684daa0" start="4" type="1"><li><code>t</code> 계산<div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8079-9faa-ef5d555aa5ea"><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mi>K</mi><mo stretchy="false">[</mo><mi>R</mi><mi mathvariant="normal">∣</mi><mi>t</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">P=K[R|t]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">∣</span><span class="mord mathnormal">t</span><span class="mclose">]</span></span></span></span></span><span>﻿</span></span></p></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-801f-a429-e174e7b17fec" start="5" type="1"><li><code>no_inverse</code> 옵션<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8028-8e9b-fa7ea8c33ba7"><li style="list-style-type:disc"><strong>기본값:</strong> <strong>False</strong> (월드 → 카메라 좌표 변환)<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-806f-8d46-dc263edc0aae"><li style="list-style-type:circle">만약 <strong>True</strong>면, 반대로 카메라 → 월드 좌표 변환</li></ul></div></li></ul></div></li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8051-b879-ed61dddf074f" start="6" type="1"><li>값 반환<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8030-acc5-fcb64bf4bcb8"><li style="list-style-type:disc"><code>P</code>, <code>K</code>, <code>t</code>, <code>scale</code></li></ul></div></li></ol></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-80a9-952f-cfcdc9c66b44"><li><details open=""><summary><code><strong>compute_image_embeddings</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80cc-b274-e0faef02bf7e"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def compute_image_embeddings(model, preprocess, image_paths, batch_size=64, device="cuda"):
+    all_embs = []
+
+    # Load all images into memory (PIL -&gt; tensor)
+    imgs = []
+    for p in image_paths:
+        img = Image.open(p).convert("RGB")
+        imgs.append(preprocess(img))
+
+    # Stack into a single tensor
+    imgs = torch.stack(imgs).to(device)
+
+    # Loop over batches
+    with torch.no_grad():
+        for i in range(0, len(imgs), batch_size):
+            batch = imgs[i : i + batch_size]
+            emb = model.encode_image(batch)
+            emb = emb / emb.norm(dim=-1, keepdim=True)
+            all_embs.append(emb.cpu())
+
+    # Combine into one (N, D) array
+    return torch.cat(all_embs, dim=0).numpy()</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80f8-9049-dd24f4d4b3b6"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80a2-b82a-f17f2c35a813"><li style="list-style-type:disc"><code><strong>model</strong></code><strong>:</strong> 인코더</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80b0-b923-cb6bf97d6c5b"><li style="list-style-type:disc"><code><strong>preprocess</strong></code><strong>:</strong> 전처리기</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8004-ad65-da6168b6871b"><li style="list-style-type:disc"><code><strong>image_paths</strong></code><strong>:</strong> 이미지 경로</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80ce-b9c2-d4303c36e6d7"><li style="list-style-type:disc"><code><strong>batch_size</strong></code><strong>:</strong> 배치 수</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80a5-a597-e927a1900f34"><li style="list-style-type:disc"><code><strong>device</strong></code><strong>:</strong> 연산 기기</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80d3-b576-cbd4884fa29e"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80fd-972c-dd878eaee7b0"><li style="list-style-type:disc">이미지들을 임베딩 벡터로 인코딩하고, 합쳐서 반환하는 함수</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-801c-83da-ee6261a849d3"><strong>과정</strong></p></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80cd-b27a-c34a74badb75" start="1" type="1"><li>이미지를 RGB로 변환</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8055-8b1a-de77c27fcd4c" start="2" type="1"><li>변환된 모든 이미지들을 단일 tensor로 변환</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80f8-9b4c-d87eb4e85e2d" start="3" type="1"><li><code>batch_size</code> 단위로 인코딩 진행 및 정규화하여 <code>all_embs</code>에 저장</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80f8-9f54-d43c78995382" start="4" type="1"><li><code>all_embs</code>의 모든 값들을 이어 붙여 <strong>(N, D)</strong> 형태로 반환<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8027-bfe0-eb884930157b"><li style="list-style-type:disc"><strong>N</strong>: 이미지 개수</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8012-b38a-d67e4367ee2a"><li style="list-style-type:disc"><strong>D</strong>: 임베딩 차원</li></ul></div></li></ol></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-8000-96e3-fea54805d895"><li><details open=""><summary><code><strong>compute_text_embeddings</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80d0-9a7d-ec79897517b8"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def compute_text_embeddings(clip_model, tokenizer, text, device="cuda"):
+    with torch.no_grad():
+        text_tokens = tokenizer([text]).to(device)
+        text_emb = clip_model.encode_text(text_tokens)
+        text_emb = text_emb / text_emb.norm(dim=-1, keepdim=True)
+        return text_emb.cpu().numpy()</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8094-bd08-e77835a7669e"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80a1-a876-fd82f1052038"><li style="list-style-type:disc"><code><strong>clip_model</strong></code><strong>:</strong> CLIP 모델</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80c1-bd00-fe70dbc75e4c"><li style="list-style-type:disc"><code><strong>tokenizer</strong></code><strong>:</strong> 텍스트를 숫자로 변환해주는 도구</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8097-9dff-ed2d61e051db"><li style="list-style-type:disc"><code><strong>text</strong></code><strong>:</strong> 텍스트</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8070-875a-fdf3e0058842"><li style="list-style-type:disc"><code><strong>device</strong></code><strong>:</strong> 연산 기기</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80a3-8723-f1160100ede9"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-807a-a3c1-daff10486d79"><li style="list-style-type:disc">CLIP 모델로 텍스트를 임베딩 및 정규화하여 반환하는 함수</li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-800c-a3cc-fe07ad5acefc"><li><details open=""><summary><code><strong>cosine_similarity</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80ca-a7cc-e203884ea591"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def cosine_similarity(a, b):
+    """
+    Compute cosine similarity between two vectors a and b.
+    """
+    a = a / np.linalg.norm(a, axis=-1, keepdims=True)
+    b = b / np.linalg.norm(b, axis=-1, keepdims=True)
+    return a @ b.T</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8015-979b-d58a8bada1e2"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80e6-aeb0-c199f62d0739"><li style="list-style-type:disc"><code><strong>a</strong></code><strong>, </strong><code><strong>b</strong></code><strong>:</strong> 벡터</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-803c-8a21-e702574c11be"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80b3-8d19-e74d57b3368c"><li style="list-style-type:disc">두 벡터의 코사인 유사도를 구해 반환하는 함수</li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-80bf-9e00-ce8b513a2c33"><li><details open=""><summary><code><strong>normalize_to_sl4</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-8090-b0b8-e2260b30250b"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def normalize_to_sl4(H):
+    """
+    Normalize a 4x4 homography matrix H to be in SL(4).
+    """
+    det = np.linalg.det(H)
+    if det == 0:
+        raise ValueError("Homography matrix is singular and cannot be normalized.")
+    scale = det ** (1/4)
+    H_normalized = H / scale
+    return H_normalized</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80b3-bcf2-efe79d70ef10"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8007-b733-e4d968ed44c9"><li style="list-style-type:disc"><code><strong>H</strong></code><strong>:</strong> homohraphy 행렬</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-800f-9bb0-c80830039f90"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80e0-9b1d-fd7fa42d132a"><li style="list-style-type:disc"><code>H</code>의 determinant를 1로 만들어, SL(4) 상으로 정규화하여 반환하는 함수</li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-8084-ae87-ce7aa596c8a1"><li><details open=""><summary><code><strong>compute_obb_from_points</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-805d-a9c5-ff8f135fe212"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def compute_obb_from_points(points: np.ndarray):
+    """
+    Compute an oriented bounding box (OBB) for a Nx3 point cloud.
+
+    Returns:
+        center      : (3,) world-space center of OBB
+        extent      : (3,) lengths of OBB along its principal axes
+        rotation    : (3,3) rotation matrix (columns = principal axes)
+    """
+    assert points.ndim == 2 and points.shape[1] == 3, "Input must be Nx3 points"
+
+    # Remove NaN/inf if any
+    points = points[np.isfinite(points).all(axis=1)]
+    if len(points) == 0:
+        raise ValueError("Point cloud is empty or invalid")
+
+    # 1. Compute centroid
+    centroid = points.mean(axis=0)
+
+    # 2. PCA on centered points
+    centered = points - centroid
+    cov = np.cov(centered, rowvar=False)
+
+    # Eigen decomposition (sorted by eigenvalue descending)
+    eigvals, eigvecs = np.linalg.eigh(cov)
+    order = np.argsort(eigvals)[::-1]
+    eigvecs = eigvecs[:, order]
+
+    rotation = eigvecs  # columns = principal axes (R)
+
+    # 3. Project points to PCA frame
+    points_local = centered @ rotation
+
+    # 4. Compute min/max in PCA frame → box extents
+    min_corner = points_local.min(axis=0)
+    max_corner = points_local.max(axis=0)
+    extent = max_corner - min_corner
+
+    # 5. Compute box center (local), then world
+    center_local = 0.5 * (min_corner + max_corner)
+    center_world = centroid + center_local @ rotation.T
+
+    return center_world, extent, rotation</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80d2-8f8f-f4da48652597"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80c4-a235-c94390422244"><li style="list-style-type:disc"><code><strong>points</strong></code><strong>:</strong> 3차원 점군</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8012-ac20-dea29bfb2452"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80f1-8680-deff0b347e4b"><li style="list-style-type:disc">3차원 점군을 입력받아 최소한의 방향성을 가진 OBB를 반환하는 함수</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8057-be5c-e5b4887393ed"><strong>과정</strong></p></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80f9-a637-f407db729936" start="1" type="1"><li>입력 체크 및 정리</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-806f-97f2-eb4f2587d12e" start="2" type="1"><li>중심점(centroid) 계산</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-80cc-b3e2-e68324b4cfb0" start="3" type="1"><li>PCA(주성분 분석) 수행</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-802e-aa5d-cffee153b815" start="4" type="1"><li>점군을 PCA 기준으로 변환</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-8080-b66b-e861452de4f9" start="5" type="1"><li>OBB 크기 및 중심 계산</li></ol></div><div dir="auto" style="display:contents"><ol class="numbered-list" id="32bf65f1-13f4-807e-badd-d0f32b1603dd" start="6" type="1"><li>값 반환<div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-808b-b71e-ec4ed41f2b42"><li style="list-style-type:disc"><code>center_world</code>, <code>extent</code>, <code>rotation</code></li></ul></div></li></ol></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-80d6-820d-f137046b63c4"><li><details open=""><summary><code><strong>overlay_masks</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80e9-8727-d1eafe402349"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">def overlay_masks(image, masks):
+    image = image.convert("RGBA")
+
+    # masks: (N, 1, H, W) or (N, H, W)
+    masks = (255 * masks.cpu().numpy()).astype(np.uint8)
+
+    n_masks = masks.shape[0]
+    cmap = matplotlib.colormaps.get_cmap("rainbow").resampled(n_masks)
+    colors = [
+        tuple(int(c * 255) for c in cmap(i)[:3])
+        for i in range(n_masks)
+    ]
+
+    for mask, color in zip(masks, colors):
+        # Ensure mask is 2D
+        mask = np.squeeze(mask)
+        # Now mask is shape (H, W)
+
+        mask = Image.fromarray(mask)
+        overlay = Image.new("RGBA", image.size, color + (0,))
+        alpha = mask.point(lambda v: int(v * 0.5))
+        overlay.putalpha(alpha)
+        image = Image.alpha_composite(image, overlay)
+
+    return image</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80c4-acf2-fbade5d2665a"><strong>인자</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8090-b3d9-dc22868eb5e0"><li style="list-style-type:disc"><code><strong>image</strong></code><strong>:</strong> 이미지</li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8064-aec4-c10fee22c0f4"><li style="list-style-type:disc"><code><strong>masks</strong></code><strong>:</strong> SAM 마스크</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80c1-8df0-cace3f9b9f10"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-8010-bd34-df03297fb1ce"><li style="list-style-type:disc">이미지 위에 여러 마스크를 반투명 색으로 겹쳐서 반환하는 함수</li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-80fb-bb73-e94e69ab3699"><li><details open=""><summary><code><strong>Accumulator</strong></code></summary><div dir="auto" style="display:contents"><pre class="code code-wrap" id="32bf65f1-13f4-80ea-8627-f67fe79a5ac2"><code class="language-python" style="white-space:pre-wrap;word-break:break-all">class Accumulator:
+    def __init__(self):
+        self.total_time = 0
+
+    def __enter__(self):
+        self.start = time.perf_counter()
+        return self
+
+    def __exit__(self, *args):
+        self.total_time += (time.perf_counter() - self.start)</code></pre></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8029-a697-e050a9da40c0"><strong>하는 일</strong></p></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32bf65f1-13f4-80ee-a508-f85473f22b2f"><li style="list-style-type:disc"><code>with</code> 블록 안에서 코드 실행 시간을 측정하고 누적하는 간단한 타이머 클래스</li></ul></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-8095-a0c9-f977213b4c3f">
+</p></div></details></li></ul></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32bf65f1-13f4-80bc-8b67-f3efcf9443b3"><li><details open=""><summary><code><strong>solver.py</strong></code></summary><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-802a-a23b-f7084480fa8b">
+</p></div><div dir="auto" style="display:contents"><p class="" id="32bf65f1-13f4-80f8-ad49-d405e8d2fe93">
+</p></div></details></li></ul></div></div>
+
+<section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+    <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+
+    <script src="https://giscus.app/client.js"
+      data-repo="noctml/noctml.github.io"
+      data-repo-id="R_kgDOQthLvQ"
+      data-category="General"
+      data-category-id="DIC_kwDOQthLvc4C1ZaY"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="ko"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</div>
+
+</div>
+</section>
+</main>
+</div>
+</div>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lightboxClose" type="button" aria-label="Close">×</button>
+  <img id="lightboxImg" alt="preview"/>
+</div>
+
+<script src="../../../data.js"></script>
+<script>
+(() => {
+  const d = window.SITE_DATA || {};
+
+  // paperReviews + projects 합쳐서 매칭
+  const list = [
+    ...(d.paperReviews || []),
+    ...(d.projects || []),
+  ];
+
+  let path = decodeURIComponent(location.pathname).replace(/\\/g, "/");
+  const idx = path.lastIndexOf("/pages/");
+  if (idx !== -1) path = path.slice(idx + 1);
+  path = path.replace(/^\//, "").normalize("NFC");
+
+  const norm = (s) => {
+    s = (s || "").replace(/^\//, "").normalize("NFC");
+    s = s.replace(/index\.html$/i, "");      // index.html 제거
+    s = s.replace(/\/+$/, "");              // 끝 슬래시 제거
+    return s + "/";                         // 항상 하나 붙이기
+  };
+
+
+  const item = list.find(x => norm(x.href) === norm(path));
+
+  if (!item || !item.title) return;
+
+  const el = document.getElementById("pageSubtitle") || document.getElementById("paperTitle");
+  if (!el) return;
+
+  el.textContent = item.title;
+  el.hidden = false;
+})();
+</script>
+
+<script src="script.js?v=theme-20260509" defer></script>
+
+</body>
+
+</html>

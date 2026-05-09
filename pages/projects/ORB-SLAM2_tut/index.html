@@ -12,297 +12,6 @@
 <meta content="website" property="og:type"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
 <link href="styles.css" rel="stylesheet"/>
-<style>
-    /* Sidebar */
-    .sidebar-card{
-      display:flex;
-      flex-direction:column;
-      min-height: calc(100dvh - 40px);
-    }
-    .side-nav{ display:none !important; }
-    .sidebar-actions{ display:none !important; }
-
-    .sidebar-bottom{
-      margin-top:auto;
-      display:grid;
-      gap:10px;
-      padding-top:12px;
-    }
-    .btn.small{
-      padding:8px 10px;
-      font-size:13px;
-      border-radius:12px;
-      width:100%;
-      text-align:center;
-    }
-
-    /* Section header + pager */
-    .section-head.row{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:12px;
-    }
-    .pager{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .pager .page-indicator{
-      font-size:12px;
-      color:var(--muted);
-      min-width:52px;
-      text-align:center;
-    }
-    .pager-btn{
-      width:34px;
-      height:34px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:var(--panel2);
-      box-shadow:var(--shadow);
-      color:var(--text);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-    .pager-btn:active{ transform: translateY(1px); }
-    .pager-btn[disabled]{
-      opacity:.45;
-      cursor:not-allowed;
-      transform:none;
-    }
-
-    /* Fixed frame to prevent layout jump */
-    .paper-frame{
-      min-height: calc(5 * 64px);
-      display:grid;
-      gap:10px;
-    }
-
-    /* Work: 3 rows x 2 cols fixed */
-    .work-frame{
-      min-height: calc(3 * 196px + 2 * 14px);
-    }
-
-    .grid.fixed-rows{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:14px;
-      grid-auto-rows: 196px;
-    }
-
-    /* Paper rows */
-    .row.fixed{
-      min-height:64px;
-      display:flex;
-      align-items:center;
-    }
-
-    /* Disabled state */
-    .is-disabled{
-      opacity:0.45;
-      pointer-events:none;
-    }
-    .coming-text{
-      margin-top:6px;
-      font-size:12px;
-      color:var(--muted);
-    }
-
-    /* Keep footer text exactly */
-    #updated, #year{ display:none; }
-
-    /* Work cards: keep identical sizing */
-    #workGrid { grid-auto-rows: 196px; }
-    #workGrid .card{
-      height:196px;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-start;
-      text-decoration:none;
-      color:inherit;
-      overflow:hidden;
-    }
-
-    /* Work card layout */
-    .work-card{
-      height:196px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .work-thumb{
-      height:110px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 70%, transparent);
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .work-thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .work-body{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-height: 0;
-    }
-    .work-title{
-      font-weight: 750;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      display:-webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow:hidden;
-    }
-    .work-desc{
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.25;
-      display:-webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow:hidden;
-    }
-    .work-meta{
-      margin-top:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      font-size:12px;
-      color: var(--muted);
-      padding-top: 2px;
-    }
-
-    /* Work placeholders keep same frame */
-    .card.placeholder{
-      opacity:0.45;
-      pointer-events:none;
-    }
-    .card.placeholder .work-thumb,
-    .card.placeholder .work-title,
-    .card.placeholder .work-desc,
-    .card.placeholder .work-date{
-      border-radius:10px;
-      background: color-mix(in srgb, var(--panel) 70%, transparent);
-      border:1px solid var(--line);
-      color:transparent;
-    }
-    .card.placeholder .work-title{ height:16px; width:72%; }
-    .card.placeholder .work-desc{ height:12px; width:88%; }
-    .card.placeholder .work-date{ height:12px; width:40%; }
-
-    /* Unpublished card: same structure, show "준비중입니다" */
-    .work-unpub{
-      height:196px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .work-unpub .work-thumb{
-      position:relative;
-    }
-    .work-unpub .work-thumb::after{
-      content:"준비중입니다";
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:14px;
-      color:var(--muted);
-      background: color-mix(in srgb, var(--bg) 35%, transparent);
-      backdrop-filter: blur(2px);
-    }
-    .post-body mark,
-    .post-body span[style*="background"],
-    .post-body span[style*="background-color"]{
-      background: rgba(194, 194, 194, 0.22) !important;
-      color: inherit !important;
-      padding: 0.08em 0.22em;
-      border-radius: 4px;
-    }
-  </style>
-<style>
-/* Notion content normalization (optional) */
-.post-body img { max-width: 100%; height: auto; border-radius: 14px; border:1px solid var(--line); }
-.post-body a { text-decoration: underline; text-underline-offset: 3px; }
-.post-body pre, .post-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-.post-body pre { padding: 14px; border-radius: 14px; background: var(--panel2); border: 1px solid var(--line); overflow:auto; }
-.post-body blockquote { margin: 12px 0; padding: 12px 14px; border-left: 3px solid var(--line); background: var(--panel2); border-radius: 14px; }
-.post-body table { width:100%; border-collapse: collapse; overflow:hidden; border-radius: 14px; border: 1px solid var(--line); }
-.post-body th, .post-body td { border-bottom: 1px solid var(--line); padding: 10px 12px; vertical-align: top; }
-.post-body hr { border:0; border-top: 1px solid var(--line); margin: 18px 0; }
-
-/* ─────────────────────────────────────────
-   Notion quote(blockquote)에서는
-   형광펜(하이라이트) 효과 완전 무시
-   ───────────────────────────────────────── */
-
-.post-body blockquote mark,
-.post-body blockquote span[style*="background"],
-.post-body blockquote span[style*="background-color"]{
-  background: transparent !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-}
-
-/* ===============================
-   YouTube / Video Embed Styling
-   =============================== */
-
-.post-body figure {
-  margin: 28px auto;
-  text-align: center;
-}
-
-.post-body .yt-embed {
-  max-width: 600px;          /* ← 영상 최대 크기 */
-  margin: 0 auto;
-}
-
-.post-body .yt-embed .frame {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%;       /* 16:9 비율 */
-  overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: #000;
-}
-
-.post-body .yt-embed iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* 캡션도 영상 폭 기준으로 */
-.post-body figure figcaption {
-  max-width: 600px;
-  margin: 10px auto 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--muted);
-}
-
-</style>
-
 </head>
 <body>
 <a class="skip" href="#main">본문으로 바로가기</a>
@@ -392,7 +101,7 @@ cd ../opencv
 git checkout 3.4.9
 mkdir build &amp;&amp; cd build
 cmake -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules ..
-make -j8 
+make -j8
 sudo make install
 sudo ldconfig
 
@@ -557,7 +266,7 @@ echo "$CMAKE_PREFIX_PATH" | tr ':' '\n' | head
 ./Examples/Monocular/mono_kitti Vocabulary/ORBvoc.txt \
 Examples/Monocular/KITTI00-02.yaml \
 /home/wooseok/dataset/kitti/odometry/data_odometry_gray/dataset/sequences/00</code></pre></div><div dir="ltr" style="display:contents"><figure id="2f4f65f1-13f4-80e7-84af-c8c269d5e29e"><div class="source"><div class="yt-embed"><div class="frame"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="True" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/0FTlAvIDnFk" title="YouTube video"></iframe></div></div></div><figcaption><strong>kitti odometry dataset으로 ORB-SLAM2를 수행한 영상 (4배속)</strong><br/>진행하면서 느낀건 orb descriptor를 통해 corner와 같은 특징을 잡아내는 모습을 visualization하여 볼 수 있어서 좋았구, 중간중간에 loop closure가 일어나는 모습도 확인할 수 있어서 신기했다.</figcaption></figure></div><div dir="auto" style="display:contents"><p class="" id="2f4f65f1-13f4-8018-924b-d1cb92e2761c">
-</p></div><div dir="auto" style="display:contents"><p class="" id="2ddf65f1-13f4-8002-a36d-c30fdfaa6053">아래는 실습한 코드가 어떻게 동작하는지 분석해본 것이다.</p></div><div dir="auto" style="display:contents"><ul class="toggle" id="2f4f65f1-13f4-8040-81c2-f3db22158644"><li><details open=""><summary><mark class="highlight-gray_background" style="background-color: rgba(249,209,133, 0.30);"><strong>ORB-SLAM2 Code</strong></mark></summary><div dir="auto" style="display:contents"><hr id="2f4f65f1-13f4-800d-a9fa-ef3c010e604d"/></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="2f4f65f1-13f4-80a1-8fc2-f9c5999c3796"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># execute ORB-SLAM2
+</p></div><div dir="auto" style="display:contents"><p class="" id="2ddf65f1-13f4-8002-a36d-c30fdfaa6053">아래는 실습한 코드가 어떻게 동작하는지 분석해본 것이다.</p></div><div dir="auto" style="display:contents"><ul class="toggle" id="2f4f65f1-13f4-8040-81c2-f3db22158644"><li><details open=""><summary><mark class="highlight-gray_background"><strong>ORB-SLAM2 Code</strong></mark></summary><div dir="auto" style="display:contents"><hr id="2f4f65f1-13f4-800d-a9fa-ef3c010e604d"/></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="2f4f65f1-13f4-80a1-8fc2-f9c5999c3796"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># execute ORB-SLAM2
 ./Examples/Monocular/mono_kitti \
 Vocabulary/ORBvoc.txt \
 Examples/Monocular/KITTI00-02.yaml \
@@ -573,7 +282,7 @@ Examples/Monocular/KITTI00-02.yaml \
 # Camera Parameters. Adjust them!
 #--------------------------------------------------------------------------------------------
 
-# Camera calibration and distortion parameters (OpenCV) 
+# Camera calibration and distortion parameters (OpenCV)
 Camera.fx: 718.856
 Camera.fy: 718.856
 Camera.cx: 607.1928
@@ -584,7 +293,7 @@ Camera.k2: 0.0
 Camera.p1: 0.0
 Camera.p2: 0.0
 
-# Camera frames per second 
+# Camera frames per second
 Camera.fps: 10.0
 
 # Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
@@ -597,16 +306,16 @@ Camera.RGB: 1
 # ORB Extractor: Number of features per image
 ORBextractor.nFeatures: 2000
 
-# ORB Extractor: Scale factor between levels in the scale pyramid 	
+# ORB Extractor: Scale factor between levels in the scale pyramid
 ORBextractor.scaleFactor: 1.2
 
-# ORB Extractor: Number of levels in the scale pyramid	
+# ORB Extractor: Number of levels in the scale pyramid
 ORBextractor.nLevels: 8
 
 # ORB Extractor: Fast threshold
 # Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
 # Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
-# You can lower these values if your images have low contrast			
+# You can lower these values if your images have low contrast
 ORBextractor.iniThFAST: 20
 ORBextractor.minThFAST: 7
 
@@ -649,7 +358,7 @@ Examples/RGB-D/associations/fr1_room.txt</code></pre></div><div dir="ltr" style=
 </p></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-80bf-a503-ee52c80d014f"><code>segmentation fault (core dumped)</code> 오류 발생…<div class="indented"><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-8058-8be8-c698cb79780e">→ ros1 noetic 환경에서는  opencv 4.x 버전이 default로 동작하는 것 같아, 이후 아무리 시도해봐도 여기서 막혔다…</p></div></div></p></div><div dir="auto" style="display:contents"><p class="" id="2c0f65f1-13f4-807b-befd-de3397b05001">
 </p></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="2bff65f1-13f4-8057-a966-fb8e1b57f2d3"><li><details open=""><summary><strong>기타 이슈</strong></summary><div dir="auto" style="display:contents"><p class="" id="29ff65f1-13f4-8041-a1f7-d3f6b0093bab"><code>undefined reference to symbol '_ZNK2cv8FileNodecviEv’</code> </p></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="29ff65f1-13f4-8076-9a23-e8b797d7d579"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all"># libopencv_{}.so를 ORB_SLAM2/lib에 복사
 whereis libopencv_imgproc
-ls -l /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so*  
+ls -l /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so*
 ls -l /usr/lib/x86_64-linux-gnu/libopencv_core.so*
 
 
@@ -767,7 +476,7 @@ export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/home/wooseok/orb-slam_ws/src/ORB_SL
 })();
 </script>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=theme-20260509" defer></script>
 
 </body>
 

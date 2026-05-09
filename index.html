@@ -80,10 +80,75 @@
 
     /* Fixed frame to prevent layout jump */
     .paper-frame{
-      min-height: calc(5 * 64px);
+      min-height: calc(5 * 118px + 4 * 12px);
       display:grid;
-      gap:10px;
+      gap:12px;
     }
+
+    .paper-card{
+      min-height:118px;
+      display:grid;
+      grid-template-columns: 148px minmax(0, 1fr) auto;
+      align-items:center;
+      gap:14px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:var(--panel2);
+      box-shadow:var(--shadow);
+      color:inherit;
+      text-decoration:none;
+      transition:transform .15s ease, opacity .15s ease;
+    }
+    .paper-card:hover{ transform: translateY(-2px); }
+    .paper-thumb{
+      width:148px;
+      aspect-ratio:16 / 10;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      overflow:hidden;
+    }
+    .paper-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .paper-body{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .paper-card .row-title{
+      line-height:1.25;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .paper-card .row-sub{
+      line-height:1.35;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .paper-card.placeholder{
+      opacity:.45;
+      pointer-events:none;
+    }
+    .paper-card.placeholder .paper-thumb,
+    .paper-card.placeholder .row-title,
+    .paper-card.placeholder .row-sub{
+      border-radius:10px;
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      border:1px solid var(--line);
+      color:transparent;
+    }
+    .paper-card.placeholder .row-title{ height:16px; width:72%; }
+    .paper-card.placeholder .row-sub{ height:12px; width:88%; }
 
     /* Work: 3 rows x 2 cols fixed */
     .work-frame{
@@ -228,6 +293,18 @@
       background: color-mix(in srgb, var(--bg) 35%, transparent);
       backdrop-filter: blur(2px);
     }
+
+    @media (max-width: 620px){
+      .paper-frame{
+        min-height: calc(5 * 156px + 4 * 12px);
+      }
+      .paper-card{
+        min-height:156px;
+        grid-template-columns: 112px minmax(0, 1fr);
+      }
+      .paper-thumb{ width:112px; }
+      .paper-card .arrow{ display:none; }
+    }
   </style>
 </head>
 
@@ -333,7 +410,7 @@
   </div>
 
   <script src="data.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=theme-20260509"></script>
 
   <script>
     const paperReviews = window.SITE_DATA.paperReviews || [];
@@ -379,19 +456,41 @@
         title: "준비중",
         desc: "준비중",
         href: "#",
+        thumb: "",
         published: false,
         __placeholder: true
       }));
 
       paperListEl.innerHTML = page.map(item => {
+        if (item.__placeholder) {
+          return `
+            <div class="paper-card placeholder" aria-hidden="true">
+              <div class="paper-thumb"></div>
+              <div class="paper-body">
+                <div class="row-title">placeholder</div>
+                <div class="row-sub muted">placeholder</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+          `;
+        }
+
         const disabled = (!item.published);
-        const cls = disabled ? "row fixed is-disabled" : "row fixed";
+        const cls = disabled ? "paper-card is-disabled" : "paper-card";
+        const title = safeText(item.title);
+        const titleAttr = safeAttr(item.title);
+        const desc = safeText(item.desc);
+        const thumb = safeAttr(item.thumb || "");
+        const href = disabled ? "#" : item.href;
 
         return `
-          <a class="${cls}" href="${item.href}">
-            <div>
-              <div class="row-title">${item.title}</div>
-              <div class="row-sub muted">${item.__placeholder ? "" : item.desc}</div>
+          <a class="${cls}" href="${href}">
+            <div class="paper-thumb">
+              ${thumb ? `<img src="${thumb}" alt="${titleAttr} thumbnail" loading="lazy" />` : ``}
+            </div>
+            <div class="paper-body">
+              <div class="row-title">${title}</div>
+              <div class="row-sub muted">${desc}</div>
               ${disabled ? `<div class="coming-text">준비중입니다</div>` : ``}
             </div>
             <span class="arrow">→</span>
@@ -451,7 +550,11 @@
     const workInfoEl = document.getElementById("workPageInfo");
 
     function safeText(s) {
-      return String(s || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function safeAttr(s) {
+      return safeText(s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     }
 
     function renderWork() {
