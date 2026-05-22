@@ -169,6 +169,75 @@ a:hover{ opacity: .9; }
   color: var(--text);
 }
 
+.visit-card{
+  margin: 12px 0;
+  padding: 12px 0 2px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.visit-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+  font-size:13px;
+}
+
+.visit-grid{
+  display:grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr);
+  gap:12px;
+}
+
+.visit-stat{
+  min-width:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background: transparent;
+}
+
+.visit-stat:first-child{
+  background: transparent;
+  border-color: transparent;
+  transform: translateX(8px);
+}
+
+.visit-stat:nth-child(2){
+  opacity:.58;
+  background: transparent;
+}
+
+.visit-label{
+  display:block;
+  color: var(--muted);
+  font-size:11px;
+  line-height:1.2;
+}
+
+.visit-stat strong{
+  display:block;
+  margin-top:3px;
+  font-size:19px;
+  line-height:1.05;
+  letter-spacing:-0.01em;
+}
+
+.visit-stat:first-child strong{
+  font-size:25px;
+}
+
+.visit-stat:nth-child(2) strong{
+  font-size:15px;
+  font-weight:700;
+}
+
 .sidebar-actions{
   display:none !important;
   gap: 10px;

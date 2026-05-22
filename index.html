@@ -10,6 +10,7 @@
   <meta property="og:title" content="Wooseok Song" />
   <meta property="og:description" content="Paper Reviews & Work" />
   <meta property="og:type" content="website" />
+  <meta name="visit-counter-endpoint" content="https://wooseok-visit-counter.pdwytime.workers.dev" />
 
   <link rel="stylesheet" href="styles.css" />
 
@@ -340,6 +341,22 @@
               </span>
             </div>
           </div>
+
+          <section class="visit-card" aria-label="Visitor count">
+            <div class="visit-card-head">
+              <span class="label">Visits</span>
+            </div>
+            <div class="visit-grid">
+              <div class="visit-stat">
+                <span class="visit-label">Today</span>
+                <strong id="visitToday">--</strong>
+              </div>
+              <div class="visit-stat">
+                <span class="visit-label">Yesterday</span>
+                <strong id="visitYesterday">--</strong>
+              </div>
+            </div>
+          </section>
         </div>
 
         <div class="sidebar-bottom">
