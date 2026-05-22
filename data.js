@@ -70,6 +70,27 @@ window.SITE_DATA = {
                 thumb: "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_3c5b4f92d139.png",
                 published: true
             },
+            {
+                title: "DynaSLAM: Tracking, Mapping and Inpainting in Dynamic Scenes",
+                desc: "근본 Dynamic SLAM",
+                href: "pages/paper_reviews/DynaSLAM/",
+                thumb: "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_d8edd9fb5f2d.png",
+                published: true
+            },
+            {
+                title: "DROID-SLAM in the Wild",
+                desc: "uncertainty + differentiable BA",
+                href: "pages/paper_reviews/DROID-W/",
+                thumb: "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_93795521defc.jpg",
+                published: true
+            },
+            {
+                title: "Dynamic Visual SLAM using a General 3D Prior",
+                desc: "geometric SLAM + feed-forward reconstruction model",
+                href: "pages/paper_reviews/3D-Prior/",
+                thumb: "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_526d869c2e2b.png",
+                published: true
+            },
         ],
         projects: [
         {
