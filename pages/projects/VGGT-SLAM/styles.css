@@ -22,9 +22,9 @@
   --syntax-number: #c2410c;
   --syntax-operator: #334155;
 
-  --radius: 16px;
+  --radius: 14px;
   --shadow: 0 10px 30px rgba(15, 23, 42, .06);
-  --max: 980px;
+  --max: 1040px;
 }
 
 /* Dark gray sits between the white default and the near-black dark theme. */
@@ -108,7 +108,7 @@ a:hover{ opacity: .9; }
 /* Layout */
 .layout{
   display:grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
   min-height: 100vh;
 }
 
@@ -229,6 +229,26 @@ a:hover{ opacity: .9; }
   gap: 12px;
 }
 .brandline{ display:flex; align-items:center; gap: 10px; }
+.home-profile{
+  width:42px;
+  height:42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:13px;
+  overflow:hidden;
+  transition:transform .15s ease, opacity .15s ease;
+}
+.home-profile:hover{
+  transform:translateY(-1px);
+  opacity:1;
+}
+.home-profile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
 .dot{
   width:10px; height:10px; border-radius:50%;
   background: var(--accent);
@@ -326,7 +346,7 @@ a:hover{ opacity: .9; }
   background: var(--panel2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 26px;
   box-shadow: var(--shadow);
 }
 
@@ -483,7 +503,7 @@ a:hover{ opacity: .9; }
   --notion-bg-pink: rgba(236,72,153,.16);
   --notion-bg-red: rgba(239,68,68,.16);
   font-size: 16px;
-  line-height: 1.82;
+  line-height: 1.78;
   overflow-x: hidden;
   word-break: keep-all;
   overflow-wrap: anywhere;
@@ -715,18 +735,18 @@ a:hover{ opacity: .9; }
   border: 1px solid var(--line);
 }
 .post-body figure:has(> .bookmark){
-  max-width: 760px;
+  max-width: 680px;
   margin: 18px 0;
   text-align: left;
 }
 .post-body .bookmark{
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 156px;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) 116px;
+  gap: 12px;
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  padding: 12px;
+  padding: 10px;
   color: inherit;
   text-align: left;
   text-decoration: none;
@@ -791,9 +811,9 @@ a:hover{ opacity: .9; }
   border-radius: 4px;
 }
 .post-body .bookmark img.bookmark-image{
-  width: 156px !important;
-  max-width: 156px !important;
-  height: 104px !important;
+  width: 116px !important;
+  max-width: 116px !important;
+  height: 76px !important;
   margin: 0;
   object-fit: cover;
   border-radius: 10px;
@@ -811,7 +831,9 @@ a:hover{ opacity: .9; }
 
 .post-body video{
   display: block;
+  width: min(100%, 860px);
   max-width: min(100%, 860px);
+  height: auto;
   margin: 18px auto;
   border-radius: 14px;
   border: 1px solid var(--line);
@@ -843,7 +865,8 @@ a:hover{ opacity: .9; }
   border: 1px solid var(--line);
   border-radius: 12px;
   background: color-mix(in srgb, var(--panel2) 72%, transparent);
-  padding: 10px 12px;
+  padding: 0;
+  overflow: hidden;
 }
 .post-body details > summary{
   list-style: none;
@@ -851,6 +874,7 @@ a:hover{ opacity: .9; }
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 10px 12px;
   font-weight: 700;
 }
 .post-body details > summary::-webkit-details-marker{ display:none; }
@@ -865,7 +889,8 @@ a:hover{ opacity: .9; }
   transform: rotate(90deg);
 }
 .post-body details > *:not(summary){
-  margin-left: 20px;
+  margin-left: 0;
+  padding: 0 12px 12px 20px;
 }
 .post-body li:has(> details){
   list-style: none;
@@ -1005,6 +1030,7 @@ a:hover{ opacity: .9; }
 }
 
 @media (max-width: 700px){
+  .panel{ padding: 18px; }
   .post-body{ font-size: 15px; line-height: 1.78; }
   .post-body h1{ font-size: 24px; }
   .post-body h2{ font-size: 20px; }
@@ -1015,9 +1041,7 @@ a:hover{ opacity: .9; }
     grid-template-columns: 1fr;
   }
   .post-body .bookmark img.bookmark-image{
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 128px !important;
+    display: none;
   }
   .post-body .column-list{
     flex-wrap: wrap;
@@ -1030,5 +1054,8 @@ a:hover{ opacity: .9; }
     flex-basis: 100% !important;
     width: 100% !important;
   }
-  .post-body details > *:not(summary){ margin-left: 8px; }
+  .post-body details > *:not(summary){
+    margin-left: 0;
+    padding-left: 10px;
+  }
 }
