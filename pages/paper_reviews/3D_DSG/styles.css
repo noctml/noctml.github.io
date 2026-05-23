@@ -25,6 +25,10 @@
   --radius: 16px;
   --shadow: 0 10px 30px rgba(15, 23, 42, .06);
   --max: 980px;
+  --page-max: 1500px;
+  --right-rail: 330px;
+  --layout-gap: 34px;
+  --content-side-gutter: clamp(28px, 4vw, 64px);
 }
 
 /* Dark gray sits between the white default and the near-black dark theme. */
@@ -1060,8 +1064,8 @@ a:hover{ opacity: .9; }
 
 /* 3D Scene Graph redesign */
 :root{
-  --content-side-gutter: clamp(28px, 5.6vw, 88px);
-  --bookmark-width: 292px;
+  --content-side-gutter: clamp(28px, 4vw, 64px);
+  --bookmark-width: var(--right-rail, 330px);
   --note-font: "Noto Serif KR", "EB Garamond", Georgia, serif;
   --section-heading-size: 23px;
   --section-subheading-size: 17px;
@@ -1071,6 +1075,13 @@ html{ scroll-padding-top: 82px; }
 
 .layout{
   grid-template-columns: minmax(0, 1fr) var(--bookmark-width);
+  column-gap: var(--layout-gap, 34px);
+  width: min(var(--page-max, 1500px), 100%);
+  margin: 0 auto;
+}
+
+.layout > *{
+  min-width: 0;
 }
 
 .content{
@@ -1085,10 +1096,11 @@ html{ scroll-padding-top: 82px; }
   border-right: 0;
   border-left: 1px solid var(--line);
   background: color-mix(in srgb, var(--panel2) 74%, var(--bg));
+  padding: 18px 18px 18px 24px;
 }
 
 .sidebar-card{
-  min-height: calc(100dvh - 36px);
+  min-height: auto;
   border-radius: 10px;
 }
 
@@ -2196,7 +2208,7 @@ html[lang="en"] .post-body details.supplement-toggle > summary::after{
   }
   .topbar-inner,
   .container{
-    width: min(var(--max), calc(100% - 44px));
+    width: min(var(--max), calc(100% - 32px));
     margin-left: auto;
     margin-right: auto;
   }

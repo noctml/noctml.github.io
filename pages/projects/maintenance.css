@@ -1,0 +1,112 @@
+*{
+  box-sizing: border-box;
+}
+
+body.project-maintenance-mode{
+  min-height: 100vh;
+  margin: 0;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: Manrope, Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", Arial, sans-serif;
+}
+
+body.project-maintenance-mode > .skip,
+body.project-maintenance-mode > .layout{
+  display: none !important;
+}
+
+.project-maintenance{
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.project-maintenance-card{
+  width: min(560px, 100%);
+  padding: 34px 28px;
+  border: 1px solid rgba(15, 23, 42, .12);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, .08);
+  text-align: center;
+}
+
+.project-maintenance-label{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  border: 1px solid rgba(15, 23, 42, .12);
+  border-radius: 999px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.project-maintenance-title{
+  margin: 18px 0 8px;
+  font-size: clamp(30px, 8vw, 48px);
+  line-height: 1.12;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.project-maintenance-copy{
+  margin: 0 auto;
+  max-width: 420px;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.project-maintenance-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin-top: 24px;
+  padding: 0 16px;
+  border: 1px solid #0f172a;
+  border-radius: 8px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 780;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.project-maintenance-link:hover{
+  opacity: .88;
+}
+
+@media (prefers-color-scheme: dark){
+  body.project-maintenance-mode{
+    background: #0b0c0f;
+    color: #f8fafc;
+  }
+
+  .project-maintenance-card{
+    border-color: rgba(255, 255, 255, .13);
+    background: #12141a;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .34);
+  }
+
+  .project-maintenance-label{
+    border-color: rgba(255, 255, 255, .14);
+    color: #a8afc0;
+  }
+
+  .project-maintenance-copy{
+    color: #a8afc0;
+  }
+
+  .project-maintenance-link{
+    border-color: #f8fafc;
+    background: #f8fafc;
+    color: #0b0c0f;
+  }
+}

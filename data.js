@@ -97,7 +97,7 @@ window.SITE_DATA = {
             title: "ORB-SLAM2",
             desc: "오픈소스 실습",
             href: "pages/projects/ORB-SLAM2_tut/",
-            published: true,
+            published: false,
             tags: ["ORB-SLAM2", "Visual SLAM", "GitHub"],
             thumb: "pages/projects/ORB-SLAM2_tut/assets/thumb/media_6e1be0e7619d.jpg"
         },
@@ -106,7 +106,7 @@ window.SITE_DATA = {
                 desc: "오픈소스 실습 진행 (with office, custom dataset)",
                 href: "pages/projects/VGGT-SLAM/",
                 thumb: "pages/projects/VGGT-SLAM/assets/실습-진행/media/media_f58800e22a2b.png",
-                published: true
+                published: false
             },
     ]
 };

@@ -272,7 +272,7 @@
     .card.placeholder .work-desc{ height:12px; width:88%; }
     .card.placeholder .work-date{ height:12px; width:40%; }
 
-    /* Unpublished card: same structure, show "준비중입니다" */
+    /* Unpublished card: same structure, show "준비중..." */
     .work-unpub{
       height:196px;
       display:flex;
@@ -283,7 +283,7 @@
       position:relative;
     }
     .work-unpub .work-thumb::after{
-      content:"준비중입니다";
+      content:"준비중...";
       position:absolute;
       inset:0;
       display:flex;
@@ -508,7 +508,7 @@
             <div class="paper-body">
               <div class="row-title">${title}</div>
               <div class="row-sub muted">${desc}</div>
-              ${disabled ? `<div class="coming-text">준비중입니다</div>` : ``}
+              ${disabled ? `<div class="coming-text">준비중...</div>` : ``}
             </div>
             <span class="arrow">→</span>
           </a>
@@ -535,7 +535,7 @@
             <div>
               <div class="row-title">${item.title}</div>
               <div class="row-sub muted">${disabled ? "" : item.desc}</div>
-              ${disabled ? `<div class="coming-text">준비중입니다</div>` : ``}
+              ${disabled ? `<div class="coming-text">준비중...</div>` : ``}
             </div>
             <span class="arrow">→</span>
           </a>
@@ -615,7 +615,7 @@
                 </div>
                 <div class="work-body">
                   <div class="work-title">${title || "준비중"}</div>
-                  <div class="work-desc"></div>
+                  <div class="work-desc">준비중...</div>
                   <div class="work-meta">
                     <span class="work-date">${date || ""}</span>
                     <span></span>
