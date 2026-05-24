@@ -1656,7 +1656,7 @@ html{ scroll-padding-top: 82px; }
 .post-body table.summary-table{
   display: table;
   width: 100%;
-  min-width: 680px;
+  min-width:0;
   table-layout: fixed;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -3371,4 +3371,59 @@ html[data-theme="dark"]{
 .post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex,
 .post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
   transform:none;
+}
+
+/* QA: prevent equation glyph clipping while preserving horizontal scroll. */
+.post-body figure.equation .equation-render{
+  overflow-x:auto;
+  overflow-y:visible !important;
+}
+
+.post-body figure.equation .equation-main,
+.post-body figure.equation .equation-main-original,
+.post-body figure.equation .equation-main-original .equation-container,
+.post-body figure.equation .original-equation-stack,
+.post-body figure.equation .original-equation-part,
+.post-body figure.equation .original-equation-part > .equation-container,
+.post-body figure.equation .katex-display{
+  overflow:visible !important;
+}
+
+.post-body figure.equation .katex-display{
+  padding-block:.08em;
+}
+
+/* QA: keep table text readable on narrow screens. */
+.post-body table th,
+.post-body table td{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
+/* QA: fit summary tables on mobile without horizontal clipping. */
+@media (max-width:640px){
+  .post-body .summary-table-wrap{
+    width:100%;
+    max-width:100%;
+    overflow-x:visible;
+  }
+  .post-body table.summary-table{
+    width:100%;
+    min-width:0;
+    table-layout:fixed;
+  }
+  .post-body .summary-table th,
+  .post-body .summary-table td{
+    padding:8px 7px;
+    font-size:.82em;
+    line-height:1.5;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+  .post-body .summary-table :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+    max-width:100%;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
 }

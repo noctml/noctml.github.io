@@ -1031,13 +1031,14 @@ a:hover{ opacity: .9; }
   margin: 0;
 }
 .summary-table-wrap{
-  width: var(--supplement-panel-width, calc(100vw - 48px));
-  overflow-x: auto;
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
 }
 .post-body table.summary-table{
   display: table;
   width: 100%;
-  min-width: 680px;
+  min-width:0;
   table-layout: fixed;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -3650,10 +3651,115 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tag{
 
 /* Body inline equation baseline refinement: keep table/caption math neutral. */
 .post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  vertical-align:-.03em;
+  vertical-align:-.16em;
+}
+
+.post-body :is(.result-brief, .section-note) :is(p, li) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:.04em !important;
 }
 
 .post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token),
 .post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
   vertical-align:middle;
+}
+
+/* SLIM-VDB supplement polish: keep notation-heavy toggle math on a neutral baseline. */
+.post-body details.supplement-toggle :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+  align-items:center;
+  vertical-align:middle;
+  transform:none;
+  line-height:1.12;
+}
+
+.post-body details.supplement-toggle :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
+  line-height:1;
+  transform:translateY(.02em);
+}
+
+.post-body details.supplement-toggle :is(td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
+  transform:none;
+}
+
+/* Convert Notion gray-highlight subheadings such as Theorem labels into the local auxiliary-label theme. */
+.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-gray_background:has(> em > strong),
+.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-default_background:has(> em > strong),
+.post-body details.supplement-toggle :is(p, blockquote, h4).highlight-gray_background:has(> em > strong){
+  display:inline-flex !important;
+  align-items:center;
+  width:fit-content;
+  max-width:100%;
+  min-height:30px;
+  margin:20px 0 10px;
+  padding:6px 11px !important;
+  border:1px solid color-mix(in srgb, var(--text) 11%, var(--line));
+  border-left:3px solid color-mix(in srgb, var(--text) 28%, var(--line));
+  border-radius:8px;
+  background:color-mix(in srgb, var(--panel) 76%, var(--bg)) !important;
+  color:var(--text) !important;
+  font-size:.94rem;
+  font-weight:780;
+  line-height:1.25;
+  box-shadow:0 8px 18px rgba(15,23,42,.04);
+}
+
+.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-gray_background:has(> em > strong) :is(em, strong),
+.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-default_background:has(> em > strong) :is(em, strong),
+.post-body details.supplement-toggle :is(p, blockquote, h4).highlight-gray_background:has(> em > strong) :is(em, strong){
+  font-style:normal;
+  font-weight:780;
+}
+
+/* QA: prevent equation glyph clipping while preserving horizontal scroll. */
+.post-body figure.equation .equation-render{
+  overflow-x:auto;
+  overflow-y:visible !important;
+}
+
+.post-body figure.equation .equation-main,
+.post-body figure.equation .equation-main-original,
+.post-body figure.equation .equation-main-original .equation-container,
+.post-body figure.equation .original-equation-stack,
+.post-body figure.equation .original-equation-part,
+.post-body figure.equation .original-equation-part > .equation-container,
+.post-body figure.equation .katex-display{
+  overflow:visible !important;
+}
+
+.post-body figure.equation .katex-display{
+  padding-block:.08em;
+}
+
+/* QA: keep table text readable on narrow screens. */
+.post-body table th,
+.post-body table td{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
+/* QA: fit summary tables on mobile without horizontal clipping. */
+@media (max-width:640px){
+  .post-body .summary-table-wrap{
+    width:100%;
+    max-width:100%;
+    overflow-x:visible;
+  }
+  .post-body table.summary-table{
+    width:100%;
+    min-width:0;
+    table-layout:fixed;
+  }
+  .post-body .summary-table th,
+  .post-body .summary-table td{
+    padding:8px 7px;
+    font-size:.82em;
+    line-height:1.5;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+  .post-body .summary-table :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+    max-width:100%;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
 }
