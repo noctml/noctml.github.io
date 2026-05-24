@@ -3564,6 +3564,26 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tag{
   color:#f3f4f6;
 }
 
+figure.equation-tag-gutter .equation-side-tags{
+  justify-self:end;
+  display:grid;
+  gap:.58em;
+  color:#111827;
+  font-family:"KaTeX_Main", "Times New Roman", serif;
+  font-size:1.1rem;
+  line-height:1;
+  white-space:nowrap;
+}
+
+figure.equation-tag-gutter .equation-side-tags .equation-side-tag{
+  display:block;
+  justify-self:end;
+}
+
+html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tags{
+  color:#f3f4f6;
+}
+
 /* Equation baseline harmonization: Chamelion-style inline math, DROID-W-style table reset 2026-05-22. */
 .post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
   font-size:.92em;
@@ -3680,6 +3700,22 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tag{
   transform:none;
 }
 
+.post-body details.supplement-toggle .math-token sub,
+.post-body details.supplement-toggle .inline-equation-token sub,
+.post-body details.supplement-toggle .equation-chip-part sub{
+  position:relative;
+  bottom:-.22em;
+  vertical-align:baseline;
+}
+
+.post-body details.supplement-toggle .math-token sup,
+.post-body details.supplement-toggle .inline-equation-token sup,
+.post-body details.supplement-toggle .equation-chip-part sup{
+  position:relative;
+  top:-.48em;
+  vertical-align:baseline;
+}
+
 /* Convert Notion gray-highlight subheadings such as Theorem labels into the local auxiliary-label theme. */
 .post-body details.supplement-toggle :is(p, blockquote, h4).block-color-gray_background:has(> em > strong),
 .post-body details.supplement-toggle :is(p, blockquote, h4).block-color-default_background:has(> em > strong),
@@ -3762,4 +3798,285 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tag{
     overflow-wrap:anywhere;
     word-break:break-word;
   }
+}
+
+/* Final inline KaTeX baseline: keep body, yellow notes, and toggles visually consistent. */
+.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body :is(.result-brief, .section-note) :is(p, li) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:-.16em !important;
+}
+
+.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex{
+  transform:none;
+  line-height:1;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token),
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token),
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:middle;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex,
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex,
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex{
+  transform:none;
+  line-height:1;
+}
+
+/* Supplement text rhythm: align explanatory copy with the local card and label system. */
+.post-body details.supplement-toggle .appendix-details .summary-head p{
+  display:block;
+  margin-top:7px;
+  padding-top:1px;
+  line-height:1.62;
+  transform:translateY(1px);
+}
+
+.post-body details.supplement-toggle .supplement-guide .summary-head p{
+  margin-top:7px;
+}
+
+.post-body details.supplement-toggle .supplement-stepper article{
+  align-items:center;
+}
+
+.post-body details.supplement-toggle .supplement-card p,
+.post-body details.supplement-toggle .supplement-stepper p{
+  padding-top:2px;
+  line-height:1.58;
+}
+
+.post-body details.supplement-toggle .summary-panel .summary-table td{
+  vertical-align:middle;
+}
+
+/* SLIM-VDB Bayesian update supplement: make the notation-heavy toggle read like a small chapter. */
+.post-body details.supplement-toggle .supplement-guide{
+  display:grid;
+  gap:20px;
+}
+
+.post-body details.supplement-toggle .supplement-guide > .summary-panel{
+  margin:0;
+  padding:18px clamp(16px, 2.4vw, 24px);
+  border:1px solid color-mix(in srgb, var(--text) 10%, var(--line));
+  border-left:4px solid color-mix(in srgb, var(--text) 32%, var(--line));
+  border-radius:10px;
+  background:color-mix(in srgb, var(--panel2) 88%, var(--bg));
+  box-shadow:0 10px 22px rgba(15, 23, 42, .035);
+}
+
+.post-body details.supplement-toggle .supplement-guide > .summary-panel > .summary-head{
+  margin:0 0 14px;
+  padding:0 0 12px;
+  border-bottom:1px solid color-mix(in srgb, var(--text) 9%, var(--line));
+}
+
+.post-body details.supplement-toggle .supplement-guide > .summary-panel > .summary-head > .subsection-label{
+  display:inline-flex;
+  align-items:center;
+  width:fit-content;
+  max-width:100%;
+  margin:0;
+  padding:6px 11px;
+  border:1px solid color-mix(in srgb, var(--text) 12%, var(--line));
+  border-radius:8px;
+  background:color-mix(in srgb, var(--panel) 78%, var(--bg));
+  color:color-mix(in srgb, var(--text) 88%, var(--muted));
+  font-size:.91rem;
+  font-weight:780;
+  line-height:1.25;
+}
+
+.post-body details.supplement-toggle .supplement-guide > .summary-panel > .summary-head p{
+  max-width:76ch;
+  margin-top:10px;
+  padding-top:0;
+  color:color-mix(in srgb, var(--text) 72%, var(--muted));
+  font-size:.92rem;
+  line-height:1.68;
+  transform:none;
+}
+
+.post-body details.supplement-toggle .supplement-guide > .supplement-section{
+  position:relative;
+  margin-top:0;
+}
+
+.post-body details.supplement-toggle .supplement-guide > .supplement-section::before{
+  content:none;
+}
+
+.post-body details.supplement-toggle .supplement-guide > .supplement-section > .summary-head{
+  padding-top:0;
+  border-top:0;
+}
+
+.post-body details.supplement-toggle .supplement-guide > .supplement-section-divider{
+  width:100%;
+  height:1px;
+  margin:20px 0 0;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--text) 28%, var(--line)) 12%,
+    color-mix(in srgb, var(--text) 28%, var(--line)) 88%,
+    transparent
+  );
+}
+
+.post-body details.supplement-toggle .supplement-guide > .supplement-section-divider + .supplement-section{
+  border-top-color:transparent;
+}
+
+.post-body details.supplement-toggle .supplement-guide .supplement-stepper,
+.post-body details.supplement-toggle .supplement-guide .supplement-card-grid,
+.post-body details.supplement-toggle .supplement-guide .summary-table-wrap{
+  margin-top:14px;
+}
+
+.post-body details.supplement-toggle .supplement-guide .supplement-stepper article,
+.post-body details.supplement-toggle .supplement-guide .supplement-card{
+  border-color:color-mix(in srgb, var(--text) 11%, var(--line));
+  background:color-mix(in srgb, var(--bg) 78%, var(--panel));
+}
+
+.post-body details.supplement-toggle .supplement-guide .supplement-card strong,
+.post-body details.supplement-toggle .supplement-guide .supplement-stepper strong{
+  font-size:.92rem;
+}
+
+.post-body details.supplement-toggle .supplement-guide .supplement-card p,
+.post-body details.supplement-toggle .supplement-guide .supplement-stepper p,
+.post-body details.supplement-toggle .supplement-guide .summary-table td{
+  font-size:.88rem;
+  line-height:1.58;
+}
+
+.post-body details.supplement-toggle .supplement-guide .bulleted-list{
+  margin:.4rem 0 .7rem;
+  padding:.35rem 0 .35rem 1.35rem;
+  border:0;
+  border-left:2px solid color-mix(in srgb, var(--text) 10%, var(--line));
+  border-radius:0;
+  background:transparent;
+}
+
+.post-body details.supplement-toggle .supplement-guide .bulleted-list .bulleted-list{
+  margin:.28rem 0 0;
+  padding:.12rem 0 .12rem 1.05rem;
+  border-left:0;
+}
+
+.post-body details.supplement-toggle .supplement-guide .bulleted-list > li{
+  padding-left:.1rem;
+}
+
+.post-body details.supplement-toggle .supplement-guide .bulleted-list > li + li{
+  margin-top:.32rem;
+}
+
+/* Theorem 2 closed-form rows: keep each equation number in a right-side gutter. */
+.post-body figure.slim-vdb-closed-form-equation{
+  margin:18px 0 20px;
+}
+
+.post-body figure.slim-vdb-closed-form-equation > .equation-container{
+  display:grid;
+  gap:9px;
+}
+
+.post-body figure.slim-vdb-closed-form-equation .equation-tagged-row{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) auto;
+  align-items:center;
+  gap:12px;
+  width:100%;
+}
+
+.post-body figure.slim-vdb-closed-form-equation .equation-main{
+  min-width:0;
+  overflow-x:auto;
+  overflow-y:visible;
+  padding:.03rem 0;
+}
+
+.post-body figure.slim-vdb-closed-form-equation .katex-display{
+  margin:0;
+  padding-block:.04em;
+}
+
+.post-body figure.slim-vdb-closed-form-equation .equation-side-tag{
+  justify-self:end;
+  color:var(--text);
+  font-family:"KaTeX_Main", "Times New Roman", serif;
+  font-size:1.1rem;
+  line-height:1;
+  white-space:nowrap;
+}
+
+@media (max-width:640px){
+  .post-body figure.slim-vdb-closed-form-equation .equation-tagged-row{
+    grid-template-columns:minmax(0, 1fr) auto;
+    gap:8px;
+  }
+
+  .post-body figure.slim-vdb-closed-form-equation .equation-side-tag{
+    font-size:.98rem;
+  }
+}
+
+/* Final equation and text rhythm pass 2026-05-24. */
+.post-body :is(p, li, figcaption, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body :is(.result-brief, .section-note) :is(p, li, figcaption) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em !important;
+}
+
+.post-body details.supplement-toggle :is(p, li, figcaption, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body :is(p, li, figcaption, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex{
+  line-height:1;
+  transform:none;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:middle;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex,
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex,
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex{
+  line-height:1;
+  transform:none;
+}
+
+.post-body details.supplement-toggle .appendix-details :is(p, li, td, th, figcaption),
+.post-body details.supplement-toggle .supplement-guide :is(p, li, td, th, figcaption){
+  line-height:1.6;
+}
+
+.post-body details.supplement-toggle .appendix-details .summary-head p,
+.post-body details.supplement-toggle .supplement-guide .summary-head p{
+  margin-top:7px;
+  padding-top:0;
+  transform:none;
 }

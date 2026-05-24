@@ -12,7 +12,7 @@
   <meta property="og:type" content="website" />
   <meta name="visit-counter-endpoint" content="https://wooseok-visit-counter.pdwytime.workers.dev" />
 
-  <link rel="stylesheet" href="styles.css?v=visit-counter-20260523" />
+  <link rel="stylesheet" href="styles.css?v=main-cleanup-20260525" />
 
   <style>
     /* Sidebar */
@@ -21,21 +21,11 @@
       flex-direction:column;
       min-height: calc(100dvh - 40px);
     }
-    .side-nav{ display:none !important; }
-    .sidebar-actions{ display:none !important; }
-
     .sidebar-bottom{
       margin-top:auto;
       display:grid;
       gap:10px;
       padding-top:12px;
-    }
-    .btn.small{
-      padding:8px 10px;
-      font-size:13px;
-      border-radius:12px;
-      width:100%;
-      text-align:center;
     }
     .contact-buttons{
       display:flex;
@@ -220,13 +210,6 @@
       grid-auto-rows: 196px;
     }
 
-    /* Paper rows */
-    .row.fixed{
-      min-height:64px;
-      display:flex;
-      align-items:center;
-    }
-
     /* Disabled state */
     .is-disabled{
       opacity:0.45;
@@ -237,9 +220,6 @@
       font-size:12px;
       color:var(--muted);
     }
-
-    /* Keep footer text exactly */
-    #updated, #year{ display:none; }
 
     /* Work cards: keep identical sizing */
     #workGrid { grid-auto-rows: 196px; }
@@ -385,17 +365,11 @@
           <div class="info">
             <div class="info-row">
               <span class="label">Focus</span>
-              <span class="value">Deep Visual SLAM</span>
+              <span class="value">SLAM, Deep Learning</span>
             </div>
             <div class="info-row">
               <span class="label">Location</span>
               <span class="value">Korea</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Links</span>
-              <span class="value">
-                <a href="https://github.com/noctml" target="_blank" rel="noreferrer">GitHub</a>
-              </span>
             </div>
           </div>
 
@@ -496,23 +470,16 @@
           </div>
         </section>
 
-        <span id="updated"></span>
       </main>
     </div>
   </div>
 
-  <script src="data.js"></script>
-  <script src="script.js?v=visit-counter-20260523"></script>
+  <script src="data.js?v=paper-order-20260525"></script>
+  <script src="script.js?v=main-cleanup-20260525"></script>
 
   <script>
     const paperReviews = window.SITE_DATA.paperReviews || [];
     const workItems    = window.SITE_DATA.projects || [];
-    // const workItems = [
-    //   { title: "Project A", desc: "설명 한 줄", date: "2025-12-01", thumb: "assets/work/thumb_a.jpg", href: "#", published: false },
-    //   { title: "Project B", desc: "설명 한 줄", date: "2025-12-02", thumb: "assets/work/thumb_b.jpg", href: "#", published: false },
-    //   { title: "Project C", desc: "설명 한 줄", date: "2025-12-03", thumb: "assets/work/thumb_c.jpg", href: "#", published: false },
-    //   { title: "Project D", desc: "설명 한 줄", date: "2025-12-04", thumb: "assets/work/thumb_d.jpg", href: "#", published: false }
-    // ];
 
     function chunk(arr, size) {
       const out = [];
@@ -594,30 +561,6 @@
       paperPrevEl.disabled = (paperPage === 0);
       paperNextEl.disabled = (paperPage === total - 1);
     }
-
-    // for Projects
-    function renderProjects(items){
-      const root = document.getElementById("projectsList");
-      if (!root) return;
-
-      root.innerHTML = items.map(item => {
-        const disabled = !item.published;
-        const cls = "rowlink" + (disabled ? " disabled" : "");
-        const href = disabled ? "#" : item.href;
-
-        return `
-          <a class="${cls}" href="${href}" ${disabled ? 'aria-disabled="true"' : ""}>
-            <div>
-              <div class="row-title">${item.title}</div>
-              <div class="row-sub muted">${disabled ? "" : item.desc}</div>
-              ${disabled ? `<div class="coming-text">준비중...</div>` : ``}
-            </div>
-            <span class="arrow">→</span>
-          </a>
-        `;
-      }).join("");
-    }
-
 
     paperPrevEl.addEventListener("click", () => {
       if (paperPage === 0) return;

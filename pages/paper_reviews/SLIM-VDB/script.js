@@ -555,6 +555,7 @@
           window.setTimeout(() => {
             if (!details.open || !isVisible(details)) return;
             lazyBody.mount();
+            window.syncEquationSideTags?.(details);
             details.classList.remove("is-loading-supplement");
             details.scrollTop = 0;
             scheduleOpenAlignment(details);
@@ -712,4 +713,230 @@ function rebuildBookmarks() {
       next.textContent = next.textContent.slice(1);
     }
   });
+})();
+
+(() => {
+  const collectAnnotationTags = (figure) => {
+    const annotation = figure.querySelector('annotation[encoding="application/x-tex"]');
+    const tex = annotation?.textContent || "";
+    const tags = [];
+    const seen = new Set();
+    const patterns = [
+      /\\tag\{([^}]+)\}/g,
+      /\\qquad\s*\(?([0-9]+)\)?/g
+    ];
+
+    patterns.forEach((pattern) => {
+      let match;
+      while ((match = pattern.exec(tex))) {
+        const tag = (match[1] || "").trim();
+        if (tag && !seen.has(tag)) {
+          seen.add(tag);
+          tags.push(tag);
+        }
+      }
+    });
+
+    return tags;
+  };
+
+  const collectEquationTags = (figure) => {
+    const explicitTags = figure.dataset.equationTags
+      ?.split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+
+    return explicitTags?.length ? explicitTags : collectAnnotationTags(figure);
+  };
+
+  const nearestMathAtom = (node) => {
+    const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+    return element?.closest(".mopen, .mord, .mclose, .mpunct") || element;
+  };
+
+  const hidePreviousSpacing = (element) => {
+    let current = element?.previousElementSibling;
+    while (current && current.style.display === "none") {
+      current = current.previousElementSibling;
+    }
+    if (current?.classList.contains("mspace")) {
+      current.style.display = "none";
+      current = current.previousElementSibling;
+    }
+    if (current?.classList.contains("mpunct") && current.textContent.trim() === ",") {
+      current.style.display = "none";
+    }
+  };
+
+  const hideVisibleTag = (root, tag) => {
+    const target = `(${tag})`;
+    const text = root.textContent || "";
+    const start = text.indexOf(target);
+    if (start < 0) return;
+
+    const end = start + target.length;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const touched = [];
+    let cursor = 0;
+    let node;
+
+    while ((node = walker.nextNode())) {
+      const value = node.nodeValue || "";
+      const nodeStart = cursor;
+      const nodeEnd = cursor + value.length;
+      cursor = nodeEnd;
+
+      if (nodeEnd <= start || nodeStart >= end) continue;
+
+      const localStart = Math.max(0, start - nodeStart);
+      const localEnd = Math.min(value.length, end - nodeStart);
+      node.nodeValue = `${value.slice(0, localStart)}${value.slice(localEnd)}`;
+      const atom = nearestMathAtom(node);
+      if (atom) touched.push(atom);
+    }
+
+    touched.forEach((atom, index) => {
+      if (index === 0) hidePreviousSpacing(atom);
+      if (!atom.textContent.trim()) atom.style.display = "none";
+    });
+  };
+
+  const syncEquationSideTags = (scope = document) => {
+    scope.querySelectorAll("figure.equation").forEach((figure) => {
+    if (figure.classList.contains("slim-vdb-closed-form-equation")) return;
+    if (figure.querySelector(".equation-side-tag, .equation-side-tags")) return;
+
+    const tags = collectEquationTags(figure);
+    if (!tags.length) return;
+
+    const katexHtml = figure.querySelector(".katex-html");
+    if (!katexHtml) return;
+
+    const tagsToHide = [...new Set([...collectAnnotationTags(figure), ...tags])];
+    tagsToHide.forEach((tag) => hideVisibleTag(katexHtml, tag));
+
+    figure.classList.add("equation-tag-gutter");
+    const side = document.createElement("span");
+    side.setAttribute("aria-hidden", "true");
+
+    if (tags.length === 1) {
+      side.className = "equation-side-tag";
+      side.textContent = `(${tags[0]})`;
+    } else {
+      side.className = "equation-side-tags";
+      tags.forEach((tag) => {
+        const tagNode = document.createElement("span");
+        tagNode.className = "equation-side-tag";
+        tagNode.textContent = `(${tag})`;
+        side.appendChild(tagNode);
+      });
+    }
+
+    figure.appendChild(side);
+  });
+  };
+
+  window.syncEquationSideTags = syncEquationSideTags;
+  syncEquationSideTags();
+})();
+
+
+(() => {
+  const KATEX_SCRIPT_URL = "https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js";
+  let katexLoadPromise = null;
+
+  const ensureKatex = () => {
+    if (window.katex) return Promise.resolve(window.katex);
+    if (katexLoadPromise) return katexLoadPromise;
+
+    katexLoadPromise = new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-katex-runtime="true"]');
+      if (existing) {
+        existing.addEventListener("load", () => resolve(window.katex), { once: true });
+        existing.addEventListener("error", reject, { once: true });
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = KATEX_SCRIPT_URL;
+      script.async = true;
+      script.dataset.katexRuntime = "true";
+      script.onload = () => resolve(window.katex);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    return katexLoadPromise;
+  };
+
+  const renderInlineTokens = (root = document) => {
+    if (!window.katex) return;
+    root.querySelectorAll("[data-tex-inline]").forEach((token) => {
+      if (token.dataset.katexRendered === "true") return;
+      const tex = token.dataset.texInline;
+      if (!tex) return;
+      try {
+        window.katex.render(tex, token, {
+          displayMode: false,
+          throwOnError: false,
+          strict: "ignore",
+          trust: true
+        });
+        token.dataset.katexRendered = "true";
+        token.classList.add("katex-source-rendered");
+      } catch (error) {
+        token.dataset.katexRendered = "error";
+      }
+    });
+  };
+
+  const renderDisplayTokens = (root = document) => {
+    if (!window.katex) return;
+    root.querySelectorAll("figure.equation[data-tex-display]").forEach((figure) => {
+      if (figure.dataset.katexRendered === "true") return;
+      const tex = figure.dataset.texDisplay;
+      const target = figure.querySelector(".equation-main") || figure.querySelector(".equation-render");
+      if (!tex || !target) return;
+      try {
+        window.katex.render(tex, target, {
+          displayMode: true,
+          throwOnError: false,
+          strict: "ignore",
+          trust: true
+        });
+        figure.dataset.katexRendered = "true";
+        figure.classList.add("katex-display-source-rendered");
+      } catch (error) {
+        figure.dataset.katexRendered = "error";
+      }
+    });
+  };
+
+  const renderLocalKatexTokens = (root = document) => {
+    ensureKatex()
+      .then(() => {
+        renderInlineTokens(root);
+        renderDisplayTokens(root);
+        window.syncEquationSideTags?.(root);
+      })
+      .catch(() => {});
+  };
+
+  window.renderLocalKatexTokens = renderLocalKatexTokens;
+  renderLocalKatexTokens();
+
+  const postBody = document.querySelector(".post-body") || document.body;
+  if (postBody) {
+    const observer = new MutationObserver((mutations) => {
+      const shouldRender = mutations.some((mutation) =>
+        [...mutation.addedNodes].some((node) =>
+          node.nodeType === Node.ELEMENT_NODE && (
+            node.matches?.("[data-tex-inline], figure.equation[data-tex-display]") ||
+            node.querySelector?.("[data-tex-inline], figure.equation[data-tex-display]")
+          )
+        )
+      );
+      if (shouldRender) renderLocalKatexTokens(postBody);
+    });
+    observer.observe(postBody, { childList: true, subtree: true });
+  }
 })();

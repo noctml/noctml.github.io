@@ -1970,6 +1970,16 @@ a:hover{ opacity: .9; }
   color: var(--muted);
   font-size: .95em;
 }
+.post-body figure figcaption .caption-source{
+  color: color-mix(in srgb, var(--muted) 86%, var(--text));
+  font-size: .9em;
+}
+.post-body .supplement-figure-divider{
+  width: min(100%, 720px);
+  height: 1px;
+  margin: 1.35rem auto 1.25rem;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--line) 82%, var(--text) 18%), transparent);
+}
 .post-body .figure-pair{
   --figure-pair-image-height: clamp(150px, 23vw, 260px);
   display: grid;
@@ -4135,6 +4145,16 @@ html[data-theme="dark"]{
 .post-body figure.equation figcaption .math-token sup{
   font-size: .68em;
   line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.post-body figure.equation figcaption .inline-equation-token sub,
+.post-body figure.equation figcaption .math-token sub{
+  bottom: -.22em;
+}
+.post-body figure.equation figcaption .inline-equation-token sup,
+.post-body figure.equation figcaption .math-token sup{
+  top: -.48em;
 }
 .post-body img[src*="media_fig2_system_overview"]{
   max-width: min(100%, 860px);
@@ -4328,4 +4348,129 @@ html[data-theme="dark"]{
     overflow-wrap:anywhere;
     word-break:break-word;
   }
+}
+
+
+/* Final inline KaTeX baseline: keep body, yellow notes, and toggles visually consistent. */
+.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body :is(.result-brief, .section-note) :is(p, li) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:-.16em !important;
+}
+
+.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
+  transform:none;
+  line-height:1;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token),
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token),
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
+  vertical-align:middle;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex,
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex,
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
+  transform:none;
+  line-height:1;
+}
+
+/* Supplement text rhythm: align explanatory copy with the local card and label system. */
+.post-body details.supplement-toggle .appendix-details .summary-head p{
+  display:block;
+  margin-top:7px;
+  padding-top:1px;
+  line-height:1.62;
+  transform:translateY(1px);
+}
+
+.post-body details.supplement-toggle .supplement-guide .summary-head p{
+  margin-top:7px;
+}
+
+.post-body details.supplement-toggle .supplement-stepper article{
+  align-items:center;
+}
+
+.post-body details.supplement-toggle .supplement-card p,
+.post-body details.supplement-toggle .supplement-stepper p{
+  padding-top:2px;
+  line-height:1.58;
+}
+
+.post-body details.supplement-toggle .summary-panel .summary-table td{
+  vertical-align:middle;
+}
+
+/* ORB-SLAM2 equation captions: compact inline KaTeX without extra descender space. */
+.post-body figure.equation figcaption :is(.notion-text-equation-token, .inline-equation-token, .math-token){
+  display:inline-flex !important;
+  align-items:center;
+  margin:0 .04rem;
+  padding:.02rem .3rem .025rem !important;
+  font-size:.96em;
+  line-height:1 !important;
+  vertical-align:-.06em !important;
+}
+
+.post-body figure.equation figcaption :is(.notion-text-equation-token, .inline-equation-token, .math-token) :is(.katex, .katex-html){
+  line-height:1 !important;
+}
+
+.post-body figure.equation figcaption .notion-text-equation-token > span:empty{
+  display:none;
+}
+
+/* Final equation and text rhythm pass 2026-05-24. */
+.post-body :is(p, li, figcaption, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body :is(.result-brief, .section-note) :is(p, li, figcaption) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em !important;
+}
+
+.post-body details.supplement-toggle :is(p, li, figcaption, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em;
+  line-height:1.08;
+}
+
+.post-body :is(p, li, figcaption, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex{
+  line-height:1;
+  transform:none;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:middle;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex,
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex,
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]) .katex{
+  line-height:1;
+  transform:none;
+}
+
+.post-body details.supplement-toggle .appendix-details :is(p, li, td, th, figcaption),
+.post-body details.supplement-toggle .supplement-guide :is(p, li, td, th, figcaption){
+  line-height:1.6;
+}
+
+.post-body details.supplement-toggle .appendix-details .summary-head p,
+.post-body details.supplement-toggle .supplement-guide .summary-head p{
+  margin-top:7px;
+  padding-top:0;
+  transform:none;
 }

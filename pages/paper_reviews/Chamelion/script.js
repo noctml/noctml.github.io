@@ -750,3 +750,104 @@ function rebuildBookmarks() {
     }
   });
 })();
+
+
+(() => {
+  const KATEX_SCRIPT_URL = "https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js";
+  let katexLoadPromise = null;
+
+  const ensureKatex = () => {
+    if (window.katex) return Promise.resolve(window.katex);
+    if (katexLoadPromise) return katexLoadPromise;
+
+    katexLoadPromise = new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-katex-runtime="true"]');
+      if (existing) {
+        existing.addEventListener("load", () => resolve(window.katex), { once: true });
+        existing.addEventListener("error", reject, { once: true });
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = KATEX_SCRIPT_URL;
+      script.async = true;
+      script.dataset.katexRuntime = "true";
+      script.onload = () => resolve(window.katex);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    return katexLoadPromise;
+  };
+
+  const renderInlineTokens = (root = document) => {
+    if (!window.katex) return;
+    root.querySelectorAll("[data-tex-inline]").forEach((token) => {
+      if (token.dataset.katexRendered === "true") return;
+      const tex = token.dataset.texInline;
+      if (!tex) return;
+      try {
+        window.katex.render(tex, token, {
+          displayMode: false,
+          throwOnError: false,
+          strict: "ignore",
+          trust: true
+        });
+        token.dataset.katexRendered = "true";
+        token.classList.add("katex-source-rendered");
+      } catch (error) {
+        token.dataset.katexRendered = "error";
+      }
+    });
+  };
+
+  const renderDisplayTokens = (root = document) => {
+    if (!window.katex) return;
+    root.querySelectorAll("figure.equation[data-tex-display]").forEach((figure) => {
+      if (figure.dataset.katexRendered === "true") return;
+      const tex = figure.dataset.texDisplay;
+      const target = figure.querySelector(".equation-main") || figure.querySelector(".equation-render");
+      if (!tex || !target) return;
+      try {
+        window.katex.render(tex, target, {
+          displayMode: true,
+          throwOnError: false,
+          strict: "ignore",
+          trust: true
+        });
+        figure.dataset.katexRendered = "true";
+        figure.classList.add("katex-display-source-rendered");
+      } catch (error) {
+        figure.dataset.katexRendered = "error";
+      }
+    });
+  };
+
+  const renderLocalKatexTokens = (root = document) => {
+    ensureKatex()
+      .then(() => {
+        renderInlineTokens(root);
+        renderDisplayTokens(root);
+        window.syncEquationSideTags?.(root);
+      })
+      .catch(() => {});
+  };
+
+  window.renderLocalKatexTokens = renderLocalKatexTokens;
+  renderLocalKatexTokens();
+
+  const postBody = document.querySelector(".post-body") || document.body;
+  if (postBody) {
+    const observer = new MutationObserver((mutations) => {
+      const shouldRender = mutations.some((mutation) =>
+        [...mutation.addedNodes].some((node) =>
+          node.nodeType === Node.ELEMENT_NODE && (
+            node.matches?.("[data-tex-inline], figure.equation[data-tex-display]") ||
+            node.querySelector?.("[data-tex-inline], figure.equation[data-tex-display]")
+          )
+        )
+      );
+      if (shouldRender) renderLocalKatexTokens(postBody);
+    });
+    observer.observe(postBody, { childList: true, subtree: true });
+  }
+})();
