@@ -1,6 +1,27 @@
 window.SITE_DATA = {
         paperReviews: [
             {
+                title: "WildPose: A Unified Framework for Robust Pose Estimation in the Wild",
+                desc: "Dynamic distractor에 강한 monocular camera pose estimation 방법",
+                href: "pages/paper_reviews/WildPose/",
+                thumb: "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_4223930ab3c8.jpg",
+                published: true
+            },
+            {
+                title: "WildGS-SLAM: Monocular Gaussian Splatting SLAM in Dynamic Environments",
+                desc: "동적 환경에서 3D Gaussian map을 안정적으로 구성하는 monocular SLAM",
+                href: "pages/paper_reviews/WildGS-SLAM/",
+                thumb: "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_e1c5b9eba121.png",
+                published: true
+            },
+            {
+                title: "Continuous 3D Perception Model with Persistent State",
+                desc: "Persistent state로 연속 이미지의 3D 구조와 카메라를 예측하는 모델",
+                href: "pages/paper_reviews/CUT3R/",
+                thumb: "pages/paper_reviews/CUT3R/assets/1차-수정본/media/media_c95129ba6731.png",
+                published: true
+            },
+            {
                 title: "Dynamic Visual SLAM using a General 3D Prior",
                 desc: "geometric SLAM + feed-forward reconstruction model",
                 href: "pages/paper_reviews/3D-Prior/",

@@ -326,7 +326,7 @@ a:hover{ opacity: .9; }
   color: var(--muted);
   font-size: var(--bookmark-size);
   font-weight: 680;
-  line-height: 1.35;
+  line-height: 1.25;
 }
 .bookmark-link:hover{
   color: var(--text);
@@ -1031,14 +1031,14 @@ a:hover{ opacity: .9; }
   margin: 0;
 }
 .summary-table-wrap{
-  width:100%;
-  max-width:100%;
-  overflow-x:auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
 }
 .post-body table.summary-table{
   display: table;
   width: 100%;
-  min-width:0;
+  min-width: 0;
   table-layout: fixed;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1311,6 +1311,12 @@ a:hover{ opacity: .9; }
   color: color-mix(in srgb, var(--text) 88%, var(--muted));
   line-height: 1.62;
 }
+.post-body .result-brief > p{
+  margin: 9px 0 0;
+  color: color-mix(in srgb, var(--text) 88%, var(--muted));
+  font-size: 12.5px;
+  line-height: 1.58;
+}
 .result-brief .section-chip{
   min-height: 28px;
   padding: 4px 9px;
@@ -1475,7 +1481,7 @@ a:hover{ opacity: .9; }
   color: color-mix(in srgb, var(--text) 74%, var(--muted));
   font-size: 12.5px;
   font-weight: 800;
-  line-height: 1.32;
+  line-height: 1.22;
 }
 .summary-head .subsection-label{
   margin-bottom: 1px;
@@ -1956,6 +1962,19 @@ a:hover{ opacity: .9; }
   color: var(--muted);
   line-height: 1.5;
   text-align: center;
+}
+.post-body figure figcaption .caption-main,
+.post-body figure figcaption .caption-note{
+  display: block;
+}
+.post-body figure figcaption .caption-main{
+  color: color-mix(in srgb, var(--text) 72%, var(--muted));
+  font-weight: 760;
+}
+.post-body figure figcaption .caption-note{
+  margin-top: .22rem;
+  color: var(--muted);
+  font-size: .95em;
 }
 
 .post-body video{
@@ -2551,6 +2570,14 @@ html[lang="en"] .post-body details.supplement-toggle > summary::after{
 .post-body details.supplement-toggle[open] figure.equation .katex-display{
   font-size: .98em;
 }
+.post-body details.supplement-toggle[open] table.simple-table{
+  box-sizing: border-box;
+  max-width: calc(100% - 36px);
+  margin: 14px auto;
+  border: 1px solid color-mix(in srgb, var(--text) 9%, var(--line));
+  border-radius: 8px;
+  overflow: hidden;
+}
 .post-body .notion-text-equation-token{
   display: inline-flex;
   align-items: center;
@@ -2837,7 +2864,7 @@ body .post-body .deep-section > details.supplement-toggle.is-focused-supplement[
     padding: 13px;
   }
   .post-body table.summary-table{
-    min-width: 620px;
+    min-width: 0;
   }
   .feature-panel,
   .module-note{
@@ -2992,6 +3019,7 @@ body .post-body .compare-grid p{
 body .post-body .section-note p,
 body .post-body .section-note li,
 body .post-body .result-brief-head p,
+body .post-body .result-brief > p,
 body .post-body .result-brief article p,
 body .post-body .result-brief .brief-list,
 body .post-body .result-brief .brief-list li{
@@ -3045,6 +3073,155 @@ body .post-body .deep-section details.supplement-toggle[open] .bulleted-list .bu
 
 body .post-body .deep-section > details.supplement-toggle.is-focused-supplement{
   margin:0;
+}
+
+
+/* Equation rendering guard: align fallback formulas with reference pages. */
+.post-body figure.equation{ margin: 16px 0; }
+.post-body .equation-container{ padding: 0; }
+.post-body .equation-render{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.post-body .equation-main{
+  min-width: 0;
+  text-align: center;
+  font-family: "KaTeX_Main", "Times New Roman", serif;
+  font-size: 1.03rem;
+  line-height: 1.65;
+  color: var(--text);
+  white-space: nowrap;
+}
+.post-body .equation-main-structured{
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  white-space: normal;
+}
+.post-body .matrix-equation-row{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .48em;
+  width: max-content;
+  max-width: 100%;
+  white-space: nowrap;
+}
+.post-body .math-matrix{
+  display: inline-flex;
+  align-items: stretch;
+  line-height: 1;
+}
+.post-body .matrix-bracket{
+  display: inline-flex;
+  align-items: center;
+  padding: 0 .04em;
+  font-size: 2.2em;
+  line-height: .86;
+  color: var(--text);
+}
+.post-body .matrix-grid{
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  column-gap: .9em;
+  row-gap: .18em;
+  padding: .16em .18em;
+  line-height: 1.18;
+}
+.post-body .matrix-grid-2x2{
+  grid-template-columns: repeat(2, max-content);
+}
+.post-body .matrix-grid-2x1{
+  grid-template-columns: max-content;
+}
+.post-body .matrix-equals,
+.post-body .equation-line{
+  white-space: nowrap;
+}
+.post-body .equation-main .katex-display{
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+.post-body .equation-tag{
+  justify-self: end;
+  align-self: center;
+  font-family: "KaTeX_Main", "Times New Roman", serif;
+  font-size: .95rem;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-left: 8px;
+}
+.post-body details.supplement-toggle[open] figure.equation .equation-render{
+  background: transparent;
+}
+.post-body .equation-main:has(.piecewise-equation){
+  display: flex;
+  justify-content: center;
+  white-space: normal;
+  line-height: 1.22;
+}
+.post-body .piecewise-equation{
+  display: inline-grid;
+  grid-template-columns: max-content .42em max-content;
+  align-items: center;
+  column-gap: .18em;
+  width: max-content;
+  max-width: none;
+  font-size: .88em;
+  line-height: 1.22;
+  white-space: normal;
+}
+.post-body .piecewise-equation .piecewise-lhs{
+  white-space: nowrap;
+}
+.post-body .piecewise-equation .brace{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7em;
+  line-height: .88;
+  color: var(--muted);
+}
+.post-body .piecewise-equation .piecewise-cases{
+  display: grid;
+  gap: 1px;
+  text-align: left;
+  font-size: .9em;
+  line-height: 1.22;
+}
+.post-body .piecewise-equation .piecewise-cases span{
+  white-space: nowrap;
+}
+.post-body .piecewise-equation em{
+  font-style: italic;
+  color: var(--muted);
+}
+@media (max-width: 720px){
+  .post-body .equation-render{ grid-template-columns: 1fr; gap: 6px; }
+  .post-body .equation-main{ font-size: .96rem; line-height: 1.58; }
+  .post-body .equation-main:has(.piecewise-equation){ line-height: 1.18; }
+  .post-body .equation-main-structured{
+    align-items: start;
+    overflow-x: auto;
+    justify-items: start;
+    max-width: 100%;
+    padding-bottom: 2px;
+  }
+  .post-body .matrix-equation-row{ gap: .34em; }
+  .post-body .matrix-bracket{ font-size: 1.95em; }
+  .post-body .equation-tag{ justify-self: start; font-size: .88rem; padding-left: 0; }
+  .post-body .piecewise-equation{ font-size: .82em; column-gap: .14em; }
+  .post-body .piecewise-equation .brace{ font-size: 1.5em; }
 }
 
 /* Equation typography normalization 2026-05-21 */
@@ -3296,6 +3473,35 @@ body .post-body .deep-section > details.supplement-toggle.is-focused-supplement{
 .post-body figure.equation.has-original-equation-number > .equation-container > .equation-render > .equation-tag{
   display: none;
 }
+.post-body figure.equation-tag-gutter .katex-html .tag{
+  display: none !important;
+}
+.post-body figure.equation-tag-gutter > .equation-container > .equation-render{
+  grid-template-columns: minmax(0, calc(100% - 44px)) 28px;
+  gap: 10px;
+  overflow-x: visible;
+}
+.post-body figure.equation-tag-gutter .equation-main{
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.post-body figure.equation-tag-gutter > .equation-container > .equation-render > .equation-tag-gutter-stack{
+  display: grid !important;
+  justify-self: end;
+  align-self: stretch;
+  align-content: space-around;
+  gap: 0;
+  padding-left: 0;
+  color: var(--text);
+  font-family: "KaTeX_Main", "Times New Roman", serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+.post-body figure.equation-tag-gutter > .equation-container > .equation-render > .equation-tag-gutter-stack span{
+  display: block;
+}
 
 /* Unified inline equation theme 2026-05-21 */
 :root{
@@ -3415,192 +3621,509 @@ html[data-theme="dark"]{
   white-space:nowrap;
 }
 
-/* SLIM-VDB reference refresh: DROID-W-grade cue/caption structure */
+/* DROID-W method integration 2026-05-21 */
+.post-body .method-step-block{
+  margin: 1.35rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+}
+.post-body .method-step-block:first-of-type{
+  margin-top: 1rem;
+}
+.post-body .method-step-block > p{
+  margin: .75rem 0;
+}
+.post-body .method-equation-cluster{
+  display: grid;
+  gap: .85rem;
+  margin: 1rem 0 1.1rem;
+}
+.post-body .method-table td,
+.post-body .dataset-table td,
+.post-body .task-evidence-table td{
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+.post-body .method-table td:nth-child(2),
+.post-body .method-table td:nth-child(3),
+.post-body .dataset-table td:nth-child(2),
+.post-body .dataset-table td:nth-child(3),
+.post-body .task-evidence-table td:nth-child(2),
+.post-body .task-evidence-table td:nth-child(3){
+  font-size: .94em;
+  line-height: 1.62;
+}
+
+/* DROID-W question-centered reading flow 2026-05-21 */
 .tldr-cues{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0, 1fr));
-  gap:.55rem;
-  margin:.95rem 0 1.1rem;
-  padding:.65rem;
-  border:1px solid var(--line);
-  border-radius:8px;
-  background:color-mix(in srgb, var(--panel2) 74%, var(--bg) 26%);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  gap: .55rem;
+  margin: .95rem 0 1.1rem;
 }
 .cue-chip{
-  display:flex;
-  align-items:center;
-  gap:.5rem;
-  min-width:0;
-  min-height:38px;
-  padding:.5rem .62rem;
-  border:1px solid color-mix(in srgb, var(--text) 13%, var(--line));
-  border-radius:8px;
-  background:color-mix(in srgb, var(--panel) 94%, var(--bg) 6%);
-  box-shadow:0 1px 0 color-mix(in srgb, var(--text) 5%, transparent);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 0;
+  min-height: 38px;
+  padding: .5rem .62rem;
+  border: 1px solid color-mix(in srgb, var(--border) 96%, var(--text) 4%);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 82%, var(--bg) 18%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--border) 62%, transparent);
 }
 .cue-chip strong{
-  flex:0 0 auto;
-  min-width:2.45rem;
-  padding:.18rem .38rem;
-  border:1px solid color-mix(in srgb, var(--text) 12%, var(--line));
-  border-radius:6px;
-  background:color-mix(in srgb, var(--text) 6%, var(--panel) 94%);
-  color:var(--text);
-  font-size:.7rem;
-  font-weight:800;
-  letter-spacing:.02em;
-  text-align:center;
-  text-transform:uppercase;
+  flex: 0 0 auto;
+  padding-right: .48rem;
+  border-right: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
+  font-size: .7rem;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--text);
 }
 .cue-chip small{
-  min-width:0;
-  color:color-mix(in srgb, var(--text) 66%, var(--muted));
-  font-size:.78rem;
-  line-height:1.35;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  min-width: 0;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.map-subsection-title{
-  display:grid;
-  gap:0;
-  margin:1.15rem 0 .48rem;
-  padding:.58rem .65rem;
-  border:1px solid var(--line);
-  border-left:3px solid color-mix(in srgb, var(--text) 22%, var(--line));
-  border-radius:8px;
-  background:color-mix(in srgb, var(--panel2) 76%, var(--bg) 24%);
+.problem-ladder,
+.design-choice-box{
+  margin: 1.15rem 0;
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, var(--border) 92%, var(--text) 5%);
+  border-left: 4px solid color-mix(in srgb, var(--text) 34%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel2) 86%, var(--bg) 14%);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--text) 4%, transparent);
 }
-.map-subsection-title span{
-  color:color-mix(in srgb, var(--text) 86%, var(--muted));
-  font-size:.78rem;
-  font-weight:800;
-  letter-spacing:.01em;
+.problem-ladder-grid,
+.design-choice-grid{
+  display: grid;
+  gap: .75rem;
 }
-.map-subsection-title p{
-  margin:0;
-  color:var(--muted);
-  font-size:.84rem;
-  line-height:1.45;
+.problem-ladder-grid{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.post-body figcaption .caption-main{
-  display:block;
-  color:var(--text);
-  font-weight:800;
-  line-height:1.45;
+.design-choice-grid{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-.post-body figcaption .caption-note{
-  display:block;
-  margin-top:.2rem;
-  color:color-mix(in srgb, var(--text) 68%, var(--muted));
-  font-size:.92em;
-  line-height:1.5;
+.problem-ladder-grid article,
+.design-choice-grid article{
+  position: relative;
+  padding: .84rem .86rem;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--border) 96%, var(--text) 5%);
+  background: color-mix(in srgb, var(--panel) 94%, var(--bg) 6%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 58%, transparent);
 }
-@media (max-width:560px){
+.problem-ladder-grid article:not(:last-child)::after{
+  content: ">";
+  position: absolute;
+  right: -.55rem;
+  top: 50%;
+  transform: translate(50%, -50%);
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 800;
+}
+.problem-ladder-grid span{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  margin-bottom: .55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 10%, transparent);
+  color: var(--text);
+  font-size: .68rem;
+  font-weight: 800;
+}
+.problem-ladder-grid strong,
+.design-choice-grid strong{
+  display: block;
+  margin-bottom: .35rem;
+  font-size: .9rem;
+  color: var(--text);
+}
+.problem-ladder-grid p,
+.design-choice-grid p,
+.post-body .usage-table td,
+.post-body .task-evidence-table td{
+  font-size: .92rem;
+  line-height: 1.55;
+}
+.summary-term-secondary{
+  color: color-mix(in srgb, var(--muted) 82%, var(--text));
+}
+.evidence-cluster{
+  margin: 1.55rem 0 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+}
+.evidence-cluster > p{
+  margin: .75rem 0 1rem;
+}
+.figure-emphasis{
+  display: block;
+  margin-top: .36rem;
+  color: color-mix(in srgb, var(--muted) 88%, var(--text));
+  font-size: .88em;
+  line-height: 1.45;
+}
+.dataset-evidence-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  margin: .95rem 0 1.15rem;
+}
+.dataset-evidence-grid article{
+  padding: .9rem .95rem;
+  border: 1px solid color-mix(in srgb, var(--border) 96%, var(--text) 4%);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 92%, var(--bg) 8%);
+}
+.dataset-evidence-grid strong{
+  display: block;
+  margin: .22rem 0 .42rem;
+  color: var(--text);
+  font-size: .94rem;
+}
+.dataset-evidence-grid p,
+.dataset-evidence-grid small{
+  display: block;
+  margin: 0;
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.55;
+}
+.dataset-evidence-grid small{
+  margin-top: .48rem;
+  color: color-mix(in srgb, var(--text) 70%, var(--muted));
+}
+.dataset-kicker{
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.post-body .math-token sub,
+.post-body .math-token sup{
+  font-size: .68em;
+  line-height: 0;
+}
+@media (max-width: 900px){
+  .problem-ladder-grid,
+  .design-choice-grid,
+  .dataset-evidence-grid{
+    grid-template-columns: 1fr;
+  }
+  .problem-ladder-grid article:not(:last-child)::after{
+    display: none;
+  }
+}
+@media (max-width: 560px){
   .tldr-cues{
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
   }
 }
 
-/* DROID-W-primary QA fallback 2026-05-22 */
-.method-step-block{
-  margin:1rem 0 1.15rem;
-  padding:.85rem .9rem;
-  border:1px solid color-mix(in srgb, var(--text) 12%, var(--line));
-  border-radius:8px;
-  background:color-mix(in srgb, var(--panel2) 72%, var(--bg) 28%);
-  box-shadow:0 1px 0 color-mix(in srgb, var(--text) 5%, transparent);
+/* DROID-W TL;DR/evidence polish 2026-05-21 */
+.map-subsection-title{
+  display: grid;
+  gap: 0;
+  margin: 1.05rem 0 .48rem;
+  padding-top: .38rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 68%, transparent);
 }
-.method-step-block .summary-head{
-  margin-bottom:.62rem;
+.map-subsection-title span{
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  padding: .26rem .54rem;
+  border: 1px solid color-mix(in srgb, var(--border) 86%, var(--text) 8%);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--panel) 88%, var(--bg) 12%);
+  color: color-mix(in srgb, var(--text) 86%, var(--muted));
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .01em;
 }
-.method-step-block .summary-head p{
-  font-size:.88rem;
-  line-height:1.58;
+.map-subsection-title p{
+  margin: 0;
+  color: var(--muted);
+  font-size: .84rem;
+  line-height: 1.45;
 }
-.summary-table td .math-token-list,
-.summary-table td .equation-chip-group{
-  vertical-align:baseline;
+.evaluation-table-stack{
+  display: grid;
+  gap: .9rem;
+  margin-top: .9rem;
 }
-.summary-table td .math-token,
-.summary-table td .model-token,
-.summary-table td .notion-text-equation-token,
-.summary-table td .equation-chip-part{
-  vertical-align:baseline;
-  font-size:.9em;
-  transform:none;
+.evaluation-table-block{
+  display: grid;
+  gap: .55rem;
+  padding: .82rem .88rem .9rem;
+  border: 1px solid var(--line);
+  border-left: 4px solid rgba(75, 85, 99, .34);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel2) 88%, var(--bg) 12%);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--text) 4%, transparent);
 }
-.summary-table td .math-token sub,
-.summary-table td .math-token sup,
-.summary-table td .model-token sup{
-  line-height:0;
+.evaluation-table-label{
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  padding: .23rem .5rem;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--text) 10%, var(--panel) 90%);
+  color: color-mix(in srgb, var(--text) 92%, var(--muted));
+  font-size: .74rem;
+  font-weight: 800;
 }
-figure.equation-tag-gutter{
-  display:grid;
-  grid-template-columns:minmax(0, 1fr) auto;
-  align-items:center;
-  column-gap:.85rem;
+.post-body .evaluation-evidence-panel .summary-table{
+  min-width: min(100%, 620px);
 }
-figure.equation-tag-gutter .equation-container{
-  min-width:0;
+.post-body .evaluation-evidence-panel th,
+.post-body .evaluation-evidence-panel td{
+  white-space: normal;
 }
-figure.equation-tag-gutter .equation-side-tag{
-  justify-self:end;
-  color:#111827;
-  font-family:"KaTeX_Main", "Times New Roman", serif;
-  font-size:1.1rem;
-  line-height:1;
-  white-space:nowrap;
+.dataset-evidence-grid-two{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tag{
-  color:#f3f4f6;
+.dataset-detail-toggle{
+  margin-top: 1rem;
+}
+.post-body .dataset-detail-toggle .appendix-details{
+  padding-left: clamp(1rem, 3vw, 1.75rem);
+  padding-right: clamp(1rem, 3vw, 1.75rem);
+}
+.post-body .dataset-detail-toggle figure{
+  max-width: 100%;
+}
+.post-body .dataset-detail-toggle img{
+  max-width: min(100%, var(--media-max-width, 760px));
+}
+.post-body .inline-equation-token,
+.post-body .inline-equation-token.notion-text-equation-token,
+.post-body .math-token{
+  display: inline-block;
+  max-width: 100%;
+  margin: 0 .04rem;
+  padding: .06rem .32rem;
+  border: 1px solid var(--inline-equation-border) !important;
+  border-radius: 6px;
+  background: var(--inline-equation-bg) !important;
+  color: var(--inline-equation-text) !important;
+  box-shadow: 0 1px 1px var(--inline-equation-shadow);
+  font-size: .92em;
+  line-height: 1.28;
+  vertical-align: .18em;
+  white-space: nowrap;
+}
+.post-body .inline-equation-token .katex,
+.post-body .inline-equation-token .katex-html,
+.post-body .math-token .katex{
+  color: inherit !important;
+  font-size: 1em;
+  line-height: 1;
+}
+.post-body .inline-equation-token .base{
+  display: inline-flex;
+  align-items: baseline;
+  gap: .02em;
+}
+.post-body .inline-equation-token sub,
+.post-body .inline-equation-token sup{
+  font-size: .68em;
+  line-height: 0;
+}
+.post-body .inline-equation-token sub{
+  vertical-align: -.28em;
+}
+.post-body .inline-equation-token sup{
+  vertical-align: .45em;
+}
+.post-body .summary-table .compact-cell-list{
+  display: grid;
+  gap: .18rem;
+  margin: 0;
+  padding-left: 1.05rem;
+}
+.post-body .summary-table .compact-cell-list li{
+  margin: 0;
+  font-size: inherit;
+  line-height: 1.45;
+}
+.post-body img[src*="media_93795521defc"]{
+  max-width: min(100%, 760px);
+}
+.post-body img[src*="media_65d4f779d86c"],
+.post-body img[src*="media_4d14e8f8665f"],
+.post-body img[src*="media_e6524153f7e0"],
+.post-body img[src*="media_b6d48221b20d"]{
+  max-width: min(100%, 700px);
+}
+.post-body img[src*="media_e24e22d3a70d"]{
+  max-width: min(100%, 560px);
+}
+.post-body img[src*="media_9039f209edab"],
+.post-body img[src*="media_34230500c2e5"],
+.post-body img[src*="media_13904e631038"],
+.post-body img[src*="media_f000d693a60b"],
+.post-body img[src*="media_6ff477cbd340"],
+.post-body img[src*="media_935661d31cb5"]{
+  max-width: min(100%, 820px);
+}
+@media (max-width: 900px){
+  .dataset-evidence-grid-two{
+    grid-template-columns: 1fr;
+  }
 }
 
-figure.equation-tag-gutter .equation-side-tags{
-  justify-self:end;
-  display:grid;
-  gap:.58em;
-  color:#111827;
-  font-family:"KaTeX_Main", "Times New Roman", serif;
-  font-size:1.1rem;
-  line-height:1;
-  white-space:nowrap;
+/* DROID-W final visual balance pass 2026-05-21 */
+.tldr-cues{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: .65rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel2) 74%, var(--bg) 26%);
+}
+.paper-map .tldr-cues{
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.cue-chip{
+  border: 1px solid color-mix(in srgb, var(--text) 13%, var(--line));
+  background: color-mix(in srgb, var(--panel) 94%, var(--bg) 6%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--text) 5%, transparent);
+}
+.cue-chip strong{
+  min-width: 2.45rem;
+  padding: .18rem .38rem;
+  border: 1px solid color-mix(in srgb, var(--text) 12%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--text) 6%, var(--panel) 94%);
+  text-align: center;
+}
+.cue-chip small{
+  color: color-mix(in srgb, var(--text) 66%, var(--muted));
+}
+.paper-map .cue-chip small{
+  flex: 1 1 auto;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+.map-subsection-title{
+  margin-top: 1.15rem;
+  padding: .58rem .65rem;
+  border: 1px solid var(--line);
+  border-left: 3px solid color-mix(in srgb, var(--text) 22%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel2) 76%, var(--bg) 24%);
+}
+.map-subsection-title span{
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.flow-diagram{
+  padding: .75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 92%, var(--bg) 8%);
+}
+.compare-grid article{
+  border: 1px solid color-mix(in srgb, var(--text) 12%, var(--line));
+  background: color-mix(in srgb, var(--panel) 93%, var(--bg) 7%);
+}
+.problem-ladder,
+.design-choice-box{
+  border-color: color-mix(in srgb, var(--text) 13%, var(--line));
+  border-left-color: color-mix(in srgb, var(--text) 28%, var(--line));
+  background: color-mix(in srgb, var(--panel2) 82%, var(--bg) 18%);
+}
+.problem-ladder-grid article,
+.design-choice-grid article,
+.dataset-evidence-grid article{
+  border: 1px solid color-mix(in srgb, var(--text) 14%, var(--line));
+  background: color-mix(in srgb, var(--panel) 95%, var(--bg) 5%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--text) 5%, transparent);
+}
+.dataset-evidence-grid article{
+  border-left: 3px solid color-mix(in srgb, var(--text) 18%, var(--line));
+}
+.evaluation-table-block{
+  border: 1px solid color-mix(in srgb, var(--text) 12%, var(--line));
+  border-left: 1px solid color-mix(in srgb, var(--text) 12%, var(--line));
+  background: color-mix(in srgb, var(--panel) 94%, var(--bg) 6%);
+  box-shadow: none;
+}
+.evaluation-table-label{
+  border-color: color-mix(in srgb, var(--text) 12%, var(--line));
+  background: color-mix(in srgb, var(--text) 5%, var(--panel) 95%);
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+}
+.next-question-note{
+  margin: .85rem 0 1.1rem;
+  padding: .78rem .9rem;
+  border: 1px solid color-mix(in srgb, var(--text) 12%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel2) 80%, var(--bg) 20%);
+}
+.next-question-note p{
+  margin: .38rem 0 0;
+  color: color-mix(in srgb, var(--text) 72%, var(--muted));
+  font-size: .9rem;
+  line-height: 1.55;
+}
+.post-body .inline-equation-token,
+.post-body .inline-equation-token.notion-text-equation-token,
+.post-body .math-token{
+  font-size: 1.06em;
+  vertical-align: -.38em;
+}
+.post-body img[src*="media_fig2_system_overview"]{
+  max-width: min(100%, 860px);
+}
+.post-body img[src*="media_13904e631038"],
+.post-body img[src*="media_f000d693a60b"]{
+  max-width: min(100%, 560px);
 }
 
-figure.equation-tag-gutter .equation-side-tags .equation-side-tag{
-  display:block;
-  justify-self:end;
+.post-body p,
+.post-body li,
+.post-body .summary-table td,
+.post-body .map-card p,
+.post-body .compare-grid p,
+.post-body .result-brief p,
+.post-body .section-note p{
+  text-wrap: pretty;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
-
-html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tags{
-  color:#f3f4f6;
+.task-evidence-table .evidence-focus,
+.task-evidence-table .evidence-detail{
+  display: block;
 }
-
-/* Equation baseline harmonization: Chamelion-style inline math, DROID-W-style table reset 2026-05-22. */
-.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  font-size:.92em;
-  vertical-align:.18em;
+.task-evidence-table .evidence-focus{
+  margin-bottom: .18rem;
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  font-weight: 650;
 }
-.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
-  transform:none;
-  line-height:1;
-}
-.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token),
-.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(p, li) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  display:inline-flex;
-  align-items:center;
-  vertical-align:middle;
-  transform:none;
-  font-size:.92em;
-}
-.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
-  transform:none;
-  line-height:1;
-}
-.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  vertical-align:baseline;
-  transform:none;
-  font-size:.92em;
+.task-evidence-table .evidence-detail{
+  color: color-mix(in srgb, var(--text) 68%, var(--muted));
+  font-size: .94em;
+  line-height: 1.48;
 }
 
 /* Block equation tag right-edge harmonization 2026-05-22. */
@@ -3661,82 +4184,6 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tags{
   max-width:100% !important;
 }
 
-/* Body inline equation baseline refinement: keep table/caption math neutral. */
-.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  vertical-align:-.16em;
-}
-
-.post-body :is(.result-brief, .section-note) :is(p, li) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  vertical-align:.04em !important;
-}
-
-.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token),
-.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  vertical-align:middle;
-}
-
-/* SLIM-VDB supplement polish: keep notation-heavy toggle math on a neutral baseline. */
-.post-body details.supplement-toggle :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
-  align-items:center;
-  vertical-align:middle;
-  transform:none;
-  line-height:1.12;
-}
-
-.post-body details.supplement-toggle :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
-  line-height:1;
-  transform:translateY(.02em);
-}
-
-.post-body details.supplement-toggle :is(td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
-  transform:none;
-}
-
-.post-body details.supplement-toggle .math-token sub,
-.post-body details.supplement-toggle .inline-equation-token sub,
-.post-body details.supplement-toggle .equation-chip-part sub{
-  position:relative;
-  bottom:-.22em;
-  vertical-align:baseline;
-}
-
-.post-body details.supplement-toggle .math-token sup,
-.post-body details.supplement-toggle .inline-equation-token sup,
-.post-body details.supplement-toggle .equation-chip-part sup{
-  position:relative;
-  top:-.48em;
-  vertical-align:baseline;
-}
-
-/* Convert Notion gray-highlight subheadings such as Theorem labels into the local auxiliary-label theme. */
-.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-gray_background:has(> em > strong),
-.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-default_background:has(> em > strong),
-.post-body details.supplement-toggle :is(p, blockquote, h4).highlight-gray_background:has(> em > strong){
-  display:inline-flex !important;
-  align-items:center;
-  width:fit-content;
-  max-width:100%;
-  min-height:30px;
-  margin:20px 0 10px;
-  padding:6px 11px !important;
-  border:1px solid color-mix(in srgb, var(--text) 11%, var(--line));
-  border-left:3px solid color-mix(in srgb, var(--text) 28%, var(--line));
-  border-radius:8px;
-  background:color-mix(in srgb, var(--panel) 76%, var(--bg)) !important;
-  color:var(--text) !important;
-  font-size:.94rem;
-  font-weight:780;
-  line-height:1.25;
-  box-shadow:0 8px 18px rgba(15,23,42,.04);
-}
-
-.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-gray_background:has(> em > strong) :is(em, strong),
-.post-body details.supplement-toggle :is(p, blockquote, h4).block-color-default_background:has(> em > strong) :is(em, strong),
-.post-body details.supplement-toggle :is(p, blockquote, h4).highlight-gray_background:has(> em > strong) :is(em, strong){
-  font-style:normal;
-  font-weight:780;
-}
-
 /* QA: prevent equation glyph clipping while preserving horizontal scroll. */
 .post-body figure.equation .equation-render{
   overflow-x:auto;
@@ -3792,35 +4239,36 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tags{
   }
 }
 
+
 /* Final inline KaTeX baseline: keep body, yellow notes, and toggles visually consistent. */
-.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
   vertical-align:-.16em;
   line-height:1.08;
 }
 
-.post-body :is(.result-brief, .section-note) :is(p, li) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+.post-body :is(.result-brief, .section-note) :is(p, li) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
   vertical-align:-.16em !important;
 }
 
-.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
   vertical-align:-.16em;
   line-height:1.08;
 }
 
-.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex{
+.post-body details.supplement-toggle :is(p, li, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
   transform:none;
   line-height:1;
 }
 
-.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token),
-.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token),
-.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token){
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token),
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token),
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token){
   vertical-align:middle;
 }
 
-.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex,
-.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex,
-.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .equation-chip-part, .inline-equation-token) .katex{
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex,
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex,
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .equation-chip-part, .inline-equation-token) .katex{
   transform:none;
   line-height:1;
 }
@@ -3850,182 +4298,6 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tags{
 
 .post-body details.supplement-toggle .summary-panel .summary-table td{
   vertical-align:middle;
-}
-
-/* SLIM-VDB Bayesian update supplement: make the notation-heavy toggle read like a small chapter. */
-.post-body details.supplement-toggle .supplement-guide{
-  display:grid;
-  gap:20px;
-}
-
-.post-body details.supplement-toggle .supplement-guide > .summary-panel{
-  margin:0;
-  padding:18px clamp(16px, 2.4vw, 24px);
-  border:1px solid color-mix(in srgb, var(--text) 10%, var(--line));
-  border-left:4px solid color-mix(in srgb, var(--text) 32%, var(--line));
-  border-radius:10px;
-  background:color-mix(in srgb, var(--panel2) 88%, var(--bg));
-  box-shadow:0 10px 22px rgba(15, 23, 42, .035);
-}
-
-.post-body details.supplement-toggle .supplement-guide > .summary-panel > .summary-head{
-  margin:0 0 14px;
-  padding:0 0 12px;
-  border-bottom:1px solid color-mix(in srgb, var(--text) 9%, var(--line));
-}
-
-.post-body details.supplement-toggle .supplement-guide > .summary-panel > .summary-head > .subsection-label{
-  display:inline-flex;
-  align-items:center;
-  width:fit-content;
-  max-width:100%;
-  margin:0;
-  padding:6px 11px;
-  border:1px solid color-mix(in srgb, var(--text) 12%, var(--line));
-  border-radius:8px;
-  background:color-mix(in srgb, var(--panel) 78%, var(--bg));
-  color:color-mix(in srgb, var(--text) 88%, var(--muted));
-  font-size:.91rem;
-  font-weight:780;
-  line-height:1.25;
-}
-
-.post-body details.supplement-toggle .supplement-guide > .summary-panel > .summary-head p{
-  max-width:76ch;
-  margin-top:10px;
-  padding-top:0;
-  color:color-mix(in srgb, var(--text) 72%, var(--muted));
-  font-size:.92rem;
-  line-height:1.68;
-  transform:none;
-}
-
-.post-body details.supplement-toggle .supplement-guide > .supplement-section{
-  position:relative;
-  margin-top:0;
-}
-
-.post-body details.supplement-toggle .supplement-guide > .supplement-section::before{
-  content:none;
-}
-
-.post-body details.supplement-toggle .supplement-guide > .supplement-section > .summary-head{
-  padding-top:0;
-  border-top:0;
-}
-
-.post-body details.supplement-toggle .supplement-guide > .supplement-section-divider{
-  width:100%;
-  height:1px;
-  margin:20px 0 0;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--text) 28%, var(--line)) 12%,
-    color-mix(in srgb, var(--text) 28%, var(--line)) 88%,
-    transparent
-  );
-}
-
-.post-body details.supplement-toggle .supplement-guide > .supplement-section-divider + .supplement-section{
-  border-top-color:transparent;
-}
-
-.post-body details.supplement-toggle .supplement-guide .supplement-stepper,
-.post-body details.supplement-toggle .supplement-guide .supplement-card-grid,
-.post-body details.supplement-toggle .supplement-guide .summary-table-wrap{
-  margin-top:14px;
-}
-
-.post-body details.supplement-toggle .supplement-guide .supplement-stepper article,
-.post-body details.supplement-toggle .supplement-guide .supplement-card{
-  border-color:color-mix(in srgb, var(--text) 11%, var(--line));
-  background:color-mix(in srgb, var(--bg) 78%, var(--panel));
-}
-
-.post-body details.supplement-toggle .supplement-guide .supplement-card strong,
-.post-body details.supplement-toggle .supplement-guide .supplement-stepper strong{
-  font-size:.92rem;
-}
-
-.post-body details.supplement-toggle .supplement-guide .supplement-card p,
-.post-body details.supplement-toggle .supplement-guide .supplement-stepper p,
-.post-body details.supplement-toggle .supplement-guide .summary-table td{
-  font-size:.88rem;
-  line-height:1.58;
-}
-
-.post-body details.supplement-toggle .supplement-guide .bulleted-list{
-  margin:.4rem 0 .7rem;
-  padding:.35rem 0 .35rem 1.35rem;
-  border:0;
-  border-left:2px solid color-mix(in srgb, var(--text) 10%, var(--line));
-  border-radius:0;
-  background:transparent;
-}
-
-.post-body details.supplement-toggle .supplement-guide .bulleted-list .bulleted-list{
-  margin:.28rem 0 0;
-  padding:.12rem 0 .12rem 1.05rem;
-  border-left:0;
-}
-
-.post-body details.supplement-toggle .supplement-guide .bulleted-list > li{
-  padding-left:.1rem;
-}
-
-.post-body details.supplement-toggle .supplement-guide .bulleted-list > li + li{
-  margin-top:.32rem;
-}
-
-/* Theorem 2 closed-form rows: keep each equation number in a right-side gutter. */
-.post-body figure.slim-vdb-closed-form-equation{
-  margin:18px 0 20px;
-}
-
-.post-body figure.slim-vdb-closed-form-equation > .equation-container{
-  display:grid;
-  gap:9px;
-}
-
-.post-body figure.slim-vdb-closed-form-equation .equation-tagged-row{
-  display:grid;
-  grid-template-columns:minmax(0, 1fr) auto;
-  align-items:center;
-  gap:12px;
-  width:100%;
-}
-
-.post-body figure.slim-vdb-closed-form-equation .equation-main{
-  min-width:0;
-  overflow-x:auto;
-  overflow-y:visible;
-  padding:.03rem 0;
-}
-
-.post-body figure.slim-vdb-closed-form-equation .katex-display{
-  margin:0;
-  padding-block:.04em;
-}
-
-.post-body figure.slim-vdb-closed-form-equation .equation-side-tag{
-  justify-self:end;
-  color:var(--text);
-  font-family:"KaTeX_Main", "Times New Roman", serif;
-  font-size:1.1rem;
-  line-height:1;
-  white-space:nowrap;
-}
-
-@media (max-width:640px){
-  .post-body figure.slim-vdb-closed-form-equation .equation-tagged-row{
-    grid-template-columns:minmax(0, 1fr) auto;
-    gap:8px;
-  }
-
-  .post-body figure.slim-vdb-closed-form-equation .equation-side-tag{
-    font-size:.98rem;
-  }
 }
 
 /* Final equation and text rhythm pass 2026-05-24. */
@@ -4071,4 +4343,39 @@ html[data-theme="dark"] figure.equation-tag-gutter .equation-side-tags{
   margin-top:7px;
   padding-top:0;
   transform:none;
+}
+
+/* WildPose inline KaTeX baseline polish: keep prose math aligned with DROID-W. */
+.post-body :is(p, li, figcaption, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em !important;
+  line-height:1.08;
+}
+
+.post-body :is(.result-brief, .section-note) :is(p, li, figcaption) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body details.supplement-toggle :is(p, li, figcaption, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:-.16em !important;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:middle !important;
+}
+
+/* WildPose TL;DR cue chips should read as compact one-line labels. */
+.post-body .paper-map .cue-chip small{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* WildPose local correction: keep prose math on the native text baseline. */
+.post-body :is(p, li, .map-card, .insight-box, .result-brief, .section-note, .problem-ladder, .design-choice-box, .summary-head, .supplement-card, .supplement-stepper) > :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:baseline !important;
+}
+
+.post-body :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body figure.equation figcaption :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]),
+.post-body details.supplement-toggle :is(table, .summary-table, .method-table, .dataset-table, .task-evidence-table, td, th, figcaption) :is(.inline-math, .notion-text-equation-token, .math-token, .model-token, .state-token, .equation-token, .formula-token, .equation-chip-part, .inline-equation-token, [data-tex-inline]){
+  vertical-align:middle !important;
 }

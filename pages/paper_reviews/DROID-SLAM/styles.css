@@ -2029,6 +2029,25 @@ a:hover{ opacity: .9; }
   font-size: 13px;
   line-height: 1.58;
 }
+
+@media (max-width:640px){
+  .post-body details.supplement-toggle .contribution-detail .summary-table{
+    width:100%;
+    min-width:0;
+    table-layout:fixed;
+  }
+
+  .post-body details.supplement-toggle .contribution-detail .summary-table :is(th,td):nth-child(1),
+  .post-body details.supplement-toggle .contribution-detail .summary-table :is(th,td):nth-child(2),
+  .post-body details.supplement-toggle .contribution-detail .summary-table :is(th,td):nth-child(3){
+    width:auto;
+  }
+
+  .post-body details.supplement-toggle .contribution-detail .summary-list{
+    padding-left:.85rem;
+    font-size:12.5px;
+  }
+}
 .post-body details[open] > .appendix-details > :first-child{
   margin-top: 16px;
 }

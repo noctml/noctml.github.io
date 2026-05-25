@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
+<title>CUT3R Paper Review</title>
+<link href="../../../assets/favicon.png" rel="icon" type="image/png">
+<meta content="CUT3R Paper Review" property="og:title">
+<meta content="Paper Reviews &amp; Work" property="og:description">
+<meta content="website" property="og:type">
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
+<link href="styles.css?v=cut3r-redesign-20260525" rel="stylesheet">
+</head>
+<body>
+<a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+<div class="layout" id="top">
+<aside aria-label="Paper section bookmark" class="sidebar">
+<div class="sidebar-card">
+<nav aria-label="Paper section bookmark" class="section-bookmark">
+<div class="bookmark-status">
+<span class="bookmark-eyebrow">Now Reading</span>
+<strong id="currentSectionLabel">핵심 요약</strong>
+</div>
+<div class="bookmark-list" id="sectionBookmarkList"></div>
+</nav>
+</div>
+</aside>
+<div class="content">
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brandline">
+<a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+<img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+</a>
+<span class="brandtext">Paper Reviews</span>
+</div>
+<div class="top-actions">
+<button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+<span data-lang-option="ko">KO</span>
+<span data-lang-option="en">EN</span>
+</button>
+<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+<span aria-hidden="true" id="themeIcon">☀</span>
+</button>
+</div>
+</div>
+</header>
+<main class="container" id="main">
+<section class="section">
+<div class="panel">
+<header class="paper-identity">
+<p class="paper-title-meta">Continuous 3D Perception Model with Persistent State</p>
+</header>
+<div class="post-body">
+<section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+<div class="paper-map-head">
+<h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+<p data-en="CUT3R is a recurrent 3D perception model that keeps a persistent scene state, updates it with every new image, and reads metric pointmaps, camera poses, and even unseen-view structure from that state." data-ko="CUT3R는 매 입력 이미지를 통해 persistent scene state를 갱신하고, 그 state에서 metric pointmap, camera pose, unseen-view structure를 읽어내는 recurrent 3D perception model이다.">CUT3R는 매 입력 이미지를 통해 persistent scene state를 갱신하고, 그 state에서 metric pointmap, camera pose, unseen-view structure를 읽어내는 recurrent 3D perception model이다.</p>
+</div>
+
+<div class="tldr-cues">
+<span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="3D reconstruction resets for each scene." data-ko="scene마다 3D reconstruction 재시작">scene마다 3D reconstruction 재시작</small></span>
+<span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Persistent state update and readout." data-ko="persistent state update/readout">persistent state update/readout</small></span>
+<span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="depth / pose / state" data-ko="depth / pose / state">depth / pose / state</small></span>
+</div>
+
+<div class="map-grid">
+<article class="map-card map-card-wide">
+<span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+<p data-en="CUT3R replaces scene-by-scene blank-slate reconstruction with a learned state that stores visual 3D knowledge and can be queried as new observations arrive." data-ko="CUT3R는 scene마다 백지 상태에서 최적화하던 3D reconstruction을, 관측이 들어올수록 갱신되는 learned state로 바꾼다.">CUT3R는 scene마다 백지 상태에서 최적화하던 3D reconstruction을, 관측이 들어올수록 갱신되는 learned state로 바꾼다.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 01</span>
+<h3>Persistent State</h3>
+<p data-en="Compresses scene content across an image stream and supports online update." data-ko="image stream의 scene content를 압축 저장하고 online update 지원.">image stream의 scene content를 압축 저장하고 online update 지원.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 02</span>
+<h3>World-frame Pointmaps</h3>
+<p data-en="Predicts metric pointmaps in a shared world coordinate system." data-ko="공통 world coordinate에서 metric pointmap 직접 예측.">공통 world coordinate에서 metric pointmap 직접 예측.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 03</span>
+<h3>Raymap Query</h3>
+<p data-en="Reads unseen-view geometry and color by querying the state with virtual camera rays." data-ko="virtual camera raymap으로 unseen-view geometry와 color readout.">virtual camera raymap으로 unseen-view geometry와 color readout.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 04</span>
+<h3>Broad Input Conditions</h3>
+<p data-en="Handles videos, unordered photos, static scenes, dynamic scenes, and sparse observations." data-ko="video, unordered photo, static/dynamic scene, sparse observation 처리.">video, unordered photo, static/dynamic scene, sparse observation 처리.</p>
+</article>
+</div>
+
+<div class="insight-box">
+<strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
+<p data-en="CUT3R is easiest to understand as a shift from optimization memory to model memory. The important object is not only the output pointmap, but the state that lets the model keep refining and querying the scene." data-ko="CUT3R는 optimization memory가 아니라 model memory로 3D scene을 이어가는 논문으로 읽으면 이해가 쉽다. 핵심은 pointmap 출력 자체보다, scene을 계속 갱신하고 다시 물어볼 수 있게 만드는 state다.">CUT3R는 optimization memory가 아니라 model memory로 3D scene을 이어가는 논문으로 읽으면 이해가 쉽다. 핵심은 pointmap 출력 자체보다, scene을 계속 갱신하고 다시 물어볼 수 있게 만드는 state다.</p>
+</div>
+
+<div class="map-subsection-title"><span data-en="State Processing Flow" data-ko="state 처리 흐름">state 처리 흐름</span></div>
+<div aria-label="CUT3R persistent state flow" class="flow-diagram">
+<div class="flow-step"><span>01</span><strong>Image Stream</strong><small>video or photo collection</small></div>
+<div class="flow-step"><span>02</span><strong>Image Tokens</strong><small>ViT encoder features</small></div>
+<div class="flow-step"><span>03</span><strong>State Interaction</strong><small>image token + state token</small></div>
+<div class="flow-step"><span>04</span><strong>State Update</strong><small>persistent scene memory</small></div>
+<div class="flow-step"><span>05</span><strong>Readout Heads</strong><small>pointmap + pose + confidence</small></div>
+<div class="flow-step"><span>06</span><strong>Scene Output</strong><small>online 3D reconstruction</small></div>
+</div>
+
+<div class="map-subsection-title"><span data-en="Representation Comparison" data-ko="표현 방식 비교">표현 방식 비교</span></div>
+<div class="compare-grid">
+<article>
+<span class="compare-kicker">Classical SfM / SLAM</span>
+<h3 data-en="Scene-wise Optimization" data-ko="scene별 최적화">scene별 최적화</h3>
+<p data-en="Builds structure from current observations and can struggle with sparse, degenerate, or ill-posed views." data-ko="현재 관측에서 구조를 만들기 때문에 sparse, degenerate, ill-posed 조건에 취약.">현재 관측에서 구조를 만들기 때문에 sparse, degenerate, ill-posed 조건에 취약.</p>
+</article>
+<article>
+<span class="compare-kicker">Pairwise 3D Models</span>
+<h3 data-en="Pair-to-global Alignment" data-ko="pairwise 예측 후 정렬">pairwise 예측 후 정렬</h3>
+<p data-en="Predicts pairwise pointmaps well, but multi-view use often requires offline global alignment." data-ko="pairwise pointmap 예측은 강하지만 multi-view 사용에는 보통 offline global alignment 필요.">pairwise pointmap 예측은 강하지만 multi-view 사용에는 보통 offline global alignment 필요.</p>
+</article>
+<article>
+<span class="compare-kicker">CUT3R</span>
+<h3 data-en="Persistent State Readout" data-ko="persistent state readout">persistent state readout</h3>
+<p data-en="Maintains a recurrent state and directly reads world-frame pointmaps and query-view structure online." data-ko="recurrent state를 유지하며 world-frame pointmap과 query-view structure를 online readout.">recurrent state를 유지하며 world-frame pointmap과 query-view structure를 online readout.</p>
+</article>
+</div>
+</section>
+
+<section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+<h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+<p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper content as much as possible. Background, related-work context, training details, and secondary evaluation conditions are folded away when they interrupt the main reading flow." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, related work, 학습 세부 조건, 부가 평가 조건은 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, related work, 학습 세부 조건, 부가 평가 조건은 접어두었다.</p>
+<div class="deep-dive-body">
+<div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="ko-problem">Problem: scene을 매번 새로 푸는 한계</h3>
+<p>CUT3R의 출발점은 인간이 장면을 볼 때처럼 <strong>이전 관측을 압축해 기억하고, 새 관측이 들어올 때 3D mental model을 갱신</strong>할 수 있어야 한다는 문제의식이다. 기존 3D reconstruction은 scene마다 blank slate에서 시작하는 경우가 많아, sparse observation, degenerate camera motion, non-overlapping view처럼 관측이 부족하거나 어려운 조건에서 취약해진다.</p>
+<figure class="image">
+<img alt="Figure 1. Continuous 3D Perception." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_c95129ba6731.png" style="width:628.9765625px">
+<figcaption><span class="caption-main">Figure 1. Continuous 3D Perception.</span><span class="caption-note">입력이 순차적으로 들어올수록 persistent state가 갱신되고, 각 view의 pointmap과 camera가 같은 world coordinate 안에 누적된다.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head"><span class="section-chip">Problem Flow</span><p>논문의 문제 제기는 <strong>현재 관측만으로 3D를 푸는 방식</strong>에서 <strong>관측을 누적한 state를 읽는 방식</strong>으로 이동한다.</p></div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>Blank-slate reconstruction</strong><p>매 scene에서 현재 관측으로 구조와 카메라를 다시 추정.</p></article>
+<article><span>02</span><strong>관측 부족과 모호성</strong><p>sparse, non-overlapping, dynamic view에서 정렬과 최적화가 불안정.</p></article>
+<article><span>03</span><strong>Pairwise 3D prior의 한계</strong><p>DUSt3R 계열은 강력하지만 multi-view online state가 약함.</p></article>
+<article><span>04</span><strong>CUT3R의 재정의</strong><p>scene content를 state에 저장하고 update/readout으로 3D를 예측.</p></article>
+</div>
+</section>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Problem / Proposal</span><p>Abstract와 Introduction은 모두 <strong>continuous 3D perception을 위한 persistent state</strong>가 필요하다는 주장으로 모인다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>문제 축</th><th>기존 접근의 병목</th><th>CUT3R의 관점</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Few observations</span></td><td>관측이 적으면 geometry와 pose가 ill-posed</td><td>학습된 3D prior를 state에 저장</td></tr>
+<tr><td><span class="summary-term">Longer observation</span></td><td>새 관측을 기존 구조와 안정적으로 통합해야 함</td><td>state token을 recurrent하게 update</td></tr>
+<tr><td><span class="summary-term">Unseen regions</span></td><td>보이지 않은 영역은 직접 관측 없이는 추론 어려움</td><td>virtual camera raymap으로 state readout</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<figure class="image">
+<img alt="Figure 2. Querying Unseen Regions." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1eef893a1b25.png" style="width:628.984375px">
+<figcaption><span class="caption-main">Figure 2. Querying Unseen Regions.</span><span class="caption-note">raymap query는 새 image 관측 없이 state에서 virtual view의 geometry와 color를 읽어내는 기능을 보여준다.</span></figcaption>
+</figure>
+<details class="supplement-toggle supplement-structured">
+<summary>Related Work 맥락 자세히 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">기존 연구를 보는 축</span><p>Related Work는 연구를 단순 나열하기보다, CUT3R가 왜 persistent state를 제안하는지 보여주는 대비 구조로 읽는 편이 좋다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>연구 흐름</th><th>얻는 점</th><th>남는 한계</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">SfM / SLAM / NeRF / 3DGS</span></td><td>scene별 geometry 최적화</td><td>sparse/degenerate 관측에서 취약, scene마다 재시작</td></tr>
+<tr><td><span class="summary-term">DUSt3R / MASt3R</span></td><td>pairwise pointmap prediction으로 강한 3D prior 제공</td><td>multi-view 통합에 offline global alignment 필요</td></tr>
+<tr><td><span class="summary-term">Continuous reconstruction</span></td><td>online update와 memory 개념 도입</td><td>known camera, static scene, observed cache 중심인 경우 많음</td></tr>
+<tr><td><span class="summary-term">Dynamic scene priors</span></td><td>dynamic monocular video 처리</td><td>per-video optimization, pairwise formulation, explicit state 부족</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="ko-mechanism">Mechanism: persistent state를 어떻게 update/readout하나</h3>
+<p>방법론의 핵심은 image token과 state token이 transformer decoder 안에서 상호작용하고, 그 결과로 <strong>state는 갱신되고 현재 view의 3D output은 즉시 읽힌다</strong>는 점이다. 따라서 CUT3R는 “pointmap을 예측하는 모델”이라기보다, <strong>state를 통해 계속 장면을 축적하는 recurrent 3D model</strong>로 보는 것이 자연스럽다.</p>
+<figure class="image">
+<img alt="Figure 3. Method Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_2545ea5630d9.png" style="width:2140px">
+<figcaption><span class="caption-main">Figure 3. Method Overview.</span><span class="caption-note">image encoder, persistent state, interconnected decoder, output heads, raymap query가 하나의 recurrent loop로 연결된다.</span></figcaption>
+</figure>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Mechanism Thread Summary</span><p>Method는 <strong>입력 image를 state와 섞고, 업데이트된 state에서 현재 view와 virtual view를 읽어내는 구조</strong>로 정리된다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table method-table">
+<thead><tr><th>구간</th><th>무엇을 담당하나</th><th>핵심 장치</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Image encoding</span></td><td>입력 frame을 feature token으로 변환</td><td>DUSt3R pretrained ViT-Large encoder</td></tr>
+<tr><td><span class="summary-term">State interaction</span></td><td>현재 image token과 이전 state가 bidirectional interaction</td><td>learnable state token, interconnected transformer decoders</td></tr>
+<tr><td><span class="summary-term">Readout heads</span></td><td>self/world pointmap, confidence, pose 예측</td><td>self head, world head, pose head</td></tr>
+<tr><td><span class="summary-term">Raymap query</span></td><td>새 관측 없이 unseen view 구조와 color 추론</td><td>6-channel raymap, lightweight raymap encoder</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="design-choice-box">
+<div class="summary-head"><span class="section-chip">Design Choice</span><p>CUT3R의 중요한 선택은 <strong>state를 explicit map으로 두지 않고 compressed token state로 유지</strong>한다는 점이다.</p></div>
+<div class="design-choice-grid">
+<article><strong>버린 방향</strong><p>pairwise prediction을 모아 offline alignment 수행.</p></article>
+<article><strong>채택한 방향</strong><p>state token이 scene context를 압축 저장.</p></article>
+<article><strong>얻는 효과</strong><p>streaming input과 unseen-view query를 같은 framework에서 처리.</p></article>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">1. Image token과 state token 상호작용</span>
+<p>각 시점의 image는 encoder를 거쳐 token이 되고, pose token 및 이전 state와 함께 decoder에 들어간다. decoder는 image token을 state context로 보정하고, 동시에 state를 다음 시점으로 업데이트한다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_t = Encoder_i(I_t)\tag{1}$$</div></div></div>
+<figcaption>현재 image <span class="inline-math">\(I_t\)</span>를 feature token <span class="inline-math">\(F_t\)</span>로 변환.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$[z'_t,F'_t],s_t = Decoders([z,F_t],s_{t-1})\tag{2}$$</div></div></div>
+<figcaption>pose token과 image token은 state와 상호작용하고, state는 <span class="inline-math">\(s_{t-1}\)</span>에서 <span class="inline-math">\(s_t\)</span>로 갱신.</figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">2. 현재 view의 3D output readout</span>
+<p>출력 head는 self-frame pointmap, world-frame pointmap, camera pose를 동시에 예측한다. world frame은 첫 번째 image coordinate로 정의되며, pointmap을 누적하면 dense reconstruction이 된다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{self}_t,C^{self}_t=Head_{self}(F'_t)\tag{3}$$</div></div></div>
+<figcaption>현재 camera frame 기준 pointmap과 confidence.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{world}_t,C^{world}_t=Head_{world}(F'_t,z'_t)\tag{4}$$</div></div></div>
+<figcaption>공통 world coordinate 기준 pointmap과 confidence.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{P}_t=Head_{pose}(z'_t)\tag{5}$$</div></div></div>
+<figcaption>pose token에서 camera pose 예측.</figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">3. Raymap으로 unseen view를 query</span>
+<p>virtual camera는 origin과 ray direction을 담은 6-channel raymap으로 표현된다. raymap은 scene content를 새로 제공하는 입력이 아니므로 state를 업데이트하지 않고 readout만 수행한다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_r=Encoder_r(R)\tag{6}$$</div></div></div>
+<figcaption>raymap <span class="inline-math">\(R\)</span>을 query token으로 encoding.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{I}_r=Head_{color}(F'_r)$$</div></div></div>
+<figcaption>query view의 color prediction을 통해 raymap readout을 학습.</figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">4. Training objective</span>
+<p>학습은 pointmap regression, pose regression, raymap RGB consistency를 함께 사용한다. metric-scale annotation이 있으면 model이 metric pointmap을 직접 학습하도록 scale을 고정한다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{conf}=\sum_{(\hat{x},c)\in(\hat{X},C)}\left(c\left\|\frac{\hat{x}}{\hat{s}}-\frac{x}{s}\right\|_2-\alpha\log c\right)\tag{7}$$</div></div></div>
+<figcaption>confidence-weighted pointmap regression objective.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{pose}=\sum_{t=1}^{N}\left(\|\hat{q}_t-q_t\|_2+\left\|\frac{\hat{\tau}_t}{\hat{s}}-\frac{\tau_t}{s}\right\|_2\right)\tag{8}$$</div></div></div>
+<figcaption>rotation과 translation을 함께 보는 pose regression objective.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{rgb}=\|\hat{I}_r-I_r\|_2^2$$</div></div></div>
+<figcaption>raymap query의 RGB consistency loss.</figcaption>
+</figure>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>학습 구성과 구현 세부 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Training setup</span><p>학습 세부 조건은 핵심 구조를 이해한 뒤 확인하면 좋다. 중요한 점은 다양한 annotation level을 가진 dataset을 함께 사용한다는 것이다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>항목</th><th>내용</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Data scale</span></td><td>32개 이상 dataset</td><td>synthetic/real, static/dynamic, indoor/outdoor, object/scene-level 포함</td></tr>
+<tr><td><span class="summary-term">Curriculum</span></td><td>4-view static에서 dynamic/partial annotation, high-resolution, long context로 확장</td><td>짧은 안정 학습에서 긴 state 학습으로 이동</td></tr>
+<tr><td><span class="summary-term">Architecture</span></td><td>DUSt3R ViT-Large encoder, ViT-Base decoder, 768 state tokens</td><td>강한 pairwise 3D prior를 recurrent state 구조로 확장</td></tr>
+<tr><td><span class="summary-term">Raymap encoder</span></td><td>2-block lightweight encoder</td><td>virtual camera query를 image token처럼 readout</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="ko-evidence">Evidence: 어떤 claim을 어떻게 검증했나</h3>
+<p>평가는 dataset 이름을 외우는 것보다 <strong>각 실험이 어떤 claim을 지지하는지</strong>로 보는 편이 명확하다. CUT3R는 depth, pose, 3D reconstruction, state update, unseen-view inference를 통해 “persistent state가 다양한 3D perception task에 재사용된다”는 주장을 검증한다.</p>
+<section class="summary-panel evaluation-evidence-panel">
+<div class="summary-head"><span class="section-chip">Evaluation Evidence</span><p>핵심 평가는 depth/pose/reconstruction이고, state update와 raymap query는 persistent state의 의미를 보여주는 분석이다.</p></div>
+<div class="evaluation-table-stack">
+<div class="evaluation-table-block">
+<span class="evaluation-table-label">핵심 평가</span>
+<div class="summary-table-wrap">
+<table class="summary-table task-evidence-table">
+<thead><tr><th>평가 축</th><th>근거</th><th>확인할 점</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Depth estimation</span></td><td>Table 1-2</td><td>single-frame zero-shot과 video depth에서 기존 pairwise/global alignment 계열과 비교.</td></tr>
+<tr><td><span class="summary-term">Camera pose</span></td><td>Table 3</td><td>online method 중 강한 pose 성능, dynamic scene에서의 안정성.</td></tr>
+<tr><td><span class="summary-term">3D reconstruction</span></td><td>Table 4, Figure 4</td><td>sparse image collection과 in-the-wild video에서 online reconstruction 품질 확인.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="evaluation-table-block">
+<span class="evaluation-table-label">보조 분석</span>
+<div class="summary-table-wrap">
+<table class="summary-table task-evidence-table">
+<thead><tr><th>분석 축</th><th>근거</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term summary-term-secondary">State update</span></td><td>Table 5, Figure 5</td><td>더 많은 observation과 revisiting이 state 품질을 개선.</td></tr>
+<tr><td><span class="summary-term summary-term-secondary">Unseen readout</span></td><td>Figure 6</td><td>state가 관측되지 않은 view의 structure를 생성할 수 있음을 시각화.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Depth / Pose / Reconstruction Evidence</span>
+<figure class="image">
+<img alt="Table 1. Single-frame Depth Evaluation." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_971c727f943e.png" style="width:628.9921875px">
+<figcaption><span class="caption-main">Table 1. Single-frame Depth Evaluation.</span><span class="caption-note">KITTI, Sintel, Bonn, NYU-v2를 training에서 제외한 zero-shot single-frame depth 평가.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 2. Video Depth Evaluation." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_011d48002542.png" style="width:2158px">
+<figcaption><span class="caption-main">Table 2. Video Depth Evaluation.</span><span class="caption-note">per-sequence scale alignment 조건에서 video depth 성능과 online 처리 속도를 비교.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 3. Evaluation on Camera Pose Estimation on Sintel, TUM-dynamic, and ScanNet." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_8432c9cb3359.png" style="width:628.9921875px">
+<figcaption><span class="caption-main">Table 3. Camera Pose Estimation on Sintel, TUM-dynamic, and ScanNet.</span><span class="caption-note">Sim(3) alignment 후 ATE와 RPE를 사용해 pose estimation 성능을 비교.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 4. 3D reconstruction comparison on 7-Scenes and NRGBD." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_89b0b08b5dc9.png" style="width:720px">
+<figcaption><span class="caption-main">Table 4. 3D Reconstruction on 7-Scenes and NRGBD.</span><span class="caption-note">sparse image collection에서 accuracy, completion, normal consistency를 비교.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 4. Qualitative Results on In-the-wild Internet Videos." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_3a836c1e2f10.png" style="width:576px">
+<figcaption><span class="caption-main">Figure 4. Qualitative Results on In-the-wild Internet Videos.</span><span class="caption-note">Spann3R, MonST3R와 in-the-wild video reconstruction을 비교하며, 논문은 CUT3R가 가장 좋은 qualitative result를 보인다고 설명한다.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">State / Query Analysis</span>
+<figure class="image">
+<img alt="Table 5. State Update Analysis on 7-Scenes and NRGBD." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d53f249e01ad.png" style="width:576px">
+<figcaption><span class="caption-main">Table 5. State Update Analysis on 7-Scenes and NRGBD.</span><span class="caption-note">observation이 늘어날수록 state가 scene understanding을 개선하는지 확인.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 5. State Update Analysis." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_821a2c3f3f7a.png" style="width:480px">
+<figcaption><span class="caption-main">Figure 5. State Update Analysis.</span><span class="caption-note">online 결과와 비교했을 때, revisiting은 전체 scene context를 state에 반영해 highlighted region의 reconstruction을 개선한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 6. Inferring New Structure via State Readout." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_c3c0f5c74c90.png" style="width:528px">
+<figcaption><span class="caption-main">Figure 6. Inferring New Structure via State Readout.</span><span class="caption-note">single input image와 GT camera raymap을 사용해 unseen view의 pointmap과 color를 생성.</span></figcaption>
+</figure>
+</section>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head"><span class="section-chip">Evidence Brief</span><p>평가 결과는 CUT3R가 특정 task 하나의 모델이 아니라, state를 여러 3D perception readout에 재사용하는 모델임을 보여준다.</p></div>
+<div class="result-brief-grid">
+<article><strong>Depth</strong><p>single-frame과 video depth에서 zero-shot generalization 확인.</p></article>
+<article><strong>Pose</strong><p>optimization-based method와의 격차는 남지만 online method 중 강한 성능.</p></article>
+<article><strong>Reconstruction</strong><p>online 방식으로 sparse collection과 web video reconstruction 처리.</p></article>
+<article><strong>State</strong><p>observation 증가와 revisiting에서 state 품질 개선.</p></article>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>평가 설정과 baseline 세부 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Evaluation setup</span><p>baseline과 metric은 task마다 다르다. 핵심은 pairwise/global alignment 계열과 online state 기반 CUT3R를 같은 task에서 비교하는 것이다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Task</th><th>Dataset / metric</th><th>주요 baseline</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Single depth</span></td><td>KITTI, Sintel, Bonn, NYU-v2 / depth error</td><td>DUSt3R, MASt3R, MonST3R 등</td></tr>
+<tr><td><span class="summary-term">Video depth</span></td><td>per-sequence scale alignment / FPS 포함</td><td>DUSt3R-GA, MASt3R-GA, Spann3R, MonST3R-GA</td></tr>
+<tr><td><span class="summary-term">Pose</span></td><td>Sintel, TUM-dynamic, ScanNet / ATE, RPE</td><td>online/optimization-based pose methods</td></tr>
+<tr><td><span class="summary-term">Reconstruction</span></td><td>7-Scenes, NRGBD / accuracy, completion, normal consistency</td><td>Spann3R, DUSt3R-GA 등</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Usage / Limits">
+<h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 약한가</h3>
+<p>CUT3R는 camera calibration이나 explicit global alignment 없이도 image stream을 online으로 3D state에 통합해야 하는 상황에 잘 맞는다. 반면 매우 긴 sequence에서는 explicit global alignment가 없기 때문에 drift가 누적될 수 있고, 큰 viewpoint extrapolation에서는 deterministic readout이 high-frequency detail을 흐리게 만들 수 있다.</p>
+<section class="summary-panel usage-fit-box">
+<div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>Conclusion의 핵심은 CUT3R가 범용 3D perception state를 만들었지만, long-term global consistency와 sharp unseen generation은 아직 과제로 남는다는 점이다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table usage-table">
+<thead><tr><th>구분</th><th>정리</th><th>이유</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">잘 맞는 상황</span></td><td>streaming video, sparse photo collection, camera 정보가 부족한 scene</td><td>state update/readout만으로 pointmap과 pose를 online 예측</td></tr>
+<tr><td><span class="summary-term">강한 조건</span></td><td>static/dynamic scene이 섞인 다양한 3D perception task</td><td>32개 이상 dataset과 partial annotation을 사용해 broad prior 학습</td></tr>
+<tr><td><span class="summary-term">약한 조건</span></td><td>매우 긴 sequence, 큰 viewpoint extrapolation, 세밀한 texture/detail 요구</td><td>explicit global alignment 부재와 deterministic generation 한계</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head"><span class="section-chip">Paper conclusion</span><p>CUT3R는 persistent state를 통해 online reconstruction, camera/pointmap prediction, unseen region inference를 하나의 recurrent framework로 묶는다.</p></div>
+<div class="result-brief-grid">
+<article><strong>핵심 주장</strong><p>continuous 3D perception에는 관측을 누적하는 compressed scene state가 필요.</p></article>
+<article><strong>실용적 장점</strong><p>video, photo collection, static/dynamic scene을 같은 구조로 처리.</p></article>
+<article><strong>남은 한계</strong><p>long sequence drift, unseen detail blur, recurrent model training cost.</p></article>
+</div>
+</section>
+</section>
+
+<section class="deep-section" data-section-title="Takeaway">
+<h3 id="ko-takeaway">느낀점</h3>
+<p>(진행중...)</p>
+</section>
+<section class="deep-section" data-section-title="Future Work">
+<h3 id="ko-future-work">향후 계획</h3>
+<p>(진행중...)</p>
+</section>
+</div>
+
+<div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden id="deepDiveContentEn">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="en-problem">Problem: the limit of rebuilding every scene from scratch</h3>
+<p>CUT3R starts from the idea that 3D perception should work more like human scene understanding: <strong>compress previous observations into memory and update a 3D mental model as new images arrive</strong>. Many reconstruction pipelines start each scene from a blank slate, so sparse observations, degenerate motion, and non-overlapping views can make the problem unstable.</p>
+<figure class="image">
+<img alt="Figure 1. Continuous 3D Perception." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_c95129ba6731.png" style="width:628.9765625px">
+<figcaption><span class="caption-main">Figure 1. Continuous 3D Perception.</span><span class="caption-note">As images arrive sequentially, the persistent state is updated and each view's pointmap and camera are accumulated in a shared world coordinate system.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head"><span class="section-chip">Problem Flow</span><p>The paper moves from <strong>solving 3D from current observations</strong> to <strong>reading 3D from an accumulated state</strong>.</p></div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>Blank-slate reconstruction</strong><p>Structure and camera are estimated again for each scene.</p></article>
+<article><span>02</span><strong>Ambiguous observations</strong><p>Sparse, non-overlapping, and dynamic views make alignment unstable.</p></article>
+<article><span>03</span><strong>Pairwise prior limit</strong><p>DUSt3R-like models are strong, but online multi-view state is limited.</p></article>
+<article><span>04</span><strong>CUT3R's reframing</strong><p>Store scene content in state and predict 3D through update/readout.</p></article>
+</div>
+</section>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Problem / Proposal</span><p>The abstract and introduction converge on the need for a <strong>persistent state for continuous 3D perception</strong>.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Problem axis</th><th>Bottleneck</th><th>CUT3R's view</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Few observations</span></td><td>Geometry and pose are ill-posed with limited evidence</td><td>Store a learned 3D prior in state</td></tr>
+<tr><td><span class="summary-term">Longer observation</span></td><td>New views must be integrated into the existing scene</td><td>Update state tokens recurrently</td></tr>
+<tr><td><span class="summary-term">Unseen regions</span></td><td>Unobserved areas are hard to infer from observation alone</td><td>Read out the state with a virtual-camera raymap</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<figure class="image">
+<img alt="Figure 2. Querying Unseen Regions." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1eef893a1b25.png" style="width:628.984375px">
+<figcaption><span class="caption-main">Figure 2. Querying Unseen Regions.</span><span class="caption-note">A raymap query reads virtual-view geometry and color from the state without adding a new image observation.</span></figcaption>
+</figure>
+<details class="supplement-toggle supplement-structured">
+<summary>Related work context</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">How to read prior work</span><p>The related work is best read as a contrast that explains why CUT3R needs persistent state.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Research line</th><th>Strength</th><th>Remaining limit</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">SfM / SLAM / NeRF / 3DGS</span></td><td>Scene-wise geometry optimization</td><td>Fragile under sparse or degenerate observations</td></tr>
+<tr><td><span class="summary-term">DUSt3R / MASt3R</span></td><td>Strong pairwise pointmap prediction</td><td>Offline global alignment often needed for multi-view use</td></tr>
+<tr><td><span class="summary-term">Continuous reconstruction</span></td><td>Online update and memory concepts</td><td>Often assumes known cameras, static scenes, or observed-cache memory</td></tr>
+<tr><td><span class="summary-term">Dynamic scene priors</span></td><td>Dynamic monocular video handling</td><td>Per-video optimization, pairwise formulation, or limited explicit state</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="en-mechanism">Mechanism: how does persistent state update and read out 3D?</h3>
+<p>The core mechanism is that image tokens and state tokens interact inside transformer decoders. The state is updated, and the current view's 3D output is read immediately. CUT3R is therefore better understood as a <strong>recurrent 3D model that accumulates the scene through state</strong>, not only as a pointmap predictor.</p>
+<figure class="image">
+<img alt="Figure 3. Method Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_2545ea5630d9.png" style="width:2140px">
+<figcaption><span class="caption-main">Figure 3. Method Overview.</span><span class="caption-note">The image encoder, persistent state, interconnected decoder, output heads, and raymap query form one recurrent loop.</span></figcaption>
+</figure>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Mechanism Thread Summary</span><p>The method can be summarized as <strong>mixing image tokens with state, updating the state, and reading current or virtual views from it</strong>.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table method-table">
+<thead><tr><th>Part</th><th>Role</th><th>Core device</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Image encoding</span></td><td>Converts the input frame into feature tokens</td><td>DUSt3R pretrained ViT-Large encoder</td></tr>
+<tr><td><span class="summary-term">State interaction</span></td><td>Lets current image tokens and previous state interact</td><td>Learnable state tokens, interconnected transformer decoders</td></tr>
+<tr><td><span class="summary-term">Readout heads</span></td><td>Predicts self/world pointmaps, confidence, and pose</td><td>Self head, world head, pose head</td></tr>
+<tr><td><span class="summary-term">Raymap query</span></td><td>Infers unseen-view structure and color without a new observation</td><td>6-channel raymap, lightweight raymap encoder</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="design-choice-box">
+<div class="summary-head"><span class="section-chip">Design Choice</span><p>The key design choice is to keep scene memory as <strong>compressed state tokens</strong> rather than as an explicit map.</p></div>
+<div class="design-choice-grid">
+<article><strong>Discarded direction</strong><p>Collect pairwise predictions and run offline alignment.</p></article>
+<article><strong>Chosen direction</strong><p>Use state tokens to compress scene context.</p></article>
+<article><strong>Effect</strong><p>Handle streaming input and unseen-view queries in one framework.</p></article>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">1. Image-state interaction</span>
+<p>Each image is encoded into tokens and passed to the decoder with a pose token and the previous state. The decoder refines the image tokens with state context and updates the state for the next time step.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_t = Encoder_i(I_t)\tag{1}$$</div></div></div>
+<figcaption>The current image <span class="inline-math">\(I_t\)</span> is encoded into feature tokens <span class="inline-math">\(F_t\)</span>.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$[z'_t,F'_t],s_t = Decoders([z,F_t],s_{t-1})\tag{2}$$</div></div></div>
+<figcaption>The pose and image tokens interact with the state, updating <span class="inline-math">\(s_{t-1}\)</span> into <span class="inline-math">\(s_t\)</span>.</figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">2. Current-view 3D readout</span>
+<p>The heads predict a self-frame pointmap, a world-frame pointmap, and the camera pose. The world frame is defined by the first image coordinate system, and accumulated pointmaps form dense reconstruction.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{self}_t,C^{self}_t=Head_{self}(F'_t)\tag{3}$$</div></div></div>
+<figcaption>Self-frame pointmap and confidence.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{world}_t,C^{world}_t=Head_{world}(F'_t,z'_t)\tag{4}$$</div></div></div>
+<figcaption>World-frame pointmap and confidence.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{P}_t=Head_{pose}(z'_t)\tag{5}$$</div></div></div>
+<figcaption>Camera pose prediction from the pose token.</figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">3. Querying unseen views with raymaps</span>
+<p>A virtual camera is represented as a 6-channel raymap containing ray origins and directions. Because a raymap does not add new scene content, it reads from the state without updating it.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_r=Encoder_r(R)\tag{6}$$</div></div></div>
+<figcaption>The raymap <span class="inline-math">\(R\)</span> is encoded as query tokens.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{I}_r=Head_{color}(F'_r)$$</div></div></div>
+<figcaption>RGB consistency trains the query-view color readout.</figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">4. Training objective</span>
+<p>The training objective combines pointmap regression, pose regression, and raymap RGB consistency. When metric-scale annotation is available, the model is trained to predict metric pointmaps directly.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{conf}=\sum_{(\hat{x},c)\in(\hat{X},C)}\left(c\left\|\frac{\hat{x}}{\hat{s}}-\frac{x}{s}\right\|_2-\alpha\log c\right)\tag{7}$$</div></div></div>
+<figcaption>Confidence-weighted pointmap regression objective.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{pose}=\sum_{t=1}^{N}\left(\|\hat{q}_t-q_t\|_2+\left\|\frac{\hat{\tau}_t}{\hat{s}}-\frac{\tau_t}{s}\right\|_2\right)\tag{8}$$</div></div></div>
+<figcaption>Pose regression objective over rotation and translation.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{rgb}=\|\hat{I}_r-I_r\|_2^2$$</div></div></div>
+<figcaption>RGB consistency loss for raymap queries.</figcaption>
+</figure>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Training setup and implementation details</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Training setup</span><p>The important point is that CUT3R learns from many datasets with different annotation levels.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Item</th><th>Content</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Data scale</span></td><td>More than 32 datasets</td><td>Synthetic/real, static/dynamic, indoor/outdoor, object/scene-level data</td></tr>
+<tr><td><span class="summary-term">Curriculum</span></td><td>Static 4-view training, dynamic/partial annotations, high-resolution, long context</td><td>Moves from stable short sequences to long-state training</td></tr>
+<tr><td><span class="summary-term">Architecture</span></td><td>DUSt3R ViT-Large encoder, ViT-Base decoder, 768 state tokens</td><td>Extends a strong pairwise 3D prior into recurrent state</td></tr>
+<tr><td><span class="summary-term">Raymap encoder</span></td><td>2-block lightweight encoder</td><td>Reads virtual-camera queries like image tokens</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="en-evidence">Evidence: which claims are tested?</h3>
+<p>The evaluation is clearest when each experiment is tied to a claim. CUT3R tests depth, pose, 3D reconstruction, state update, and unseen-view inference to support the claim that persistent state can serve multiple 3D perception readouts.</p>
+<section class="summary-panel evaluation-evidence-panel">
+<div class="summary-head"><span class="section-chip">Evaluation Evidence</span><p>Depth, pose, and reconstruction are the main evaluations, while state update and raymap query explain what the persistent state contributes.</p></div>
+<div class="evaluation-table-stack">
+<div class="evaluation-table-block">
+<span class="evaluation-table-label">Core evaluation</span>
+<div class="summary-table-wrap">
+<table class="summary-table task-evidence-table">
+<thead><tr><th>Axis</th><th>Evidence</th><th>What to check</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Depth estimation</span></td><td>Table 1-2</td><td>Single-frame zero-shot and video depth compared with pairwise/global-alignment methods.</td></tr>
+<tr><td><span class="summary-term">Camera pose</span></td><td>Table 3</td><td>Strong online pose performance, especially under dynamic scenes.</td></tr>
+<tr><td><span class="summary-term">3D reconstruction</span></td><td>Table 4, Figure 4</td><td>Online reconstruction from sparse image collections and in-the-wild videos.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="evaluation-table-block">
+<span class="evaluation-table-label">Supporting analysis</span>
+<div class="summary-table-wrap">
+<table class="summary-table task-evidence-table">
+<thead><tr><th>Axis</th><th>Evidence</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term summary-term-secondary">State update</span></td><td>Table 5, Figure 5</td><td>More observations and revisiting improve state quality.</td></tr>
+<tr><td><span class="summary-term summary-term-secondary">Unseen readout</span></td><td>Figure 6</td><td>The state can synthesize structure for views that were not observed.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Depth / Pose / Reconstruction Evidence</span>
+<figure class="image">
+<img alt="Table 1. Single-frame Depth Evaluation." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_971c727f943e.png" style="width:628.9921875px">
+<figcaption><span class="caption-main">Table 1. Single-frame Depth Evaluation.</span><span class="caption-note">Zero-shot single-frame depth evaluation on KITTI, Sintel, Bonn, and NYU-v2.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 2. Video Depth Evaluation." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_011d48002542.png" style="width:2158px">
+<figcaption><span class="caption-main">Table 2. Video Depth Evaluation.</span><span class="caption-note">Compares video depth under per-sequence scale alignment and includes online speed.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 3. Camera Pose Estimation." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_8432c9cb3359.png" style="width:628.9921875px">
+<figcaption><span class="caption-main">Table 3. Camera Pose Estimation on Sintel, TUM-dynamic, and ScanNet.</span><span class="caption-note">Evaluates pose with ATE and RPE after Sim(3) alignment.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 4. 3D Reconstruction on 7-Scenes and NRGBD." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_89b0b08b5dc9.png" style="width:720px">
+<figcaption><span class="caption-main">Table 4. 3D Reconstruction on 7-Scenes and NRGBD.</span><span class="caption-note">Compares accuracy, completion, and normal consistency on sparse image collections.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 4. Qualitative Results on In-the-wild Internet Videos." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_3a836c1e2f10.png" style="width:576px">
+<figcaption><span class="caption-main">Figure 4. Qualitative Results on In-the-wild Internet Videos.</span><span class="caption-note">The paper compares in-the-wild video reconstruction against Spann3R and MonST3R, and reports the best qualitative result for CUT3R.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">State / Query Analysis</span>
+<figure class="image">
+<img alt="Table 5. State Update Analysis on 7-Scenes and NRGBD." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d53f249e01ad.png" style="width:576px">
+<figcaption><span class="caption-main">Table 5. State Update Analysis on 7-Scenes and NRGBD.</span><span class="caption-note">Tests whether state quality improves as the model observes more of the scene.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 5. State Update Analysis." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_821a2c3f3f7a.png" style="width:480px">
+<figcaption><span class="caption-main">Figure 5. State Update Analysis.</span><span class="caption-note">Compared with online inference, revisiting incorporates global context into the state and improves reconstruction, especially in the highlighted regions.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 6. Inferring New Structure via State Readout." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_c3c0f5c74c90.png" style="width:528px">
+<figcaption><span class="caption-main">Figure 6. Inferring New Structure via State Readout.</span><span class="caption-note">Uses a single input image and a GT camera raymap to generate unseen-view pointmaps and color.</span></figcaption>
+</figure>
+</section>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head"><span class="section-chip">Evidence Brief</span><p>The results show CUT3R as a state-based model whose readouts can support multiple 3D perception tasks.</p></div>
+<div class="result-brief-grid">
+<article><strong>Depth</strong><p>Checks zero-shot generalization in single-frame and video depth.</p></article>
+<article><strong>Pose</strong><p>Still trails optimization-heavy methods in some cases, but is strong among online methods.</p></article>
+<article><strong>Reconstruction</strong><p>Handles sparse collections and web videos with an online model.</p></article>
+<article><strong>State</strong><p>Improves with more observations and revisiting.</p></article>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Evaluation setup and baselines</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Evaluation setup</span><p>Each task uses different metrics and baselines. The key comparison is between pairwise/global-alignment methods and CUT3R's online state-based inference.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Task</th><th>Dataset / metric</th><th>Main baselines</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Single depth</span></td><td>KITTI, Sintel, Bonn, NYU-v2 / depth error</td><td>DUSt3R, MASt3R, MonST3R</td></tr>
+<tr><td><span class="summary-term">Video depth</span></td><td>Per-sequence scale alignment / FPS</td><td>DUSt3R-GA, MASt3R-GA, Spann3R, MonST3R-GA</td></tr>
+<tr><td><span class="summary-term">Pose</span></td><td>Sintel, TUM-dynamic, ScanNet / ATE, RPE</td><td>Online and optimization-based pose methods</td></tr>
+<tr><td><span class="summary-term">Reconstruction</span></td><td>7-Scenes, NRGBD / accuracy, completion, normal consistency</td><td>Spann3R, DUSt3R-GA</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Usage / Limits">
+<h3 id="en-usage">Usage / Limits: when is it useful?</h3>
+<p>CUT3R is useful when an image stream must be integrated into a 3D state without camera calibration or explicit global alignment. It is weaker for very long sequences because there is no explicit global alignment, and deterministic readout can blur high-frequency detail under large viewpoint extrapolation.</p>
+<section class="summary-panel usage-fit-box">
+<div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>The conclusion is that CUT3R builds a broad 3D perception state, while long-term global consistency and sharp unseen generation remain open challenges.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table usage-table">
+<thead><tr><th>Category</th><th>Summary</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Good fit</span></td><td>Streaming videos, sparse photo collections, scenes with limited camera information</td><td>Predicts pointmaps and poses online through state update/readout</td></tr>
+<tr><td><span class="summary-term">Strong condition</span></td><td>Mixed static/dynamic scenes and broad 3D perception tasks</td><td>Uses broad datasets and partial annotations to learn a general prior</td></tr>
+<tr><td><span class="summary-term">Weak condition</span></td><td>Very long sequences, large viewpoint extrapolation, fine texture/detail needs</td><td>No explicit global alignment and deterministic generation limits</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head"><span class="section-chip">Paper conclusion</span><p>CUT3R unifies online reconstruction, camera/pointmap prediction, and unseen-region inference through persistent state update and readout.</p></div>
+<div class="result-brief-grid">
+<article><strong>Core claim</strong><p>Continuous 3D perception needs compressed scene state.</p></article>
+<article><strong>Practical value</strong><p>Handles videos, photo collections, static scenes, and dynamic scenes in one structure.</p></article>
+<article><strong>Remaining limit</strong><p>Long-sequence drift, unseen-detail blur, and recurrent-model training cost.</p></article>
+</div>
+</section>
+</section>
+
+<section class="deep-section" data-section-title="Takeaway">
+<h3 id="en-takeaway">Takeaway</h3>
+<p>(In progress...)</p>
+</section>
+<section class="deep-section" data-section-title="Future Work">
+<h3 id="en-future-work">Future Work</h3>
+<p>(In progress...)</p>
+</section>
+</div>
+<div class="deep-dive-more is-visible" id="deepDiveMore">
+<button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</section>
+<section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+<h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+<script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+</section>
+</main>
+</div>
+</div>
+<div aria-hidden="true" class="lightbox" id="lightbox">
+<button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+<img alt="preview" id="lightboxImg">
+</div>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  if (!window.renderMathInElement) return;
+  window.renderMathInElement(document.body, {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\(", right: "\\)", display: false },
+      { left: "\\[", right: "\\]", display: true }
+    ],
+    throwOnError: false
+  });
+});
+</script>
+<script src="script.js?v=cut3r-redesign-20260525" defer></script>
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
+<title>WildPose Paper Review</title>
+<link href="../../../assets/favicon.png" rel="icon" type="image/png">
+<meta content="WildPose Paper Review" property="og:title">
+<meta content="Paper Reviews &amp; Work" property="og:description">
+<meta content="website" property="og:type">
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
+<link href="styles.css?v=wildpose-inline-baseline-20260526" rel="stylesheet">
+</head>
+<body>
+<a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+<div class="layout" id="top">
+<aside aria-label="Paper section bookmark" class="sidebar">
+<div class="sidebar-card">
+<nav aria-label="Paper section bookmark" class="section-bookmark">
+<div class="bookmark-status">
+<span class="bookmark-eyebrow">Now Reading</span>
+<strong id="currentSectionLabel">핵심 요약</strong>
+</div>
+<div class="bookmark-list" id="sectionBookmarkList"></div>
+</nav>
+</div>
+</aside>
+<div class="content">
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brandline">
+<a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+<img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+</a>
+<span class="brandtext">Paper Reviews</span>
+</div>
+<div class="top-actions">
+<button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+<span data-lang-option="ko">KO</span>
+<span data-lang-option="en">EN</span>
+</button>
+<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+<span aria-hidden="true" id="themeIcon">☀</span>
+</button>
+</div>
+</div>
+</header>
+<main class="container" id="main">
+<section class="section">
+<div class="panel">
+<header class="paper-identity">
+<p class="paper-title-meta">WildPose: A Unified Framework for Robust Pose Estimation in the Wild</p>
+</header>
+<div class="post-body">
+<section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+<div class="paper-map-head">
+<h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+<p data-en="WildPose is a unified monocular pose-estimation framework that combines MASt3R-style 3D-aware features, differentiable BA, and edge-specific motion masks to stay robust in both dynamic and static scenes." data-ko="WildPose는 MASt3R식 3D-aware feature, differentiable BA, edge-specific motion mask를 결합해 dynamic scene과 static scene 모두에서 안정적인 monocular pose estimation을 목표로 하는 프레임워크다.">WildPose는 MASt3R식 3D-aware feature, differentiable BA, edge-specific motion mask를 결합해 dynamic scene과 static scene 모두에서 안정적인 monocular pose estimation을 목표로 하는 프레임워크다.</p>
+</div>
+
+<div class="tldr-cues">
+<span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Dynamic distractors break static SLAM." data-ko="dynamic → static SLAM 불안정">dynamic → static SLAM 불안정</small></span>
+<span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="3D-aware BA + motion masks" data-ko="3D-aware BA + motion mask">3D-aware BA + motion mask</small></span>
+<span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="dynamic / static / depth / ablation" data-ko="dynamic / static / depth / ablation">dynamic / static / depth / ablation</small></span>
+</div>
+
+<div class="map-grid">
+<article class="map-card map-card-wide">
+<span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+<p data-en="This paper treats robust in-the-wild pose estimation as a joint design problem: stronger 3D-aware pair features improve the optimizer, and edge-dependent masks decide which residuals should trust dynamic pixels less." data-ko="이 논문은 in-the-wild pose estimation을 stronger 3D-aware pair feature와 edge-dependent motion mask가 differentiable BA를 함께 안정화하는 문제로 본다.">이 논문은 in-the-wild pose estimation을 stronger 3D-aware pair feature와 edge-dependent motion mask가 differentiable BA를 함께 안정화하는 문제로 본다.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 01</span>
+<h3>Unified Pose Estimator</h3>
+<p data-en="A monocular system that targets dynamic, low-motion, and static benchmarks together." data-ko="dynamic, low-motion, static benchmark를 함께 겨냥하는 monocular pose estimator.">dynamic, low-motion, static benchmark를 함께 겨냥하는 monocular pose estimator.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 02</span>
+<h3>3D-aware BA Operator</h3>
+<p data-en="Replaces the weak scratch CNN frontend with MASt3R encoder features inside a DROID-style optimization loop." data-ko="DROID식 optimization loop 안에 MASt3R encoder feature를 넣어 frontend prior 강화.">DROID식 optimization loop 안에 MASt3R encoder feature를 넣어 frontend prior 강화.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 03</span>
+<h3>Edge Motion Mask</h3>
+<p data-en="Predicts pairwise motion masks so a moving object is suppressed only for the graph edge where it is an outlier." data-ko="pairwise motion mask로 특정 edge에서 outlier가 되는 dynamic region만 residual downweight.">pairwise motion mask로 특정 edge에서 outlier가 되는 dynamic region만 residual downweight.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 04</span>
+<h3>Cross-regime Evidence</h3>
+<p data-en="Reports gains on Wild-SLAM/Bonn/TUM dynamic, Sintel, TUM static, 7-Scenes, depth estimation, and ablation." data-ko="Wild-SLAM/Bonn/TUM dynamic, Sintel, TUM static, 7-Scenes, depth estimation, ablation으로 검증.">Wild-SLAM/Bonn/TUM dynamic, Sintel, TUM static, 7-Scenes, depth estimation, ablation으로 검증.</p>
+</article>
+</div>
+
+<div class="insight-box">
+<strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
+<p data-en="WildPose is best read as an attempt to make DROID-SLAM less static-scene-dependent without turning it into a semantic segmentation system. The key is not just masking dynamics, but making the optimizer consume stronger 3D-aware pair evidence." data-ko="WildPose는 DROID-SLAM을 semantic segmentation 시스템으로 바꾸지 않으면서 static-scene 의존성을 줄이려는 시도로 읽으면 좋다. 핵심은 dynamic을 단순히 지우는 것이 아니라, optimizer가 더 강한 3D-aware pair evidence를 사용하게 만드는 데 있다.">WildPose는 DROID-SLAM을 semantic segmentation 시스템으로 바꾸지 않으면서 static-scene 의존성을 줄이려는 시도로 읽으면 좋다. 핵심은 dynamic을 단순히 지우는 것이 아니라, optimizer가 더 강한 3D-aware pair evidence를 사용하게 만드는 데 있다.</p>
+</div>
+
+<div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
+<div aria-label="WildPose processing flow" class="flow-diagram">
+<div class="flow-step"><span>01</span><strong>RGB Sequence</strong><small>calibrated monocular video</small></div>
+<div class="flow-step"><span>02</span><strong>MASt3R Encoder</strong><small>3D-aware pair features</small></div>
+<div class="flow-step"><span>03</span><strong>Update Operator</strong><small>flow / confidence / damping</small></div>
+<div class="flow-step"><span>04</span><strong>Motion Mask</strong><small>edge-specific dynamic weight</small></div>
+<div class="flow-step"><span>05</span><strong>Masked BA</strong><small>pose + disparity optimization</small></div>
+<div class="flow-step"><span>06</span><strong>Loop / Global BA</strong><small>long-term consistency</small></div>
+</div>
+
+<div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
+<div class="compare-grid">
+<article>
+<span class="compare-kicker">Semantic Dynamic SLAM</span>
+<h3 data-en="Class-prior Filtering" data-ko="class prior 기반 제거">class prior 기반 제거</h3>
+<p data-en="Useful when object categories are known, but brittle for unseen movable objects or segmentation failures." data-ko="known class에는 유용하지만 unseen movable object와 segmentation failure에 취약.">known class에는 유용하지만 unseen movable object와 segmentation failure에 취약.</p>
+</article>
+<article>
+<span class="compare-kicker">MegaSaM / WildGS-SLAM</span>
+<h3 data-en="Motion or Rendering Cue" data-ko="motion/rendering cue">motion/rendering cue</h3>
+<p data-en="Avoids explicit semantic priors, but can suffer from synthetic-domain gaps, low-capacity motion decoding, or online mapping cost." data-ko="semantic prior는 줄이지만 synthetic gap, low-capacity motion decoding, online mapping cost가 남음.">semantic prior는 줄이지만 synthetic gap, low-capacity motion decoding, online mapping cost가 남음.</p>
+</article>
+<article>
+<span class="compare-kicker">WildPose</span>
+<h3 data-en="Feature-rich Optimizer" data-ko="feature-rich optimizer">feature-rich optimizer</h3>
+<p data-en="Feeds MASt3R's 3D-aware features into a differentiable BA loop and learns pairwise masks for graph edges." data-ko="MASt3R의 3D-aware feature를 differentiable BA loop에 넣고 edge별 motion mask를 학습.">MASt3R의 3D-aware feature를 differentiable BA loop에 넣고 edge별 motion mask를 학습.</p>
+</article>
+</div>
+</section>
+
+<section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+<h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+<p class="deep-dive-note" data-en="From here, the detailed notes preserve the main paper content as much as possible. Related-work context, training details, and baseline-condition notes are folded when they interrupt the main reading flow." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 related work, 학습 세부 조건, baseline 조건 메모는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 related work, 학습 세부 조건, baseline 조건 메모는 접어두었다.</p>
+<div class="deep-dive-body">
+<div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="ko-problem">Problem: static-world 가정은 in-the-wild pose를 흔든다</h3>
+<p>WildPose의 출발점은 visual SLAM/SfM이 대체로 <strong>static world assumption</strong>에 기대고 있다는 점이다. 실제 영상에는 움직이는 사람, 이동하는 물체, 낮은 ego-motion, 조명 변화가 섞이는데, 이런 요소는 pose graph의 residual을 키우고 BA가 camera motion과 object motion을 혼동하게 만든다.</p>
+<figure class="image">
+<img alt="Figure 1. WildPose." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_4223930ab3c8.jpg" style="width:2098px">
+<figcaption><span class="caption-main">Figure 1. WildPose.</span><span class="caption-note">calibrated video에서 moving distractor를 감지하고 camera trajectory를 추정하는 목표와, 여러 SLAM benchmark에서 안정적인 성능을 보인다는 주장을 함께 제시한다.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head"><span class="section-chip">Problem Flow</span><p>논문은 dynamic scene만 잘하는 특수 방법보다 <strong>dynamic과 static을 모두 다루는 unified pose estimator</strong>를 목표로 둔다.</p></div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>Static assumption</strong><p>기존 SLAM/SfM은 정적 장면의 reprojection consistency에 의존.</p></article>
+<article><span>02</span><strong>Dynamic residual</strong><p>moving object의 true flow가 ego-motion flow와 달라 BA residual 증가.</p></article>
+<article><span>03</span><strong>Existing gap</strong><p>semantic prior, online mapping, synthetic motion decoding은 각각 일반화/속도/용량 한계 보유.</p></article>
+<article><span>04</span><strong>WildPose proposal</strong><p>3D-aware feature와 edge mask를 BA에 직접 연결.</p></article>
+</div>
+</section>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Problem / Proposal</span><p>Introduction과 Conclusion은 모두 <strong>strong frontend + robust optimization</strong>의 결합이 필요하다는 주장으로 이어진다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>문제 축</th><th>기존 접근의 병목</th><th>WildPose의 관점</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Dynamic scenes</span></td><td>semantic prior나 mask 품질에 민감</td><td>edge-dependent learned motion mask</td></tr>
+<tr><td><span class="summary-term">Static scenes</span></td><td>dynamic 전용 method는 static-only input에서 성능 저하 가능</td><td>static/dynamic mixed curriculum</td></tr>
+<tr><td><span class="summary-term">Long trajectory</span></td><td>local VO만으로 drift 누적</td><td>loop closure + periodic/final global BA</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Related Work 맥락 자세히 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">관련 연구를 보는 축</span><p>Related Work는 feed-forward reconstruction, visual SLAM, dynamic-scene pose estimation의 세 흐름으로 나누면 WildPose의 위치가 명확해진다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>흐름</th><th>강점</th><th>WildPose가 보는 한계</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Feed-forward 3D reconstruction</span></td><td>DUSt3R/MASt3R/VGGT 계열의 robust 3D prior</td><td>long sequence와 정밀 pose estimation은 optimizer 보강 필요</td></tr>
+<tr><td><span class="summary-term">Differentiable SLAM</span></td><td>DROID-SLAM의 learnable update + differentiable BA</td><td>static training과 scratch CNN frontend로 dynamic input에 취약</td></tr>
+<tr><td><span class="summary-term">Dynamic pose estimation</span></td><td>semantic/geometric/motion cue로 dynamic object 처리</td><td>novel object, segmentation failure, synthetic-domain gap, online cost가 남음</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="ko-mechanism">Mechanism: MASt3R feature와 motion mask를 BA에 어떻게 넣나</h3>
+<p>방법론의 핵심은 DROID-SLAM의 differentiable BA pipeline을 유지하되, frontend feature와 residual weighting을 바꾸는 것이다. WildPose는 MASt3R encoder feature로 update operator를 강화하고, edge별 motion mask <span class="inline-math">\( \hat{M}_{i,j} \)</span>를 이용해 dynamic pixel의 reprojection residual을 낮춘다.</p>
+<figure class="image">
+<img alt="Figure 2. System Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_f28a659b6faf.png" style="width:703.9921875px">
+<figcaption><span class="caption-main">Figure 2. System Overview.</span><span class="caption-note">MASt3R encoder feature가 update operator와 motion detector에 들어가고, motion detector의 mask가 BA residual weight로 사용되는 전체 구조를 보여준다.</span></figcaption>
+</figure>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Mechanism Thread Summary</span><p>Method는 <strong>DROID-style BA state, MASt3R frontend, edge motion detector, curriculum training, online inference</strong>로 읽으면 된다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table method-table">
+<thead><tr><th>구간</th><th>무엇을 담당하나</th><th>핵심 장치</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">State</span></td><td>keyframe pose와 downsampled disparity 공동 최적화</td><td><span class="inline-math">\( \hat{\omega}_i \)</span>, <span class="inline-math">\( \hat{d}_i \)</span>, frame graph <span class="inline-math">\( \mathcal{G} \)</span></td></tr>
+<tr><td><span class="summary-term">Update operator</span></td><td>predicted flow, confidence, damping, upsampling mask 반복 갱신</td><td>ConvGRU + correlation + MASt3R feature</td></tr>
+<tr><td><span class="summary-term">Motion detector</span></td><td>edge별 dynamic residual downweight</td><td>MASt3R multi-level correspondence token + DPT-style fusion</td></tr>
+<tr><td><span class="summary-term">Inference</span></td><td>online VO, metric depth initialization, loop/global BA</td><td>Moge2 depth prior + masked BA</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="design-choice-box">
+<div class="summary-head"><span class="section-chip">Design Choice</span><p>WildPose가 강조하는 선택은 <strong>dynamic을 semantic class로 지우지 않고, BA edge에서 residual weight로 다루는 것</strong>이다.</p></div>
+<div class="design-choice-grid">
+<article><strong>왜 MASt3R?</strong><p>pointmap precision과 2D correspondence pretraining이 flow/BA update와 잘 맞음.</p></article>
+<article><strong>왜 edge mask?</strong><p>object가 특정 frame pair에서만 움직이면 그 edge에서만 outlier가 됨.</p></article>
+<article><strong>왜 global BA?</strong><p>local sliding window만으로 생기는 long-sequence scale/pose drift를 보정.</p></article>
+</div>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">1. DROID-SLAM preliminaries</span>
+<p>각 keyframe의 state는 camera pose <span class="inline-math">\( \hat{\omega}_i\in SE(3) \)</span>와 downsampled disparity <span class="inline-math">\( \hat{d}_i \)</span>다. Edge <span class="inline-math">\( (i,j)\in\mathcal{G} \)</span>에서 geometry-induced optical flow는 projection/back-projection으로 계산된다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\tilde{f}_{i,j}=\Pi_c\left(\hat{\omega}_j^{-1}\hat{\omega}_i\Pi_c^{-1}(p_i,\hat{d}_i)\right)$$</div></div></div>
+<figcaption>static scene이라면 ego-motion으로 induced flow가 설명되어야 한다.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\left(\hat{f}^{t+1}_{i,j},\hat{w}^{t+1}_{i,j},\hat{\eta}^{t+1},\hat{u}^{t+1}\right)=\mathcal{F}\left(I_i,I_j,\tilde{f}^{t}_{i,j},r^{t}_{i,j}\right)\tag{1}$$</div></div></div>
+<figcaption>update operator가 flow, confidence, damping, upsampling mask를 반복적으로 갱신한다.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$E(\hat{\omega},\hat{d})=\sum_{(i,j)\in\mathcal{G}}\left\|\hat{f}_{ij}-\tilde{f}_{ij}\right\|_{\Sigma_{ij}}^2,\qquad \Sigma_{ij}^{-1}=\mathrm{diag}(\hat{w}_{i,j})\tag{2}$$</div></div></div>
+<figcaption>DROID-style differentiable BA는 predicted flow와 geometry-induced flow의 weighted residual을 최소화한다.</figcaption>
+</figure>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">2. Feed-forward transformer encoder</span>
+<p>WildPose는 DROID의 scratch CNN encoder를 그대로 쓰지 않고, MASt3R의 pretrained ViT encoder feature를 adapter module로 변환해 ConvGRU가 사용할 local feature map과 global context로 넣는다. decoder token 전체를 쓰지 않는 이유는 ConvGRU와 직접 결합하면 학습/추론 비용이 커지기 때문이다.</p>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">3. Edge-specific motion mask</span>
+<p>dynamic pixel의 true optical flow는 ego-motion뿐 아니라 object self-motion을 포함한다. 논문은 이를 <span class="inline-math">\(X_{i,j}(p_i)\)</span>로 표현하고, static BA objective가 이 residual을 그대로 맞추려 하면 pose와 disparity가 잘못 업데이트된다고 설명한다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\tilde{f}^{\star}_{i,j}=\Pi_c\left(\hat{\omega}_j^{-1}\hat{\omega}_i\Pi_c^{-1}(p_i,\hat{d}_i)+X_{i,j}(p_i)\right)$$</div></div></div>
+<figcaption>object displacement가 들어오면 observed flow는 camera ego-motion만으로 설명되지 않는다.</figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 3. Visualization of Motion Masks." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_981956c1e4e7.png" style="width:576px">
+<figcaption><span class="caption-main">Figure 3. Visualization of Motion Masks.</span><span class="caption-note">per-edge mask는 frame-level mask보다 transient motion을 세밀하게 다룬다. 같은 object도 특정 edge에서 움직일 때만 BA outlier로 처리된다.</span></figcaption>
+</figure>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">4. Training curriculum</span>
+<p>Training은 update operator와 motion detector를 한 번에 섞지 않고 단계적으로 학습한다. 먼저 static data로 ego-motion 기반 pairwise flow를 배우고, 이후 dynamic data와 mask를 넣어 BA robustness를 높이며, 마지막에는 frozen update operator와 BA에 predicted mask를 연결한다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_1=w_{cam}\mathcal{L}_{cam}+w_{flow}\mathcal{L}_{flow}+w_{res}\mathcal{L}_{res}\tag{3}$$</div></div></div>
+<figcaption>첫 단계는 camera pose, flow, residual supervision으로 update operator를 학습한다.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_2=w_{cam}\mathcal{L}_{cam}+w_{mask}\mathcal{L}_{BCE}\tag{4}$$</div></div></div>
+<figcaption>motion detector 학습 단계에서는 pose와 mask quality에 집중한다.</figcaption>
+</figure>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">5. Online inference and global consistency</span>
+<p>Inference는 online visual odometry처럼 동작한다. 새 keyframe의 disparity는 Moge2 metric depth <span class="inline-math">\(D_i\)</span>로 초기화하고, co-visible keyframe과 edge를 만든 뒤 edge별 mask를 예측한다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$E(\hat{\omega},\hat{d})=\sum_{(i,j)\in\mathcal{G}}\left\|\hat{f}_{ij}-\tilde{f}_{ij}\right\|_{\bar{\Sigma}_{ij}}^2+\lambda\sum_{i\in\mathcal{G}}\left\|\hat{d}_i-1/D_i\right\|^2\tag{5}$$</div></div></div>
+<figcaption>reprojection residual은 predicted motion mask로 다시 가중되고, disparity는 metric depth prior와 일관되도록 regularize된다.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\bar{\Sigma}_{ij}^{-1}=\mathrm{diag}(\hat{w}_{i,j}\hat{M}_{i,j})$$</div></div></div>
+<figcaption>motion mask가 confidence와 함께 BA weight matrix에 들어간다. final global BA에서는 depth regularizer 항을 제거한다.</figcaption>
+</figure>
+</section>
+
+<details class="supplement-toggle supplement-structured">
+<summary>Training / inference 세부 조건 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">학습 데이터와 절차</span><p>본문의 세부 조건은 method를 재현하거나 결과 해석을 할 때 필요한 정보이므로 접어둔다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>항목</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Training data</span></td><td>TartanAir V2, TartanGround, Dynamic Replica, OmniWorld-Game, Kubric-generated static/dynamic sequence</td></tr>
+<tr><td><span class="summary-term">Kubric motion</span></td><td>linear translation, pure rotation, target-locked motion 보강</td></tr>
+<tr><td><span class="summary-term">Update operator</span></td><td>static pretraining 200K iteration, static+dynamic finetuning 100K iteration</td></tr>
+<tr><td><span class="summary-term">Motion detector</span></td><td>frozen update operator + differentiable BA와 결합해 15K iteration 학습</td></tr>
+<tr><td><span class="summary-term">Loop closure</span></td><td>temporal interval과 co-visibility 조건을 만족하는 past keyframe과 graph 구성 후 BA 수행</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="ko-evidence">Evidence: 어떤 task에서 검증했나</h3>
+<p>평가는 dataset 이름을 나열하기보다 <strong>동적 환경 pose estimation, static/low-motion robustness, downstream depth, ablation</strong>의 네 가지 claim으로 나눠 읽는 편이 자연스럽다.</p>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Evaluation Setup</span><p>평가는 monocular SLAM pipeline의 표준처럼 Sim(3) Umeyama alignment 후 ATE RMSE를 계산한다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table task-evidence-table">
+<thead><tr><th>평가 축</th><th>Dataset / metric</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Dynamic pose</span></td><td>Wild-SLAM MoCap, Bonn RGB-D Dynamic, TUM dynamic / ATE RMSE</td><td>moving distractor에서 pose 안정성 검증</td></tr>
+<tr><td><span class="summary-term">Low-motion / static</span></td><td>Sintel, TUM static, 7-Scenes / ATE RMSE</td><td>dynamic 대응이 static 성능을 해치지 않는지 확인</td></tr>
+<tr><td><span class="summary-term">Depth downstream</span></td><td>Bonn Dynamic / Abs.Rel., Log-RMSE, <span class="inline-math">\( \delta_{1.25} \)</span></td><td>pose와 mask가 long-video depth optimization에 주는 영향</td></tr>
+<tr><td><span class="summary-term">Ablation</span></td><td>Mix. Ft., Motion Mask, GBA Depth Off</td><td>각 design choice의 기여 분리</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="result-brief">
+<span class="section-chip">Dynamic Pose Brief</span>
+<p><strong>주요 결과:</strong> Wild-SLAM MoCap에서는 평균 0.39cm로 가장 낮은 ATE를 보이고, TUM dynamic에서도 best average를 달성한다. Bonn에서는 WildGS-SLAM이 illumination handling에서 약간 앞서지만 WildPose는 전체적으로 competitive하다.</p>
+</section>
+<figure class="image">
+<img alt="Table 1. Tracking Performance on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_aa5d2f7daeff.png" style="width:2166px">
+<figcaption><span class="caption-main">Table 1. Tracking Performance on Wild-SLAM MoCap Dataset [60] (ATE RMSE ↓ [cm]).</span><span class="caption-note">Table1/Table2 sequence에서 ViPE의 error가 커지는 이유를 논문은 semantic prior가 table motion을 static으로 취급하는 한계로 설명한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 2. Tracking Performance on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_bcb1348e5211.png" style="width:2052px">
+<figcaption><span class="caption-main">Table 2. Tracking Performance on Bonn RGB-D Dynamic Dataset [34] (ATE RMSE ↓ [cm]).</span><span class="caption-note">Bonn은 non-trivial illumination change가 포함되어 WildGS-SLAM이 강점을 보이는 조건으로 언급된다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 3. Tracking Performance on TUM RGB-D dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b66ff581e401.png" style="width:672px">
+<figcaption><span class="caption-main">Table 3. Tracking Performance on TUM RGB-D (dynamic) Dataset [42] (ATE RMSE ↓ [cm]).</span></figcaption>
+</figure>
+
+<section class="result-brief">
+<span class="section-chip">Static / Low-motion Brief</span>
+<p><strong>주요 결과:</strong> Sintel처럼 짧고 low-motion인 sequence에서는 WildGS-SLAM이 충분한 map coverage를 만들기 어렵지만 WildPose는 가장 좋은 성능을 보인다. TUM static과 7-Scenes에서는 dynamic-aware method가 static에서 무너지는 문제를 피한다.</p>
+</section>
+<figure class="image">
+<img alt="Table 4. Tracking Performance on Low-motion and Static benchmarks." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_752f0162a955.png" style="width:528px">
+<figcaption><span class="caption-main">Table 4. Tracking Performance on Low-motion and Static benchmarks.</span><span class="caption-note">Sintel은 MegaSaM을 따라 scale-normalized trajectory를 사용하고, dagger는 all-frame evaluation을 의미한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 4. Visualization of Camera Trajectories." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_350571479101.png" style="width:2092px">
+<figcaption><span class="caption-main">Figure 4. Visualization of Camera Trajectories.</span><span class="caption-note">estimated trajectory는 translation error(ATE)로 colorized되어 ground truth와의 alignment 차이를 보여준다.</span></figcaption>
+</figure>
+
+<section class="result-brief">
+<span class="section-chip">Depth / Ablation Brief</span>
+<p><strong>주요 결과:</strong> MegaSaM의 long-video depth optimization pipeline에 WildPose pose와 mask를 넣으면 Abs.Rel., Log-RMSE, <span class="inline-math">\( \delta_{1.25} \)</span> 모두 개선된다. Ablation은 mixed finetuning, explicit motion mask, final global BA에서 depth regularizer 제거가 모두 필요함을 보여준다.</p>
+</section>
+<figure class="image">
+<img alt="Table 5. Comparison on Long-video Depth Estimation on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_8a3a52d2084d.png" style="width:703.9921875px">
+<figcaption><span class="caption-main">Table 5. Comparison on Long-video Depth Estimation on Bonn RGB-D Dynamic [34] Dataset.</span><span class="caption-note">논문은 정확한 pose와 motion mask가 depth estimation에도 직접적인 이득을 준다고 해석한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 6. WildPose Ablation Study." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9cd90804d909.png" style="width:2064px">
+<figcaption><span class="caption-main">Table 6. WildPose Ablation Study (ATE RMSE ↓ [cm]).</span><span class="caption-note">Mix. Ft., Mot. Mask, GBA Dep. Off가 full system 성능에 각각 기여한다.</span></figcaption>
+</figure>
+</section>
+
+<section class="deep-section" data-section-title="Usage / Limits">
+<h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 약한가</h3>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>WildPose는 dynamic handling과 static robustness를 동시에 요구하는 monocular pose estimation에 적합하다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>잘 맞는 상황</th><th>주의할 상황</th></tr></thead>
+<tbody>
+<tr><td><ul><li>calibrated monocular video</li><li>moving distractor가 pose graph residual을 흔드는 장면</li><li>static scene 성능도 함께 유지해야 하는 benchmark</li></ul></td><td><ul><li>lighting variation이 심한 Bonn류 장면에서는 WildGS-SLAM이 유리한 경우 존재</li><li>MASt3R feature와 detector/BA inference cost 고려 필요</li><li>final global BA의 depth prior는 refined estimate에서는 제거해야 할 수 있음</li></ul></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<p>Conclusion은 WildPose를 <strong>feed-forward 3D prior와 differentiable optimization의 결합</strong>으로 정리한다. 즉, direct regression만으로 끝내지 않고 BA가 계속 pose와 geometry를 조정하게 하되, motion mask가 dynamic residual의 영향력을 조절한다.</p>
+</section>
+
+<section class="deep-section" data-section-title="Takeaway">
+<h3 id="ko-takeaway">느낀점</h3>
+<p>(진행중...)</p>
+</section>
+<section class="deep-section" data-section-title="Future Work">
+<h3 id="ko-future-work">향후 계획</h3>
+<p>(진행중...)</p>
+</section>
+</div>
+
+<div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden id="deepDiveContentEn">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="en-problem">Problem: static-world assumptions destabilize in-the-wild pose estimation</h3>
+<p>WildPose starts from a common weakness in visual SLAM/SfM: many systems assume a <strong>static world</strong>. Real videos contain moving people, movable objects, low ego-motion, and illumination changes, which increase pose-graph residuals and make BA confuse camera motion with object motion.</p>
+<figure class="image">
+<img alt="Figure 1. WildPose." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_4223930ab3c8.jpg" style="width:2098px">
+<figcaption><span class="caption-main">Figure 1. WildPose.</span><span class="caption-note">The figure summarizes the goal: detect moving distractors from calibrated video and estimate camera trajectory robustly across multiple SLAM benchmarks.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head"><span class="section-chip">Problem Flow</span><p>The paper aims for a <strong>unified pose estimator</strong> rather than a dynamic-scene-only special case.</p></div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>Static assumption</strong><p>Classical consistency assumes a static scene.</p></article>
+<article><span>02</span><strong>Dynamic residual</strong><p>Moving objects create flow not explained by ego-motion.</p></article>
+<article><span>03</span><strong>Existing gap</strong><p>Semantic priors, online mapping, and low-capacity motion decoding each leave limitations.</p></article>
+<article><span>04</span><strong>WildPose proposal</strong><p>Connect 3D-aware features and edge masks directly to BA.</p></article>
+</div>
+</section>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Problem / Proposal</span><p>The introduction and conclusion point to the same answer: <strong>strong frontend features plus robust optimization</strong>.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Axis</th><th>Existing bottleneck</th><th>WildPose view</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Dynamic scenes</span></td><td>Sensitive to semantic priors or mask quality</td><td>Edge-dependent learned motion mask</td></tr>
+<tr><td><span class="summary-term">Static scenes</span></td><td>Dynamic-only methods can degrade on static-only input</td><td>Static/dynamic mixed curriculum</td></tr>
+<tr><td><span class="summary-term">Long trajectory</span></td><td>Local VO accumulates drift</td><td>Loop closure + periodic/final global BA</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Related Work context</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">How to read prior work</span><p>WildPose is positioned between feed-forward 3D reconstruction, differentiable SLAM, and dynamic-scene pose estimation.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Line</th><th>Strength</th><th>Limitation identified by WildPose</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Feed-forward 3D reconstruction</span></td><td>Robust 3D priors from DUSt3R/MASt3R/VGGT-style models</td><td>Long sequences and precise pose still benefit from optimization</td></tr>
+<tr><td><span class="summary-term">Differentiable SLAM</span></td><td>DROID-SLAM's learnable update and differentiable BA</td><td>Static training and scratch CNN frontend are weak under dynamic input</td></tr>
+<tr><td><span class="summary-term">Dynamic pose estimation</span></td><td>Handles dynamics through semantic, geometric, or motion cues</td><td>Unseen objects, segmentation failure, synthetic-domain gap, and online cost remain</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="en-mechanism">Mechanism: how are MASt3R features and motion masks injected into BA?</h3>
+<p>The method keeps DROID-SLAM's differentiable BA pipeline, but changes the frontend and residual weighting. WildPose strengthens the update operator with MASt3R encoder features and uses an edge-specific motion mask <span class="inline-math">\( \hat{M}_{i,j} \)</span> to downweight dynamic-pixel reprojection residuals.</p>
+<figure class="image">
+<img alt="Figure 2. System Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_f28a659b6faf.png" style="width:703.9921875px">
+<figcaption><span class="caption-main">Figure 2. System Overview.</span><span class="caption-note">MASt3R encoder features feed both the update operator and the motion detector; the detector's mask becomes a BA residual weight.</span></figcaption>
+</figure>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Mechanism Thread Summary</span><p>The method is easiest to read as <strong>DROID-style BA state, MASt3R frontend, edge motion detector, curriculum training, and online inference</strong>.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table method-table">
+<thead><tr><th>Part</th><th>Role</th><th>Key device</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">State</span></td><td>Jointly optimizes keyframe pose and downsampled disparity</td><td><span class="inline-math">\( \hat{\omega}_i \)</span>, <span class="inline-math">\( \hat{d}_i \)</span>, frame graph <span class="inline-math">\( \mathcal{G} \)</span></td></tr>
+<tr><td><span class="summary-term">Update operator</span></td><td>Iteratively updates predicted flow, confidence, damping, and upsampling mask</td><td>ConvGRU + correlation + MASt3R feature</td></tr>
+<tr><td><span class="summary-term">Motion detector</span></td><td>Downweights dynamic residuals per graph edge</td><td>MASt3R multi-level correspondence token + DPT-style fusion</td></tr>
+<tr><td><span class="summary-term">Inference</span></td><td>Online VO, metric depth initialization, loop/global BA</td><td>Moge2 depth prior + masked BA</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="design-choice-box">
+<div class="summary-head"><span class="section-chip">Design Choice</span><p>The key choice is to treat dynamics as <strong>edge-level residual weights</strong>, not only semantic classes.</p></div>
+<div class="design-choice-grid">
+<article><strong>Why MASt3R?</strong><p>Pointmap precision and 2D-correspondence pretraining align well with flow/BA updates.</p></article>
+<article><strong>Why edge masks?</strong><p>An object is an outlier only for graph edges where it actually moves.</p></article>
+<article><strong>Why global BA?</strong><p>It mitigates long-sequence scale and pose drift beyond the local sliding window.</p></article>
+</div>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">1. DROID-SLAM preliminaries</span>
+<p>Each keyframe state contains the camera pose <span class="inline-math">\( \hat{\omega}_i\in SE(3) \)</span> and downsampled disparity <span class="inline-math">\( \hat{d}_i \)</span>. For an edge <span class="inline-math">\( (i,j)\in\mathcal{G} \)</span>, geometry-induced flow is computed by projection and back-projection.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\tilde{f}_{i,j}=\Pi_c\left(\hat{\omega}_j^{-1}\hat{\omega}_i\Pi_c^{-1}(p_i,\hat{d}_i)\right)$$</div></div></div>
+<figcaption>In a static scene, ego-motion should explain the induced flow.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\left(\hat{f}^{t+1}_{i,j},\hat{w}^{t+1}_{i,j},\hat{\eta}^{t+1},\hat{u}^{t+1}\right)=\mathcal{F}\left(I_i,I_j,\tilde{f}^{t}_{i,j},r^{t}_{i,j}\right)\tag{1}$$</div></div></div>
+<figcaption>The update operator iteratively refines flow, confidence, damping, and upsampling mask.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$E(\hat{\omega},\hat{d})=\sum_{(i,j)\in\mathcal{G}}\left\|\hat{f}_{ij}-\tilde{f}_{ij}\right\|_{\Sigma_{ij}}^2,\qquad \Sigma_{ij}^{-1}=\mathrm{diag}(\hat{w}_{i,j})\tag{2}$$</div></div></div>
+<figcaption>DROID-style differentiable BA minimizes weighted residuals between predicted and geometry-induced flow.</figcaption>
+</figure>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">2. Feed-forward transformer encoder</span>
+<p>WildPose replaces DROID's scratch CNN encoder with pretrained MASt3R ViT encoder features. A lightweight adapter converts these features into local feature maps and global context for the ConvGRU. The paper avoids feeding full decoder tokens into the ConvGRU because that would make training and inference expensive.</p>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">3. Edge-specific motion mask</span>
+<p>The true flow of a dynamic pixel includes object self-motion in addition to camera ego-motion. The paper writes this as <span class="inline-math">\(X_{i,j}(p_i)\)</span>; if static BA tries to fit this residual directly, pose and disparity are updated incorrectly.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\tilde{f}^{\star}_{i,j}=\Pi_c\left(\hat{\omega}_j^{-1}\hat{\omega}_i\Pi_c^{-1}(p_i,\hat{d}_i)+X_{i,j}(p_i)\right)$$</div></div></div>
+<figcaption>With object displacement, observed flow cannot be explained by camera ego-motion alone.</figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 3. Visualization of Motion Masks." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_981956c1e4e7.png" style="width:576px">
+<figcaption><span class="caption-main">Figure 3. Visualization of Motion Masks.</span><span class="caption-note">Per-edge masks handle transient motion more precisely than frame-level masks.</span></figcaption>
+</figure>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">4. Training curriculum</span>
+<p>Training is staged rather than fully joint from the start. The update operator first learns ego-motion-induced pairwise flow on static data, then learns robustness with dynamic data and ground-truth masks, and finally the motion detector is trained with the frozen update operator and differentiable BA.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_1=w_{cam}\mathcal{L}_{cam}+w_{flow}\mathcal{L}_{flow}+w_{res}\mathcal{L}_{res}\tag{3}$$</div></div></div>
+<figcaption>The first stage trains the update operator with camera, flow, and residual supervision.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_2=w_{cam}\mathcal{L}_{cam}+w_{mask}\mathcal{L}_{BCE}\tag{4}$$</div></div></div>
+<figcaption>The detector stage focuses on pose and mask quality.</figcaption>
+</figure>
+</section>
+
+<section class="method-step-block">
+<span class="subsection-label">5. Online inference and global consistency</span>
+<p>At inference time, WildPose runs as online visual odometry. A new keyframe is initialized with Moge2 metric depth <span class="inline-math">\(D_i\)</span>, connected to co-visible keyframes, and assigned edge-specific motion masks.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$E(\hat{\omega},\hat{d})=\sum_{(i,j)\in\mathcal{G}}\left\|\hat{f}_{ij}-\tilde{f}_{ij}\right\|_{\bar{\Sigma}_{ij}}^2+\lambda\sum_{i\in\mathcal{G}}\left\|\hat{d}_i-1/D_i\right\|^2\tag{5}$$</div></div></div>
+<figcaption>The reprojection residual is weighted by the predicted motion mask, and disparity is regularized by a metric depth prior.</figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\bar{\Sigma}_{ij}^{-1}=\mathrm{diag}(\hat{w}_{i,j}\hat{M}_{i,j})$$</div></div></div>
+<figcaption>The motion mask enters the BA weight matrix with confidence. The final global BA removes the depth-regularizer term.</figcaption>
+</figure>
+</section>
+
+<details class="supplement-toggle supplement-structured">
+<summary>Training / inference details</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Training data and schedule</span><p>These details are useful for reproducing the method or interpreting the reported results.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Item</th><th>Content</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Training data</span></td><td>TartanAir V2, TartanGround, Dynamic Replica, OmniWorld-Game, Kubric-generated static/dynamic sequences</td></tr>
+<tr><td><span class="summary-term">Kubric motion</span></td><td>linear translation, pure rotation, target-locked motion</td></tr>
+<tr><td><span class="summary-term">Update operator</span></td><td>static pretraining for 200K iterations, static+dynamic finetuning for 100K iterations</td></tr>
+<tr><td><span class="summary-term">Motion detector</span></td><td>trained for 15K iterations with frozen update operator and differentiable BA</td></tr>
+<tr><td><span class="summary-term">Loop closure</span></td><td>adds BA edges to past co-visible keyframes when temporal and co-visibility thresholds are met</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="en-evidence">Evidence: which tasks validate the method?</h3>
+<p>The evaluation is best read through four claims: <strong>dynamic-scene pose, static/low-motion robustness, downstream depth, and ablation</strong>.</p>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">Evaluation Setup</span><p>The paper follows the common monocular SLAM protocol: Sim(3) Umeyama alignment followed by ATE RMSE.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table task-evidence-table">
+<thead><tr><th>Axis</th><th>Dataset / metric</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Dynamic pose</span></td><td>Wild-SLAM MoCap, Bonn RGB-D Dynamic, TUM dynamic / ATE RMSE</td><td>Pose robustness under moving distractors</td></tr>
+<tr><td><span class="summary-term">Low-motion / static</span></td><td>Sintel, TUM static, 7-Scenes / ATE RMSE</td><td>Checks whether dynamic handling preserves static-scene performance</td></tr>
+<tr><td><span class="summary-term">Depth downstream</span></td><td>Bonn Dynamic / Abs.Rel., Log-RMSE, <span class="inline-math">\( \delta_{1.25} \)</span></td><td>Effect of pose and masks on long-video depth optimization</td></tr>
+<tr><td><span class="summary-term">Ablation</span></td><td>Mix. Ft., Motion Mask, GBA Depth Off</td><td>Separates contributions of the design choices</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="result-brief">
+<span class="section-chip">Dynamic Pose Brief</span>
+<p><strong>Main result:</strong> WildPose reaches the lowest average ATE on Wild-SLAM MoCap and the best average on TUM dynamic. On Bonn, WildGS-SLAM is slightly ahead under illumination-heavy conditions, while WildPose remains competitive overall.</p>
+</section>
+<figure class="image">
+<img alt="Table 1. Tracking Performance on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_aa5d2f7daeff.png" style="width:2166px">
+<figcaption><span class="caption-main">Table 1. Tracking Performance on Wild-SLAM MoCap Dataset [60] (ATE RMSE ↓ [cm]).</span><span class="caption-note">The paper attributes ViPE's large errors on Table1/Table2 to its semantic prior treating moving tables as static.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 2. Tracking Performance on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_bcb1348e5211.png" style="width:2052px">
+<figcaption><span class="caption-main">Table 2. Tracking Performance on Bonn RGB-D Dynamic Dataset [34] (ATE RMSE ↓ [cm]).</span><span class="caption-note">The paper notes that Bonn includes non-trivial illumination changes, where WildGS-SLAM has an advantage.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 3. Tracking Performance on TUM RGB-D dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b66ff581e401.png" style="width:672px">
+<figcaption><span class="caption-main">Table 3. Tracking Performance on TUM RGB-D (dynamic) Dataset [42] (ATE RMSE ↓ [cm]).</span></figcaption>
+</figure>
+
+<section class="result-brief">
+<span class="section-chip">Static / Low-motion Brief</span>
+<p><strong>Main result:</strong> On short low-motion Sintel sequences, WildGS-SLAM struggles to build enough map coverage, while WildPose performs best. On TUM static and 7-Scenes, WildPose avoids the static-scene degradation seen in dynamic-specialized methods.</p>
+</section>
+<figure class="image">
+<img alt="Table 4. Tracking Performance on Low-motion and Static benchmarks." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_752f0162a955.png" style="width:528px">
+<figcaption><span class="caption-main">Table 4. Tracking Performance on Low-motion and Static benchmarks.</span><span class="caption-note">Sintel uses scale-normalized trajectories following MegaSaM, and the dagger indicates all-frame evaluation.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 4. Visualization of Camera Trajectories." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_350571479101.png" style="width:2092px">
+<figcaption><span class="caption-main">Figure 4. Visualization of Camera Trajectories.</span><span class="caption-note">The estimated trajectory is colorized by translation error (ATE) to show alignment with ground truth.</span></figcaption>
+</figure>
+
+<section class="result-brief">
+<span class="section-chip">Depth / Ablation Brief</span>
+<p><strong>Main result:</strong> Using WildPose poses and masks inside MegaSaM's long-video depth optimization improves Abs.Rel., Log-RMSE, and <span class="inline-math">\( \delta_{1.25} \)</span>. The ablation shows that mixed finetuning, explicit motion masks, and removing depth regularization in final global BA all matter.</p>
+</section>
+<figure class="image">
+<img alt="Table 5. Comparison on Long-video Depth Estimation on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_8a3a52d2084d.png" style="width:703.9921875px">
+<figcaption><span class="caption-main">Table 5. Comparison on Long-video Depth Estimation on Bonn RGB-D Dynamic [34] Dataset.</span><span class="caption-note">The paper interprets this as evidence that better pose and motion masks benefit depth estimation directly.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 6. WildPose Ablation Study." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9cd90804d909.png" style="width:2064px">
+<figcaption><span class="caption-main">Table 6. WildPose Ablation Study (ATE RMSE ↓ [cm]).</span><span class="caption-note">Mix. Ft., Mot. Mask, and GBA Dep. Off each contribute to the full system.</span></figcaption>
+</figure>
+</section>
+
+<section class="deep-section" data-section-title="Usage / Limits">
+<h3 id="en-usage">Usage / Limits: when is it useful?</h3>
+<section class="summary-panel">
+<div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>WildPose is well suited to monocular pose estimation where dynamic handling and static robustness are both required.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Good fit</th><th>Use with care</th></tr></thead>
+<tbody>
+<tr><td><ul><li>calibrated monocular video</li><li>moving distractors corrupt pose-graph residuals</li><li>static-scene performance must be preserved</li></ul></td><td><ul><li>illumination-heavy Bonn-like scenes can favor WildGS-SLAM</li><li>MASt3R features and detector/BA inference cost matter</li><li>final global BA may need depth regularization disabled</li></ul></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<p>The conclusion frames WildPose as a <strong>hybrid of feed-forward 3D priors and differentiable optimization</strong>. It does not stop at direct regression; BA keeps refining pose and geometry while motion masks modulate dynamic residuals.</p>
+</section>
+
+<section class="deep-section" data-section-title="Takeaway">
+<h3 id="en-takeaway">Takeaway</h3>
+<p>(In progress...)</p>
+</section>
+<section class="deep-section" data-section-title="Future Work">
+<h3 id="en-future-work">Future Work</h3>
+<p>(In progress...)</p>
+</section>
+</div>
+<div class="deep-dive-more is-visible" id="deepDiveMore">
+<button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+</div>
+</div>
+</section>
+
+<section class="comments" id="comments">
+<h2>Comments</h2>
+<script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+</section>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+<div aria-hidden="true" class="lightbox" id="lightbox">
+<button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+<img alt="preview" id="lightboxImg">
+</div>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.renderMathInElement) {
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\(", right: "\\)", display: false},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false,
+      strict: false,
+      trust: true
+    });
+  }
+});
+</script>
+<script src="script.js?v=wildpose-redesign-20260526" defer></script>
+</body>
+</html>

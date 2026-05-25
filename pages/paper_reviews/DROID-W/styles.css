@@ -3955,6 +3955,9 @@ html[data-theme="dark"]{
   margin: 0;
   font-size: inherit;
   line-height: 1.45;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .post-body img[src*="media_93795521defc"]{
   max-width: min(100%, 760px);
