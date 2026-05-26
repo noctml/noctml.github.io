@@ -1260,7 +1260,9 @@ html{ scroll-padding-top: 82px; }
 .paper-identity{
   display: grid;
   gap: 5px;
-  margin: 0 0 18px;
+  margin: 0 0 26px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
 }
 
 .paper-title-meta{
@@ -3445,4 +3447,270 @@ html[data-theme="dark"]{
   margin-top:7px;
   padding-top:0;
   transform:none;
+}
+
+/* Shared caption alignment: title and note are centered independently, with wrapped lines left-aligned inside each measure. */
+.post-body figure.image,
+.post-body figure.equation{
+  text-align:center;
+}
+
+.post-body figure.image figcaption,
+.post-body figure.equation figcaption{
+  display:block;
+  width:auto;
+  max-width:min(100%, 760px);
+  margin-inline:auto;
+  text-align:center;
+  white-space:normal;
+}
+
+.post-body figure.equation figcaption{
+  max-width:760px;
+  line-height:1.5;
+}
+
+.post-body figure figcaption .caption-main,
+.post-body figure figcaption .caption-note{
+  display:table;
+  width:auto;
+  max-width:100%;
+  margin-inline:auto;
+  text-align:left;
+}
+
+.post-body figure figcaption .caption-note{
+  margin-top:4px;
+}
+
+.post-body figure figcaption .katex,
+.post-body figure figcaption .katex-html{
+  white-space:nowrap !important;
+  line-height:1 !important;
+}
+
+/* Keep section-note titles aligned with yellow evaluation chips. */
+.section-note .section-chip,
+.section-note-label,
+.section-note > strong{
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 28px;
+  margin-bottom: 6px;
+  padding: 4px 9px;
+  border: 1px solid color-mix(in srgb, #d4a017 30%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, #f8e7a5 42%, var(--panel2));
+  color: color-mix(in srgb, #7c520c 76%, var(--text));
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+:root[data-theme="dark-gray"] .section-note .section-chip,
+:root[data-theme="dark"] .section-note .section-chip,
+:root[data-theme="dark-gray"] .section-note-label,
+:root[data-theme="dark"] .section-note-label,
+:root[data-theme="dark-gray"] .section-note > strong,
+:root[data-theme="dark"] .section-note > strong{
+  border-color: color-mix(in srgb, #d6a21f 36%, var(--line));
+  background: color-mix(in srgb, #6b4b12 28%, var(--panel2));
+  color: #f0cf73;
+}
+
+/* Equation captions are explanatory text, not figure titles. */
+.post-body figure.equation figcaption .caption-main{
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* Refined paper metadata strip under the title. */
+.paper-meta-card{
+  position: relative;
+  isolation: isolate;
+  margin-top: 14px;
+  padding: 16px 16px 14px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--line) 82%, var(--text) 18%);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--panel) 88%, var(--bg)) 0%,
+      color-mix(in srgb, var(--panel2) 82%, var(--bg)) 100%);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--text) 5%, transparent);
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+  will-change: transform;
+}
+.paper-meta-card > *{
+  position: relative;
+  z-index: 1;
+}
+.paper-meta-card:hover{
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--line) 70%, var(--text) 30%);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--text) 7%, transparent);
+}
+.paper-meta-card::before{
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto 0;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--text) 54%, transparent),
+    color-mix(in srgb, var(--line) 70%, transparent),
+    transparent);
+  opacity: .45;
+}
+.paper-meta-card::after{
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: -80% -42%;
+  pointer-events: none;
+  background: linear-gradient(135deg,
+    transparent 35%,
+    color-mix(in srgb, var(--line) 42%, transparent) 43%,
+    color-mix(in srgb, #fff 48%, transparent) 49%,
+    color-mix(in srgb, var(--text) 13%, transparent) 54%,
+    transparent 63%);
+  opacity: 0;
+  transform: translate3d(-24%, -18%, 0);
+  animation: paperMetaSheen 9s ease-in-out infinite;
+}
+@keyframes paperMetaSheen{
+  0%, 20%{
+    opacity: 0;
+    transform: translate3d(-24%, -18%, 0);
+  }
+  42%{
+    opacity: .46;
+  }
+  58%{
+    opacity: .3;
+    transform: translate3d(24%, 18%, 0);
+  }
+  100%{
+    opacity: 0;
+    transform: translate3d(24%, 18%, 0);
+  }
+}
+.paper-meta-top{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 13px;
+}
+.paper-meta-venue{
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 9px;
+  border: 1px solid color-mix(in srgb, var(--text) 18%, var(--line));
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--text) 7%, var(--panel));
+  color: color-mix(in srgb, var(--text) 92%, var(--muted));
+  font-size: 11.5px;
+  font-weight: 780;
+  letter-spacing: .035em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+.paper-meta-date{
+  color: color-mix(in srgb, var(--muted) 88%, var(--text));
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: .01em;
+}
+.paper-meta-grid{
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, .82fr);
+  gap: 12px 20px;
+  margin: 0;
+}
+.paper-meta-item{
+  min-width: 0;
+  padding-left: 12px;
+  border-left: 1px solid color-mix(in srgb, var(--line) 82%, var(--text) 18%);
+}
+.paper-meta-item dt{
+  margin-bottom: 4px;
+  color: color-mix(in srgb, var(--muted) 84%, var(--text));
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+.paper-meta-item dd{
+  margin: 0;
+  color: color-mix(in srgb, var(--text) 88%, var(--muted));
+  font-size: 13px;
+  font-weight: 520;
+  line-height: 1.58;
+}
+.paper-meta-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 76%, transparent);
+}
+.paper-meta-links a{
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--line) 78%, var(--text) 22%);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--panel) 80%, var(--bg));
+  color: color-mix(in srgb, var(--text) 84%, var(--muted));
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: .01em;
+  line-height: 1.1;
+  text-decoration: none;
+  transition: border-color .18s ease, color .18s ease, background .18s ease, transform .18s ease;
+}
+.paper-meta-links a:hover{
+  border-color: color-mix(in srgb, var(--text) 32%, var(--line));
+  background: color-mix(in srgb, var(--panel) 92%, var(--bg));
+  color: var(--text);
+  transform: translateY(-1px);
+}
+:root[data-theme="dark-gray"] .paper-meta-card,
+:root[data-theme="dark"] .paper-meta-card{
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--panel) 84%, var(--bg)) 0%,
+      color-mix(in srgb, var(--panel2) 78%, var(--bg)) 100%);
+  box-shadow: 0 12px 30px color-mix(in srgb, #000 18%, transparent);
+}
+:root[data-theme="dark-gray"] .paper-meta-card:hover,
+:root[data-theme="dark"] .paper-meta-card:hover{
+  box-shadow: 0 16px 36px color-mix(in srgb, #000 24%, transparent);
+}
+@media (prefers-reduced-motion: reduce){
+  .paper-meta-card,
+  .paper-meta-card::before,
+  .paper-meta-card::after,
+  .paper-meta-links a{
+    animation: none;
+    transition: none;
+  }
+  .paper-meta-card:hover,
+  .paper-meta-links a:hover{
+    transform: none;
+  }
+}
+@media (max-width: 720px){
+  .paper-meta-card{ padding: 14px 13px 13px; }
+  .paper-meta-top{ align-items: flex-start; justify-content: flex-start; margin-bottom: 12px; }
+  .paper-meta-grid{ grid-template-columns: 1fr; gap: 10px; }
+  .paper-meta-item{ padding-left: 10px; }
 }

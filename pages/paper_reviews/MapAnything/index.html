@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
+  <title>MapAnything Paper Review</title>
+  <link href="../../../assets/favicon.png" rel="icon" type="image/png">
+  <meta content="MapAnything Paper Review" property="og:title">
+  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta content="website" property="og:type">
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
+  <link href="styles.css?v=mapanything-redesign-20260526" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+</head>
+<body>
+  <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+  <div class="layout" id="top">
+    <aside aria-label="Paper section bookmark" class="sidebar">
+      <div class="sidebar-card">
+        <nav aria-label="Paper section bookmark" class="section-bookmark">
+          <div class="bookmark-status">
+            <span class="bookmark-eyebrow">Now Reading</span>
+            <strong id="currentSectionLabel">핵심 요약</strong>
+          </div>
+          <div class="bookmark-list" id="sectionBookmarkList"></div>
+        </nav>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brandline">
+            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+            </a>
+            <span class="brandtext">Paper Reviews</span>
+          </div>
+          <div class="top-actions">
+            <button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+              <span data-lang-option="ko">KO</span>
+              <span data-lang-option="en">EN</span>
+            </button>
+            <button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+              <span aria-hidden="true" id="themeIcon">☀</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="container" id="main">
+        <section class="section">
+          <div class="panel">
+            <header class="paper-identity">
+              <p class="paper-title-meta">MapAnything: Universal Feed-Forward Metric 3D Reconstruction</p>
+<div class="paper-meta-card">
+  <div class="paper-meta-top"><span class="paper-meta-venue">3DV 2026</span><span class="paper-meta-date">arXiv: 16 Sep 2025</span></div>
+  <dl class="paper-meta-grid">
+    <div class="paper-meta-item"><dt>Authors</dt><dd>Nikhil Keetha; Norman Muller; Johannes Schonberger; Lorenzo Porzi; Yuchen Zhang; Tobias Fischer; Arno Knapitsch; Duncan Zauss; Ethan Weber; Nelson Antunes; Jonathon Luiten; Manuel Lopez-Antequera; Samuel Rota Bulo; Christian Richardt; Deva Ramanan; Sebastian Scherer; Peter Kontschieder</dd></div>
+    <div class="paper-meta-item"><dt>Affiliations</dt><dd>Meta Reality Labs; Carnegie Mellon University</dd></div>
+  </dl>
+  <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2509.13414" rel="noreferrer" target="_blank">Paper</a><a href="https://map-anything.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/facebookresearch/map-anything" rel="noreferrer" target="_blank">GitHub</a></nav>
+</div>
+            </header>
+
+            <div class="post-body">
+              <section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+                <div class="paper-map-head">
+                  <h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+                  <p data-en-html="MapAnything is a universal feed-forward 3D reconstruction model that accepts images plus optional geometric inputs and predicts &lt;strong&gt;metric scene geometry and cameras&lt;/strong&gt; in one pass." data-ko-html="MapAnything은 image와 optional geometric input을 함께 받아 &lt;strong&gt;metric 3D geometry와 camera&lt;/strong&gt;를 한 번에 예측하는 universal feed-forward 3D reconstruction model이다.">MapAnything은 image와 optional geometric input을 함께 받아 <strong>metric 3D geometry와 camera</strong>를 한 번에 예측하는 universal feed-forward 3D reconstruction model이다.</p>
+                </div>
+
+                <div class="tldr-cues">
+                  <span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Fragmented 3D tasks" data-ko="task별 3D pipeline">task별 3D pipeline</small></span>
+                  <span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Factored representation" data-ko="factored representation">factored representation</small></span>
+                  <span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="12+ task settings" data-ko="12개 이상 task setting">12개 이상 task setting</small></span>
+                </div>
+
+                <div class="map-grid">
+                  <article class="map-card map-card-wide">
+                    <span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+                    <p data-en-html="The paper’s core move is to represent multi-view geometry as &lt;strong&gt;rays, ray depths, poses, and one global metric scale&lt;/strong&gt;, so the same model can use whatever geometric information is available." data-ko-html="논문의 핵심은 multi-view geometry를 &lt;strong&gt;ray, ray depth, pose, global metric scale&lt;/strong&gt;로 분해해, 어떤 geometric 정보가 주어져도 같은 모델 안에서 활용하게 만드는 것이다.">논문의 핵심은 multi-view geometry를 <strong>ray, ray depth, pose, global metric scale</strong>로 분해해, 어떤 geometric 정보가 주어져도 같은 모델 안에서 활용하게 만드는 것이다.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 01</span>
+                    <h3>Flexible Inputs</h3>
+                    <p data-en="Images can be combined with optional rays, poses, depth, or partial reconstructions." data-ko="image에 ray, pose, depth, partial reconstruction을 선택적으로 결합.">image에 ray, pose, depth, partial reconstruction을 선택적으로 결합.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 02</span>
+                    <h3>Factored Outputs</h3>
+                    <p data-en="Predicts local ray directions, ray depths, poses, and one metric scale instead of one coupled pointmap." data-ko="하나의 coupled pointmap 대신 local ray, ray depth, pose, metric scale을 분리 예측.">하나의 coupled pointmap 대신 local ray, ray depth, pose, metric scale을 분리 예측.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 03</span>
+                    <h3>Universal Training</h3>
+                    <p data-en="Learns from heterogeneous datasets with partial supervision by applying losses only where labels exist." data-ko="label이 있는 factor에만 loss를 적용해 partial supervision dataset을 함께 학습.">label이 있는 factor에만 loss를 적용해 partial supervision dataset을 함께 학습.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 04</span>
+                    <h3>Broad Evaluation</h3>
+                    <p data-en="Evaluates SfM, MVS, calibration, metric depth, depth completion, and related settings." data-ko="SfM, MVS, calibration, metric depth, depth completion 계열을 함께 평가.">SfM, MVS, calibration, metric depth, depth completion 계열을 함께 평가.</p>
+                  </article>
+                </div>
+
+                <div class="insight-box">
+                  <strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
+                  <p data-en-html="MapAnything feels important because it does not simply make a larger multi-view network. It makes &lt;strong&gt;input availability itself part of the representation design&lt;/strong&gt;." data-ko-html="MapAnything이 중요한 이유는 단순히 multi-view network를 키운 것이 아니라, &lt;strong&gt;입력으로 무엇이 주어질 수 있는가를 representation 설계 안에 넣었다&lt;/strong&gt;는 점이다.">MapAnything이 중요한 이유는 단순히 multi-view network를 키운 것이 아니라, <strong>입력으로 무엇이 주어질 수 있는가를 representation 설계 안에 넣었다</strong>는 점이다.</p>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
+                <div aria-label="MapAnything pipeline" class="flow-diagram">
+                  <div class="flow-step"><span>01</span><strong>Images</strong><small>one or more views</small></div>
+                  <div class="flow-step"><span>02</span><strong>Optional Geometry</strong><small>rays / pose / depth</small></div>
+                  <div class="flow-step"><span>03</span><strong>Encoders</strong><small>shared latent space</small></div>
+                  <div class="flow-step"><span>04</span><strong>Transformer</strong><small>multi-view attention</small></div>
+                  <div class="flow-step"><span>05</span><strong>Heads</strong><small>DPT / pose / scale</small></div>
+                  <div class="flow-step"><span>06</span><strong>Metric 3D</strong><small>scene + cameras</small></div>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
+                <div class="compare-grid">
+                  <article>
+                    <span class="compare-kicker">Classical 3D Pipeline</span>
+                    <h3 data-en="Task-specific Modules" data-ko="task-specific module">task-specific module</h3>
+                    <p data-en="SfM, calibration, BA, MVS, and depth are often solved as separate steps." data-ko="SfM, calibration, BA, MVS, depth가 여러 단계의 별도 문제로 나뉨.">SfM, calibration, BA, MVS, depth가 여러 단계의 별도 문제로 나뉨.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">DUSt3R / VGGT Style</span>
+                    <h3 data-en="Image-first Feed-forward 3D" data-ko="image-first feed-forward 3D">image-first feed-forward 3D</h3>
+                    <p data-en="Strong feed-forward priors, but geometry inputs and metric scale are not always first-class citizens." data-ko="강한 feed-forward prior를 쓰지만 geometric input과 metric scale을 항상 자연스럽게 다루지는 않음.">강한 feed-forward prior를 쓰지만 geometric input과 metric scale을 항상 자연스럽게 다루지는 않음.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">MapAnything</span>
+                    <h3 data-en="Geometry-aware Unified Model" data-ko="geometry-aware unified model">geometry-aware unified model</h3>
+                    <p data-en="Uses a factored scene representation so images, rays, poses, and depth can be mixed flexibly." data-ko="factored scene representation으로 image, ray, pose, depth를 유연하게 섞음.">factored scene representation으로 image, ray, pose, depth를 유연하게 섞음.</p>
+                  </article>
+                </div>
+
+
+</section>
+
+              <section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+                <h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+                <p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper's core content while folding background, notation, and auxiliary details." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
+
+                <div class="deep-dive-body">
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="ko-problem">Problem: task별 3D reconstruction을 하나의 모델로 묶을 수 있나</h3>
+                      <p>MapAnything의 문제의식은 image-based 3D reconstruction이 여전히 <strong>task별 pipeline</strong>에 많이 나뉘어 있다는 데서 출발한다. SfM, calibration, pose averaging, BA, MVS, monocular depth는 서로 연결되어 있지만, 실제 시스템에서는 대개 별도 module로 풀린다.</p>
+                      <p>논문은 이 분리를 줄이기 위해 image-only setting뿐 아니라 <strong>calibration, pose, depth, partial reconstruction</strong>이 주어지는 상황까지 하나의 feed-forward 모델에서 다루려고 한다.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. MapAnything overview." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_6bee02b26bbe.png" style="width:2098px">
+                        <figcaption><span class="caption-main">Figure 1. MapAnything is a flexible, unified feed-forward 3D reconstruction model.</span><span class="caption-note">논문은 optional camera pose, intrinsics, depth map을 포함한 다양한 input configuration에서 metric 3D reconstruction과 camera를 예측하고, SfM, MVS, camera localization, metric depth completion 등 12개 이상 task를 지원한다고 설명한다.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>핵심 질문은 “image만 있을 때”가 아니라, <strong>현장에서 geometry hint가 일부만 있을 때도 같은 모델이 활용할 수 있는가</strong>이다.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>분리된 3D task</strong><p>SfM, MVS, calibration, depth completion이 각각 다른 pipeline으로 구현됨.</p></article>
+                          <article><span>02</span><strong>고정된 input/output</strong><p>기존 feed-forward 모델은 view 수, modality, camera model이 제한되는 경우가 많음.</p></article>
+                          <article><span>03</span><strong>부분 annotation</strong><p>dataset마다 depth, pose, metric scale, calibration annotation이 다르게 존재함.</p></article>
+                          <article><span>04</span><strong>MapAnything의 재정의</strong><p>geometry를 factor로 나누어 input과 output 양쪽에서 같은 구조로 다룸.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem / Proposal</span>
+                          <p>Introduction과 Conclusion의 핵심은 task별 model을 여러 개 만드는 대신, 하나의 representation이 여러 입력 조건을 받아들이게 만드는 것이다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>기존 제약</th><th>MapAnything의 선택</th><th>의미</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Fixed modality</span></td><td>image + optional rays/pose/depth</td><td>센서나 metadata availability 변화에 대응</td></tr>
+                              <tr><td><span class="summary-term">Coupled geometry</span></td><td>ray, depth, pose, scale로 factorization</td><td>prediction과 conditioning을 같은 언어로 정리</td></tr>
+                              <tr><td><span class="summary-term">Dataset mismatch</span></td><td>label이 있는 factor별 supervision</td><td>metric dataset과 up-to-scale dataset을 함께 활용</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work 흐름 자세히 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">논문이 비교하는 세 흐름</span>
+                              <p>Related Work는 MapAnything이 “더 큰 VGGT”가 아니라, <strong>heterogeneous geometric input을 직접 다루는 범용 3D backbone</strong>을 목표로 한다는 위치를 잡아준다.</p>
+                            </div>
+                            <div class="supplement-card-grid supplement-card-grid-four">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Universal 3D Reconstruction</strong><p>DeMoN, DeepTAM, DeepV2D부터 DUSt3R, VGGSfM, VGGT까지 이어지는 unified 3D 흐름.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Multi-view Feed-forward</strong><p>DUSt3R/MASt3R는 pointmap coupling과 post-processing이 필요하고, VGGT/FASt3R도 redundant output 문제가 남음.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Geometry Conditioning</strong><p>ray, origin, depth map은 여러 task에서 conditioning input으로 쓰였지만 universal 3D reconstruction의 중심 input은 아니었음.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>Pow3R와의 차이</strong><p>Pow3R는 known prior를 쓰지만 two-view pinhole camera와 centered principal point, non-metric scale에 묶임.</p></article>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="ko-mechanism">Mechanism: geometry를 factor로 나누어 어떻게 예측하나</h3>
+                      <p>방법론의 핵심은 scene을 pointmap 하나로 바로 예측하지 않고, <strong>local ray direction, up-to-scale ray depth, camera pose, global metric scale</strong>로 나눈 뒤 다시 metric 3D로 조합한다는 점이다. 이렇게 하면 input으로 들어오는 geometry와 output으로 예측하는 geometry가 같은 구조를 공유한다.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 2. Overview of the MapAnything Architecture." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_317c0db7f253.png" style="width:703.984375px">
+                        <figcaption><span class="caption-main">Figure 2. Overview of the MapAnything Architecture.</span><span class="caption-note">image, ray, pose, depth feature를 공통 latent space에 더하고, reference view embedding과 scale token을 붙인 뒤 alternating-attention transformer, DPT head, pose head, scale MLP로 factored output을 예측한다.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>MapAnything은 “주어진 geometry를 보조 정보로 쓰는 모델”이라기보다, <strong>geometry factor를 입력과 출력의 공통 인터페이스</strong>로 쓰는 모델이다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table method-table">
+                            <thead><tr><th>구간</th><th>무엇을 담당하나</th><th>핵심 장치</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Input factorization</span></td><td>intrinsics, pose, depth를 ray direction, quaternion/translation, ray depth로 정리</td><td>generic central projection camera + metric/up-to-scale 분리</td></tr>
+                              <tr><td><span class="summary-term">Multi-modal encoding</span></td><td>image feature와 geometry feature를 같은 token space에 합침</td><td>DINOv2 ViT-G, shallow conv encoder, MLP encoder</td></tr>
+                              <tr><td><span class="summary-term">Transformer fusion</span></td><td>view 간 정보를 attention으로 교환</td><td>16-layer / 24-head alternating attention, reference view embedding, RoPE 미사용</td></tr>
+                              <tr><td><span class="summary-term">Factored decoding</span></td><td>ray/depth/mask/confidence, camera pose, scene scale을 따로 예측</td><td>DPT head, pose head, scale token MLP</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. Input과 output의 공통 표현</span>
+                        <p>MapAnything의 입력은 <span class="inline-equation-token">\(N\)</span>개의 RGB image와 일부 view에만 존재할 수 있는 optional geometry다. output은 하나의 metric scale과 view별 factored geometry로 정리된다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+f_{\mathrm{MapAnything}}(\hat I,[\hat R,\hat Q,\hat T,\hat D])
+=\{m,(R_i,\tilde D_i,\tilde P_i)_{i=1}^{N}\} \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">입력 image와 optional geometry에서 global metric scale <span class="inline-equation-token">\(m\)</span>, ray direction <span class="inline-equation-token">\(R_i\)</span>, ray depth <span class="inline-equation-token">\(\tilde D_i\)</span>, pose <span class="inline-equation-token">\(\tilde P_i\)</span>를 예측.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Factored output을 metric 3D로 조합</span>
+                        <p>예측된 ray와 depth는 local pointmap이 되고, pose와 metric scale을 적용하면 global metric frame의 3D reconstruction이 된다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\tilde L_i=R_i\cdot\tilde D_i,\qquad
+\tilde X_i=O_i\cdot\tilde L_i+\tilde T_i,\qquad
+X_i^{\mathrm{metric}}=m\cdot\tilde X_i
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">local ray-depth geometry를 pose와 metric scale로 올려 scene-level metric 3D를 구성.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Scale을 입력과 학습에서 분리</span>
+                        <p>translation과 depth는 scale에 묶이기 쉽다. 논문은 pose scale과 depth scale을 분리하고, metric scale value는 log-transform하여 large scene scale variation을 안정적으로 다룬다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat z_p=\frac{1}{|S_t|}\sum_{i\in S_t}\|\hat T_i\|
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">입력 translation이 제공된 view들의 평균 거리로 pose scale을 계산.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="summary-panel summary-panel-soft">
+                        <div class="summary-head">
+                          <span class="subsection-label">Notation: factored 3D output과 scale</span>
+                          <p>MapAnything은 하나의 pointmap을 바로 예측하지 않고, ray, depth, pose, metric scale을 분리한 뒤 다시 metric 3D로 조합한다. 따라서 각 factor가 어느 단계에서 쓰이는지 구분해 읽는 것이 중요하다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Notation</th><th>의미</th><th>읽는 포인트</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\hat I\)</span>, <span class="inline-equation-token">\([\hat R,\hat Q,\hat T,\hat D]\)</span></span></td><td>RGB image와 optional geometry input</td><td>hat은 dataset에서 제공된 input/supervision factor를 의미.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(m\)</span></span></td><td>predicted global metric scale</td><td>local/up-to-scale geometry를 metric 3D로 변환하는 핵심 scalar.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(R_i\)</span>, <span class="inline-equation-token">\(\tilde D_i\)</span>, <span class="inline-equation-token">\(\tilde P_i\)</span></span></td><td>view <span class="inline-equation-token">\(i\)</span>의 ray direction, up-to-scale ray depth, pose-like transform</td><td>factored output의 세 가지 주요 geometry factor.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\tilde L_i\)</span>, <span class="inline-equation-token">\(\tilde X_i\)</span>, <span class="inline-equation-token">\(X_i^{metric}\)</span></span></td><td>local ray-depth point, posed point, final metric point</td><td>ray-depth geometry가 pose와 scale을 거쳐 metric reconstruction이 됨.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(O_i\)</span>, <span class="inline-equation-token">\(\tilde T_i\)</span></span></td><td>rotation/origin-like term과 translation component</td><td>local point를 view/world coordinate 쪽으로 올리는 transform 요소.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(S_t\)</span>, <span class="inline-equation-token">\(\hat z_p\)</span></span></td><td>translation이 제공된 view 집합과 pose scale</td><td>pose translation이 있을 때 평균 거리로 scale 기준을 만든다.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\operatorname{sg}(\cdot)\)</span>, <span class="inline-equation-token">\(f_{\log}\)</span></span></td><td>stop-gradient와 log-space compression</td><td>scale loss가 geometry factor를 불안정하게 흔들지 않도록 분리.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i\)</span>, <span class="inline-equation-token">\(\mathcal L_{mask}\)</span></span></td><td>confidence/mask terms</td><td>ambiguous pixel과 invalid geometry 영역을 조절.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Training loss와 dataset 구성 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Loss를 factor별로 적용하는 이유</span>
+                              <p>모든 dataset이 모든 supervision을 갖고 있지는 않다. 그래서 논문은 label이 있는 factor에 맞춰 ray, rotation, translation, depth, pointmap, scale, normal, gradient matching, mask loss를 조합한다.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>Loss 계열</th><th>대상</th><th>역할</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">Scale-independent</span></td><td>ray direction, quaternion rotation</td><td>scene scale과 무관하게 직접 regression</td></tr>
+                                  <tr><td><span class="summary-term">Scale-normalized</span></td><td>depth, translation, local/world pointmap</td><td>up-to-scale annotation과 metric annotation을 함께 사용</td></tr>
+                                  <tr><td><span class="summary-term">Metric scale</span></td><td>global scale factor</td><td>geometry gradient를 오염시키지 않도록 stop-gradient 적용</td></tr>
+                                  <tr><td><span class="summary-term">Detail / robustness</span></td><td>normal, gradient matching, mask</td><td>fine detail과 ambiguous region 처리</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+
+                          <div class="method-equation-cluster">
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal L_{\mathrm{rays}}=\sum_{i=1}^{N}\|\hat R_i-R_i\|,\qquad
+\mathcal L_{\mathrm{rot}}=\sum_{i=1}^{N}\min(\|\hat Q_i-Q_i\|,\|-\hat Q_i-Q_i\|)
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">ray direction과 quaternion rotation은 scale-independent quantity라 직접 regression한다.</span></figcaption>
+                            </figure>
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+z_{\mathrm{metric}}=m\cdot\operatorname{sg}(\tilde z),\qquad
+\mathcal L_{\mathrm{translation}}=\sum_{i=1}^{N}\left\|\frac{\hat T_i}{\hat z}-\frac{\tilde T_i}{\tilde z}\right\|
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">metric scale loss가 geometry를 흔들지 않도록 stop-gradient가 적용된 <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span>을 사용한다.</span></figcaption>
+                            </figure>
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+f_{\log}(x)=\frac{x}{\|x\|}\log(1+\|x\|),\qquad
+\mathcal L_{\mathrm{pointmap}}=\sum_{i=1}^{N}
+\left(C_i\left\|f_{\log}\left(\frac{\hat X_i}{\hat z}\right)-f_{\log}\left(\frac{\tilde X_i}{\tilde z}\right)\right\|-\alpha\log C_i\right)
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">ray depth, pointmap, metric scale은 log-space loss가 중요하며, per-pixel loss 상위 5%는 outlier 완화를 위해 제외한다.</span></figcaption>
+                            </figure>
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal L =
+10\mathcal L_{\mathrm{pointmap}}+\mathcal L_{\mathrm{rays}}+\mathcal L_{\mathrm{rot}}
++\mathcal L_{\mathrm{translation}}+\mathcal L_{\mathrm{depth}}
++\mathcal L_{\mathrm{lpm}}+\mathcal L_{\mathrm{scale}}
++\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}} \tag{2}
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">전체 loss는 pointmap loss를 크게 가중하고 mask loss는 낮게 가중해, geometry 품질을 중심으로 학습한다.</span></figcaption>
+                            </figure>
+                          </div>
+
+                          <figure class="image">
+                            <img alt="Table 1. Datasets used for training and testing MapAnything." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_d954458175c2.png" style="width:576px">
+                            <figcaption><span class="caption-main">Table 1. Datasets used for training and testing MapAnything.</span><span class="caption-note">학습과 평가에 사용한 13개 dataset을 license, scene 수, metric availability 기준으로 정리하며, Apache 2.0 모델과 CC BY-NC 모델의 dataset 범위를 구분한다.</span></figcaption>
+                          </figure>
+
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Training setup 요약</span>
+                              <p>geometry input augmentation은 overall probability 0.9로 적용되고, ray direction, ray depth, pose는 각각 0.5 확률로 제공된다. depth input은 dense depth 또는 90% sparsified depth로 주어지며, per-view input probability 0.95로 일부 view에만 geometry가 있는 상황도 학습한다. normal loss와 gradient matching loss는 real geometry noise를 피하기 위해 synthetic dataset에만 적용된다.</p>
+                            </div>
+                            <div class="supplement-card-grid">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Dataset mix</strong><p>indoor, outdoor, in-the-wild scene이 섞인 13개 dataset 사용.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>View sampling</strong><p>ground-truth depth/pose 기반 pairwise covisibility를 계산하고 25% threshold random walk로 view graph sampling.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>MPSD metadata</strong><p>monocular metric depth dataset인 MPSD에 pose/camera 정보를 붙여 multi-view metric dataset으로 활용하고 metadata를 공개.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>Release split</strong><p>Apache 2.0 모델은 6개 dataset, non-commercial 모델은 추가 7개 dataset 포함.</p></article>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="ko-evidence">Evidence: 어떤 조건에서 범용성이 검증되나</h3>
+                      <p>평가는 dataset 이름보다 task별 질문으로 읽는 편이 자연스럽다. MapAnything은 dense multi-view reconstruction, two-view reconstruction, single-image calibration, metric depth, ablation을 통해 <strong>image-only와 geometry-conditioned setting 모두</strong>를 검증한다.</p>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Brief</span>
+                          <p>결과의 핵심은 “여러 task를 하나의 모델로 한다”가 아니라, <strong>geometry input이 추가될수록 같은 모델이 이를 활용해 성능을 높인다</strong>는 점이다.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Dense multi-view</strong><p>view 수 2부터 100까지, image-only와 geometry input 조건을 함께 확인.</p></article>
+                          <article><strong>Calibration / depth</strong><p>single-view calibration과 robust metric depth에서도 specialist와 비교.</p></article>
+                          <article><strong>Ablation</strong><p>RDP &amp; Scale representation과 universal training의 효과를 분리해 검증.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Dense Multi-view Reconstruction</span>
+                        <figure class="image">
+                          <img alt="Figure 3. Qualitative comparison of MapAnything to VGGT." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_0170bd7414bd.png" style="width:703.9921875px">
+                          <figcaption><span class="caption-main">Figure 3. Qualitative comparison of MapAnything to VGGT using only in-the-wild images as input.</span><span class="caption-note">공정 비교를 위해 양쪽 모두 같은 normal-based edge mask와 sky mask를 적용했으며, MapAnything은 large disparity change, seasonal shift, textureless surface, water body, large scene에서 더 안정적인 reconstruction을 보인다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 4. Dense multi-view reconstruction results." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_6f73553e319a.png" style="width:2170px">
+                          <figcaption><span class="caption-main">Figure 4. MapAnything shows state-of-the-art dense multi-view reconstruction for input views ranging from 2 to 100 and under different input configurations.</span><span class="caption-note">ETH3D, ScanNet++ v2, TartanAirV2-WB에서 up-to-\(N\) view reconstruction을 평가하며, image-only 성능뿐 아니라 calibration, pose, sparse depth 같은 auxiliary geometry를 활용할 때의 개선도 함께 보여준다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Two-view Reconstruction</span>
+                        <figure class="image">
+                          <img alt="Table 2. Two-view reconstruction under different input configurations." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_83298a00c42d.png" style="width:528px">
+                          <figcaption><span class="caption-main">Table 2. MapAnything showcases state-of-the-art two-view reconstruction under different input configurations.</span><span class="caption-note">sparse-view reconstruction과 image matching을 평가하며, image-only에서도 DUSt3R, MASt3R, Pow3R, VGGT보다 좋은 평균 성능을 보이고, additional modality가 주어지면 Pow3R보다 크게 앞선다고 보고한다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Calibration / depth / ablation 보조 결과 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">보조 결과를 왜 접었나</span>
+                              <p>이 세 결과는 MapAnything의 범용성을 보강하지만, 핵심 주장은 앞의 dense multi-view와 two-view reconstruction에서 먼저 확인된다.</p>
+                            </div>
+                            <div class="supplement-card-grid">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Calibration</strong><p>single-image 전용 학습 없이 perspective calibration 성능 확인.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Metric Depth</strong><p>Robust-MVD에서 single-view와 multi-view metric depth 모두 확인.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Ablation</strong><p>RDP &amp; Scale representation과 universal training의 필요성 검증.</p></article>
+                            </div>
+                          </section>
+                          <section class="evidence-cluster">
+                            <span class="subsection-label">Calibration Evidence</span>
+                            <figure class="image">
+                              <img alt="Table 3. Single-image calibration." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_1164b0aa03de.png" style="width:528px">
+                              <figcaption><span class="caption-main">Table 3. MapAnything shows state-of-the-art single-image calibration.</span><span class="caption-note">single-image 전용으로 학습하지 않았지만 ETH3D, ScanNet++ v2, TartanAirV2 frame에서 perspective calibration을 평가하며, non-centered principal point를 확인하기 위해 다양한 aspect ratio crop을 사용한다.</span></figcaption>
+                            </figure>
+                          </section>
+                          <section class="evidence-cluster">
+                            <span class="subsection-label">Metric Depth Evidence</span>
+                            <figure class="image">
+                              <img alt="Table 4. Metric depth estimation on Robust-MVD benchmark." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_47be1e49615e.png" style="width:432px">
+                              <figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">single-view와 multi-view metric depth를 함께 비교하며, MapAnything은 benchmark 학습 없이 KITTI에서 강한 성능을 보이고, calibration/pose가 주어지면 specialist MVS/depth model과 경쟁 가능한 결과를 낸다.</span></figcaption>
+                            </figure>
+                          </section>
+                          <section class="evidence-cluster">
+                            <span class="subsection-label">Ablation Evidence</span>
+                            <figure class="image">
+                              <img alt="Table 5. Ablations for key design choices." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_a95e74921341.png" style="width:528px">
+                              <figcaption><span class="caption-main">Table 5. Ablations providing insight into the key design choices.</span><span class="caption-note">RDP &amp; Scale representation이 image-only와 geometry-input 조건 모두에서 핵심이며, 12개 이상 task를 한 번에 학습하는 universal training이 여러 bespoke model보다 효율적임을 보여준다.</span></figcaption>
+                            </figure>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="ko-usage">Usage / Limits: 어떤 상황에 쓰기 좋은가</h3>
+                      <p>MapAnything은 입력 image와 함께 일부 geometry metadata가 있을 수도, 없을 수도 있는 환경에 잘 맞는다. 특히 robotics, mapping, dataset curation처럼 camera pose, calibration, depth가 부분적으로만 존재하는 경우, 하나의 모델로 여러 setting을 처리할 수 있다는 장점이 크다.</p>
+
+                      <section class="summary-panel usage-fit-box">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>Limitations는 범용 backbone의 가능성과 아직 남은 공학적 제약을 함께 보여준다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table usage-table">
+                            <thead><tr><th>구분</th><th>요약</th><th>이유</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">좋은 사용처</span></td><td>image와 calibration/pose/depth가 섞여 있는 multi-view reconstruction</td><td>optional geometry를 같은 representation으로 받아들임</td></tr>
+                              <tr><td><span class="summary-term">좋은 사용처</span></td><td>SfM, MVS, metric depth, calibration을 하나의 backbone으로 실험</td><td>task-specific tuning 없이 넓은 task setting 지원</td></tr>
+                              <tr><td><span class="summary-term">주의할 점</span></td><td>geometric input의 noise나 uncertainty가 큰 경우</td><td>논문은 geometric input uncertainty를 명시적으로 모델링하지 않음</td></tr>
+                              <tr><td><span class="summary-term">확장 가능성</span></td><td>target view에는 camera만 있는 novel view synthesis식 task</td><td>현재 지원하지는 않지만 architecture 확장 방향으로 언급됨</td></tr>
+                              <tr><td><span class="summary-term">한계</span></td><td>매우 큰 scene, dynamic motion, scene flow</td><td>pixel-output one-to-one mapping과 static scene parameterization의 제약</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="section-note">
+                        <span class="section-chip">정리 노트</span>
+                        <p>MapAnything은 “모든 3D task를 완전히 끝낸 모델”이라기보다, <strong>다양한 입력 조건을 하나의 metric 3D reconstruction backbone으로 흡수하는 설계</strong>에 의미가 있다.</p>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Conclusion">
+                      <h3 id="ko-conclusion">Conclusion</h3>
+                      <p>MapAnything은 images, intrinsics, poses, depth maps, partial reconstructions 같은 flexible input에서 metric 3D geometry와 camera pose를 직접 회귀하는 universal transformer backbone이다. 핵심은 depth map, ray map, pose, global scale factor로 multi-view geometry를 factorization해 local estimate를 global metric frame으로 통합하는 것이다.</p>
+                      <p>실험적으로는 uncalibrated SfM, calibrated MVS, monocular depth, camera localization, depth completion 등 여러 task에서 specialist model과 맞먹거나 앞서는 결과를 보이며, future extension으로 dynamic scene, uncertainty quantification, scene understanding을 제시한다.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="ko-takeaway">느낀점</h3>
+                      <p>(진행중...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="ko-future-work">향후 계획</h3>
+                      <p>(진행중...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden id="deepDiveContentEn">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="en-problem">Problem: can one model cover fragmented 3D reconstruction tasks?</h3>
+                      <p>MapAnything starts from the observation that image-based 3D reconstruction is still split into many task-specific pipelines. SfM, calibration, pose averaging, BA, MVS, and monocular depth are connected, but they are usually solved as separate modules.</p>
+                      <p>The paper tries to reduce this fragmentation by handling not only image-only inputs, but also settings where <strong>calibration, pose, depth, or partial reconstruction</strong> may be available.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. MapAnything overview." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_6bee02b26bbe.png" style="width:2098px">
+                        <figcaption><span class="caption-main">Figure 1. MapAnything is a flexible, unified feed-forward 3D reconstruction model.</span><span class="caption-note">The paper states that MapAnything predicts metric 3D reconstruction and cameras from optional poses, intrinsics, or depth maps, supporting over 12 tasks including SfM, MVS, camera localization, and metric depth completion.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>The core question is not only “what if we have images,” but <strong>whether partial geometric hints can be used inside the same model</strong>.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Fragmented 3D tasks</strong><p>SfM, MVS, calibration, and depth completion are usually separate pipelines.</p></article>
+                          <article><span>02</span><strong>Fixed input/output</strong><p>Prior feed-forward models often constrain view count, modality, or camera model.</p></article>
+                          <article><span>03</span><strong>Partial annotation</strong><p>Datasets differ in depth, pose, metric scale, and calibration availability.</p></article>
+                          <article><span>04</span><strong>MapAnything’s reframing</strong><p>Factor geometry so the same structure can serve as both input and output.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem / Proposal</span>
+                          <p>The main idea is to build one representation that accepts multiple input conditions instead of training many task-specific models.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Constraint</th><th>MapAnything's choice</th><th>Meaning</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Fixed modality</span></td><td>Images plus optional rays, poses, and depth</td><td>Handles changing sensor or metadata availability</td></tr>
+                              <tr><td><span class="summary-term">Coupled geometry</span></td><td>Factor into rays, depth, pose, and scale</td><td>Uses one language for prediction and conditioning</td></tr>
+                              <tr><td><span class="summary-term">Dataset mismatch</span></td><td>Apply supervision only to available factors</td><td>Uses metric and up-to-scale datasets together</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work details</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Where the paper sits</span>
+                              <p>The related work frames MapAnything as a universal 3D backbone for heterogeneous geometric inputs, rather than simply a larger image-only reconstruction model.</p>
+                            </div>
+                            <div class="supplement-card-grid supplement-card-grid-four">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Universal 3D Reconstruction</strong><p>From DeMoN, DeepTAM, and DeepV2D to DUSt3R, VGGSfM, and VGGT.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Multi-view Feed-forward</strong><p>DUSt3R/MASt3R need pointmap recovery and post-processing, while VGGT/FASt3R retain redundant output issues.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Geometry Conditioning</strong><p>Rays, origins, and depth maps have been used as conditioning inputs, but not as the central interface for universal feed-forward 3D reconstruction.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>Difference from Pow3R</strong><p>Pow3R uses known priors but is limited to two pinhole images, centered principal point, and non-metric scale.</p></article>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="en-mechanism">Mechanism: how does the model factor and predict geometry?</h3>
+                      <p>The method does not predict one coupled pointmap directly. Instead, it decomposes the scene into <strong>local ray directions, up-to-scale ray depths, camera poses, and one global metric scale</strong>, then composes these factors into metric 3D.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 2. Overview of the MapAnything Architecture." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_317c0db7f253.png" style="width:703.984375px">
+                        <figcaption><span class="caption-main">Figure 2. Overview of the MapAnything Architecture.</span><span class="caption-note">Image, ray, pose, and depth features are summed in a common latent space; reference-view embedding and a scale token are added before transformer fusion, DPT decoding, pose prediction, and metric scale prediction.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>MapAnything uses geometry factors as a shared interface for both inputs and outputs.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table method-table">
+                            <thead><tr><th>Stage</th><th>Role</th><th>Device</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Input factorization</span></td><td>Represent intrinsics, pose, and depth as ray directions, quaternion/translation, and ray depths</td><td>Generic central projection camera plus metric/up-to-scale separation</td></tr>
+                              <tr><td><span class="summary-term">Multi-modal encoding</span></td><td>Put image and geometry features into one token space</td><td>DINOv2 ViT-G, shallow conv encoder, MLP encoder</td></tr>
+                              <tr><td><span class="summary-term">Transformer fusion</span></td><td>Exchange information across views</td><td>16-layer / 24-head alternating attention, reference view embedding, no RoPE</td></tr>
+                              <tr><td><span class="summary-term">Factored decoding</span></td><td>Predict rays/depth/masks/confidence, camera poses, and scene scale separately</td><td>DPT head, pose head, scale-token MLP</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. Shared input/output representation</span>
+                        <p>The model receives <span class="inline-equation-token">\(N\)</span> RGB images and optional geometry that may only exist for some views. The output is one metric scale plus per-view factored geometry.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+f_{\mathrm{MapAnything}}(\hat I,[\hat R,\hat Q,\hat T,\hat D])
+=\{m,(R_i,\tilde D_i,\tilde P_i)_{i=1}^{N}\} \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">The model predicts global metric scale <span class="inline-equation-token">\(m\)</span>, ray direction <span class="inline-equation-token">\(R_i\)</span>, ray depth <span class="inline-equation-token">\(\tilde D_i\)</span>, and pose <span class="inline-equation-token">\(\tilde P_i\)</span>.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Compose factored outputs into metric 3D</span>
+                        <p>Predicted rays and depths form local pointmaps; poses and metric scale lift them into one global metric frame.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\tilde L_i=R_i\cdot\tilde D_i,\qquad
+\tilde X_i=O_i\cdot\tilde L_i+\tilde T_i,\qquad
+X_i^{\mathrm{metric}}=m\cdot\tilde X_i
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Local ray-depth geometry becomes scene-level metric 3D after pose and scale are applied.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Separate scale from translation and depth</span>
+                        <p>Translation and depth are entangled with scale. The paper separates pose scale and depth scale, and log-transforms metric scale values to handle large scene-scale variation.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat z_p=\frac{1}{|S_t|}\sum_{i\in S_t}\|\hat T_i\|
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Pose scale is computed as the average distance of provided translations from the world frame.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="summary-panel summary-panel-soft">
+                        <div class="summary-head">
+                          <span class="subsection-label">Notation: factored 3D outputs and scale</span>
+                          <p>MapAnything does not predict one coupled pointmap directly. It separates rays, depth, pose, and metric scale, then composes them back into metric 3D.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Notation</th><th>Meaning</th><th>How to read it</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\hat I\)</span>, <span class="inline-equation-token">\([\hat R,\hat Q,\hat T,\hat D]\)</span></span></td><td>RGB images and optional geometry inputs</td><td>Hats denote provided input or supervision factors when available.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(m\)</span></span></td><td>Predicted global metric scale</td><td>The scalar that converts local or up-to-scale geometry into metric 3D.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(R_i\)</span>, <span class="inline-equation-token">\(\tilde D_i\)</span>, <span class="inline-equation-token">\(\tilde P_i\)</span></span></td><td>Ray direction, up-to-scale ray depth, and pose-like transform for view <span class="inline-equation-token">\(i\)</span></td><td>The three main geometry factors predicted per view.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\tilde L_i\)</span>, <span class="inline-equation-token">\(\tilde X_i\)</span>, <span class="inline-equation-token">\(X_i^{metric}\)</span></span></td><td>Local ray-depth point, posed point, and final metric point</td><td>Ray-depth geometry becomes metric reconstruction after pose and scale.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(O_i\)</span>, <span class="inline-equation-token">\(\tilde T_i\)</span></span></td><td>Rotation/origin-like term and translation component</td><td>Transform elements that lift local points toward the view/world coordinate frame.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(S_t\)</span>, <span class="inline-equation-token">\(\hat z_p\)</span></span></td><td>Views with provided translation and the derived pose scale</td><td>Translation supervision defines the scale reference through average distance.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\operatorname{sg}(\cdot)\)</span>, <span class="inline-equation-token">\(f_{\log}\)</span></span></td><td>Stop-gradient and log-space compression</td><td>Keeps scale supervision from destabilizing the geometry factors.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i\)</span>, <span class="inline-equation-token">\(\mathcal L_{mask}\)</span></span></td><td>Confidence and mask terms</td><td>Control ambiguous pixels and invalid geometry regions.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Training losses and datasets</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Why losses are applied per factor</span>
+                              <p>Not every dataset provides every label. The paper therefore combines ray, rotation, translation, depth, pointmap, scale, normal, gradient matching, and mask losses according to available supervision.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>Loss family</th><th>Target</th><th>Role</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">Scale-independent</span></td><td>Ray direction and quaternion rotation</td><td>Direct regression independent of scene scale</td></tr>
+                                  <tr><td><span class="summary-term">Scale-normalized</span></td><td>Depth, translation, local/world pointmaps</td><td>Use metric and up-to-scale annotations together</td></tr>
+                                  <tr><td><span class="summary-term">Metric scale</span></td><td>Global scale factor</td><td>Uses stop-gradient so geometry is not corrupted by scale loss</td></tr>
+                                  <tr><td><span class="summary-term">Detail / robustness</span></td><td>Normal, gradient matching, mask</td><td>Handles details and ambiguous regions</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+
+                          <div class="method-equation-cluster">
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal L_{\mathrm{rays}}=\sum_{i=1}^{N}\|\hat R_i-R_i\|,\qquad
+\mathcal L_{\mathrm{rot}}=\sum_{i=1}^{N}\min(\|\hat Q_i-Q_i\|,\|-\hat Q_i-Q_i\|)
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">Ray directions and quaternion rotations are scale-independent, so the paper regresses them directly.</span></figcaption>
+                            </figure>
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+z_{\mathrm{metric}}=m\cdot\operatorname{sg}(\tilde z),\qquad
+\mathcal L_{\mathrm{translation}}=\sum_{i=1}^{N}\left\|\frac{\hat T_i}{\hat z}-\frac{\tilde T_i}{\tilde z}\right\|
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">The metric scale loss uses stop-gradient through <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span> so scale supervision does not distort the geometry.</span></figcaption>
+                            </figure>
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+f_{\log}(x)=\frac{x}{\|x\|}\log(1+\|x\|),\qquad
+\mathcal L_{\mathrm{pointmap}}=\sum_{i=1}^{N}
+\left(C_i\left\|f_{\log}\left(\frac{\hat X_i}{\hat z}\right)-f_{\log}\left(\frac{\tilde X_i}{\tilde z}\right)\right\|-\alpha\log C_i\right)
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">Log-space losses are important for ray depth, pointmaps, and metric scale; the top 5% per-pixel losses are dropped to reduce outlier effects.</span></figcaption>
+                            </figure>
+                            <figure class="equation">
+                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal L =
+10\mathcal L_{\mathrm{pointmap}}+\mathcal L_{\mathrm{rays}}+\mathcal L_{\mathrm{rot}}
++\mathcal L_{\mathrm{translation}}+\mathcal L_{\mathrm{depth}}
++\mathcal L_{\mathrm{lpm}}+\mathcal L_{\mathrm{scale}}
++\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}} \tag{2}
+$$
+                              </div></div></div>
+                              <figcaption><span class="caption-main">The full objective upweights pointmap loss and downweights mask loss to emphasize geometry quality.</span></figcaption>
+                            </figure>
+                          </div>
+
+                          <figure class="image">
+                            <img alt="Table 1. Datasets used for training and testing MapAnything." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_d954458175c2.png" style="width:576px">
+                            <figcaption><span class="caption-main">Table 1. Datasets used for training and testing MapAnything.</span><span class="caption-note">The table summarizes 13 training/evaluation datasets by license, scene count, and metric availability, separating the Apache 2.0 and CC BY-NC model variants.</span></figcaption>
+                          </figure>
+
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Training setup summary</span>
+                              <p>Geometry input augmentation is applied with overall probability 0.9. Ray directions, ray depth, and poses each have input probability 0.5. Depth inputs are either dense or 90% sparsified, and per-view input probability 0.95 teaches the model to handle partial geometry availability. Normal and gradient-matching losses are applied only to synthetic datasets to avoid noisy real geometry.</p>
+                            </div>
+                            <div class="supplement-card-grid">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Dataset mix</strong><p>Uses 13 datasets spanning indoor, outdoor, and in-the-wild scenes.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>View sampling</strong><p>Precomputes pairwise covisibility from depth/pose and samples connected view graphs with a 25% threshold.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>MPSD metadata</strong><p>The paper adds pose/camera metadata to MPSD to enable real-world multi-view metric-scale training and releases that metadata.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>Release split</strong><p>The Apache 2.0 model uses six datasets, while the non-commercial model adds seven more.</p></article>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="en-evidence">Evidence: where is universality validated?</h3>
+                      <p>The evaluation is easiest to read by task. MapAnything tests dense multi-view reconstruction, two-view reconstruction, single-image calibration, metric depth, and ablations across both <strong>image-only and geometry-conditioned settings</strong>.</p>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Brief</span>
+                          <p>The key evidence is that the same model can exploit additional geometry when it is available.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Dense multi-view</strong><p>Tests 2 to 100 views under image-only and geometry-input settings.</p></article>
+                          <article><strong>Calibration / depth</strong><p>Compares against specialist models for single-view calibration and robust metric depth.</p></article>
+                          <article><strong>Ablation</strong><p>Separates the effect of RDP &amp; Scale representation and universal training.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Dense Multi-view Reconstruction</span>
+                        <figure class="image">
+                          <img alt="Figure 3. Qualitative comparison of MapAnything to VGGT." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_0170bd7414bd.png" style="width:703.9921875px">
+                          <figcaption><span class="caption-main">Figure 3. Qualitative comparison of MapAnything to VGGT using only in-the-wild images as input.</span><span class="caption-note">For a fair comparison, the same normal-based edge mask and sky mask are applied to both methods; MapAnything better handles large disparity changes, seasonal shifts, textureless surfaces, water bodies, and large scenes.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 4. Dense multi-view reconstruction results." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_6f73553e319a.png" style="width:2170px">
+                          <figcaption><span class="caption-main">Figure 4. MapAnything shows state-of-the-art dense multi-view reconstruction for input views ranging from 2 to 100 and under different input configurations.</span><span class="caption-note">The benchmark uses ETH3D, ScanNet++ v2, and TartanAirV2-WB, showing both image-only performance and gains from calibration, pose, or sparse depth inputs.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Two-view Reconstruction</span>
+                        <figure class="image">
+                          <img alt="Table 2. Two-view reconstruction under different input configurations." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_83298a00c42d.png" style="width:528px">
+                          <figcaption><span class="caption-main">Table 2. MapAnything showcases state-of-the-art two-view reconstruction under different input configurations.</span><span class="caption-note">The paper benchmarks sparse-view reconstruction and image matching, reporting state-of-the-art image-only results and further improvements from additional modalities.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Calibration / depth / ablation supporting results</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Why these results are folded</span>
+                              <p>These results support MapAnything's breadth, while the core evidence appears first in dense multi-view and two-view reconstruction.</p>
+                            </div>
+                            <div class="supplement-card-grid">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Calibration</strong><p>Tests perspective calibration despite no single-image-specific training.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Metric Depth</strong><p>Checks both single-view and multi-view metric depth on Robust-MVD.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Ablation</strong><p>Validates RDP &amp; Scale representation and universal training.</p></article>
+                            </div>
+                          </section>
+                          <section class="evidence-cluster">
+                            <span class="subsection-label">Calibration Evidence</span>
+                            <figure class="image">
+                              <img alt="Table 3. Single-image calibration." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_1164b0aa03de.png" style="width:528px">
+                              <figcaption><span class="caption-main">Table 3. MapAnything shows state-of-the-art single-image calibration.</span><span class="caption-note">Although not trained specifically for single images, the model is evaluated on ETH3D, ScanNet++ v2, and TartanAirV2 frames with aspect-ratio crops to test non-centered principal points.</span></figcaption>
+                            </figure>
+                          </section>
+                          <section class="evidence-cluster">
+                            <span class="subsection-label">Metric Depth Evidence</span>
+                            <figure class="image">
+                              <img alt="Table 4. Metric depth estimation on Robust-MVD benchmark." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_47be1e49615e.png" style="width:432px">
+                              <figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">The paper compares single-view and multi-view metric depth. MapAnything is not trained on the benchmark, yet reports strong KITTI results and competitive geometry-conditioned depth performance.</span></figcaption>
+                            </figure>
+                          </section>
+                          <section class="evidence-cluster">
+                            <span class="subsection-label">Ablation Evidence</span>
+                            <figure class="image">
+                              <img alt="Table 5. Ablations for key design choices." src="assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_a95e74921341.png" style="width:528px">
+                              <figcaption><span class="caption-main">Table 5. Ablations providing insight into the key design choices.</span><span class="caption-note">RDP &amp; Scale is identified as the key scene representation, and universal training across 12+ tasks is shown to be compute-efficient compared with separate bespoke models.</span></figcaption>
+                            </figure>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="en-usage">Usage / Limits: when is it useful?</h3>
+                      <p>MapAnything is useful when images may be accompanied by partial geometric metadata. Robotics, mapping, and dataset curation often provide calibration, pose, or depth only for some views, which matches the paper's flexible input setting.</p>
+
+                      <section class="summary-panel usage-fit-box">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>The limitations clarify where this universal backbone still needs future work.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table usage-table">
+                            <thead><tr><th>Category</th><th>Summary</th><th>Reason</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>Multi-view reconstruction with mixed image, calibration, pose, or depth inputs</td><td>Optional geometry is part of the representation</td></tr>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>Testing SfM, MVS, metric depth, and calibration from one backbone</td><td>Broad task settings without task-specific tuning</td></tr>
+                              <tr><td><span class="summary-term">Caution</span></td><td>Noisy or uncertain geometric inputs</td><td>The paper does not explicitly model input uncertainty</td></tr>
+                              <tr><td><span class="summary-term">Extension</span></td><td>Novel-view-synthesis-like tasks where target views only have cameras</td><td>The paper mentions this as an architectural extension, not current support</td></tr>
+                              <tr><td><span class="summary-term">Limitation</span></td><td>Very large scenes, dynamic motion, or scene flow</td><td>One-to-one pixel output and static scene parameterization remain limiting</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="section-note">
+                        <span class="section-chip">Summary Note</span>
+                        <p>MapAnything is best read as a representation and training design for absorbing diverse input conditions into one metric 3D reconstruction backbone.</p>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Conclusion">
+                      <h3 id="en-conclusion">Conclusion</h3>
+                      <p>MapAnything is a universal transformer backbone that directly regresses metric 3D geometry and camera poses from flexible inputs, including images, intrinsics, poses, depth maps, and partial reconstructions. Its main idea is to factor multi-view geometry into depth maps, ray maps, poses, and a global scale factor.</p>
+                      <p>The experiments show that the model can match or surpass specialist models across uncalibrated SfM, calibrated MVS, monocular depth, camera localization, and depth completion. The paper points to dynamic scenes, uncertainty quantification, and scene understanding as future extensions.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="en-takeaway">Takeaway</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="en-future-work">Future Work</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-more is-visible" id="deepDiveMore">
+                    <button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+          <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+          <script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div aria-hidden="true" class="lightbox" id="lightbox">
+    <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+    <img alt="preview" id="lightboxImg">
+  </div>
+
+  <script src="script.js?v=mapanything-redesign-20260526"></script>
+</body>
+</html>

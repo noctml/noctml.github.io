@@ -1,6 +1,24 @@
 window.SITE_DATA = {
         paperReviews: [
             {
+                title: "MapAnything: Universal Feed-Forward Metric 3D Reconstruction",
+                desc: "다양한 기하 입력을 통합하는 universal metric 3D reconstruction",
+                href: "pages/paper_reviews/MapAnything/",
+                thumb: "pages/paper_reviews/MapAnything/assets/논문-스터디/media/media_6bee02b26bbe.png",
+                published: true
+            },{
+                title: "MonST3R: A Simple Approach for Estimating Geometry in the Presence of Motion",
+                desc: "동적 장면으로 확장한 DUSt3R 기반 video geometry 모델",
+                href: "pages/paper_reviews/MonST3R/",
+                thumb: "pages/paper_reviews/MonST3R/assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png",
+                published: true
+            },{
+                title: "DUSt3R: Geometric 3D Vision Made Easy",
+                desc: "Calibration 없이 pointmap으로 푸는 범용 3D reconstruction",
+                href: "pages/paper_reviews/DUSt3R/",
+                thumb: "pages/paper_reviews/DUSt3R/assets/dust3r/media/media_57b92f159fa8.png",
+                published: true
+            },{
                 title: "WildPose: A Unified Framework for Robust Pose Estimation in the Wild",
                 desc: "Dynamic distractor에 강한 monocular camera pose estimation 방법",
                 href: "pages/paper_reviews/WildPose/",

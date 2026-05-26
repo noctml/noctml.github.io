@@ -51,6 +51,14 @@
 <div class="panel">
 <header class="paper-identity">
 <p class="paper-title-meta">Continuous 3D Perception Model with Persistent State</p>
+<div class="paper-meta-card">
+  <div class="paper-meta-top"><span class="paper-meta-venue">CVPR 2025 Oral</span><span class="paper-meta-date">arXiv: 21 Jan 2025</span></div>
+  <dl class="paper-meta-grid">
+    <div class="paper-meta-item"><dt>Authors</dt><dd>Qianqian Wang; Yifei Zhang; Aleksander Holynski; Alexei A. Efros; Angjoo Kanazawa</dd></div>
+    <div class="paper-meta-item"><dt>Affiliations</dt><dd>UC Berkeley; Google DeepMind</dd></div>
+  </dl>
+  <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2501.12387" rel="noreferrer" target="_blank">Paper</a><a href="https://cut3r.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/CUT3R/CUT3R" rel="noreferrer" target="_blank">GitHub</a></nav>
+</div>
 </header>
 <div class="post-body">
 <section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
@@ -215,16 +223,35 @@
 <article><strong>얻는 효과</strong><p>streaming input과 unseen-view query를 같은 framework에서 처리.</p></article>
 </div>
 </section>
+<details class="supplement-toggle supplement-structured">
+<summary>DUSt3R / MASt3R 계열에서 이어받은 요소 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">기존 3D prior와 CUT3R의 차이</span><p>CUT3R는 DUSt3R/MASt3R식 pointmap prior를 출발점으로 삼지만, pairwise 결과를 나중에 정렬하는 방식이 아니라 state token을 계속 갱신하는 방향으로 바꾼다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>요소</th><th>기존 계열의 역할</th><th>CUT3R에서의 처리</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">ViT encoder</span></td><td>image pair에서 강한 geometric feature 추출</td><td>DUSt3R pretrained encoder를 recurrent state update의 입력 feature로 사용</td></tr>
+<tr><td><span class="summary-term">Pointmap</span></td><td>각 pixel을 3D point로 직접 예측</td><td>self/world pointmap을 모두 예측해 현재 view와 누적 world frame을 연결</td></tr>
+<tr><td><span class="summary-term">Confidence loss</span></td><td>불확실한 point prediction의 영향을 조절</td><td>state에서 읽은 pointmap에도 confidence-weighted regression 적용</td></tr>
+<tr><td><span class="summary-term">Global alignment</span></td><td>pairwise prediction을 후처리로 묶는 단계</td><td>state token이 sequence context를 누적하므로 online readout에 더 가까움</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
 <section class="method-step-block">
 <span class="subsection-label">1. Image token과 state token 상호작용</span>
 <p>각 시점의 image는 encoder를 거쳐 token이 되고, pose token 및 이전 state와 함께 decoder에 들어간다. decoder는 image token을 state context로 보정하고, 동시에 state를 다음 시점으로 업데이트한다.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_t = Encoder_i(I_t)\tag{1}$$</div></div></div>
-<figcaption>현재 image <span class="inline-math">\(I_t\)</span>를 feature token <span class="inline-math">\(F_t\)</span>로 변환.</figcaption>
+<figcaption><span class="caption-main">현재 image <span class="inline-math">\(I_t\)</span>를 feature token <span class="inline-math">\(F_t\)</span>로 변환.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$[z'_t,F'_t],s_t = Decoders([z,F_t],s_{t-1})\tag{2}$$</div></div></div>
-<figcaption>pose token과 image token은 state와 상호작용하고, state는 <span class="inline-math">\(s_{t-1}\)</span>에서 <span class="inline-math">\(s_t\)</span>로 갱신.</figcaption>
+<figcaption><span class="caption-main">pose token과 image token은 state와 상호작용하고, state는 <span class="inline-math">\(s_{t-1}\)</span>에서 <span class="inline-math">\(s_t\)</span>로 갱신.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -232,15 +259,15 @@
 <p>출력 head는 self-frame pointmap, world-frame pointmap, camera pose를 동시에 예측한다. world frame은 첫 번째 image coordinate로 정의되며, pointmap을 누적하면 dense reconstruction이 된다.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{self}_t,C^{self}_t=Head_{self}(F'_t)\tag{3}$$</div></div></div>
-<figcaption>현재 camera frame 기준 pointmap과 confidence.</figcaption>
+<figcaption><span class="caption-main">현재 camera frame 기준 pointmap과 confidence.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{world}_t,C^{world}_t=Head_{world}(F'_t,z'_t)\tag{4}$$</div></div></div>
-<figcaption>공통 world coordinate 기준 pointmap과 confidence.</figcaption>
+<figcaption><span class="caption-main">공통 world coordinate 기준 pointmap과 confidence.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{P}_t=Head_{pose}(z'_t)\tag{5}$$</div></div></div>
-<figcaption>pose token에서 camera pose 예측.</figcaption>
+<figcaption><span class="caption-main">pose token에서 camera pose 예측.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -248,11 +275,11 @@
 <p>virtual camera는 origin과 ray direction을 담은 6-channel raymap으로 표현된다. raymap은 scene content를 새로 제공하는 입력이 아니므로 state를 업데이트하지 않고 readout만 수행한다.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_r=Encoder_r(R)\tag{6}$$</div></div></div>
-<figcaption>raymap <span class="inline-math">\(R\)</span>을 query token으로 encoding.</figcaption>
+<figcaption><span class="caption-main">raymap <span class="inline-math">\(R\)</span>을 query token으로 encoding.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{I}_r=Head_{color}(F'_r)$$</div></div></div>
-<figcaption>query view의 color prediction을 통해 raymap readout을 학습.</figcaption>
+<figcaption><span class="caption-main">query view의 color prediction을 통해 raymap readout을 학습.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -260,16 +287,34 @@
 <p>학습은 pointmap regression, pose regression, raymap RGB consistency를 함께 사용한다. metric-scale annotation이 있으면 model이 metric pointmap을 직접 학습하도록 scale을 고정한다.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{conf}=\sum_{(\hat{x},c)\in(\hat{X},C)}\left(c\left\|\frac{\hat{x}}{\hat{s}}-\frac{x}{s}\right\|_2-\alpha\log c\right)\tag{7}$$</div></div></div>
-<figcaption>confidence-weighted pointmap regression objective.</figcaption>
+<figcaption><span class="caption-main">confidence-weighted pointmap regression objective.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{pose}=\sum_{t=1}^{N}\left(\|\hat{q}_t-q_t\|_2+\left\|\frac{\hat{\tau}_t}{\hat{s}}-\frac{\tau_t}{s}\right\|_2\right)\tag{8}$$</div></div></div>
-<figcaption>rotation과 translation을 함께 보는 pose regression objective.</figcaption>
+<figcaption><span class="caption-main">rotation과 translation을 함께 보는 pose regression objective.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{rgb}=\|\hat{I}_r-I_r\|_2^2$$</div></div></div>
-<figcaption>raymap query의 RGB consistency loss.</figcaption>
+<figcaption><span class="caption-main">raymap query의 RGB consistency loss.</span></figcaption>
 </figure>
+</section>
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Notation: persistent state와 readout</span><p>CUT3R의 수식은 DUSt3R식 pointmap head에 persistent state를 붙인 형태다. state token, pose token, image token이 어떤 출력으로 이어지는지 분리해 읽으면 된다.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Notation</th><th>의미</th><th>읽는 포인트</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term"><span class="inline-math">\(I_t\)</span>, <span class="inline-math">\(F_t\)</span></span></td><td>time <span class="inline-math">\(t\)</span>의 image와 image feature token</td><td>새 observation이 image encoder를 통해 recurrent loop에 들어감.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(z\)</span>, <span class="inline-math">\(z'_t\)</span></span></td><td>decoder 전후의 pose token</td><td>camera pose head는 갱신된 pose token에서 pose를 읽음.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(s_{t-1}\)</span>, <span class="inline-math">\(s_t\)</span></span></td><td>현재 image를 보기 전후의 persistent scene state</td><td>scene memory가 frame마다 누적되는 핵심 변수.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(F'_t\)</span></span></td><td>state와 상호작용한 뒤의 image feature</td><td>현재 view의 pointmap, confidence, pose readout의 입력.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(\hat X_t^{self}\)</span>, <span class="inline-math">\(\hat X_t^{world}\)</span></span></td><td>현재 camera frame과 공통 world frame의 pointmap</td><td>self/world head를 나눠 현재 view와 누적 reconstruction을 연결.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(C_t^{self}\)</span>, <span class="inline-math">\(C_t^{world}\)</span></span></td><td>각 pointmap의 confidence map</td><td>pointmap regression에서 불확실한 pixel의 영향을 조절.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(R\)</span>, <span class="inline-math">\(F_r\)</span></span></td><td>6-channel raymap query와 raymap token</td><td>state를 갱신하지 않고 unseen view 구조를 readout.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(\hat q_t\)</span>, <span class="inline-math">\(\hat\tau_t\)</span>, <span class="inline-math">\(\hat s\)</span></span></td><td>rotation, translation, scale prediction</td><td>pose/scale-normalized loss에서 camera trajectory를 학습.</td></tr>
+</tbody>
+</table>
+</div>
 </section>
 <details class="supplement-toggle supplement-structured">
 <summary>학습 구성과 구현 세부 보기</summary>
@@ -294,7 +339,7 @@
 
 <section class="deep-section" data-section-title="Evidence">
 <h3 id="ko-evidence">Evidence: 어떤 claim을 어떻게 검증했나</h3>
-<p>평가는 dataset 이름을 외우는 것보다 <strong>각 실험이 어떤 claim을 지지하는지</strong>로 보는 편이 명확하다. CUT3R는 depth, pose, 3D reconstruction, state update, unseen-view inference를 통해 “persistent state가 다양한 3D perception task에 재사용된다”는 주장을 검증한다.</p>
+<p>평가는 <strong>각 실험이 어떤 claim을 지지하는지</strong>를 기준으로 정리된다. CUT3R는 depth, pose, 3D reconstruction, state update, unseen-view inference를 통해 “persistent state가 다양한 3D perception task에 재사용된다”는 주장을 검증한다.</p>
 <section class="summary-panel evaluation-evidence-panel">
 <div class="summary-head"><span class="section-chip">Evaluation Evidence</span><p>핵심 평가는 depth/pose/reconstruction이고, state update와 raymap query는 persistent state의 의미를 보여주는 분석이다.</p></div>
 <div class="evaluation-table-stack">
@@ -513,16 +558,35 @@
 <article><strong>Effect</strong><p>Handle streaming input and unseen-view queries in one framework.</p></article>
 </div>
 </section>
+<details class="supplement-toggle supplement-structured">
+<summary>What is inherited from DUSt3R / MASt3R-style models?</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Prior 3D models versus CUT3R</span><p>CUT3R starts from DUSt3R/MASt3R-style pointmap priors, but replaces post-hoc pairwise alignment with recurrent state updates.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Element</th><th>Role in prior models</th><th>How CUT3R uses it</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">ViT encoder</span></td><td>Extracts strong geometric features from image pairs</td><td>Uses a DUSt3R-pretrained encoder as input features for recurrent state update</td></tr>
+<tr><td><span class="summary-term">Pointmap</span></td><td>Predicts a 3D point for each pixel</td><td>Predicts both self-frame and world-frame pointmaps</td></tr>
+<tr><td><span class="summary-term">Confidence loss</span></td><td>Controls uncertain point predictions</td><td>Applies confidence-weighted regression to pointmaps read from the state</td></tr>
+<tr><td><span class="summary-term">Global alignment</span></td><td>Combines pairwise predictions as a post-process</td><td>Replaces much of that role with online state accumulation and readout</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
 <section class="method-step-block">
 <span class="subsection-label">1. Image-state interaction</span>
 <p>Each image is encoded into tokens and passed to the decoder with a pose token and the previous state. The decoder refines the image tokens with state context and updates the state for the next time step.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_t = Encoder_i(I_t)\tag{1}$$</div></div></div>
-<figcaption>The current image <span class="inline-math">\(I_t\)</span> is encoded into feature tokens <span class="inline-math">\(F_t\)</span>.</figcaption>
+<figcaption><span class="caption-main">The current image <span class="inline-math">\(I_t\)</span> is encoded into feature tokens <span class="inline-math">\(F_t\)</span>.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$[z'_t,F'_t],s_t = Decoders([z,F_t],s_{t-1})\tag{2}$$</div></div></div>
-<figcaption>The pose and image tokens interact with the state, updating <span class="inline-math">\(s_{t-1}\)</span> into <span class="inline-math">\(s_t\)</span>.</figcaption>
+<figcaption><span class="caption-main">The pose and image tokens interact with the state, updating <span class="inline-math">\(s_{t-1}\)</span> into <span class="inline-math">\(s_t\)</span>.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -530,15 +594,15 @@
 <p>The heads predict a self-frame pointmap, a world-frame pointmap, and the camera pose. The world frame is defined by the first image coordinate system, and accumulated pointmaps form dense reconstruction.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{self}_t,C^{self}_t=Head_{self}(F'_t)\tag{3}$$</div></div></div>
-<figcaption>Self-frame pointmap and confidence.</figcaption>
+<figcaption><span class="caption-main">Self-frame pointmap and confidence.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{X}^{world}_t,C^{world}_t=Head_{world}(F'_t,z'_t)\tag{4}$$</div></div></div>
-<figcaption>World-frame pointmap and confidence.</figcaption>
+<figcaption><span class="caption-main">World-frame pointmap and confidence.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{P}_t=Head_{pose}(z'_t)\tag{5}$$</div></div></div>
-<figcaption>Camera pose prediction from the pose token.</figcaption>
+<figcaption><span class="caption-main">Camera pose prediction from the pose token.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -546,11 +610,11 @@
 <p>A virtual camera is represented as a 6-channel raymap containing ray origins and directions. Because a raymap does not add new scene content, it reads from the state without updating it.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$F_r=Encoder_r(R)\tag{6}$$</div></div></div>
-<figcaption>The raymap <span class="inline-math">\(R\)</span> is encoded as query tokens.</figcaption>
+<figcaption><span class="caption-main">The raymap <span class="inline-math">\(R\)</span> is encoded as query tokens.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{I}_r=Head_{color}(F'_r)$$</div></div></div>
-<figcaption>RGB consistency trains the query-view color readout.</figcaption>
+<figcaption><span class="caption-main">RGB consistency trains the query-view color readout.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -558,16 +622,34 @@
 <p>The training objective combines pointmap regression, pose regression, and raymap RGB consistency. When metric-scale annotation is available, the model is trained to predict metric pointmaps directly.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{conf}=\sum_{(\hat{x},c)\in(\hat{X},C)}\left(c\left\|\frac{\hat{x}}{\hat{s}}-\frac{x}{s}\right\|_2-\alpha\log c\right)\tag{7}$$</div></div></div>
-<figcaption>Confidence-weighted pointmap regression objective.</figcaption>
+<figcaption><span class="caption-main">Confidence-weighted pointmap regression objective.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{pose}=\sum_{t=1}^{N}\left(\|\hat{q}_t-q_t\|_2+\left\|\frac{\hat{\tau}_t}{\hat{s}}-\frac{\tau_t}{s}\right\|_2\right)\tag{8}$$</div></div></div>
-<figcaption>Pose regression objective over rotation and translation.</figcaption>
+<figcaption><span class="caption-main">Pose regression objective over rotation and translation.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{rgb}=\|\hat{I}_r-I_r\|_2^2$$</div></div></div>
-<figcaption>RGB consistency loss for raymap queries.</figcaption>
+<figcaption><span class="caption-main">RGB consistency loss for raymap queries.</span></figcaption>
 </figure>
+</section>
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head"><span class="subsection-label">Notation: persistent state and readout</span><p>CUT3R equations are DUSt3R-style pointmap heads attached to a persistent scene state. The easiest way to read them is to separate state tokens, pose tokens, image tokens, and the outputs read from them.</p></div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Notation</th><th>Meaning</th><th>How to read it</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term"><span class="inline-math">\(I_t\)</span>, <span class="inline-math">\(F_t\)</span></span></td><td>Image and image feature token at time <span class="inline-math">\(t\)</span></td><td>Each new observation enters the recurrent loop through the image encoder.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(z\)</span>, <span class="inline-math">\(z'_t\)</span></span></td><td>Pose token before and after decoder interaction</td><td>The camera pose head reads pose from the updated pose token.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(s_{t-1}\)</span>, <span class="inline-math">\(s_t\)</span></span></td><td>Persistent scene state before and after the current image</td><td>The main variable that carries scene memory over time.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(F'_t\)</span></span></td><td>State-conditioned image feature</td><td>Input to current-view pointmap, confidence, and pose readouts.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(\hat X_t^{self}\)</span>, <span class="inline-math">\(\hat X_t^{world}\)</span></span></td><td>Pointmaps in the current camera frame and shared world frame</td><td>Self/world heads connect the current view to accumulated reconstruction.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(C_t^{self}\)</span>, <span class="inline-math">\(C_t^{world}\)</span></span></td><td>Confidence maps for the two pointmaps</td><td>Control uncertain pixels in pointmap regression.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(R\)</span>, <span class="inline-math">\(F_r\)</span></span></td><td>6-channel raymap query and raymap token</td><td>Reads unseen-view structure without updating the state.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(\hat q_t\)</span>, <span class="inline-math">\(\hat\tau_t\)</span>, <span class="inline-math">\(\hat s\)</span></span></td><td>Predicted rotation, translation, and scale terms</td><td>Used in pose and scale-normalized losses.</td></tr>
+</tbody>
+</table>
+</div>
 </section>
 <details class="supplement-toggle supplement-structured">
 <summary>Training setup and implementation details</summary>

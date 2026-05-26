@@ -137,6 +137,7 @@ ORB-SLAM2의 해석 기준 예시는 다음과 같다.
 Minimal description 기준:
 
 - 장문 description을 추가하지 않는다. 카드나 grid가 너무 건조하면 `왜 중요?`, `어떻게 푸나?`, `무엇을 봐야 하나?`처럼 짧은 소제목과 한 줄 보조문만 추가한다.
+- `Open Source Release`, code/model 공개, project page 공개는 논문 이해의 핵심 방법론/평가 기여가 아니면 Contribution grid에 넣지 않는다. 필요하면 project link card나 training/release 보충 토글에서만 짧게 다룬다.
 - 한 카드 안의 보조문은 1문장, 18-28단어 수준을 넘지 않는다. 한국어도 한 줄에서 두 줄 정도로 끝낸다.
 - `TL;DR` 구간은 독자를 설득하는 글이 아니라 독자가 아래 상세 구간을 읽을 좌표를 잡는 장치다.
 - 긴 배경 설명, 예외 조건, 수식 해석은 TL;DR이 아니라 `Problem`, `Mechanism`, `Evidence`, `Usage / Limits`로 보낸다.

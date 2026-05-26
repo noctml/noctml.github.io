@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
+  <title>MonST3R Paper Review</title>
+  <link href="../../../assets/favicon.png" rel="icon" type="image/png">
+  <meta content="MonST3R Paper Review" property="og:title">
+  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta content="website" property="og:type">
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
+  <link href="styles.css?v=monst3r-redesign-20260526" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+</head>
+<body>
+  <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+  <div class="layout" id="top">
+    <aside aria-label="Paper section bookmark" class="sidebar">
+      <div class="sidebar-card">
+        <nav aria-label="Paper section bookmark" class="section-bookmark">
+          <div class="bookmark-status">
+            <span class="bookmark-eyebrow">Now Reading</span>
+            <strong id="currentSectionLabel">핵심 요약</strong>
+          </div>
+          <div class="bookmark-list" id="sectionBookmarkList"></div>
+        </nav>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brandline">
+            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+            </a>
+            <span class="brandtext">Paper Reviews</span>
+          </div>
+          <div class="top-actions">
+            <button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+              <span data-lang-option="ko">KO</span>
+              <span data-lang-option="en">EN</span>
+            </button>
+            <button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+              <span aria-hidden="true" id="themeIcon">☀</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="container" id="main">
+        <section class="section">
+          <div class="panel">
+            <header class="paper-identity">
+              <p class="paper-title-meta">MonST3R: A Simple Approach for Estimating Geometry in the Presence of Motion</p>
+<div class="paper-meta-card">
+  <div class="paper-meta-top"><span class="paper-meta-venue">ICLR 2025</span><span class="paper-meta-date">Published: ICLR 2025 / arXiv v2: 8 May 2025</span></div>
+  <dl class="paper-meta-grid">
+    <div class="paper-meta-item"><dt>Authors</dt><dd>Junyi Zhang; Charles Herrmann; Junhwa Hur; Varun Jampani; Trevor Darrell; Forrester Cole; Deqing Sun; Ming-Hsuan Yang</dd></div>
+    <div class="paper-meta-item"><dt>Affiliations</dt><dd>UC Berkeley; Google DeepMind; Stability AI; UC Merced</dd></div>
+  </dl>
+  <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2410.03825" rel="noreferrer" target="_blank">Paper</a><a href="https://monst3r-project.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/Junyi42/monst3r" rel="noreferrer" target="_blank">GitHub</a></nav>
+</div>
+            </header>
+
+            <div class="post-body">
+              <section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+                <div class="paper-map-head">
+                  <h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+                  <p data-en-html="MonST3R extends DUSt3R’s pointmap representation to dynamic video by &lt;strong&gt;estimating per-timestep geometry directly&lt;/strong&gt;, then deriving camera pose, intrinsics, video depth, and dynamic/static masks from the same representation." data-ko-html="MonST3R는 DUSt3R의 pointmap 표현을 dynamic video로 확장해 &lt;strong&gt;timestep별 geometry를 직접 예측&lt;/strong&gt;하고, 같은 표현에서 camera pose, intrinsics, video depth, dynamic/static mask를 파생한다.">MonST3R는 DUSt3R의 pointmap 표현을 dynamic video로 확장해 <strong>timestep별 geometry를 직접 예측</strong>하고, 같은 표현에서 camera pose, intrinsics, video depth, dynamic/static mask를 파생한다.</p>
+                </div>
+
+                <div class="tldr-cues">
+                  <span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Dynamic geometry" data-ko="dynamic geometry">dynamic geometry</small></span>
+                  <span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Per-timestep pointmaps" data-ko="per-timestep pointmap">per-timestep pointmap</small></span>
+                  <span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="Depth / pose / 4D" data-ko="depth / pose / 4D">depth / pose / 4D</small></span>
+                </div>
+
+                <div class="map-grid">
+                  <article class="map-card map-card-wide">
+                    <span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+                    <p data-en-html="MonST3R treats a dynamic video as a sequence of &lt;strong&gt;time-indexed pointmaps&lt;/strong&gt; and adapts DUSt3R with targeted fine-tuning plus video-specific optimization." data-ko-html="MonST3R는 dynamic video를 &lt;strong&gt;시간별 pointmap의 시퀀스&lt;/strong&gt;로 보고, DUSt3R를 제한된 dynamic data로 fine-tuning한 뒤 video-specific optimization을 붙인다.">MonST3R는 dynamic video를 <strong>시간별 pointmap의 시퀀스</strong>로 보고, DUSt3R를 제한된 dynamic data로 fine-tuning한 뒤 video-specific optimization을 붙인다.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 01</span>
+                    <h3>Geometry-first Dynamics</h3>
+                    <p data-en="Represents moving and deforming scenes with per-timestep pointmaps instead of explicit motion variables." data-ko="explicit motion 변수 없이 moving/deforming scene을 timestep별 pointmap으로 표현.">explicit motion 변수 없이 moving/deforming scene을 timestep별 pointmap으로 표현.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 02</span>
+                    <h3>Data-efficient Adaptation</h3>
+                    <p data-en="Freezes the encoder and fine-tunes decoder/head on a limited mixture of dynamic, posed, depth-labeled videos." data-ko="encoder는 고정하고 decoder/head만 제한된 dynamic posed depth video mixture로 fine-tuning.">encoder는 고정하고 decoder/head만 제한된 dynamic posed depth video mixture로 fine-tuning.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 03</span>
+                    <h3>Video Optimization</h3>
+                    <p data-en="Adds PnP pose recovery, confident static masks, global alignment, smoothness, and flow consistency for video input." data-ko="PnP pose recovery, confident static mask, global alignment, smoothness, flow consistency를 video에 맞게 추가.">PnP pose recovery, confident static mask, global alignment, smoothness, flow consistency를 video에 맞게 추가.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 04</span>
+                    <h3>Downstream Outputs</h3>
+                    <p data-en="Produces video depth, camera pose/intrinsics, dynamic/static masks, and dynamic point clouds from one geometry representation." data-ko="video depth, camera pose/intrinsics, dynamic/static mask, dynamic point cloud를 하나의 geometry 표현에서 도출.">video depth, camera pose/intrinsics, dynamic/static mask, dynamic point cloud를 하나의 geometry 표현에서 도출.</p>
+                  </article>
+                </div>
+
+                <div class="insight-box">
+                  <strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
+                  <p data-en-html="The clever part is not adding an explicit motion model. MonST3R asks whether &lt;strong&gt;geometry alone can be made dynamic&lt;/strong&gt; by predicting one pointmap per timestep and using static regions only as alignment anchors." data-ko-html="핵심은 explicit motion model을 새로 붙이는 것이 아니라, &lt;strong&gt;geometry 자체를 시간별로 만들면 dynamic scene도 다룰 수 있는가&lt;/strong&gt;를 묻는 점이다. static region은 전체를 묶는 anchor로만 사용된다.">핵심은 explicit motion model을 새로 붙이는 것이 아니라, <strong>geometry 자체를 시간별로 만들면 dynamic scene도 다룰 수 있는가</strong>를 묻는 점이다. static region은 전체를 묶는 anchor로만 사용된다.</p>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
+                <div aria-label="MonST3R pipeline" class="flow-diagram">
+                  <div class="flow-step"><span>01</span><strong>Dynamic Video</strong><small>moving object / camera motion</small></div>
+                  <div class="flow-step"><span>02</span><strong>DUSt3R Backbone</strong><small>ViT encoder + decoder</small></div>
+                  <div class="flow-step"><span>03</span><strong>Dynamic Fine-tuning</strong><small>decoder / head update</small></div>
+                  <div class="flow-step"><span>04</span><strong>Pointmaps</strong><small>one geometry per timestep</small></div>
+                  <div class="flow-step"><span>05</span><strong>Video Optimization</strong><small>static mask / flow / smoothness</small></div>
+                  <div class="flow-step"><span>06</span><strong>Outputs</strong><small>depth / pose / 4D cloud</small></div>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
+                <div class="compare-grid">
+                  <article>
+                    <span class="compare-kicker">Multi-stage Dynamic Reconstruction</span>
+                    <h3 data-en="Decompose then optimize" data-ko="분해 후 최적화">분해 후 최적화</h3>
+                    <p data-en="Estimates depth, flow, masks, trajectories, or residual motion separately and then ties them together." data-ko="depth, flow, mask, trajectory, residual motion을 따로 추정한 뒤 global optimization으로 결합.">depth, flow, mask, trajectory, residual motion을 따로 추정한 뒤 global optimization으로 결합.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">DUSt3R</span>
+                    <h3 data-en="Static pointmap prior" data-ko="static pointmap prior">static pointmap prior</h3>
+                    <p data-en="Predicts aligned pointmaps for image pairs, but static-only training can fail around moving foreground objects." data-ko="image pair의 aligned pointmap을 예측하지만 static-only training 때문에 moving foreground에서 실패 가능.">image pair의 aligned pointmap을 예측하지만 static-only training 때문에 moving foreground에서 실패 가능.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">MonST3R</span>
+                    <h3 data-en="Dynamic pointmap sequence" data-ko="dynamic pointmap sequence">dynamic pointmap sequence</h3>
+                    <p data-en="Keeps DUSt3R’s representation, but adapts it to videos where geometry changes over time." data-ko="DUSt3R의 표현은 유지하되, 시간에 따라 geometry가 달라지는 video에 맞게 적응.">DUSt3R의 표현은 유지하되, 시간에 따라 geometry가 달라지는 video에 맞게 적응.</p>
+                  </article>
+                </div>
+              </section>
+
+              <section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+                <h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+                <p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper’s core content while folding background and auxiliary derivations." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
+
+                <div class="deep-dive-body">
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="ko-problem">Problem: dynamic scene geometry를 왜 다시 정의해야 하나</h3>
+                      <p>MonST3R의 출발점은 dynamic video에서 geometry를 추정할 때, 기존 방식이 depth, optical flow, trajectory, motion mask 같은 하위 문제로 나눈 뒤 다시 결합하는 경우가 많다는 점이다. 이 방식은 모듈이 많고 느리며, 중간 추정의 오류가 다음 단계로 전파된다.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. MonST3R overview." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png" style="width:960px">
+                        <figcaption><span class="caption-main">Figure 1. MonST3R.</span><span class="caption-note">Dynamic video에서 time-varying point cloud, camera pose, intrinsics를 주로 feed-forward 방식으로 만들고, video depth와 dynamic/static mask 같은 task로 연결한다.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>논문은 dynamic scene을 motion decomposition 문제로 보기보다, <strong>시간별 geometry representation</strong> 문제로 다시 잡는다.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Dynamic scene</strong><p>camera motion, object motion, deformation이 동시에 존재.</p></article>
+                          <article><span>02</span><strong>Multi-stage fragility</strong><p>depth, flow, mask, pose를 따로 풀면 오류 전파 발생.</p></article>
+                          <article><span>03</span><strong>DUSt3R mismatch</strong><p>static-only training이 moving object와 foreground depth에서 실패.</p></article>
+                          <article><span>04</span><strong>MonST3R의 재정의</strong><p>per-timestep pointmap으로 dynamic geometry를 직접 표현.</p></article>
+                        </div>
+                      </section>
+
+                      <figure class="image">
+                        <img alt="Figure 2. DUSt3R limitations on dynamic scenes." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_ebf927b0128c.png" style="width:920px">
+                        <figcaption><span class="caption-main">Figure 2. Limitation of DUSt3R on dynamic scenes.</span><span class="caption-note">DUSt3R는 moving foreground를 alignment anchor로 잘못 쓰거나, foreground object depth를 background로 배치할 수 있다.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem / Proposal</span>
+                          <p>Introduction의 핵심은 DUSt3R의 pointmap prior를 버리지 않고, dynamic data로 적응시키면 geometry-first 접근이 dynamic video에도 가능하다는 주장이다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>문제</th><th>논문의 판단</th><th>MonST3R의 방향</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Motion supervision</span></td><td>motion annotation은 부족하고 직접 supervise하기 어려움</td><td>motion 대신 geometry pointmap을 시간별로 예측</td></tr>
+                              <tr><td><span class="summary-term">Training data</span></td><td>dynamic posed depth video는 희소</td><td>적절한 dataset mixture와 fine-tuning 전략 사용</td></tr>
+                              <tr><td><span class="summary-term">Static prior</span></td><td>DUSt3R prior는 강하지만 distribution mismatch 존재</td><td>encoder 지식은 보존하고 decoder/head만 적응</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="section-note">
+                        <span class="section-note-label">정리 노트</span>
+                        <p>이 논문은 dynamic scene을 먼저 motion으로 분해하지 않는다. 대신 <strong>시간별 pointmap을 geometry의 기본 단위</strong>로 두고, static region은 여러 timestep을 묶는 정렬 anchor로 사용한다.</p>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work 흐름 자세히 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">MonST3R가 놓이는 위치</span>
+                              <p>Related Work는 MonST3R가 dynamic reconstruction의 복잡한 multi-stage pipeline과 static DUSt3R 사이의 간격을 메우는 방법임을 보여준다.</p>
+                            </div>
+                            <div class="supplement-card-grid supplement-card-grid-four">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>SfM / SLAM</strong><p>static epipolar constraint에 의존하므로 moving object가 많은 장면에서 취약.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Dynamic reconstruction</strong><p>depth, flow, camera, residual motion, mask를 나누어 최적화하는 경우가 많음.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Video depth / VO</strong><p>temporal consistency나 pose를 개선하지만 scale/shift ambiguity와 annotation 부담이 남음.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>DUSt3R prior</strong><p>camera-free pointmap 표현은 강하지만 static scene 중심으로 학습됨.</p></article>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="ko-mechanism">Mechanism: time-varying pointmap을 어떻게 만들고 묶나</h3>
+                      <p>MonST3R의 방법론은 DUSt3R의 backbone과 pointmap representation을 유지하되, dynamic video에 맞게 세 부분을 바꾼다. 먼저 limited dynamic dataset으로 decoder/head를 fine-tuning하고, 그 다음 pointmap에서 pose와 static mask를 회수하며, 마지막으로 global point cloud와 camera pose를 video-specific loss로 최적화한다.</p>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>핵심 흐름은 <strong>pointmap prediction → pose/static mask recovery → dynamic global optimization</strong>이다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table method-table">
+                            <thead><tr><th>구간</th><th>무엇을 해결하나</th><th>핵심 장치</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Baseline</span></td><td>DUSt3R의 static pointmap prior 활용</td><td>ViT encoder, decoder, pointmap head</td></tr>
+                              <tr><td><span class="summary-term">Dynamic adaptation</span></td><td>moving object와 foreground geometry mismatch 축소</td><td>encoder freeze, decoder/head fine-tuning</td></tr>
+                              <tr><td><span class="summary-term">Pose / mask</span></td><td>dynamic object가 correspondence assumption을 깨는 문제 처리</td><td>PnP-RANSAC, confident static mask</td></tr>
+                              <tr><td><span class="summary-term">Global optimization</span></td><td>video 전체의 depth, pose, intrinsics를 일관되게 정렬</td><td>alignment + smoothness + flow consistency</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. DUSt3R에서 출발하되 mask baseline은 피함</span>
+                        <p>MonST3R는 DUSt3R의 ViT encoder, cross-attention decoder, pointmap prediction head를 출발점으로 둔다. 하지만 moving mask로 dynamic region을 검게 지우거나 mask token으로 바꾸는 단순 baseline은 pose 성능을 떨어뜨린다. 논문은 이것이 DUSt3R의 training distribution 밖 입력을 만들기 때문이라고 본다.</p>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Dynamic data로 decoder/head만 fine-tuning</span>
+                        <p>dynamic scene에는 synchronized image, pose, depth label이 필요하지만 이런 데이터는 많지 않다. MonST3R는 PointOdyssey, TartanAir, Spring, Waymo를 섞고, encoder는 freeze한 채 decoder와 prediction head만 fine-tuning한다.</p>
+                        <figure class="image">
+                          <img alt="Table 1. Training datasets used for fine-tuning." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png" style="width:860px">
+                          <figcaption><span class="caption-main">Table 1. Training datasets used for fine-tuning on dynamic scenes.</span><span class="caption-note">모든 dataset은 camera pose와 depth를 제공하며, PointOdyssey와 Spring은 articulated dynamic object를 포함한다.</span></figcaption>
+                        </figure>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table dataset-table">
+                            <thead><tr><th>Dataset</th><th>역할</th><th>sampling ratio</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">PointOdyssey</span></td><td>synthetic indoor/outdoor, articulated dynamic object, realistic motion</td><td>50%</td></tr>
+                              <tr><td><span class="summary-term">TartanAir</span></td><td>synthetic indoor/outdoor, scene diversity, mostly static</td><td>25%</td></tr>
+                              <tr><td><span class="summary-term">Spring</span></td><td>synthetic outdoor, articulated dynamic object</td><td>5%</td></tr>
+                              <tr><td><span class="summary-term">Waymo</span></td><td>real driving scenes, LiDAR-based depth signal</td><td>20%</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Pointmap에서 pose와 static mask 회수</span>
+                        <p>dynamic object는 epipolar correspondence나 Procrustes alignment assumption을 깨기 때문에, MonST3R는 same-view 2D-3D correspondence와 PnP-RANSAC으로 relative pose를 추정한다. valid correspondence는 confidence threshold로 선택한다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+R^*,T^*=\arg\min_{R,T}\sum_{i\in\mathcal{I}}
+\left\|x_i-\pi\left(K_{t'}\left(RX_i^{t';tt'}+T\right)\right)\right\|^2 \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">confidence가 높은 pixel 집합 <span class="inline-equation-token">\(\mathcal{I}\)</span>에서 PnP-RANSAC으로 relative pose를 추정한다.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+F^{t\rightarrow t'}_{cam}=
+\pi\left(D^{tt'}_tK_{t'}R_{t\rightarrow t'}K_t^{-1}\hat{x}+K_{t'}T_{t\rightarrow t'}\right)-x \tag{2}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">camera motion만으로 유도되는 flow. 실제 optical flow와 비교해 static region을 찾는 기준이 된다.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+S^{t\rightarrow t'}=\left[\alpha>\left\|F^{t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right\|_{L1}\right] \tag{3}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">camera-induced flow와 estimated optical flow가 충분히 가까운 pixel을 confident static region으로 본다.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="summary-panel summary-panel-soft">
+                        <div class="summary-head">
+                          <span class="subsection-label">Notation: static mask와 global optimization</span>
+                          <p>MonST3R는 dynamic scene을 별도 motion variable로 푸는 대신, static region을 찾아 camera-induced flow와 global pointmap alignment를 안정화한다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Notation</th><th>의미</th><th>읽는 포인트</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{I}\)</span>, <span class="inline-equation-token">\(x_i\)</span></span></td><td>confidence가 높은 correspondence pixel 집합과 reference frame의 2D pixel</td><td>PnP는 신뢰도 높은 pixel만 pose anchor로 사용.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(X_i^{t';tt'}\)</span></span></td><td>pair <span class="inline-equation-token">\((t,t')\)</span>에서 frame <span class="inline-equation-token">\(t'\)</span>에 해당하는 3D point</td><td>relative pose 추정에 쓰이는 pairwise pointmap 값.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(K_t\)</span>, <span class="inline-equation-token">\(D_t^{tt'}\)</span>, <span class="inline-equation-token">\(\hat x\)</span></span></td><td>intrinsics, pairwise depth, homogeneous pixel</td><td>camera motion만으로 예상되는 optical flow를 계산.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(F_{cam}^{t\to t'}\)</span>, <span class="inline-equation-token">\(F_{est}^{t\to t'}\)</span></span></td><td>camera-induced flow와 estimated optical flow</td><td>둘이 크게 다르면 moving/object deformation 가능성이 큼.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(S^{t\to t'}\)</span>, <span class="inline-equation-token">\(S^{global;t\to t'}\)</span></span></td><td>pairwise static mask와 global static mask</td><td>정렬을 지탱할 static anchor pixel 선택.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(W_i\)</span>, <span class="inline-equation-token">\(e\)</span>, <span class="inline-equation-token">\(t\in e\)</span></span></td><td>temporal window, pair edge, edge 안의 frame</td><td>모든 pair를 쓰지 않고 local window로 최적화 비용을 제한.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(X^t\)</span>, <span class="inline-equation-token">\(X^{t;e}\)</span>, <span class="inline-equation-token">\(C^{t;e}\)</span></span></td><td>global pointmap, pairwise pointmap, confidence</td><td>pairwise geometry를 time-indexed global geometry에 맞춤.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_{t;e}\)</span>, <span class="inline-equation-token">\(P_W\)</span></span></td><td>pair scale, global transform, window pose parameter</td><td>scale/pose를 함께 최적화해 dynamic video를 하나의 trajectory로 묶음.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">4. Dynamic global point cloud와 camera pose 최적화</span>
+                        <p>video는 frame 수가 많기 때문에 모든 image pair를 연결하지 않고, temporal sliding window 안의 pair만 사용한다. Global pointmap은 camera extrinsics, intrinsics, depth로 reparameterize되어 pose/depth/intrinsics를 함께 최적화할 수 있다.</p>
+                        <figure class="image">
+                          <img alt="Figure 3. Dynamic global point cloud and camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_17746717073c.png" style="width:920px">
+                          <figcaption><span class="caption-main">Figure 3. Dynamic global point cloud and camera pose estimation.</span><span class="caption-note">Pairwise pointmap을 window 단위로 연결하고, static region을 기준으로 global point cloud와 camera trajectory를 정렬한다.</span></figcaption>
+                        </figure>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{align}(X,\sigma,P_W)=
+\sum_{W_i\in W}\sum_{e\in W_i}\sum_{t\in e}
+\left\|C^{t;e}\cdot\left(X^t-\sigma_eP_{t;e}X^{t;e}\right)\right\|_1 \tag{4}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Window 안의 pairwise pointmap을 global pointmap <span class="inline-equation-token">\(X^t\)</span>에 맞추는 alignment loss.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{smooth}(X)=
+\sum_{t=0}^{N}\left(\left\|R_t^TR_{t+1}-I\right\|_F+
+\left\|T_{t+1}-T_t\right\|_2\right) \tag{5}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">연속 frame 사이 camera rotation과 translation이 급격히 변하지 않도록 하는 smoothness term.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{flow}(X)=
+\sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}
+\left\|S^{global;t\rightarrow t'}\cdot
+\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{6}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">confident static region에서 global parameter로 계산한 camera-induced flow와 estimated flow를 맞춘다.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{X}=\arg\min_{X,P_W,\sigma}
+\mathcal{L}_{align}(X,\sigma,P_W)+w_{smooth}\mathcal{L}_{smooth}(X)+w_{flow}\mathcal{L}_{flow}(X) \tag{7}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">최종 global optimization objective. 논문은 Eq. (7)이 video input에서 pose와 depth를 함께 안정화한다고 설명한다.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Mechanism Brief</span>
+                          <p>MonST3R의 방법론은 DUSt3R를 완전히 새로 설계하는 것이 아니라, static pointmap prior를 dynamic video로 옮기는 데 필요한 적응을 더한다.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Representation</strong><p>각 timestep의 pointmap이 moving object와 deformation을 포함한 geometry를 표현.</p></article>
+                          <article><strong>Training</strong><p>encoder는 보존하고 decoder/head만 dynamic posed depth data로 fine-tuning.</p></article>
+                          <article><strong>Optimization</strong><p>static mask, smoothness, flow consistency로 video-level pose/depth를 안정화.</p></article>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Smooth / flow loss 세부 수식 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Appendix D의 역할</span>
+                              <p>본문 Eq. (5), Eq. (6)은 global point cloud 변수 <span class="inline-equation-token">\(X\)</span> 기준으로 줄여 쓴 표현이다. Appendix D는 rotation/translation, global flow, static mask가 실제로 어떻게 계산되는지 전개한다.</p>
+                            </div>
+                            <div class="method-equation-cluster">
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{smooth}(R,T)=\sum_{t=0}^{N-1}\left(\left\|R_t^TR_{t+1}-I\right\|_F+\left\|T_{t+1}-T_t\right\|_2\right) \tag{8}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">pose parameter 기준으로 쓴 trajectory smoothness loss.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{flow}(F_{cam},S)=\sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}\left\|S^{global;t\rightarrow t'}\cdot\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{9}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">flow consistency loss를 camera-induced flow와 static mask 기준으로 다시 쓴 형태.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+F^{global;t\rightarrow t'}_{cam}=\pi\left(D^tK_{t'}R_{t'}R_t^TK_t^{-1}\hat{x}+K_{t'}(T_{t'}-T_t)\right)-x \tag{10}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">global camera parameter, intrinsics, depth로 계산한 camera-induced flow.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+S^t=\frac{1}{2|N_t|}\left(\sum_{t'\in N_t}S^{t;t\rightarrow t'}+\sum_{t'\in N_t}S^{t;t'\rightarrow t}\right) \tag{11}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">frame <span class="inline-equation-token">\(t\)</span>가 포함된 sampled pair의 static mask를 평균해 per-frame mask를 초기화한다.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+S^{global;t\rightarrow t'}=S^t\vee\left[\alpha>\left\|F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right\|_{L1}\right] \tag{12}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">초기 static mask와 global parameter 기반 flow agreement를 함께 사용해 final confident static mask를 만든다.</span></figcaption>
+                              </figure>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="ko-evidence">Evidence: video depth와 pose에서 무엇을 보였나</h3>
+                      <section class="evaluation-evidence-panel">
+                        <div class="evaluation-table-block">
+                          <span class="evaluation-table-label">Training / Inference Setup</span>
+                          <div class="summary-table-wrap">
+                            <table class="summary-table task-evidence-table">
+                              <thead><tr><th>구분</th><th>설정</th><th>의미</th></tr></thead>
+                              <tbody>
+                                <tr><td><span class="summary-term">Fine-tuning</span></td><td>DUSt3R ViT-Base decoder + DPT head, 25 epochs, 20k pairs/epoch</td><td>encoder prior 보존, dynamic scene 적응</td></tr>
+                                <tr><td><span class="summary-term">Optimizer</span></td><td>AdamW, learning rate <span class="inline-equation-token">\(5\times10^{-5}\)</span>, mini-batch 4/GPU</td><td>2× RTX 6000 48GB에서 약 하루</td></tr>
+                                <tr><td><span class="summary-term">Inference</span></td><td>60-frame video, window size <span class="inline-equation-token">\(w=9\)</span>, stride 2, 약 600 pairs</td><td>network inference 약 30초, global optimization 약 1분</td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Video depth / single-frame depth</span>
+                        <p>Video depth는 Sintel, Bonn, KITTI에서 평가하고, single-frame depth는 NYU-v2를 포함해 평가한다. Metric은 Abs Rel과 <span class="inline-equation-token">\(\delta&lt;1.25\)</span>이며, video depth에서는 scale/shift 또는 scale alignment를 사용한다.</p>
+                        <figure class="image table-figure table-figure-medium">
+                          <img alt="Table 2. Video depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png" style="width:720px">
+                          <figcaption><span class="caption-main">Table 2. Video depth evaluation on Sintel, Bonn, and KITTI datasets.</span><span class="caption-note">MonST3R는 video depth 전용 방법과 경쟁하며, 특히 scale-only normalization에서 DepthCrafter 대비 뚜렷한 이점을 보인다.</span></figcaption>
+                        </figure>
+                        <figure class="image table-figure table-figure-small">
+                          <img alt="Table 3. Single-frame depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png" style="width:660px">
+                          <figcaption><span class="caption-main">Table 3. Single-frame depth evaluation.</span><span class="caption-note">dynamic video fine-tuning 이후에도 original DUSt3R와 비슷한 single-frame depth 성능을 유지한다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Camera pose estimation</span>
+                        <p>Pose 평가는 Sintel, TUM-dynamics, ScanNet에서 ATE, RPE trans, RPE rot을 Sim(3) Umeyama alignment 후 계산한다. 논문은 MonST3R가 ground-truth intrinsics 없이도 joint depth/pose 계열에서 강한 성능을 보인다고 강조한다.</p>
+                        <figure class="image table-figure table-figure-medium">
+                          <img alt="Table 4. Camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png" style="width:720px">
+                          <figcaption><span class="caption-main">Table 4. Evaluation on camera pose estimation on Sintel, TUM-dynamic, and ScanNet.</span><span class="caption-note">MonST3R는 GT camera intrinsics 없이도 joint depth/pose 계열에서 Sintel과 ScanNet 최고 성능을 보이고, pose-only method와도 경쟁한다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Dense reconstruction / ablation</span>
+                        <p>DAVIS qualitative comparison에서는 camera trajectory와 dynamic scene geometry를 함께 보는 방식으로 dense reconstruction을 비교한다. Ablation은 dataset choice, fine-tuning target, flow/smooth/static-region loss가 pose와 video depth에 미치는 영향을 분리한다.</p>
+                        <figure class="image">
+                          <img alt="Figure 4. Qualitative comparison." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_08e68749a840.png" style="width:860px">
+                          <figcaption><span class="caption-main">Figure 4. Qualitative comparison.</span><span class="caption-note">CasualSAM은 camera trajectory는 안정적이지만 foreground geometry가 흔들릴 수 있고, DUSt3R는 moving foreground 때문에 pose/dense reconstruction이 무너질 수 있음을 대비해 보여준다.</span></figcaption>
+                        </figure>
+                        <figure class="image table-figure table-figure-medium">
+                          <img alt="Table 5. Ablation study on Sintel." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png" style="width:820px">
+                          <figcaption><span class="caption-main">Table 5. Ablation study on Sintel dataset.</span><span class="caption-note">dataset mixture, decoder/head fine-tuning, flow/static-region/smoothness loss가 pose를 개선하며, video depth 성능에는 비교적 작은 영향을 준다.</span></figcaption>
+                        </figure>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 조심해야 하나</h3>
+                      <section class="summary-panel when-use-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>MonST3R는 dynamic video에서 geometry와 pose를 빠르게 함께 얻고 싶을 때 잘 맞지만, long-term occlusion이나 OOD scene에서는 한계가 남는다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>잘 맞는 상황</th><th>주의할 상황</th><th>이유</th></tr></thead>
+                            <tbody>
+                              <tr><td>moving object가 있는 monocular video</td><td>long-term occlusion이 큰 sequence</td><td>sliding window 기반 연결성이 약해질 수 있음</td></tr>
+                              <tr><td>pose/depth/mask를 한 표현에서 얻고 싶은 경우</td><td>dynamic intrinsics가 큰 경우</td><td>careful hyperparameter나 manual constraint 필요</td></tr>
+                              <tr><td>feed-forward 4D reconstruction 초기화</td><td>open field 등 OOD scene</td><td>training set coverage와 deep model generalization에 의존</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                      <p>Conclusion의 핵심은 단순하다. Dynamic scene을 위해 복잡한 explicit motion representation을 먼저 설계하기보다, DUSt3R의 pointmap을 시간별로 확장하고 제한된 data로 잘 적응시키는 것만으로도 video depth, camera pose, dense reconstruction에서 강한 baseline이 될 수 있다.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="ko-takeaway">느낀점</h3>
+                      <p>(진행중...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="ko-future-work">향후 계획</h3>
+                      <p>(진행중...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="en">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="en-problem">Problem: why redefine dynamic scene geometry?</h3>
+                      <p>MonST3R starts from the observation that dynamic reconstruction is often split into depth, optical flow, trajectory, and motion-mask subproblems. Such systems can be slow and brittle because errors in intermediate estimates propagate into later reconstruction.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. MonST3R overview." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png" style="width:960px">
+                        <figcaption><span class="caption-main">Figure 1. MonST3R.</span><span class="caption-note">From a dynamic video, MonST3R produces a time-varying point cloud, camera poses, and intrinsics, then derives video depth and dynamic/static masks.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>The paper reframes dynamic scenes as a <strong>time-indexed geometry representation</strong> problem rather than a motion-decomposition pipeline.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Dynamic scene</strong><p>Camera motion, object motion, and deformation coexist.</p></article>
+                          <article><span>02</span><strong>Multi-stage fragility</strong><p>Depth, flow, mask, and pose modules can propagate errors.</p></article>
+                          <article><span>03</span><strong>DUSt3R mismatch</strong><p>Static-only training fails around moving foregrounds and foreground depth.</p></article>
+                          <article><span>04</span><strong>MonST3R reframing</strong><p>Predict per-timestep pointmaps as the dynamic geometry representation.</p></article>
+                        </div>
+                      </section>
+
+                      <figure class="image">
+                        <img alt="Figure 2. DUSt3R limitations on dynamic scenes." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_ebf927b0128c.png" style="width:920px">
+                        <figcaption><span class="caption-main">Figure 2. Limitation of DUSt3R on dynamic scenes.</span><span class="caption-note">DUSt3R can align to a moving foreground object or place foreground depth in the background.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem / Proposal</span>
+                          <p>The key claim is that DUSt3R’s pointmap prior can be adapted to dynamic video with targeted data and training choices.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Issue</th><th>Paper’s view</th><th>MonST3R direction</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Motion supervision</span></td><td>Motion labels are scarce and hard to supervise directly</td><td>Predict geometry per timestep instead of explicit motion</td></tr>
+                              <tr><td><span class="summary-term">Training data</span></td><td>Dynamic posed videos with depth are limited</td><td>Use a targeted dataset mixture and fine-tuning strategy</td></tr>
+                              <tr><td><span class="summary-term">Static prior</span></td><td>DUSt3R is strong but mismatched to dynamic scenes</td><td>Preserve encoder knowledge and adapt decoder/head</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="section-note">
+                        <span class="section-note-label">Summary Note</span>
+                        <p>The paper does not first decompose dynamic scenes into explicit motion. It treats <strong>per-timestep pointmaps as the geometry unit</strong>, while static regions act as alignment anchors across timesteps.</p>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work details</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Where MonST3R sits</span>
+                              <p>The related work positions MonST3R between complex multi-stage dynamic pipelines and static DUSt3R pointmaps.</p>
+                            </div>
+                            <div class="supplement-card-grid supplement-card-grid-four">
+                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>SfM / SLAM</strong><p>Static epipolar assumptions weaken in scenes with moving objects.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Dynamic reconstruction</strong><p>Often decomposes depth, flow, pose, residual motion, and masks.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Video depth / VO</strong><p>Improves temporal consistency or pose, but ambiguity and annotation needs remain.</p></article>
+                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>DUSt3R prior</strong><p>Camera-free pointmaps are strong, but trained mainly on static scenes.</p></article>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="en-mechanism">Mechanism: how are time-varying pointmaps built and aligned?</h3>
+                      <p>MonST3R keeps DUSt3R’s backbone and pointmap representation, then adapts it in three ways: dynamic fine-tuning, pose/static-mask recovery from pointmaps, and video-specific global optimization.</p>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>The core chain is <strong>pointmap prediction → pose/static mask recovery → dynamic global optimization</strong>.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table method-table">
+                            <thead><tr><th>Part</th><th>What it solves</th><th>Device</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Baseline</span></td><td>Reuses DUSt3R’s static pointmap prior</td><td>ViT encoder, decoder, pointmap head</td></tr>
+                              <tr><td><span class="summary-term">Dynamic adaptation</span></td><td>Reduces moving-object and foreground-depth mismatch</td><td>Encoder frozen, decoder/head fine-tuned</td></tr>
+                              <tr><td><span class="summary-term">Pose / mask</span></td><td>Handles broken correspondence assumptions in dynamic regions</td><td>PnP-RANSAC, confident static mask</td></tr>
+                              <tr><td><span class="summary-term">Global optimization</span></td><td>Aligns video depth, pose, and intrinsics consistently</td><td>Alignment + smoothness + flow consistency</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. Start from DUSt3R but avoid the mask baseline</span>
+                        <p>MonST3R starts from DUSt3R’s ViT encoder, cross-attention decoder, and pointmap head. Simply masking moving regions with black pixels or mask tokens degrades pose because those inputs are out of DUSt3R’s training distribution.</p>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Fine-tune only decoder/head with dynamic data</span>
+                        <p>Dynamic training needs synchronized images, pose, and depth, but such data is limited. MonST3R mixes PointOdyssey, TartanAir, Spring, and Waymo, freezes the encoder, and fine-tunes the decoder and prediction head.</p>
+                        <figure class="image">
+                          <img alt="Table 1. Training datasets used for fine-tuning." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png" style="width:860px">
+                          <figcaption><span class="caption-main">Table 1. Training datasets used for fine-tuning on dynamic scenes.</span><span class="caption-note">All datasets provide camera pose and depth; PointOdyssey and Spring include articulated dynamic objects.</span></figcaption>
+                        </figure>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table dataset-table">
+                            <thead><tr><th>Dataset</th><th>Role</th><th>sampling ratio</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">PointOdyssey</span></td><td>Synthetic indoor/outdoor, articulated dynamic object, realistic motion</td><td>50%</td></tr>
+                              <tr><td><span class="summary-term">TartanAir</span></td><td>Synthetic indoor/outdoor, scene diversity, mostly static</td><td>25%</td></tr>
+                              <tr><td><span class="summary-term">Spring</span></td><td>Synthetic outdoor, articulated dynamic object</td><td>5%</td></tr>
+                              <tr><td><span class="summary-term">Waymo</span></td><td>Real driving scenes, LiDAR-based depth signal</td><td>20%</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Recover pose and static masks from pointmaps</span>
+                        <p>Dynamic objects violate epipolar and Procrustes assumptions, so MonST3R estimates relative pose with same-view 2D-3D correspondence and PnP-RANSAC. Valid correspondences are selected by confidence thresholding.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+R^*,T^*=\arg\min_{R,T}\sum_{i\in\mathcal{I}}
+\left\|x_i-\pi\left(K_{t'}\left(RX_i^{t';tt'}+T\right)\right)\right\|^2 \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Relative pose is estimated on confident pixels <span class="inline-equation-token">\(\mathcal{I}\)</span> with PnP-RANSAC.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+F^{t\rightarrow t'}_{cam}=
+\pi\left(D^{tt'}_tK_{t'}R_{t\rightarrow t'}K_t^{-1}\hat{x}+K_{t'}T_{t\rightarrow t'}\right)-x \tag{2}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">The camera-induced flow is compared with estimated optical flow to identify static regions.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+S^{t\rightarrow t'}=\left[\alpha>\left\|F^{t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right\|_{L1}\right] \tag{3}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Pixels where camera-induced flow and estimated flow agree are treated as confidently static.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="summary-panel summary-panel-soft">
+                        <div class="summary-head">
+                          <span class="subsection-label">Notation: static masks and global optimization</span>
+                          <p>MonST3R does not introduce an explicit motion variable. Instead, it identifies static regions and uses them to stabilize camera-induced flow and global pointmap alignment.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Notation</th><th>Meaning</th><th>How to read it</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{I}\)</span>, <span class="inline-equation-token">\(x_i\)</span></span></td><td>Confident correspondence pixels and 2D pixel in the reference frame</td><td>PnP uses only reliable pixels as pose anchors.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(X_i^{t';tt'}\)</span></span></td><td>3D point for frame <span class="inline-equation-token">\(t'\)</span> in pair <span class="inline-equation-token">\((t,t')\)</span></td><td>Pairwise pointmap value used for relative pose estimation.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(K_t\)</span>, <span class="inline-equation-token">\(D_t^{tt'}\)</span>, <span class="inline-equation-token">\(\hat x\)</span></span></td><td>Intrinsics, pairwise depth, and homogeneous pixel</td><td>Used to compute optical flow induced by camera motion alone.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(F_{cam}^{t\to t'}\)</span>, <span class="inline-equation-token">\(F_{est}^{t\to t'}\)</span></span></td><td>Camera-induced flow and estimated optical flow</td><td>A large discrepancy indicates likely moving objects or deformation.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(S^{t\to t'}\)</span>, <span class="inline-equation-token">\(S^{global;t\to t'}\)</span></span></td><td>Pairwise static mask and global static mask</td><td>Selects static anchor pixels for alignment.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(W_i\)</span>, <span class="inline-equation-token">\(e\)</span>, <span class="inline-equation-token">\(t\in e\)</span></span></td><td>Temporal window, pair edge, and frame inside the edge</td><td>Limits optimization cost by using local temporal windows.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(X^t\)</span>, <span class="inline-equation-token">\(X^{t;e}\)</span>, <span class="inline-equation-token">\(C^{t;e}\)</span></span></td><td>Global pointmap, pairwise pointmap, and confidence</td><td>Fits pairwise geometry to time-indexed global geometry.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_{t;e}\)</span>, <span class="inline-equation-token">\(P_W\)</span></span></td><td>Pair scale, transform into the global frame, and window pose parameters</td><td>Jointly optimizes scale and pose to connect a dynamic video into one trajectory.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">4. Optimize dynamic global point cloud and camera pose</span>
+                        <p>Rather than connecting every frame pair, MonST3R uses pairs inside temporal sliding windows. The global pointmap is reparameterized by camera extrinsics, intrinsics, and depth, enabling joint optimization.</p>
+                        <figure class="image">
+                          <img alt="Figure 3. Dynamic global point cloud and camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_17746717073c.png" style="width:920px">
+                          <figcaption><span class="caption-main">Figure 3. Dynamic global point cloud and camera pose estimation.</span><span class="caption-note">Pairwise pointmaps are connected within windows, and static regions anchor global point cloud and camera trajectory alignment.</span></figcaption>
+                        </figure>
+                        <div class="method-equation-cluster">
+                          <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{align}(X,\sigma,P_W)=
+\sum_{W_i\in W}\sum_{e\in W_i}\sum_{t\in e}
+\left\|C^{t;e}\cdot\left(X^t-\sigma_eP_{t;e}X^{t;e}\right)\right\|_1 \tag{4}
+$$
+                          </div></div></div><figcaption><span class="caption-main">Alignment loss fits pairwise pointmaps to global pointmaps <span class="inline-equation-token">\(X^t\)</span>.</span></figcaption></figure>
+                          <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{smooth}(X)=
+\sum_{t=0}^{N}\left(\left\|R_t^TR_{t+1}-I\right\|_F+
+\left\|T_{t+1}-T_t\right\|_2\right) \tag{5}
+$$
+                          </div></div></div><figcaption><span class="caption-main">Smoothness discourages abrupt camera rotation and translation changes.</span></figcaption></figure>
+                          <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{flow}(X)=
+\sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}
+\left\|S^{global;t\rightarrow t'}\cdot
+\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{6}
+$$
+                          </div></div></div><figcaption><span class="caption-main">Flow consistency matches global camera-induced flow to estimated flow on static regions.</span></figcaption></figure>
+                          <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{X}=\arg\min_{X,P_W,\sigma}
+\mathcal{L}_{align}(X,\sigma,P_W)+w_{smooth}\mathcal{L}_{smooth}(X)+w_{flow}\mathcal{L}_{flow}(X) \tag{7}
+$$
+                          </div></div></div><figcaption><span class="caption-main">The final objective combines alignment, trajectory smoothness, and flow consistency.</span></figcaption></figure>
+                        </div>
+                      </section>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Mechanism Brief</span>
+                          <p>MonST3R does not redesign DUSt3R from scratch; it adds the adaptations needed to move a static pointmap prior into dynamic video.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Representation</strong><p>Each timestep’s pointmap represents geometry including moving objects and deformation.</p></article>
+                          <article><strong>Training</strong><p>Preserve the encoder and fine-tune decoder/head on dynamic posed depth data.</p></article>
+                          <article><strong>Optimization</strong><p>Use static masks, smoothness, and flow consistency to stabilize video-level pose/depth.</p></article>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Smooth / flow loss derivation details</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Role of Appendix D</span>
+                              <p>Main-text Eq. (5) and Eq. (6) are compact forms written over <span class="inline-equation-token">\(X\)</span>. Appendix D expands them into pose, global flow, and mask computations.</p>
+                            </div>
+                            <div class="method-equation-cluster">
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{smooth}(R,T)=\sum_{t=0}^{N-1}\left(\left\|R_t^TR_{t+1}-I\right\|_F+\left\|T_{t+1}-T_t\right\|_2\right) \tag{8}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">Trajectory smoothness in pose-parameter form.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\mathcal{L}_{flow}(F_{cam},S)=\sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}\left\|S^{global;t\rightarrow t'}\cdot\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{9}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">Flow consistency written with camera-induced flow and static mask.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+F^{global;t\rightarrow t'}_{cam}=\pi\left(D^tK_{t'}R_{t'}R_t^TK_t^{-1}\hat{x}+K_{t'}(T_{t'}-T_t)\right)-x \tag{10}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">Camera-induced flow from global parameters.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+S^t=\frac{1}{2|N_t|}\left(\sum_{t'\in N_t}S^{t;t\rightarrow t'}+\sum_{t'\in N_t}S^{t;t'\rightarrow t}\right) \tag{11}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">Per-frame mask initialization from sampled pairs.</span></figcaption>
+                              </figure>
+                              <figure class="equation">
+                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+S^{global;t\rightarrow t'}=S^t\vee\left[\alpha>\left\|F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right\|_{L1}\right] \tag{12}
+$$
+                                </div></div></div>
+                                <figcaption><span class="caption-main">Final confident static mask using the initialized mask and global flow agreement.</span></figcaption>
+                              </figure>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="en-evidence">Evidence: what does it show on depth and pose?</h3>
+                      <section class="evaluation-evidence-panel">
+                        <div class="evaluation-table-block">
+                          <span class="evaluation-table-label">Training / Inference Setup</span>
+                          <div class="summary-table-wrap">
+                            <table class="summary-table task-evidence-table">
+                              <thead><tr><th>Part</th><th>Setting</th><th>Meaning</th></tr></thead>
+                              <tbody>
+                                <tr><td><span class="summary-term">Fine-tuning</span></td><td>DUSt3R ViT-Base decoder + DPT head, 25 epochs, 20k pairs/epoch</td><td>Preserve encoder prior and adapt to dynamics</td></tr>
+                                <tr><td><span class="summary-term">Optimizer</span></td><td>AdamW, learning rate <span class="inline-equation-token">\(5\times10^{-5}\)</span>, mini-batch 4/GPU</td><td>About one day on 2× RTX 6000 48GB</td></tr>
+                                <tr><td><span class="summary-term">Inference</span></td><td>60-frame video, window size <span class="inline-equation-token">\(w=9\)</span>, stride 2, about 600 pairs</td><td>About 30s inference and about 1min global optimization</td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Video depth / single-frame depth</span>
+                        <p>Video depth is evaluated on Sintel, Bonn, and KITTI; single-frame depth also includes NYU-v2. Metrics are Abs Rel and <span class="inline-equation-token">\(\delta&lt;1.25\)</span>, with scale/shift or scale alignment for video depth.</p>
+                        <figure class="image table-figure table-figure-medium"><img alt="Table 2. Video depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png" style="width:720px"><figcaption><span class="caption-main">Table 2. Video depth evaluation on Sintel, Bonn, and KITTI datasets.</span><span class="caption-note">MonST3R competes with specialized video depth methods and shows a clear advantage over DepthCrafter under scale-only normalization.</span></figcaption></figure>
+                        <figure class="image table-figure table-figure-small"><img alt="Table 3. Single-frame depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png" style="width:660px"><figcaption><span class="caption-main">Table 3. Single-frame depth evaluation.</span><span class="caption-note">After dynamic fine-tuning, single-frame depth remains competitive with original DUSt3R.</span></figcaption></figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Camera pose estimation</span>
+                        <p>Pose is evaluated on Sintel, TUM-dynamics, and ScanNet with ATE, RPE trans, and RPE rot after Sim(3) Umeyama alignment.</p>
+                        <figure class="image table-figure table-figure-medium"><img alt="Table 4. Camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png" style="width:720px"><figcaption><span class="caption-main">Table 4. Evaluation on camera pose estimation on Sintel, TUM-dynamic, and ScanNet.</span><span class="caption-note">MonST3R is strongest among joint depth/pose methods on Sintel and ScanNet, while remaining competitive with pose-only methods without ground-truth intrinsics.</span></figcaption></figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Dense reconstruction / ablation</span>
+                        <p>The DAVIS qualitative comparison evaluates camera trajectory and dynamic geometry together. The ablation isolates datasets, fine-tuning target, and video-specific losses.</p>
+                        <figure class="image"><img alt="Figure 4. Qualitative comparison." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_08e68749a840.png" style="width:860px"><figcaption><span class="caption-main">Figure 4. Qualitative comparison.</span><span class="caption-note">The comparison highlights that CasualSAM can keep trajectories stable while foreground geometry fails, and DUSt3R can fail on both pose and dense reconstruction in dynamic scenes.</span></figcaption></figure>
+                        <figure class="image table-figure table-figure-medium"><img alt="Table 5. Ablation study on Sintel." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png" style="width:820px"><figcaption><span class="caption-main">Table 5. Ablation study on Sintel dataset.</span><span class="caption-note">Dataset mixture, decoder/head fine-tuning, flow/static-region/smoothness losses improve pose robustness with limited impact on video depth.</span></figcaption></figure>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="en-usage">Usage / Limits: when is it useful?</h3>
+                      <section class="summary-panel when-use-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>MonST3R is useful when video depth, pose, masks, and dynamic geometry should come from one representation, but long occlusion and OOD scenes remain difficult.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Works well</th><th>Be careful with</th><th>Reason</th></tr></thead>
+                            <tbody>
+                              <tr><td>Monocular videos with moving objects</td><td>Sequences with long-term occlusion</td><td>Sliding-window connectivity can weaken</td></tr>
+                              <tr><td>Joint pose/depth/mask from one representation</td><td>Strong dynamic intrinsics</td><td>Careful hyperparameters or manual constraints may be needed</td></tr>
+                              <tr><td>Feed-forward 4D reconstruction initialization</td><td>OOD scenes such as open fields</td><td>Depends on training coverage and deep generalization</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                      <p>The conclusion is direct: instead of first designing a complex explicit motion representation, MonST3R adapts pointmaps over time and becomes a strong baseline for video depth, camera pose, and dense dynamic reconstruction.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="en-takeaway">Takeaway</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="en-future-work">Future Work</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-more is-visible" id="deepDiveMore">
+                    <button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+          <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+          <script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div aria-hidden="true" class="lightbox" id="lightbox">
+    <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+    <img alt="preview" id="lightboxImg">
+  </div>
+  <div aria-hidden="true" class="supplement-focus-backdrop" id="supplementFocusBackdrop"></div>
+  <div aria-hidden="true" class="supplement-scroll-indicator" id="supplementScrollIndicator"><span></span></div>
+
+  <script src="script.js?v=monst3r-redesign-20260526" defer></script>
+</body>
+</html>
