@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /pages/paper_reviews/_redesign_checkpoints/
+
+Sitemap: https://noctml.github.io/sitemap.xml
