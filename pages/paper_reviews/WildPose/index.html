@@ -58,6 +58,7 @@
     <div class="paper-meta-item"><dt>Affiliations</dt><dd>Stanford University; ETH Zurich</dd></div>
   </dl>
   <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2605.12774" rel="noreferrer" target="_blank">Paper</a><a href="https://wildpose.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/GradientSpaces/WildPose" rel="noreferrer" target="_blank">GitHub</a></nav>
+  <div class="paper-meta-topics" aria-label="Paper topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#Dynamic SLAM</span><span class="paper-topic-chip">#Dynamic Scene</span><span class="paper-topic-chip">#Pose Estimation</span><span class="paper-topic-chip">#Motion Mask</span><span class="paper-topic-chip">#Visual SLAM</span></div></div>
 </div>
 </header>
 <div class="post-body">
@@ -272,6 +273,9 @@
 </figure>
 </section>
 
+<details class="supplement-toggle supplement-structured">
+<summary>Training curriculum / loss notation 보기</summary>
+<div class="appendix-details supplement-details">
 <section class="method-step-block">
 <span class="subsection-label">4. Training curriculum</span>
 <p>Training은 update operator와 motion detector를 한 번에 섞지 않고 단계적으로 학습한다. 먼저 static data로 ego-motion 기반 pairwise flow를 배우고, 이후 dynamic data와 mask를 넣어 BA robustness를 높이며, 마지막에는 frozen update operator와 BA에 predicted mask를 연결한다.</p>
@@ -304,6 +308,11 @@
 </details>
 </section>
 
+
+
+
+</div>
+</details>
 <section class="method-step-block">
 <span class="subsection-label">5. Online inference and global consistency</span>
 <p>Inference는 online visual odometry처럼 동작한다. 새 keyframe의 disparity는 Moge2 metric depth <span class="inline-math">\(D_i\)</span>로 초기화하고, co-visible keyframe과 edge를 만든 뒤 edge별 mask를 예측한다.</p>
@@ -591,6 +600,9 @@
 </figure>
 </section>
 
+<details class="supplement-toggle supplement-structured">
+<summary>Training curriculum / loss notation</summary>
+<div class="appendix-details supplement-details">
 <section class="method-step-block">
 <span class="subsection-label">4. Training curriculum</span>
 <p>Training is staged rather than fully joint from the start. The update operator first learns ego-motion-induced pairwise flow on static data, then learns robustness with dynamic data and ground-truth masks, and finally the motion detector is trained with the frozen update operator and differentiable BA.</p>
@@ -623,6 +635,9 @@
 </details>
 </section>
 
+
+</div>
+</details>
 <section class="method-step-block">
 <span class="subsection-label">5. Online inference and global consistency</span>
 <p>At inference time, WildPose runs as online visual odometry. A new keyframe is initialized with Moge2 metric depth <span class="inline-math">\(D_i\)</span>, connected to co-visible keyframes, and assigned edge-specific motion masks.</p>

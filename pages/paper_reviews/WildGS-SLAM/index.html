@@ -58,6 +58,7 @@
     <div class="paper-meta-item"><dt>Affiliations</dt><dd>Stanford University; ETH Zurich; Microsoft</dd></div>
   </dl>
   <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2504.03886" rel="noreferrer" target="_blank">Paper</a><a href="https://wildgs-slam.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/GradientSpaces/WildGS-SLAM" rel="noreferrer" target="_blank">GitHub</a></nav>
+  <div class="paper-meta-topics" aria-label="Paper topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#Dynamic SLAM</span><span class="paper-topic-chip">#Dynamic Scene</span><span class="paper-topic-chip">#3DGS</span><span class="paper-topic-chip">#Uncertainty</span><span class="paper-topic-chip">#SLAM</span></div></div>
 </div>
 </header>
 <div class="post-body">
@@ -271,6 +272,9 @@
 </section>
 </div>
 </details>
+<details class="supplement-toggle supplement-structured">
+<summary>Rendering / uncertainty notation 보기</summary>
+<div class="appendix-details supplement-details">
 <section class="summary-panel summary-panel-soft">
 <div class="summary-head"><span class="subsection-label">Notation: Gaussian rendering과 uncertainty</span><p>WildGS-SLAM의 방법론은 Gaussian rendering, learned uncertainty, DROID-SLAM식 tracking이 한 수식 흐름 안에 섞인다. 각 변수가 rendering 쪽인지, uncertainty 쪽인지, tracking/mapping 쪽인지 나눠 읽으면 loss의 역할이 명확해진다.</p></div>
 <div class="summary-table-wrap">
@@ -289,6 +293,8 @@
 </table>
 </div>
 </section>
+</div>
+</details>
 </section>
 <section class="method-step-block">
 <span class="subsection-label">3. Uncertainty-guided tracking</span>
@@ -317,10 +323,15 @@
 </section>
 </div>
 </details>
+<details class="supplement-toggle supplement-structured">
+<summary>Color rendering loss 세부 보기</summary>
+<div class="appendix-details supplement-details">
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{color}=(1-\lambda_{ssim})\|\hat{I}-I\|_1+\lambda_{ssim}\mathcal{L}_{ssim}\tag{7}$$</div></div></div>
 <figcaption><span class="caption-main">L1 color error와 SSIM loss를 결합한 color rendering term.</span></figcaption>
 </figure>
+</div>
+</details>
 </section>
 </section>
 
@@ -613,6 +624,9 @@
 </section>
 </div>
 </details>
+<details class="supplement-toggle supplement-structured">
+<summary>Rendering / uncertainty notation</summary>
+<div class="appendix-details supplement-details">
 <section class="summary-panel summary-panel-soft">
 <div class="summary-head"><span class="subsection-label">Notation: Gaussian rendering and uncertainty</span><p>WildGS-SLAM mixes Gaussian rendering, learned uncertainty, and DROID-SLAM-style tracking in one method chain. Separating rendering variables from uncertainty and tracking variables makes the loss terms easier to read.</p></div>
 <div class="summary-table-wrap">
@@ -631,6 +645,8 @@
 </table>
 </div>
 </section>
+</div>
+</details>
 </section>
 <section class="method-step-block">
 <span class="subsection-label">3. Uncertainty-guided tracking</span>
@@ -659,10 +675,15 @@
 </section>
 </div>
 </details>
+<details class="supplement-toggle supplement-structured">
+<summary>Color rendering loss details</summary>
+<div class="appendix-details supplement-details">
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{color}=(1-\lambda_{ssim})\|\hat{I}-I\|_1+\lambda_{ssim}\mathcal{L}_{ssim}\tag{7}$$</div></div></div>
 <figcaption><span class="caption-main">Color rendering term combining L1 color error and SSIM loss.</span></figcaption>
 </figure>
+</div>
+</details>
 </section>
 </section>
 

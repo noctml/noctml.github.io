@@ -125,6 +125,57 @@
       cursor:not-allowed;
       transform:none;
     }
+    .paper-groups{
+      display:flex;
+      flex-wrap:nowrap;
+      gap:3px;
+      width:100%;
+      margin:0 0 16px;
+      padding:4px;
+      overflow-x:auto;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:color-mix(in srgb, var(--panel2) 78%, var(--bg));
+      scrollbar-width:thin;
+    }
+    .paper-group-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      flex:0 0 auto;
+      min-height:28px;
+      padding:5px 9px;
+      border:0;
+      border-radius:10px;
+      background:transparent;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:680;
+      line-height:1.1;
+      cursor:pointer;
+      transition:background .15s ease, color .15s ease;
+    }
+    .paper-group-btn span:first-child{
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .paper-group-btn:hover{
+      color:var(--text);
+      background:color-mix(in srgb, var(--panel) 72%, var(--text) 4%);
+    }
+    .paper-group-btn.is-active{
+      color:var(--text);
+      background:color-mix(in srgb, var(--panel2) 62%, var(--text) 8%);
+      box-shadow:0 1px 0 color-mix(in srgb, #fff 42%, transparent) inset;
+    }
+    .paper-group-count{
+      color:color-mix(in srgb, var(--muted) 80%, var(--text));
+      font-size:10.5px;
+      font-weight:760;
+      letter-spacing:.02em;
+    }
 
     /* Fixed frame to prevent layout jump */
     .paper-frame{
@@ -143,12 +194,16 @@
       border:1px solid var(--line);
       border-radius:var(--radius);
       background:var(--panel2);
-      box-shadow:var(--shadow);
+      box-shadow:0 8px 22px color-mix(in srgb, var(--text) 4%, transparent);
       color:inherit;
       text-decoration:none;
-      transition:transform .15s ease, opacity .15s ease;
+      transition:background .15s ease, border-color .15s ease, transform .15s ease, opacity .15s ease;
     }
-    .paper-card:hover{ transform: translateY(-2px); }
+    .paper-card:hover{
+      transform: translateY(-1px);
+      border-color:color-mix(in srgb, var(--line) 62%, var(--text) 24%);
+      background:color-mix(in srgb, var(--panel2) 82%, var(--bg));
+    }
     .paper-thumb{
       width:148px;
       aspect-ratio:16 / 10;
@@ -449,6 +504,7 @@
             </div>
           </div>
 
+          <div class="paper-groups" id="paperGroupList" aria-label="Paper review groups"></div>
           <div class="paper-frame" id="paperList"></div>
         </section>
 
@@ -474,11 +530,12 @@
     </div>
   </div>
 
-  <script src="data.js?v=paper-order-20260526"></script>
+  <script src="data.js?v=paper-tags-20260529"></script>
   <script src="script.js?v=main-cleanup-20260525"></script>
 
   <script>
     const paperReviews = window.SITE_DATA.paperReviews || [];
+    const configuredPaperGroups = window.SITE_DATA.paperGroups || [];
     const workItems    = window.SITE_DATA.projects || [];
 
     function chunk(arr, size) {
@@ -498,16 +555,57 @@
     }
 
     const PAPER_PAGE_SIZE = 5;
-    const paperPages = chunk(paperReviews, PAPER_PAGE_SIZE);
+    let activePaperGroup = "All";
+    let filteredPaperReviews = paperReviews.slice();
+    let paperPages = chunk(filteredPaperReviews, PAPER_PAGE_SIZE);
     let paperPage = 0;
 
     const paperListEl = document.getElementById("paperList");
+    const paperGroupListEl = document.getElementById("paperGroupList");
     const paperPrevEl = document.getElementById("paperPrev");
     const paperNextEl = document.getElementById("paperNext");
     const paperInfoEl = document.getElementById("paperPageInfo");
 
+    function uniquePaperGroups() {
+      const discovered = Array.from(new Set(paperReviews.map(item => item.group).filter(Boolean)));
+      if (!configuredPaperGroups.length) return discovered;
+      const configured = configuredPaperGroups.filter(group => discovered.includes(group));
+      const extras = discovered.filter(group => !configured.includes(group));
+      return [...configured, ...extras];
+    }
+
+    function paperGroupCount(group) {
+      if (group === "All") return paperReviews.length;
+      return paperReviews.filter(item => item.group === group).length;
+    }
+
+    function updatePaperPages() {
+      filteredPaperReviews = activePaperGroup === "All"
+        ? paperReviews.slice()
+        : paperReviews.filter(item => item.group === activePaperGroup);
+      paperPages = chunk(filteredPaperReviews, PAPER_PAGE_SIZE);
+      if (paperPage >= pageCount(paperPages)) paperPage = 0;
+    }
+
+    function renderPaperGroups() {
+      const groups = ["All", ...uniquePaperGroups()];
+      paperGroupListEl.innerHTML = groups.map(group => {
+        const active = group === activePaperGroup ? " is-active" : "";
+        const label = safeText(group);
+        const count = paperGroupCount(group);
+        return `
+          <button class="paper-group-btn${active}" type="button" data-paper-group="${safeAttr(group)}" aria-pressed="${group === activePaperGroup}">
+            <span>${label}</span>
+            <span class="paper-group-count">${count}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
     // for Paper Review
     function renderPaper() {
+      updatePaperPages();
+      renderPaperGroups();
       const total = pageCount(paperPages);
       const realPage = paperPages[paperPage] || [];
 
@@ -541,7 +639,6 @@
         const desc = safeText(item.desc);
         const thumb = safeAttr(item.thumb || "");
         const href = disabled ? "#" : item.href;
-
         return `
           <a class="${cls}" href="${href}">
             <div class="paper-thumb">
@@ -561,6 +658,14 @@
       paperPrevEl.disabled = (paperPage === 0);
       paperNextEl.disabled = (paperPage === total - 1);
     }
+
+    paperGroupListEl.addEventListener("click", (event) => {
+      const btn = event.target.closest("[data-paper-group]");
+      if (!btn) return;
+      activePaperGroup = btn.dataset.paperGroup || "All";
+      paperPage = 0;
+      renderPaper();
+    });
 
     paperPrevEl.addEventListener("click", () => {
       if (paperPage === 0) return;

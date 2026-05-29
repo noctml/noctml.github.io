@@ -58,6 +58,7 @@
     <div class="paper-meta-item"><dt>Affiliations</dt><dd>UC Berkeley; Google DeepMind</dd></div>
   </dl>
   <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2501.12387" rel="noreferrer" target="_blank">Paper</a><a href="https://cut3r.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/CUT3R/CUT3R" rel="noreferrer" target="_blank">GitHub</a></nav>
+  <div class="paper-meta-topics" aria-label="Paper topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#3D Reconstruction</span><span class="paper-topic-chip">#Persistent State</span><span class="paper-topic-chip">#Video Geometry</span><span class="paper-topic-chip">#Feed-forward</span></div></div>
 </div>
 </header>
 <div class="post-body">
@@ -282,6 +283,9 @@
 <figcaption><span class="caption-main">query view의 color prediction을 통해 raymap readout을 학습.</span></figcaption>
 </figure>
 </section>
+<details class="supplement-toggle supplement-structured">
+<summary>Training objective / notation 보기</summary>
+<div class="appendix-details supplement-details">
 <section class="method-step-block">
 <span class="subsection-label">4. Training objective</span>
 <p>학습은 pointmap regression, pose regression, raymap RGB consistency를 함께 사용한다. metric-scale annotation이 있으면 model이 metric pointmap을 직접 학습하도록 scale을 고정한다.</p>
@@ -316,6 +320,10 @@
 </table>
 </div>
 </section>
+
+
+</div>
+</details>
 <details class="supplement-toggle supplement-structured">
 <summary>학습 구성과 구현 세부 보기</summary>
 <div class="appendix-details supplement-details">
@@ -617,6 +625,9 @@
 <figcaption><span class="caption-main">RGB consistency trains the query-view color readout.</span></figcaption>
 </figure>
 </section>
+<details class="supplement-toggle supplement-structured">
+<summary>Training objective / notation</summary>
+<div class="appendix-details supplement-details">
 <section class="method-step-block">
 <span class="subsection-label">4. Training objective</span>
 <p>The training objective combines pointmap regression, pose regression, and raymap RGB consistency. When metric-scale annotation is available, the model is trained to predict metric pointmaps directly.</p>
@@ -651,6 +662,10 @@
 </table>
 </div>
 </section>
+
+
+</div>
+</details>
 <details class="supplement-toggle supplement-structured">
 <summary>Training setup and implementation details</summary>
 <div class="appendix-details supplement-details">
