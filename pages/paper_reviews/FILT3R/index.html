@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
+  <title>FILT3R Paper Review</title>
+  <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
+  <meta content="FILT3R Paper Review" property="og:title">
+  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta content="website" property="og:type">
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
+  <link href="styles.css?v=filt3r-redesign-20260530" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+</head>
+<body>
+  <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+  <div class="layout" id="top">
+    <aside aria-label="Paper section bookmark" class="sidebar">
+      <div class="sidebar-card">
+        <nav aria-label="Paper section bookmark" class="section-bookmark">
+          <div class="bookmark-status">
+            <span class="bookmark-eyebrow">Now Reading</span>
+            <strong id="currentSectionLabel">핵심 요약</strong>
+          </div>
+          <div class="bookmark-list" id="sectionBookmarkList"></div>
+        </nav>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brandline">
+            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+            </a>
+            <span class="brandtext">Paper Reviews</span>
+          </div>
+          <div class="top-actions">
+            <button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+              <span data-lang-option="ko">KO</span>
+              <span data-lang-option="en">EN</span>
+            </button>
+            <button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+              <span aria-hidden="true" id="themeIcon">☀</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="container" id="main">
+        <section class="section">
+          <div class="panel">
+            <header class="paper-identity">
+              <p class="paper-title-meta">FILT3R: Latent State Adaptive Kalman Filter for Streaming 3D Reconstruction</p>
+              <div class="paper-meta-card">
+                <div class="paper-meta-top"><span class="paper-meta-venue">arXiv preprint</span><span class="paper-meta-date">19 Mar 2026</span></div>
+                <dl class="paper-meta-grid">
+                  <div class="paper-meta-item"><dt>Authors</dt><dd>Seonghyun Jin; Jong Chul Ye</dd></div>
+                  <div class="paper-meta-item"><dt>Affiliations</dt><dd>KAIST AI</dd></div>
+                </dl>
+                <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2603.18493" rel="noreferrer" target="_blank">Paper</a><a href="https://github.com/jinotter3/FILT3R" rel="noreferrer" target="_blank">GitHub</a></nav>
+                <div aria-label="Paper topics" class="paper-meta-topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#3D Reconstruction</span><span class="paper-topic-chip">#Streaming</span><span class="paper-topic-chip">#Kalman Filter</span><span class="paper-topic-chip">#Latent State</span></div></div>
+              </div>
+            </header>
+
+            <div class="post-body">
+              <section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+                <div class="paper-map-head">
+                  <h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+                  <p data-en-html="FILT3R treats streaming 3D reconstruction as &lt;strong&gt;latent-state filtering&lt;/strong&gt;: keep the frozen backbone, but update the recurrent memory with a token-wise Kalman-style gain." data-ko-html="FILT3R은 streaming 3D reconstruction을 &lt;strong&gt;latent-state filtering&lt;/strong&gt; 문제로 보고, frozen backbone은 그대로 둔 채 token별 Kalman-style gain으로 recurrent memory를 업데이트한다.">FILT3R은 streaming 3D reconstruction을 <strong>latent-state filtering</strong> 문제로 보고, frozen backbone은 그대로 둔 채 token별 Kalman-style gain으로 recurrent memory를 업데이트한다.</p>
+                </div>
+
+                <div class="tldr-cues">
+                  <span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Long-horizon drift" data-ko="long-horizon drift">long-horizon drift</small></span>
+                  <span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Adaptive Kalman gain" data-ko="adaptive Kalman gain">adaptive Kalman gain</small></span>
+                  <span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="Depth / pose / reconstruction" data-ko="depth / pose / reconstruction">depth / pose / reconstruction</small></span>
+                </div>
+
+                <div class="map-grid">
+                  <article class="map-card map-card-wide">
+                    <span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+                    <p data-en-html="FILT3R turns the recurrent latent memory &lt;span class=&quot;inline-equation-token&quot;&gt;\(s_t\)&lt;/span&gt; into a belief state and the decoder candidate &lt;span class=&quot;inline-equation-token&quot;&gt;\(\tilde{s}_t\)&lt;/span&gt; into a noisy measurement, so stable regions retain memory while scene changes accept new evidence quickly." data-ko-html="FILT3R은 recurrent latent memory &lt;span class=&quot;inline-equation-token&quot;&gt;\(s_t\)&lt;/span&gt;를 belief state로, decoder candidate &lt;span class=&quot;inline-equation-token&quot;&gt;\(\tilde{s}_t\)&lt;/span&gt;를 noisy measurement로 해석해 안정 구간에서는 memory를 보존하고 변화 구간에서는 새 evidence를 빠르게 반영한다.">FILT3R은 recurrent latent memory <span class="inline-equation-token">\(s_t\)</span>를 belief state로, decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span>를 noisy measurement로 해석해 안정 구간에서는 memory를 보존하고 변화 구간에서는 새 evidence를 빠르게 반영한다.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 01</span>
+                    <h3>Latent State Filtering</h3>
+                    <p data-en="Recasts streaming recurrent state update as stochastic state estimation in latent token space." data-ko="streaming recurrent state update를 latent token space의 stochastic state estimation으로 재정의.">streaming recurrent state update를 latent token space의 stochastic state estimation으로 재정의.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 02</span>
+                    <h3>Adaptive Process Noise</h3>
+                    <p data-en="Estimates token-wise process noise from EMA-normalized temporal drift, without training an extra network." data-ko="추가 network 학습 없이 EMA-normalized temporal drift에서 token별 process noise를 추정.">추가 network 학습 없이 EMA-normalized temporal drift에서 token별 process noise를 추정.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 03</span>
+                    <h3>Training-free Plug-in</h3>
+                    <p data-en="Adds a lightweight filtering layer on top of a frozen recurrent reconstruction backbone." data-ko="frozen recurrent reconstruction backbone 위에 lightweight filtering layer를 추가.">frozen recurrent reconstruction backbone 위에 lightweight filtering layer를 추가.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 04</span>
+                    <h3>Long-horizon Stability</h3>
+                    <p data-en="Improves long sequences in reconstruction, camera pose, and video depth while keeping memory constant." data-ko="constant memory를 유지하면서 reconstruction, camera pose, video depth의 long sequence 안정성을 개선.">constant memory를 유지하면서 reconstruction, camera pose, video depth의 long sequence 안정성을 개선.</p>
+                  </article>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
+                <div aria-label="FILT3R pipeline" class="flow-diagram">
+                  <div class="flow-step"><span>01</span><strong>Video Stream</strong><small>incoming frames</small></div>
+                  <div class="flow-step"><span>02</span><strong>Frozen Backbone</strong><small>candidate state</small></div>
+                  <div class="flow-step"><span>03</span><strong>Temporal Drift</strong><small>token change</small></div>
+                  <div class="flow-step"><span>04</span><strong>Process Noise</strong><small><span class="inline-equation-token">\(q_t\)</span></small></div>
+                  <div class="flow-step"><span>05</span><strong>Kalman Gain</strong><small><span class="inline-equation-token">\(k_t\)</span></small></div>
+                  <div class="flow-step"><span>06</span><strong>Filtered State</strong><small>stable memory</small></div>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
+                <div class="compare-grid">
+                  <article>
+                    <span class="compare-kicker">CUT3R</span>
+                    <h3 data-en="Uniform overwrite" data-ko="uniform overwrite">uniform overwrite</h3>
+                    <p data-en="The new candidate quickly replaces the persistent state, so useful history can be forgotten in long streams." data-ko="새 candidate가 persistent state를 빠르게 대체하므로 긴 stream에서 useful history가 사라지기 쉬움.">새 candidate가 persistent state를 빠르게 대체하므로 긴 stream에서 useful history가 사라지기 쉬움.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">TTT3R</span>
+                    <h3 data-en="Heuristic confidence gate" data-ko="heuristic confidence gate">heuristic confidence gate</h3>
+                    <p data-en="Uses a confidence signal to modulate update, but does not recursively propagate uncertainty." data-ko="confidence signal로 update를 조절하지만 uncertainty를 recursive하게 전파하지는 않음.">confidence signal로 update를 조절하지만 uncertainty를 recursive하게 전파하지는 않음.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">FILT3R</span>
+                    <h3 data-en="Uncertainty-propagating gain" data-ko="uncertainty-propagating gain">uncertainty-propagating gain</h3>
+                    <p data-en="Computes the update coefficient from prior variance and measurement noise, so retention and adaptation are coupled." data-ko="prior variance와 measurement noise에서 update coefficient를 계산해 retention과 adaptation을 함께 조절.">prior variance와 measurement noise에서 update coefficient를 계산해 retention과 adaptation을 함께 조절.</p>
+                  </article>
+                </div>
+              </section>
+
+              <section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+                <h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+                <p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper's core content while folding background, notation, and auxiliary material." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
+
+                <div class="deep-dive-body">
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="ko-problem">Problem: 긴 stream에서 latent memory가 왜 흔들리나</h3>
+                      <p>FILT3R의 문제의식은 streaming 3D reconstruction에서 <strong>persistent latent state update</strong>가 너무 단순하면, 긴 video stream에서 drift와 forgetting이 누적된다는 점이다. Recurrent model은 매 frame마다 candidate state를 만들고 기존 memory와 섞지만, update coefficient가 고정되어 있으면 scene이 안정적인지 변화 중인지에 맞춰 반응하기 어렵다.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. FILT3R enables stable long-horizon streaming 3D reconstruction without resets." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cff3911ca59c.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 1. FILT3R enables stable long-horizon streaming 3D reconstruction without resets.</span><span class="caption-note">논문은 600 frame 이후 구간에서도 FILT3R가 geometry를 보존하는 모습을 보여주며, CUT3R의 overwrite와 TTT3R의 heuristic gating이 긴 sequence에서 drift나 forgetting을 남긴다는 점을 대비한다.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>핵심 병목은 update rule이 <strong>history retention</strong>과 <strong>new evidence adaptation</strong> 사이를 상황별로 조절하지 못한다는 데 있다.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Streaming constraint</strong><p>긴 video를 처리하려면 full attention이나 모든 frame 저장 없이 constant memory로 돌아가야 함.</p></article>
+                          <article><span>02</span><strong>State overwrite</strong><p>candidate를 강하게 반영하면 이전 evidence를 빨리 잊고 reconstruction이 흔들림.</p></article>
+                          <article><span>03</span><strong>Fixed update</strong><p>고정 gain은 안정 구간과 scene transition을 구분하지 못함.</p></article>
+                          <article><span>04</span><strong>FILT3R의 질문</strong><p>token별 uncertainty를 전파해 update coefficient를 online으로 정할 수 있는가?</p></article>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work 맥락 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">어떤 연구 흐름 위에 놓이는가</span>
+                              <p>FILT3R은 streaming/recurrent 3D reconstruction 계열에 속하지만, 핵심 차이는 update gate를 attention heuristic이 아니라 <strong>recursive uncertainty propagation</strong>으로 계산한다는 점이다.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>계열</th><th>역할</th><th>FILT3R와의 차이</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">CUT3R / Spann3R / SLAM3R</span></td><td>bounded-memory online reconstruction 지향</td><td>state update가 long horizon에서 drift와 forgetting에 취약할 수 있음.</td></tr>
+                                  <tr><td><span class="summary-term">Point3R / Stream3R / StreamVGGT</span></td><td>streaming reconstruction의 memory/latency 문제를 다룸</td><td>memory 구조가 길이 증가에 민감하거나 update confidence가 명시적 filtering이 아님.</td></tr>
+                                  <tr><td><span class="summary-term">TTT3R / TTSA3R / MUT3R</span></td><td>training-free 또는 test-time update를 활용</td><td>uncertainty를 시간 방향으로 누적하는 Kalman posterior가 없음.</td></tr>
+                                  <tr><td><span class="summary-term">Kalman filtering</span></td><td>belief, measurement, process noise로 state를 업데이트</td><td>FILT3R은 이를 pixel/pose가 아니라 latent token memory에 적용.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="ko-mechanism">Mechanism: Kalman-style gain을 latent token에 어떻게 넣나</h3>
+                      <p>FILT3R의 방법론은 세 부분으로 읽는 것이 가장 자연스럽다. 먼저 recurrent state를 state-space model로 해석하고, 다음으로 variance와 Kalman gain을 token별로 업데이트하며, 마지막으로 process noise를 candidate drift에서 adaptive하게 만든다.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 2. FILT3R overview." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_29514e0ed263.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 2. FILT3R overview.</span><span class="caption-note">Persistent memory <span class="inline-equation-token">\(s_{t-1}\)</span>와 decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span>를 Kalman gain <span class="inline-equation-token">\(k_t\)</span>로 결합하고, posterior variance <span class="inline-equation-token">\(p_t\)</span>를 다음 step으로 전파한다.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>FILT3R의 update는 기존 interpolation처럼 보이지만, coefficient가 heuristic이 아니라 <strong>prior uncertainty와 measurement noise의 비율</strong>에서 나온다는 점이 핵심이다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>구성 요소</th><th>무엇을 의미하나</th><th>왜 필요한가</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(s_t\)</span></span></td><td>persistent latent memory / belief state</td><td>긴 stream에서 축적된 scene evidence를 보존.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\tilde{s}_t\)</span></span></td><td>frozen decoder가 만든 noisy candidate measurement</td><td>현재 frame에서 들어오는 새 evidence를 제공.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(p_t\)</span></span></td><td>token별 posterior variance</td><td>stable region에서는 confidence가 쌓여 gain을 낮춤.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(q_t\)</span></span></td><td>token별 process noise</td><td>scene transition이나 큰 latent drift에서 gain을 높임.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(r\)</span></span></td><td>fixed scalar measurement noise</td><td>decoder measurement reliability를 anchor로 고정.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. Latent state-space model</span>
+                        <p>논문은 decoder candidate를 현재 state의 noisy observation으로 보고, 이전 latent memory가 process noise를 거쳐 다음 state로 이어진다고 둔다. 이때 measurement noise는 frozen decoder의 신뢰도를 나타내며, process noise는 stream 변화량을 나타낸다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+s_t = s_{t-1}+w_t,\qquad w_t\sim\mathcal{N}(0,Q_t) \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">latent state가 이전 memory에서 process noise를 거쳐 이동한다는 model.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\tilde{s}_t = s_t+v_t,\qquad v_t\sim\mathcal{N}(0,R) \tag{2}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span>를 true latent state의 noisy measurement로 해석.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Variance와 Kalman gain update</span>
+                        <p>FILT3R은 full covariance를 쓰지 않고 token별 isotropic scalar variance로 근사한다. 따라서 <span class="inline-equation-token">\(Q_t=\operatorname{diag}(q_t)\)</span>, <span class="inline-equation-token">\(P_t=\operatorname{diag}(p_t)\)</span>처럼 다루며, update는 elementwise로 진행된다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+p_t^- = p_{t-1}+q_t \tag{3}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">measurement 반영 전 prior variance. process noise가 클수록 현재 candidate를 더 열어둘 근거가 생긴다.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+k_t = \frac{p_t^-}{p_t^-+r} \tag{4}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">token별 Kalman gain. <span class="inline-equation-token">\(p_t^-\)</span>가 커지면 candidate measurement 반영 비율이 커진다.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+s_t = s_{t-1}+k_t\odot(\tilde{s}_t-s_{t-1}) \tag{5}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">persistent memory와 candidate state를 Kalman gain으로 섞는 핵심 update.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+p_t = (1-k_t)^2\odot p_t^- + r k_t^2 \tag{6}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">scalar Joseph form posterior variance update. stable regime에서는 posterior confidence가 누적된다.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Adaptive process noise</span>
+                        <p>Process noise는 scene latent가 얼마나 바뀌었는지를 반영한다. FILT3R은 consecutive candidate state의 token drift를 EMA baseline으로 normalize한 뒤 sigmoid mapping을 통해 <span class="inline-equation-token">\(q_t\)</span>를 만든다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+q_{t,i}=q_{\min}+(q_{\max}-q_{\min})\cdot
+\sigma\!\left(\alpha_q(g_{t,i}-\tau_q)\right) \tag{7}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">normalized drift score <span class="inline-equation-token">\(g_{t,i}\)</span>가 커질수록 token <span class="inline-equation-token">\(i\)</span>의 process noise가 커진다.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+g_{t,i}=\frac{\Delta_{t,i}}{\hat{\Delta}_t} \tag{8}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">현재 token drift를 stream-level running baseline으로 나눈 normalized drift score.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{\Delta}_t=(1-\lambda_\Delta)\hat{\Delta}_{t-1}+\lambda_\Delta\bar{\Delta}_t \tag{9}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">stream-level mean drift의 EMA baseline.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\bar{\Delta}_t:=\frac{1}{N}\sum_i\Delta_{t,i},\qquad
+\Delta_{t,i}=\left\lVert\tilde{s}_{t,i}-\tilde{s}_{t-1,i}\right\rVert_2 \tag{10}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">candidate state 사이의 token drift와 그 평균. Eq. (7)-(10)이 FILT3R의 adaptive gain을 만드는 근거다.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Numerical stability 조건 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">실제 구현에서 안정화하는 지점</span>
+                              <p>논문은 식 자체의 의미뿐 아니라 division instability와 gain spike를 막기 위한 구현 조건도 언급한다. 이 부분은 핵심 update의 보조 조건이므로 접어둔다.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>조건</th><th>적용 위치</th><th>목적</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">small <span class="inline-equation-token">\(\epsilon\)</span></span></td><td>Eq. (4), Eq. (8)의 denominator</td><td>분모가 너무 작아지는 상황 방지.</td></tr>
+                                  <tr><td><span class="summary-term">gain clamp</span></td><td><span class="inline-equation-token">\(k_t\in[k_{\min},k_{\max}]\)</span></td><td>새 measurement를 완전히 무시하거나 완전히 덮어쓰는 extreme update 방지.</td></tr>
+                                  <tr><td><span class="summary-term">EMA floor</span></td><td><span class="inline-equation-token">\(\hat{\Delta}_t\ge \Delta_{\mathrm{floor}}\)</span></td><td>정지 구간에서 normalized drift가 폭주하지 않게 함.</td></tr>
+                                  <tr><td><span class="summary-term">fixed scalar <span class="inline-equation-token">\(r\)</span></span></td><td>measurement noise</td><td>adaptivity를 process noise에 집중시키고 measurement reliability를 anchor로 유지.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="ko-evidence">Evidence: 어떤 평가가 long-horizon 안정성을 보여주나</h3>
+                      <p>FILT3R의 평가는 하나의 metric만 보는 것이 아니라, long-horizon 3D reconstruction, camera pose, video depth, short-horizon regression check, efficiency, ablation을 함께 본다. 중심 주장은 <strong>memory를 늘리지 않고도 긴 sequence에서 drift growth를 늦춘다</strong>는 것이다.</p>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Roadmap</span>
+                          <p>논문의 evidence는 “정말 길어져도 안정적인가”와 “그 안정성이 단순 trade-off가 아닌가”를 나눠 검증한다.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Long-horizon geometry</strong><p>7-Scenes, NRGBD, TUM-RGBD, Bonn에서 reconstruction/pose/depth 안정성 확인.</p></article>
+                          <article><strong>Short-horizon check</strong><p>Sintel, Bonn, KITTI에서 짧은 sequence 성능을 희생하지 않는지 확인.</p></article>
+                          <article><strong>Mechanism evidence</strong><p>runtime/memory와 ablation으로 adaptive <span class="inline-equation-token">\(q_t\)</span>, variance propagation의 역할 분리.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Long-horizon Reconstruction Evidence</span>
+                        <figure class="image">
+                          <img alt="Figure 3. Qualitative long-horizon streaming 3D reconstruction." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cbec9884cb46.png" style="width:760px">
+                          <figcaption><span class="caption-main">Figure 3. Qualitative long-horizon streaming 3D reconstruction.</span><span class="caption-note">CUT3R과 TTT3R은 길어진 stream에서 drift나 inconsistent region을 남기는 반면, FILT3R은 더 안정적인 geometry를 유지하는 qualitative comparison을 제시한다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 1. 3D reconstruction on 7-Scenes and NRGBD." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_2e8a43205e33.png" style="width:850px">
+                          <figcaption><span class="caption-main">Table 1. 3D reconstruction on 7-Scenes and NRGBD.</span><span class="caption-note">7-Scenes length 1000에서 Point3R은 OOM이 발생하지만, FILT3R은 CUT3R/TTT3R보다 accuracy, completion, normal consistency를 안정적으로 유지한다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Pose / Depth Stability Evidence</span>
+                        <figure class="image">
+                          <img alt="Table 2. Long-horizon camera pose on TUM-RGBD." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_dc6ffa3d67c0.png" style="width:760px">
+                          <figcaption><span class="caption-main">Table 2. Long-horizon camera pose on TUM-RGBD.</span><span class="caption-note">논문은 full trajectory alignment가 drift를 숨길 수 있어 origin-aligned ATE를 함께 보고하며, FILT3R이 long sequence에서 drift 누적을 줄인다고 해석한다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 3. Long-horizon video depth on Bonn." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_1206dd81f9e0.png" style="width:760px">
+                          <figcaption><span class="caption-main">Table 3. Long-horizon video depth on Bonn (metric scale).</span><span class="caption-note">Bonn sequence에서 FILT3R은 truncation length가 길어져도 Abs Rel, log RMSE, <span class="inline-equation-token">\(\delta_{1.25}\)</span>가 안정적으로 유지됨을 보인다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 4. Long-horizon metrics vs. sequence length." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_d779ccfaa623.png" style="width:860px">
+                          <figcaption><span class="caption-main">Figure 4. Long-horizon metrics vs. sequence length.</span><span class="caption-note">sequence length가 늘어날 때 FILT3R의 pose/depth error curve가 baseline보다 완만하게 증가한다는 점을 시각적으로 보여준다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Short-horizon / Efficiency / Ablation Evidence</span>
+                        <figure class="image">
+                          <img alt="Table 4. Short-horizon depth controlled streaming comparison." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_82c798248efe.png" style="width:820px">
+                          <figcaption><span class="caption-main">Table 4. Short-horizon depth (controlled streaming comparison).</span><span class="caption-note">FILT3R이 long-horizon stability를 얻는 대신 short-horizon depth를 희생하지 않는지 확인하는 controlled comparison이다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 5. Runtime and GPU memory." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_38523149ca73.png" style="width:520px">
+                          <figcaption><span class="caption-main">Table 5. Runtime and GPU memory (500 frames).</span><span class="caption-note">FILT3R은 attention-map caching을 추가하지 않아 CUT3R과 거의 같은 memory footprint를 유지한다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 5. Peak GPU mem. vs. frames." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_40b2da294170.png" style="width:560px">
+                          <figcaption><span class="caption-main">Figure 5. Peak GPU mem. vs. frames.</span><span class="caption-note">Point3R은 sequence length에 따라 memory가 증가하고 OOM에 도달하지만, FILT3R은 CUT3R과 유사한 constant-memory curve를 보인다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 6. Ablation study of FILT3R components." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_a8d6b786f0fd.png" style="width:820px">
+                          <figcaption><span class="caption-main">Table 6. Ablation study of FILT3R components.</span><span class="caption-note">Fixed-Q, no variance propagation, fixed-beta EMA, adaptive measurement noise 등을 비교해 adaptive process noise와 recursive variance propagation의 역할을 분리한다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Brief</span>
+                          <p>결과를 하나로 묶으면, FILT3R은 “긴 sequence에서 memory를 더 쓰지 않고도 안정성을 얻는다”는 claim을 reconstruction, pose, depth, ablation으로 교차 확인한다.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Drift control</strong><p>origin-aligned ATE와 length-wise curve가 long-horizon drift 감소를 직접 보여줌.</p></article>
+                          <article><strong>No short-horizon penalty</strong><p>short sequence depth 결과에서도 backbone 교체 없이 accuracy가 유지되거나 개선됨.</p></article>
+                          <article><strong>Mechanism isolation</strong><p>variance propagation과 adaptive <span class="inline-equation-token">\(q_t\)</span> 제거 시 성능이 악화되어 update rule의 의미가 분리됨.</p></article>
+                        </div>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="ko-usage">Usage / Limits: 언제 쓰기 좋고 어디서 확인해야 하나</h3>
+                      <p>FILT3R은 recurrent streaming reconstruction model을 이미 갖고 있고, 긴 sequence에서 reset 없이 stable memory를 유지하고 싶은 상황에 잘 맞는다. 다만 candidate state의 drift가 scene change를 충분히 반영한다는 가정과 fixed measurement noise <span class="inline-equation-token">\(r\)</span> 설정은 실제 domain에서 확인해야 한다.</p>
+
+                      <section class="summary-panel usage-fit-box">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>논문의 실험 범위와 방법론 가정을 application 조건으로 정리하면 다음과 같다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table usage-table">
+                            <thead><tr><th>구분</th><th>요약</th><th>이유</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>long-horizon streaming 3D reconstruction</td><td>state를 저장하되 모든 frame을 다시 보지 않는 constant-memory update가 필요.</td></tr>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>frozen recurrent backbone에 lightweight하게 붙이고 싶은 경우</td><td>training-free filtering layer로 설계되어 backbone 재학습 부담이 작음.</td></tr>
+                              <tr><td><span class="summary-term">Check carefully</span></td><td>scene transition이 잦거나 abrupt motion이 큰 video</td><td>normalized drift와 <span class="inline-equation-token">\(q_t\)</span> mapping이 너무 민감하거나 둔감할 수 있음.</td></tr>
+                              <tr><td><span class="summary-term">Limitation</span></td><td>measurement reliability가 token/scene마다 크게 달라지는 경우</td><td>논문은 fixed scalar <span class="inline-equation-token">\(r\)</span>을 anchor로 사용하므로 domain-specific tuning이 필요할 수 있음.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Conclusion">
+                      <h3 id="ko-conclusion">Conclusion: FILT3R이 제안하는 관점</h3>
+                      <p>FILT3R은 streaming 3D reconstruction의 update rule을 단순 interpolation이나 heuristic gate가 아니라 <strong>uncertainty-aware latent filtering</strong>으로 바꾼다. 이 관점에서는 memory를 얼마나 유지할지와 새 candidate를 얼마나 반영할지가 prior variance, process noise, measurement noise의 비율로 결정된다.</p>
+                      <p>논문의 의미는 긴 sequence에서 drift를 줄이는 성능 개선뿐 아니라, recurrent latent memory를 해석 가능한 state estimation 문제로 바꿨다는 데 있다. 특히 frozen backbone을 유지하면서도 token별 variance propagation만 추가해 long-horizon robustness를 얻는다는 점이 실용적이다.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="ko-takeaway">느낀점</h3>
+                      <p>(진행중...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="ko-future-work">향후 계획</h3>
+                      <p>(진행중...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="en">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="en-problem">Problem: why does latent memory drift in long streams?</h3>
+                      <p>FILT3R starts from the failure mode of streaming 3D reconstruction: a recurrent model needs a persistent latent state, but a simple update rule can accumulate drift or forget useful history over long videos. A fixed update coefficient cannot distinguish stable intervals from scene transitions.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. FILT3R enables stable long-horizon streaming 3D reconstruction without resets." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cff3911ca59c.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 1. FILT3R enables stable long-horizon streaming 3D reconstruction without resets.</span><span class="caption-note">The paper contrasts FILT3R with CUT3R-style overwrite and TTT3R-style heuristic gating, especially beyond 600 frames where drift and forgetting become visible.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>The central bottleneck is balancing <strong>history retention</strong> and <strong>new evidence adaptation</strong> under constant-memory streaming.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Streaming constraint</strong><p>Long videos require constant memory instead of storing or attending to every frame.</p></article>
+                          <article><span>02</span><strong>State overwrite</strong><p>Aggressive candidate updates erase accumulated evidence.</p></article>
+                          <article><span>03</span><strong>Fixed update</strong><p>A fixed gain cannot adapt to stable regions and scene changes.</p></article>
+                          <article><span>04</span><strong>FILT3R question</strong><p>Can token-wise uncertainty determine the update coefficient online?</p></article>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work context</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Where does the paper sit?</span>
+                              <p>FILT3R belongs to streaming/recurrent 3D reconstruction, but its key difference is computing the update gate from <strong>recursive uncertainty propagation</strong> rather than attention heuristics.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>Lineage</th><th>Role</th><th>Difference</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">CUT3R / Spann3R / SLAM3R</span></td><td>bounded-memory online reconstruction</td><td>The update can still accumulate drift or forgetting in long horizons.</td></tr>
+                                  <tr><td><span class="summary-term">Point3R / Stream3R / StreamVGGT</span></td><td>memory and latency for streaming reconstruction</td><td>The memory/update mechanism is not explicit latent Kalman filtering.</td></tr>
+                                  <tr><td><span class="summary-term">TTT3R / TTSA3R / MUT3R</span></td><td>training-free or test-time update signals</td><td>They do not propagate a recursive posterior uncertainty over time.</td></tr>
+                                  <tr><td><span class="summary-term">Kalman filtering</span></td><td>state update using belief, measurement, and process noise</td><td>FILT3R applies this idea to latent token memory.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="en-mechanism">Mechanism: how is Kalman-style gain applied to latent tokens?</h3>
+                      <p>The method has three pieces: interpret recurrent memory as a state-space model, propagate token-wise variance and Kalman gain, and estimate adaptive process noise from candidate-state drift.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 2. FILT3R overview." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_29514e0ed263.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 2. FILT3R overview.</span><span class="caption-note">Persistent memory <span class="inline-equation-token">\(s_{t-1}\)</span> and decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span> are fused with a Kalman gain <span class="inline-equation-token">\(k_t\)</span>, while posterior variance <span class="inline-equation-token">\(p_t\)</span> is propagated to the next step.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>The update still looks like interpolation, but the coefficient is derived from the ratio between <strong>prior uncertainty and measurement noise</strong>.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Component</th><th>Meaning</th><th>Why it matters</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(s_t\)</span></span></td><td>persistent latent memory / belief state</td><td>stores accumulated scene evidence.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\tilde{s}_t\)</span></span></td><td>noisy candidate measurement from the frozen decoder</td><td>brings in current-frame evidence.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(p_t\)</span></span></td><td>token-wise posterior variance</td><td>reduces gain as confidence accumulates.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(q_t\)</span></span></td><td>token-wise process noise</td><td>raises gain during scene changes or large latent drift.</td></tr>
+                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(r\)</span></span></td><td>fixed scalar measurement noise</td><td>anchors decoder measurement reliability.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. Latent state-space model</span>
+                        <p>The decoder candidate is treated as a noisy observation of the current state. Measurement noise represents decoder reliability, while process noise represents latent scene change.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+s_t = s_{t-1}+w_t,\qquad w_t\sim\mathcal{N}(0,Q_t) \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">State transition model for latent memory.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\tilde{s}_t = s_t+v_t,\qquad v_t\sim\mathcal{N}(0,R) \tag{2}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">The decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span> is interpreted as a noisy measurement.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Variance and Kalman gain update</span>
+                        <p>FILT3R approximates covariance by token-wise isotropic scalar variance. The update is elementwise with <span class="inline-equation-token">\(Q_t=\operatorname{diag}(q_t)\)</span> and <span class="inline-equation-token">\(P_t=\operatorname{diag}(p_t)\)</span>.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+p_t^- = p_{t-1}+q_t \tag{3}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Prior variance before applying the candidate measurement.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+k_t = \frac{p_t^-}{p_t^-+r} \tag{4}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Token-wise Kalman gain. Larger prior variance increases reliance on the candidate.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+s_t = s_{t-1}+k_t\odot(\tilde{s}_t-s_{t-1}) \tag{5}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Core FILT3R state update.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+p_t = (1-k_t)^2\odot p_t^- + r k_t^2 \tag{6}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Scalar Joseph-form posterior variance update.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Adaptive process noise</span>
+                        <p>Process noise reflects how much the latent scene changes. FILT3R estimates it from consecutive candidate-state drift normalized by an EMA baseline.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+q_{t,i}=q_{\min}+(q_{\max}-q_{\min})\cdot
+\sigma\!\left(\alpha_q(g_{t,i}-\tau_q)\right) \tag{7}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Mapping normalized drift to token-wise process noise.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+g_{t,i}=\frac{\Delta_{t,i}}{\hat{\Delta}_t} \tag{8}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Normalized token drift.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{\Delta}_t=(1-\lambda_\Delta)\hat{\Delta}_{t-1}+\lambda_\Delta\bar{\Delta}_t \tag{9}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">EMA baseline for stream-level mean drift.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\bar{\Delta}_t:=\frac{1}{N}\sum_i\Delta_{t,i},\qquad
+\Delta_{t,i}=\left\lVert\tilde{s}_{t,i}-\tilde{s}_{t-1,i}\right\rVert_2 \tag{10}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Candidate-state token drift and its average.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Numerical stability conditions</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">Implementation safeguards</span>
+                              <p>The paper also specifies practical safeguards against division instability and gain spikes.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>Condition</th><th>Where</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">small <span class="inline-equation-token">\(\epsilon\)</span></span></td><td>denominators in Eq. (4) and Eq. (8)</td><td>prevents near-zero division.</td></tr>
+                                  <tr><td><span class="summary-term">gain clamp</span></td><td><span class="inline-equation-token">\(k_t\in[k_{\min},k_{\max}]\)</span></td><td>avoids complete overwrite or complete rejection.</td></tr>
+                                  <tr><td><span class="summary-term">EMA floor</span></td><td><span class="inline-equation-token">\(\hat{\Delta}_t\ge \Delta_{\mathrm{floor}}\)</span></td><td>keeps normalized drift stable in low-motion intervals.</td></tr>
+                                  <tr><td><span class="summary-term">fixed scalar <span class="inline-equation-token">\(r\)</span></span></td><td>measurement noise</td><td>keeps adaptivity focused on process noise.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="en-evidence">Evidence: which evaluations support long-horizon stability?</h3>
+                      <p>The evaluation is built around reconstruction, pose, depth, short-horizon checks, efficiency, and ablations. The central claim is that FILT3R slows long-horizon drift without increasing memory.</p>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Roadmap</span>
+                          <p>The results separate long-horizon stability from possible short-horizon or efficiency trade-offs.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Long-horizon geometry</strong><p>Reconstruction, pose, and depth on 7-Scenes, NRGBD, TUM-RGBD, and Bonn.</p></article>
+                          <article><strong>Short-horizon check</strong><p>Depth on Sintel, Bonn, and KITTI to test whether stability hurts short sequences.</p></article>
+                          <article><strong>Mechanism evidence</strong><p>Runtime, memory, and ablations isolate adaptive <span class="inline-equation-token">\(q_t\)</span> and variance propagation.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Long-horizon Reconstruction Evidence</span>
+                        <figure class="image">
+                          <img alt="Figure 3. Qualitative long-horizon streaming 3D reconstruction." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cbec9884cb46.png" style="width:760px">
+                          <figcaption><span class="caption-main">Figure 3. Qualitative long-horizon streaming 3D reconstruction.</span><span class="caption-note">The qualitative comparison shows that FILT3R preserves geometry more stably in long streams than CUT3R and TTT3R.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 1. 3D reconstruction on 7-Scenes and NRGBD." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_2e8a43205e33.png" style="width:850px">
+                          <figcaption><span class="caption-main">Table 1. 3D reconstruction on 7-Scenes and NRGBD.</span><span class="caption-note">On 7-Scenes length 1000, Point3R runs out of memory while FILT3R keeps stronger accuracy, completion, and normal consistency than CUT3R/TTT3R.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Pose / Depth Stability Evidence</span>
+                        <figure class="image">
+                          <img alt="Table 2. Long-horizon camera pose on TUM-RGBD." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_dc6ffa3d67c0.png" style="width:760px">
+                          <figcaption><span class="caption-main">Table 2. Long-horizon camera pose on TUM-RGBD.</span><span class="caption-note">The paper reports origin-aligned ATE because full trajectory alignment can hide accumulated drift.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 3. Long-horizon video depth on Bonn." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_1206dd81f9e0.png" style="width:760px">
+                          <figcaption><span class="caption-main">Table 3. Long-horizon video depth on Bonn (metric scale).</span><span class="caption-note">FILT3R keeps depth metrics stable across truncation lengths, including Abs Rel, log RMSE, and <span class="inline-equation-token">\(\delta_{1.25}\)</span>.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 4. Long-horizon metrics vs. sequence length." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_d779ccfaa623.png" style="width:860px">
+                          <figcaption><span class="caption-main">Figure 4. Long-horizon metrics vs. sequence length.</span><span class="caption-note">The length-wise curves visualize slower error growth for FILT3R in pose and depth metrics.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Short-horizon / Efficiency / Ablation Evidence</span>
+                        <figure class="image">
+                          <img alt="Table 4. Short-horizon depth controlled streaming comparison." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_82c798248efe.png" style="width:820px">
+                          <figcaption><span class="caption-main">Table 4. Short-horizon depth (controlled streaming comparison).</span><span class="caption-note">The controlled comparison checks that long-horizon stability does not come from sacrificing short-horizon depth performance.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 5. Runtime and GPU memory." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_38523149ca73.png" style="width:520px">
+                          <figcaption><span class="caption-main">Table 5. Runtime and GPU memory (500 frames).</span><span class="caption-note">FILT3R keeps nearly the same memory footprint as CUT3R because it does not add attention-map caching.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 5. Peak GPU mem. vs. frames." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_40b2da294170.png" style="width:560px">
+                          <figcaption><span class="caption-main">Figure 5. Peak GPU mem. vs. frames.</span><span class="caption-note">Point3R memory grows with sequence length, while FILT3R follows CUT3R's constant-memory behavior.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table 6. Ablation study of FILT3R components." loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_a8d6b786f0fd.png" style="width:820px">
+                          <figcaption><span class="caption-main">Table 6. Ablation study of FILT3R components.</span><span class="caption-note">The ablations separate the roles of fixed-Q, variance propagation, fixed-beta EMA, and adaptive measurement noise.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Brief</span>
+                          <p>Together, the results support the claim that FILT3R improves long-horizon stability without increasing memory.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Drift control</strong><p>Origin-aligned ATE and length-wise curves directly probe long-horizon drift.</p></article>
+                          <article><strong>No short-horizon penalty</strong><p>Short-sequence depth remains competitive or improves.</p></article>
+                          <article><strong>Mechanism isolation</strong><p>Removing adaptive <span class="inline-equation-token">\(q_t\)</span> or variance propagation hurts performance.</p></article>
+                        </div>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="en-usage">Usage / Limits: when is FILT3R useful?</h3>
+                      <p>FILT3R is most useful when a recurrent streaming reconstruction model already exists and long videos must be processed without resets. It should be checked carefully when scene transitions are abrupt or when measurement reliability varies strongly by domain.</p>
+
+                      <section class="summary-panel usage-fit-box">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>The paper's assumptions and evaluations translate into the following application conditions.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table usage-table">
+                            <thead><tr><th>Category</th><th>Summary</th><th>Reason</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>long-horizon streaming 3D reconstruction</td><td>constant-memory updates are required.</td></tr>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>lightweight add-on for a frozen recurrent backbone</td><td>the filtering layer is training-free.</td></tr>
+                              <tr><td><span class="summary-term">Check carefully</span></td><td>videos with abrupt scene transitions or large motion</td><td>the mapping from normalized drift to <span class="inline-equation-token">\(q_t\)</span> may need tuning.</td></tr>
+                              <tr><td><span class="summary-term">Limitation</span></td><td>domains with highly variable measurement reliability</td><td>the paper uses a fixed scalar <span class="inline-equation-token">\(r\)</span>.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Conclusion">
+                      <h3 id="en-conclusion">Conclusion: what viewpoint does FILT3R add?</h3>
+                      <p>FILT3R changes the state update in streaming 3D reconstruction from simple interpolation or heuristic gating into <strong>uncertainty-aware latent filtering</strong>. The balance between retaining memory and accepting a new candidate is determined by prior variance, process noise, and measurement noise.</p>
+                      <p>The paper is important not only because it reduces long-horizon drift, but also because it gives recurrent latent memory a state-estimation interpretation. A frozen backbone can gain robustness by propagating token-wise variance across time.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="en-takeaway">Takeaway</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="en-future-work">Future Work</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-more is-visible" id="deepDiveMore">
+                    <button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+          <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+          <script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div aria-hidden="true" class="lightbox" id="lightbox">
+    <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+    <img alt="preview" id="lightboxImg">
+  </div>
+
+  <script src="script.js?v=filt3r-redesign-20260530"></script>
+</body>
+</html>

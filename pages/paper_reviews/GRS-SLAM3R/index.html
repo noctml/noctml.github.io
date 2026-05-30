@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
+  <title>GRS-SLAM3R Paper Review</title>
+  <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
+  <meta content="GRS-SLAM3R Paper Review" property="og:title">
+  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta content="website" property="og:type">
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
+  <link href="styles.css?v=grs-slam3r-redesign-20260530" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+</head>
+<body>
+  <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+  <div class="layout" id="top">
+    <aside aria-label="Paper section bookmark" class="sidebar">
+      <div class="sidebar-card">
+        <nav aria-label="Paper section bookmark" class="section-bookmark">
+          <div class="bookmark-status">
+            <span class="bookmark-eyebrow">Now Reading</span>
+            <strong id="currentSectionLabel">핵심 요약</strong>
+          </div>
+          <div class="bookmark-list" id="sectionBookmarkList"></div>
+        </nav>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brandline">
+            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+            </a>
+            <span class="brandtext">Paper Reviews</span>
+          </div>
+          <div class="top-actions">
+            <button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+              <span data-lang-option="ko">KO</span>
+              <span data-lang-option="en">EN</span>
+            </button>
+            <button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+              <span aria-hidden="true" id="themeIcon">☀</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="container" id="main">
+        <section class="section">
+          <div class="panel">
+            <header class="paper-identity">
+              <p class="paper-title-meta">GRS-SLAM3R: Real-Time Dense SLAM with Gated Recurrent State</p>
+              <div class="paper-meta-card">
+                <div class="paper-meta-top"><span class="paper-meta-venue">ICRA 2026 submission</span><span class="paper-meta-date">28 Sep 2025</span></div>
+                <dl class="paper-meta-grid">
+                  <div class="paper-meta-item"><dt>Authors</dt><dd>Guole Shen; Tianchen Deng; Yanbo Wang; Yongtao Chen; Yilin Shen; Jiuming Liu; Jingchuan Wang</dd></div>
+                  <div class="paper-meta-item"><dt>Affiliations</dt><dd>Shanghai Jiao Tong University</dd></div>
+                </dl>
+                <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2509.23737" rel="noreferrer" target="_blank">Paper</a></nav>
+                <div aria-label="Paper topics" class="paper-meta-topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#Dense SLAM</span><span class="paper-topic-chip">#DUSt3R</span><span class="paper-topic-chip">#Recurrent State</span><span class="paper-topic-chip">#Submap</span></div></div>
+              </div>
+            </header>
+
+            <div class="post-body">
+              <section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+                <div class="paper-map-head">
+                  <h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+                  <p data-en-html="GRS-SLAM3R extends DUSt3R-style pointmap prediction into &lt;strong&gt;real-time RGB-only dense SLAM&lt;/strong&gt; by managing latent memory with gates and splitting long trajectories into aligned submaps." data-ko-html="GRS-SLAM3R은 DUSt3R식 pointmap prediction을 &lt;strong&gt;real-time RGB-only dense SLAM&lt;/strong&gt;으로 확장하기 위해 latent memory를 gate로 관리하고 긴 trajectory를 submap 단위로 정렬한다.">GRS-SLAM3R은 DUSt3R식 pointmap prediction을 <strong>real-time RGB-only dense SLAM</strong>으로 확장하기 위해 latent memory를 gate로 관리하고 긴 trajectory를 submap 단위로 정렬한다.</p>
+                </div>
+
+                <div class="tldr-cues">
+                  <span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Pairwise 3D is not SLAM" data-ko="pairwise 3D만으로는 SLAM 부족">pairwise 3D만으로는 SLAM 부족</small></span>
+                  <span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Gated state + submap" data-ko="gated state + submap">gated state + submap</small></span>
+                  <span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="ATE / reconstruction / FPS" data-ko="ATE / reconstruction / FPS">ATE / reconstruction / FPS</small></span>
+                </div>
+
+                <div class="map-grid">
+                  <article class="map-card map-card-wide">
+                    <span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+                    <p data-en-html="The paper turns continuous RGB frames into dense world-frame point clouds and camera poses by combining &lt;strong&gt;gated recurrent spatial memory&lt;/strong&gt; with keyframe-based local and inter-submap alignment." data-ko-html="이 논문은 &lt;strong&gt;gated recurrent spatial memory&lt;/strong&gt;와 keyframe 기반 local/inter-submap alignment를 결합해 연속 RGB frame에서 dense world-frame point cloud와 camera pose를 실시간으로 추정한다.">이 논문은 <strong>gated recurrent spatial memory</strong>와 keyframe 기반 local/inter-submap alignment를 결합해 연속 RGB frame에서 dense world-frame point cloud와 camera pose를 실시간으로 추정한다.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 01</span>
+                    <h3>Gated Recurrent State</h3>
+                    <p data-en="Uses reset/update gates to decide which memory tokens to suppress, preserve, or update." data-ko="reset/update gate로 어떤 memory token을 억제, 보존, 업데이트할지 결정.">reset/update gate로 어떤 memory token을 억제, 보존, 업데이트할지 결정.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 02</span>
+                    <h3>World-frame Dense Output</h3>
+                    <p data-en="Predicts local pointmaps, world-frame pointmaps, confidence maps, and 6-DoF poses from RGB." data-ko="RGB에서 local pointmap, world-frame pointmap, confidence, 6-DoF pose를 함께 출력.">RGB에서 local pointmap, world-frame pointmap, confidence, 6-DoF pose를 함께 출력.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 03</span>
+                    <h3>Hierarchical Submap Alignment</h3>
+                    <p data-en="Limits recurrent drift by resetting memory per submap and aligning submaps through pose-graph registration." data-ko="submap별 memory reset과 pose-graph registration으로 recurrent drift 전파를 제한.">submap별 memory reset과 pose-graph registration으로 recurrent drift 전파를 제한.</p>
+                  </article>
+                  <article class="map-card">
+                    <span class="map-label">Contribution 04</span>
+                    <h3>Real-time Dense SLAM</h3>
+                    <p data-en="Targets online dense reconstruction and pose estimation at real-time speed on a single RTX 4090." data-ko="single RTX 4090에서 online dense reconstruction과 pose estimation을 real-time 수준으로 수행.">single RTX 4090에서 online dense reconstruction과 pose estimation을 real-time 수준으로 수행.</p>
+                  </article>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
+                <div aria-label="GRS-SLAM3R pipeline" class="flow-diagram">
+                  <div class="flow-step"><span>01</span><strong>RGB Stream</strong><small>monocular input</small></div>
+                  <div class="flow-step"><span>02</span><strong>Encoder</strong><small>frame tokens</small></div>
+                  <div class="flow-step"><span>03</span><strong>Reset Gate</strong><small>memory filtering</small></div>
+                  <div class="flow-step"><span>04</span><strong>Decoder</strong><small>memory-image fusion</small></div>
+                  <div class="flow-step"><span>05</span><strong>Update Gate</strong><small>state update</small></div>
+                  <div class="flow-step"><span>06</span><strong>Submap Align</strong><small>global consistency</small></div>
+                </div>
+
+                <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
+                <div class="compare-grid">
+                  <article>
+                    <span class="compare-kicker">DUSt3R / MASt3R</span>
+                    <h3 data-en="Pairwise 3D prior" data-ko="pairwise 3D prior">pairwise 3D prior</h3>
+                    <p data-en="Strong pointmap prediction, but not enough by itself for online memory and global SLAM consistency." data-ko="pointmap prediction은 강하지만 online memory와 global SLAM consistency를 단독으로 보장하기 어려움.">pointmap prediction은 강하지만 online memory와 global SLAM consistency를 단독으로 보장하기 어려움.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">CUT3R / SLAM3R</span>
+                    <h3 data-en="Continuous reconstruction" data-ko="continuous reconstruction">continuous reconstruction</h3>
+                    <p data-en="Moves toward online reconstruction, but long-sequence spatial memory and drift control remain difficult." data-ko="online reconstruction으로 확장하지만 긴 sequence의 spatial memory와 drift control이 여전히 어려움.">online reconstruction으로 확장하지만 긴 sequence의 spatial memory와 drift control이 여전히 어려움.</p>
+                  </article>
+                  <article>
+                    <span class="compare-kicker">GRS-SLAM3R</span>
+                    <h3 data-en="Gated memory + submaps" data-ko="gated memory + submaps">gated memory + submaps</h3>
+                    <p data-en="Combines selective recurrent memory update with local and global submap alignment for RGB-only dense SLAM." data-ko="선택적 recurrent memory update와 local/global submap alignment를 결합해 RGB-only dense SLAM으로 구성.">선택적 recurrent memory update와 local/global submap alignment를 결합해 RGB-only dense SLAM으로 구성.</p>
+                  </article>
+                </div>
+              </section>
+
+              <section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+                <h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+                <p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper's core content while folding background, notation, and auxiliary material." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
+
+                <div class="deep-dive-body">
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="ko-problem">Problem: DUSt3R 계열을 왜 바로 SLAM으로 쓰기 어려운가</h3>
+                      <p>GRS-SLAM3R의 출발점은 DUSt3R 기반 end-to-end reconstruction이 camera calibration 없이 dense 3D를 잘 예측하지만, 대개 image pair 또는 short sequence 중심이라 <strong>online SLAM에 필요한 장기 spatial memory와 global consistency</strong>가 부족하다는 점이다.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. Scene Reconstruction Performance." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 1. Scene Reconstruction Performance.</span><span class="caption-note">논문은 GRS-SLAM3R이 RGB-only 입력으로 dense reconstruction과 tracking을 동시에 유지한다는 점을 시각적으로 제시한다.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>문제는 “좋은 pointmap prior” 자체보다, 그 prior를 <strong>시간적으로 누적하고 전체 map으로 묶는 방식</strong>에 있다.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Dense SLAM target</strong><p>pose와 dense geometry를 RGB stream에서 동시에 얻어야 함.</p></article>
+                          <article><span>02</span><strong>Pairwise limitation</strong><p>image pair prediction은 spatial memory와 long-term consistency를 직접 제공하지 않음.</p></article>
+                          <article><span>03</span><strong>Memory contamination</strong><p>오래된 memory나 noisy observation이 누적되면 latent state가 drift함.</p></article>
+                          <article><span>04</span><strong>Submap need</strong><p>긴 sequence에서는 하나의 recurrent state만으로 global drift를 제한하기 어려움.</p></article>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work 맥락 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">관련 연구를 어떻게 나눠 볼까</span>
+                              <p>논문은 dense monocular SLAM, 3D reconstruction, DUSt3R 기반 online reconstruction을 비교하며, 자신들의 위치를 <strong>real-time RGB-only dense SLAM</strong>으로 잡는다.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>계열</th><th>강점</th><th>GRS-SLAM3R의 문제의식</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">Sparse / feature SLAM</span></td><td>빠르고 안정적인 tracking</td><td>dense geometry가 부족해 planning/collision avoidance에 한계.</td></tr>
+                                  <tr><td><span class="summary-term">NeRF / 3DGS SLAM</span></td><td>고품질 dense representation</td><td>depth, intrinsics, per-scene optimization에 의존하거나 실시간성이 약할 수 있음.</td></tr>
+                                  <tr><td><span class="summary-term">DUSt3R / MASt3R</span></td><td>camera-free pointmap prediction</td><td>pairwise 3D prior를 online SLAM memory로 확장해야 함.</td></tr>
+                                  <tr><td><span class="summary-term">CUT3R / SLAM3R</span></td><td>continuous reconstruction 방향</td><td>spatial memory update/forgetting과 long sequence drift를 더 직접적으로 다룰 필요.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="ko-mechanism">Mechanism: gated recurrent state와 submap이 어떻게 맞물리나</h3>
+                      <p>방법론은 두 축으로 정리된다. Frontend는 gated recurrent state로 frame-level pointmap과 pose를 예측하고, backend는 keyframe/submap 구조로 local alignment와 inter-submap pose graph를 수행한다.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 2. System overview." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_059c944f8bab.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 2. System overview.</span><span class="caption-note">왼쪽은 gated recurrent state를 이용한 dense reconstruction frontend, 오른쪽은 keyframe/submap 기반 hierarchical alignment를 보여준다.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>GRS-SLAM3R은 하나의 latent state를 무작정 누적하지 않고, gate로 memory를 선택적으로 업데이트한 뒤 submap 단위로 drift를 끊는다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>모듈</th><th>담당하는 문제</th><th>출력/효과</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Encoder</span></td><td>현재 frame을 token representation으로 변환</td><td><span class="inline-equation-token">\(F_t\)</span></td></tr>
+                              <tr><td><span class="summary-term">Reset gate</span></td><td>현재 관측과 결합하기 전에 irrelevant memory 억제</td><td><span class="inline-equation-token">\(M_t^{\mathrm{reset}}\)</span></td></tr>
+                              <tr><td><span class="summary-term">Decoder</span></td><td>memory token, image token, pose token 사이 정보 교환</td><td>candidate memory와 enriched feature</td></tr>
+                              <tr><td><span class="summary-term">Update gate</span></td><td>새 memory와 이전 memory의 비율 결정</td><td><span class="inline-equation-token">\(M_t\)</span></td></tr>
+                              <tr><td><span class="summary-term">Submap alignment</span></td><td>long sequence drift를 submap 단위로 제한</td><td>local map과 global pose graph</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. Frame token과 gate 계산</span>
+                        <p>입력은 monocular RGB sequence <span class="inline-equation-token">\(\{I_t\}_{t=1}^{N}\)</span>이고, 목표 출력은 dense point cloud <span class="inline-equation-token">\(X_t\)</span>, confidence <span class="inline-equation-token">\(C_t\)</span>, camera pose <span class="inline-equation-token">\(P_t\)</span>다. 먼저 encoder가 현재 frame token을 만든다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+F_t=\operatorname{Encoder}(I_t) \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">현재 RGB image <span class="inline-equation-token">\(I_t\)</span>를 token feature <span class="inline-equation-token">\(F_t\)</span>로 변환.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+R_t=G_r(M_{t-1},F_t),\qquad U_t=G_u(M_{t-1},F_t) \tag{2}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">reset gate <span class="inline-equation-token">\(R_t\)</span>와 update gate <span class="inline-equation-token">\(U_t\)</span>를 이전 memory와 현재 feature에서 계산.</span></figcaption>
+                          </figure>
+                        </div>
+
+                        <figure class="image">
+                          <img alt="Figure 3. Gate structure." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_42c53333ea5f.png" style="width:560px">
+                          <figcaption><span class="caption-main">Figure 3. Gate structure.</span><span class="caption-note">reset/update gate는 memory token과 current frame token을 함께 보고, suppress할 과거 정보와 carry할 정보를 나눠 결정한다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Memory reset, decoder, update</span>
+                        <p>Reset gate는 오래되었거나 현재 관측과 맞지 않는 memory component를 줄인다. 그 뒤 decoder는 reset memory, pose token, frame token을 함께 처리해 candidate memory와 frame feature를 갱신한다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+M_t^{\mathrm{reset}}=R_t\odot M_{t-1} \tag{3}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">reset gate를 elementwise로 적용해 irrelevant memory를 억제.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+[\hat{M}_t,z'_t\oplus F'_t]
+=\operatorname{Decoder}([M_t^{\mathrm{reset}},z_t\oplus F_t]) \tag{4}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">memory token, pose token, image token을 decoder에서 함께 갱신.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+M_t=U_t\odot\hat{M}_t+(1-U_t)\odot M_{t-1} \tag{5}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">update gate로 candidate memory와 이전 memory를 섞는 GRU-like update.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Pointmap / pose heads</span>
+                        <p>Decoder 이후에는 local camera frame과 global world frame의 pointmap을 모두 예측한다. 논문이 DUSt3R와 달리 world coordinate pointmap을 직접 출력한다고 강조하는 이유가 여기에 있다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{X}_t^{\mathrm{self}},\hat{C}_t^{\mathrm{self}}
+=\operatorname{Head}_{\mathrm{self}}(F'_t) \tag{6}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">local camera frame의 dense pointmap과 confidence를 출력.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{X}_t^{\mathrm{world}},\hat{C}_t^{\mathrm{world}}
+=\operatorname{Head}_{\mathrm{world}}(F'_t,z'_t) \tag{7}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">world coordinate의 metric-scale pointmap과 confidence를 출력.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{P}_t=\operatorname{Head}_{\mathrm{pose}}(z'_t) \tag{8}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">pose token에서 6-DoF camera pose를 예측.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">4. Hierarchical submap alignment</span>
+                        <p>새 frame이 마지막 keyframe이나 submap anchor와 충분히 겹치지 않으면 keyframe 또는 새 submap을 만든다. 이렇게 submap 단위로 latent memory를 reset하면 long-horizon recurrent drift가 전체 trajectory로 계속 전파되는 것을 줄일 수 있다.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+L_{\mathrm{local}}^{S}
+=\sum_{e\in E_S}\sum_{v\in e}\sum_{i=1}^{HW}
+C_i^{v,e}
+\left\lVert
+\xi_i^{v,S}-\sigma_e^S P_e^S X_i^{v,e}
+\right\rVert \tag{9}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">submap 내부에서 pairwise pointmap을 local coordinate에 맞추는 alignment loss.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\min_{\{T_s\}}
+\sum_{(u,v)\in E}
+\left\lVert
+\log(\Delta T_{u,v}^{-1}T_u^{-1}T_v)
+\right\rVert_{\Sigma}^{2}
++
+\left\lVert
+\log(T_{s_0}^{-1}\bar{T}_{s_0})
+\right\rVert_{\Sigma_0}^{2} \tag{10}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">submap pose를 node로 두고 adjacent/loop constraint를 edge로 두는 pose-graph optimization.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Training loss와 notation 보기</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">학습 objective는 무엇을 맞추나</span>
+                              <p>학습은 CUT3R을 따라 confidence-weighted 3D regression loss와 pose loss를 사용한다. 방법론의 핵심은 gate/submap이므로 loss 식은 보조로 접어둔다.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>기호</th><th>의미</th><th>역할</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term"><span class="inline-equation-token">\(\hat{x}_i\)</span>, <span class="inline-equation-token">\(x_i\)</span></span></td><td>예측/GT 3D point</td><td>scale-normalized pointmap supervision.</td></tr>
+                                  <tr><td><span class="summary-term"><span class="inline-equation-token">\(c_i\)</span></span></td><td>confidence</td><td>hard pixel 영향 조절, confidence collapse는 <span class="inline-equation-token">\(-\beta\log c_i\)</span>로 방지.</td></tr>
+                                  <tr><td><span class="summary-term"><span class="inline-equation-token">\(\hat{q}_t\)</span>, <span class="inline-equation-token">\(\hat{\tau}_t\)</span></span></td><td>예측 pose의 rotation/translation</td><td>pose supervision을 rotation과 scale-normalized translation으로 분리.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+L_{\mathrm{regr}}
+=\sum_{i=1}^{M}
+\left(
+c_i\left\lVert \frac{\hat{x}_i}{\hat{s}}-\frac{x_i}{s}\right\rVert_2
+-\beta\log c_i
+\right) \tag{11}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">confidence-weighted, scale-aware 3D regression loss.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+L_{\mathrm{pose}}
+=\sum_{t=1}^{N}
+\left(
+\left\lVert\hat{q}_t-q_t\right\rVert_2
++
+\left\lVert\frac{\hat{\tau}_t}{\hat{s}}-\frac{\tau_t}{s}\right\rVert_2
+\right) \tag{12}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">rotation quaternion과 scale-normalized translation을 함께 맞추는 pose loss.</span></figcaption>
+                          </figure>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="ko-evidence">Evidence: pose, reconstruction, runtime을 어떻게 검증했나</h3>
+                      <p>평가는 camera pose accuracy, surface reconstruction, real-time performance, ablation으로 구성된다. Test dataset은 NRGBD, 7-Scenes, Apartment, NES이며, tracking은 ATE-RMSE, reconstruction은 accuracy/completeness를 중심으로 본다.</p>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Roadmap</span>
+                          <p>이 논문은 task를 dataset 이름보다 “SLAM 시스템으로서 무엇을 만족하는가”에 맞춰 읽는 편이 좋다.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Tracking</strong><p>7-Scenes ATE-RMSE로 frame별 pose 안정성 확인.</p></article>
+                          <article><strong>Dense map</strong><p>NRGBD, 7-Scenes, Apartment, NES에서 reconstruction quality 확인.</p></article>
+                          <article><strong>System evidence</strong><p>FPS와 ablation으로 gate/local alignment/submap의 역할 확인.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Pose Evidence</span>
+                        <figure class="image">
+                          <img alt="Table I. Pose estimation on 7Scenes dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png" style="width:640px">
+                          <figcaption><span class="caption-main">Table I. Pose estimation on 7Scenes dataset.</span><span class="caption-note">7-Scenes에서 per-scene ATE RMSE를 cm 단위로 보고하며, GRS-SLAM3R은 평균 8.27cm로 CUT3R과 MASt3R-SLAM보다 낮다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Surface Reconstruction Evidence</span>
+                        <figure class="image">
+                          <img alt="Table II. Reconstruction results on the NRGBD dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png" style="width:620px">
+                          <figcaption><span class="caption-main">Table II. Reconstruction results on the NRGBD dataset.</span><span class="caption-note">NRGBD에서 mean accuracy/completion이 CUT3R보다 낮아 sparse sampling과 작은 overlap에서도 recurrent memory가 geometry를 유지함을 보인다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table III. Reconstruction results and runtime on 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png" style="width:860px">
+                          <figcaption><span class="caption-main">Table III. Reconstruction results and runtime (FPS) on 7Scenes.</span><span class="caption-note">GRS-SLAM3R은 7-Scenes에서 reconstruction accuracy/completion과 약 15 FPS의 runtime을 함께 보고해 accuracy-speed trade-off를 강조한다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d2a2c52f6331.png" style="width:860px">
+                          <figcaption><span class="caption-main">Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes.</span><span class="caption-note">red outline은 낮은 predictive accuracy, green outline은 높은 accuracy, yellow는 ground truth를 나타내며, 제안 방법이 local geometry를 더 안정적으로 유지하는 예시다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 5. Qualitative scene reconstruction results on the NES dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d7ad9def0549.png" style="width:860px">
+                          <figcaption><span class="caption-main">Figure 5. Qualitative scene reconstruction results on the NES dataset.</span><span class="caption-note">긴 corridor와 큰 trajectory에서 기존 방법은 drift, breaking, scale shrinkage를 보이지만, GRS-SLAM3R은 submap alignment로 corridor structure와 scale을 더 안정적으로 유지한다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table IV. Quantitative results on the Apartment dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png" style="width:640px">
+                          <figcaption><span class="caption-main">Table IV. Quantitative results on the Apartment dataset.</span><span class="caption-note">약 <span class="inline-equation-token">\(100m^2\)</span> 규모의 multi-room scene에서 accuracy, completion, ATE를 함께 보고해 large-scale setting의 drift를 확인한다.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Runtime / Ablation Evidence</span>
+                        <figure class="image">
+                          <img alt="Figure 6. Ablation on Gated Recurrent model." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c42ba2668029.png" style="width:640px">
+                          <figcaption><span class="caption-main">Figure 6. Ablation on Gated Recurrent model.</span><span class="caption-note">gate가 없으면 latent state를 제대로 조절하지 못해 inconsistent geometry가 누적되고, gated update는 새 observation을 선택적으로 통합한다.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table V. Ablation of Gate, Local Align, and Submap." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png" style="width:640px">
+                          <figcaption><span class="caption-main">Table V. Ablation of Gate, Local Align, and Submap.</span><span class="caption-note">Gate, local align, submap을 모두 제거하면 error와 ATE가 크게 악화되고, 세 구성요소를 함께 사용할 때 가장 좋은 결과를 보인다.</span></figcaption>
+                        </figure>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="ko-usage">Usage / Limits: 어떤 상황에 잘 맞나</h3>
+                      <p>GRS-SLAM3R은 RGB-only 입력으로 dense geometry와 pose를 동시에 얻고 싶고, offline global alignment보다 빠른 online 동작이 필요한 상황에 잘 맞는다. 반면 하나의 실시간 시스템이므로, 매우 큰 loop closure나 domain gap이 큰 outdoor scene에서는 submap registration 품질과 covisibility threshold를 따로 확인해야 한다.</p>
+
+                      <section class="summary-panel usage-fit-box">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>논문의 실험과 구조를 application 조건으로 정리하면 다음과 같다.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table usage-table">
+                            <thead><tr><th>구분</th><th>요약</th><th>이유</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>RGB-only dense indoor SLAM</td><td>depth나 camera intrinsics 없이 dense point cloud와 pose를 함께 출력.</td></tr>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>real-time reconstruction이 중요한 경우</td><td>offline global alignment 계열보다 빠른 online pipeline을 목표로 함.</td></tr>
+                              <tr><td><span class="summary-term">Check carefully</span></td><td>long corridor, large loop, weak overlap</td><td>submap split과 pose graph constraint 품질이 전체 drift를 좌우.</td></tr>
+                              <tr><td><span class="summary-term">Limitation</span></td><td>정밀한 metric map이 최우선인 경우</td><td>online speed와 dense reconstruction을 함께 노리므로 추가 refinement가 필요할 수 있음.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Conclusion">
+                      <h3 id="ko-conclusion">Conclusion: 이 논문이 주는 관점</h3>
+                      <p>GRS-SLAM3R의 핵심은 DUSt3R 계열의 강한 3D prior를 online SLAM으로 가져오되, recurrent state를 단순 누적하지 않고 <strong>gate와 submap으로 관리</strong>한다는 점이다. Reset/update gate는 memory contamination을 줄이고, submap alignment는 long-range drift가 하나의 latent state에 계속 쌓이는 문제를 끊어준다.</p>
+                      <p>따라서 이 논문은 “pairwise 3D foundation model을 SLAM 시스템으로 바꾸려면 무엇이 필요한가”에 대한 하나의 답으로 볼 수 있다. 좋은 pointmap predictor만으로는 부족하고, memory update, keyframe policy, local/global alignment가 함께 설계되어야 한다.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="ko-takeaway">느낀점</h3>
+                      <p>(진행중...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="ko-future-work">향후 계획</h3>
+                      <p>(진행중...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="en">
+                    <section class="deep-section" data-section-title="Problem">
+                      <h3 id="en-problem">Problem: why is DUSt3R-style 3D not enough for SLAM?</h3>
+                      <p>GRS-SLAM3R starts from the gap between strong pairwise pointmap prediction and online dense SLAM. DUSt3R-style methods can recover dense 3D without camera calibration, but online SLAM also needs <strong>long-term spatial memory and global consistency</strong>.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 1. Scene Reconstruction Performance." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 1. Scene Reconstruction Performance.</span><span class="caption-note">The paper visually positions GRS-SLAM3R as RGB-only dense reconstruction and tracking.</span></figcaption>
+                      </figure>
+
+                      <section class="problem-ladder">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>The hard part is not only predicting a pointmap, but <strong>accumulating it over time and organizing it as a global map</strong>.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Dense SLAM target</strong><p>Estimate pose and dense geometry from RGB streams.</p></article>
+                          <article><span>02</span><strong>Pairwise limitation</strong><p>Pairwise 3D prediction does not provide online memory by itself.</p></article>
+                          <article><span>03</span><strong>Memory contamination</strong><p>Noisy observations or outdated memory can drift the latent state.</p></article>
+                          <article><span>04</span><strong>Submap need</strong><p>A single recurrent state is not enough to control long-range drift.</p></article>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Related Work context</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">How to place this paper</span>
+                              <p>The paper compares dense monocular SLAM, 3D reconstruction, and DUSt3R-based online reconstruction, then positions itself as <strong>real-time RGB-only dense SLAM</strong>.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>Lineage</th><th>Strength</th><th>GRS-SLAM3R's concern</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term">Sparse / feature SLAM</span></td><td>fast and stable tracking</td><td>sparse maps are insufficient for dense geometry use cases.</td></tr>
+                                  <tr><td><span class="summary-term">NeRF / 3DGS SLAM</span></td><td>high-quality dense representation</td><td>often relies on depth, intrinsics, optimization, or limited speed.</td></tr>
+                                  <tr><td><span class="summary-term">DUSt3R / MASt3R</span></td><td>camera-free pointmap prediction</td><td>pairwise 3D priors must be extended into online SLAM memory.</td></tr>
+                                  <tr><td><span class="summary-term">CUT3R / SLAM3R</span></td><td>continuous reconstruction</td><td>memory update, forgetting, and long-sequence drift need stronger handling.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Mechanism">
+                      <h3 id="en-mechanism">Mechanism: how do gated state and submaps work together?</h3>
+                      <p>The method has two main axes. The frontend predicts frame-level pointmaps and pose with a gated recurrent state. The backend uses keyframes and submaps for local alignment and inter-submap pose-graph registration.</p>
+
+                      <figure class="image">
+                        <img alt="Figure 2. System overview." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_059c944f8bab.png" style="width:900px">
+                        <figcaption><span class="caption-main">Figure 2. System overview.</span><span class="caption-note">The left side shows the gated recurrent frontend, while the right side shows keyframe/submap-based hierarchical alignment.</span></figcaption>
+                      </figure>
+
+                      <section class="summary-panel">
+                        <div class="summary-head">
+                          <span class="section-chip">Mechanism Thread Summary</span>
+                          <p>GRS-SLAM3R avoids blindly accumulating one latent state: gates control memory updates, and submaps break long-horizon drift.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table">
+                            <thead><tr><th>Module</th><th>Problem handled</th><th>Output / effect</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Encoder</span></td><td>turns the current frame into tokens</td><td><span class="inline-equation-token">\(F_t\)</span></td></tr>
+                              <tr><td><span class="summary-term">Reset gate</span></td><td>suppresses irrelevant memory before fusion</td><td><span class="inline-equation-token">\(M_t^{\mathrm{reset}}\)</span></td></tr>
+                              <tr><td><span class="summary-term">Decoder</span></td><td>mixes memory, image, and pose tokens</td><td>candidate memory and enriched features</td></tr>
+                              <tr><td><span class="summary-term">Update gate</span></td><td>balances new and previous memory</td><td><span class="inline-equation-token">\(M_t\)</span></td></tr>
+                              <tr><td><span class="summary-term">Submap alignment</span></td><td>limits long-sequence drift</td><td>local maps and global pose graph</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">1. Frame tokens and gates</span>
+                        <p>The input is a monocular RGB sequence <span class="inline-equation-token">\(\{I_t\}_{t=1}^{N}\)</span>. The outputs are dense point cloud <span class="inline-equation-token">\(X_t\)</span>, confidence <span class="inline-equation-token">\(C_t\)</span>, and camera pose <span class="inline-equation-token">\(P_t\)</span>.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+F_t=\operatorname{Encoder}(I_t) \tag{1}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Encoding the current RGB image into frame tokens.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+R_t=G_r(M_{t-1},F_t),\qquad U_t=G_u(M_{t-1},F_t) \tag{2}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Computing reset and update gates from previous memory and current features.</span></figcaption>
+                          </figure>
+                        </div>
+                        <figure class="image">
+                          <img alt="Figure 3. Gate structure." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_42c53333ea5f.png" style="width:560px">
+                          <figcaption><span class="caption-main">Figure 3. Gate structure.</span><span class="caption-note">The gates decide which memory should be suppressed and which information should be carried forward.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">2. Memory reset, decoder, update</span>
+                        <p>The reset gate suppresses outdated memory, the decoder exchanges information between memory/image/pose tokens, and the update gate blends candidate memory with previous memory.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+M_t^{\mathrm{reset}}=R_t\odot M_{t-1} \tag{3}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Elementwise reset of outdated or irrelevant memory.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+[\hat{M}_t,z'_t\oplus F'_t]
+=\operatorname{Decoder}([M_t^{\mathrm{reset}},z_t\oplus F_t]) \tag{4}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Joint update of memory, pose token, and frame features.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+M_t=U_t\odot\hat{M}_t+(1-U_t)\odot M_{t-1} \tag{5}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">GRU-like memory update with an update gate.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">3. Pointmap / pose heads</span>
+                        <p>After decoding, the network predicts both local-camera and world-frame pointmaps. This is why the method fits online SLAM better than pairwise pointmap-only reconstruction.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{X}_t^{\mathrm{self}},\hat{C}_t^{\mathrm{self}}
+=\operatorname{Head}_{\mathrm{self}}(F'_t) \tag{6}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Local camera-frame pointmap and confidence.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{X}_t^{\mathrm{world}},\hat{C}_t^{\mathrm{world}}
+=\operatorname{Head}_{\mathrm{world}}(F'_t,z'_t) \tag{7}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Metric world-frame pointmap and confidence.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\hat{P}_t=\operatorname{Head}_{\mathrm{pose}}(z'_t) \tag{8}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">6-DoF pose prediction from the pose token.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <section class="method-step-block">
+                        <span class="subsection-label">4. Hierarchical submap alignment</span>
+                        <p>Frames are promoted to keyframes and new submaps according to covisibility with the last keyframe and current submap anchor. Each submap keeps its own latent memory and local coordinate frame.</p>
+                        <div class="method-equation-cluster">
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+L_{\mathrm{local}}^{S}
+=\sum_{e\in E_S}\sum_{v\in e}\sum_{i=1}^{HW}
+C_i^{v,e}
+\left\lVert
+\xi_i^{v,S}-\sigma_e^S P_e^S X_i^{v,e}
+\right\rVert \tag{9}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Local alignment loss within a submap.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+\min_{\{T_s\}}
+\sum_{(u,v)\in E}
+\left\lVert
+\log(\Delta T_{u,v}^{-1}T_u^{-1}T_v)
+\right\rVert_{\Sigma}^{2}
++
+\left\lVert
+\log(T_{s_0}^{-1}\bar{T}_{s_0})
+\right\rVert_{\Sigma_0}^{2} \tag{10}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Pose-graph optimization over submap poses.</span></figcaption>
+                          </figure>
+                        </div>
+                      </section>
+
+                      <details class="supplement-toggle supplement-structured">
+                        <summary>Training loss and notation</summary>
+                        <div class="appendix-details supplement-details">
+                          <section class="summary-panel summary-panel-soft">
+                            <div class="summary-head">
+                              <span class="subsection-label">What is supervised?</span>
+                              <p>The paper follows CUT3R with confidence-weighted 3D regression and pose loss. These are supporting details relative to the gated/submap mechanism.</p>
+                            </div>
+                            <div class="summary-table-wrap">
+                              <table class="summary-table">
+                                <thead><tr><th>Symbol</th><th>Meaning</th><th>Role</th></tr></thead>
+                                <tbody>
+                                  <tr><td><span class="summary-term"><span class="inline-equation-token">\(\hat{x}_i\)</span>, <span class="inline-equation-token">\(x_i\)</span></span></td><td>predicted / GT 3D point</td><td>scale-normalized pointmap supervision.</td></tr>
+                                  <tr><td><span class="summary-term"><span class="inline-equation-token">\(c_i\)</span></span></td><td>confidence</td><td>down-weights hard points while <span class="inline-equation-token">\(-\beta\log c_i\)</span> avoids collapse.</td></tr>
+                                  <tr><td><span class="summary-term"><span class="inline-equation-token">\(\hat{q}_t\)</span>, <span class="inline-equation-token">\(\hat{\tau}_t\)</span></span></td><td>rotation / translation of predicted pose</td><td>pose supervision with normalized translation.</td></tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </section>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+L_{\mathrm{regr}}
+=\sum_{i=1}^{M}
+\left(
+c_i\left\lVert \frac{\hat{x}_i}{\hat{s}}-\frac{x_i}{s}\right\rVert_2
+-\beta\log c_i
+\right) \tag{11}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Confidence-weighted, scale-aware 3D regression loss.</span></figcaption>
+                          </figure>
+                          <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+$$
+L_{\mathrm{pose}}
+=\sum_{t=1}^{N}
+\left(
+\left\lVert\hat{q}_t-q_t\right\rVert_2
++
+\left\lVert\frac{\hat{\tau}_t}{\hat{s}}-\frac{\tau_t}{s}\right\rVert_2
+\right) \tag{12}
+$$
+                            </div></div></div>
+                            <figcaption><span class="caption-main">Pose loss for rotation and scale-normalized translation.</span></figcaption>
+                          </figure>
+                        </div>
+                      </details>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Evidence">
+                      <h3 id="en-evidence">Evidence: how are pose, reconstruction, and runtime evaluated?</h3>
+                      <p>The evaluation covers camera pose, surface reconstruction, real-time performance, and ablations. The main metrics are ATE-RMSE for tracking and accuracy/completeness for reconstruction.</p>
+
+                      <section class="result-brief result-brief-wide">
+                        <div class="result-brief-head">
+                          <span class="section-chip">Evaluation Roadmap</span>
+                          <p>The results are easier to read by SLAM capability rather than by dataset name.</p>
+                        </div>
+                        <div class="result-brief-grid">
+                          <article><strong>Tracking</strong><p>ATE-RMSE on 7-Scenes.</p></article>
+                          <article><strong>Dense map</strong><p>Reconstruction quality on NRGBD, 7-Scenes, Apartment, and NES.</p></article>
+                          <article><strong>System evidence</strong><p>FPS and ablations for gate, local alignment, and submaps.</p></article>
+                        </div>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Pose Evidence</span>
+                        <figure class="image">
+                          <img alt="Table I. Pose estimation on 7Scenes dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png" style="width:640px">
+                          <figcaption><span class="caption-main">Table I. Pose estimation on 7Scenes dataset.</span><span class="caption-note">The table reports per-scene ATE RMSE in centimeters; GRS-SLAM3R has a lower average error than CUT3R and MASt3R-SLAM.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Surface Reconstruction Evidence</span>
+                        <figure class="image">
+                          <img alt="Table II. Reconstruction results on the NRGBD dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png" style="width:620px">
+                          <figcaption><span class="caption-main">Table II. Reconstruction results on the NRGBD dataset.</span><span class="caption-note">The NRGBD results test sparse sampling and smaller view overlap.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table III. Reconstruction results and runtime on 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png" style="width:860px">
+                          <figcaption><span class="caption-main">Table III. Reconstruction results and runtime (FPS) on 7Scenes.</span><span class="caption-note">The paper reports both accuracy/completion and FPS to show an accuracy-speed trade-off.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d2a2c52f6331.png" style="width:860px">
+                          <figcaption><span class="caption-main">Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes.</span><span class="caption-note">Red outlines mark low predictive accuracy, green outlines mark high accuracy, and yellow indicates ground truth.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Figure 5. Qualitative scene reconstruction results on the NES dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d7ad9def0549.png" style="width:860px">
+                          <figcaption><span class="caption-main">Figure 5. Qualitative scene reconstruction results on the NES dataset.</span><span class="caption-note">The NES result stresses long corridors and large trajectories where drift, breaking, and scale shrinkage are visible in baselines.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table IV. Quantitative results on the Apartment dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png" style="width:640px">
+                          <figcaption><span class="caption-main">Table IV. Quantitative results on the Apartment dataset.</span><span class="caption-note">The Apartment dataset is a multi-room scene of about <span class="inline-equation-token">\(100m^2\)</span>, testing large-scale reconstruction and tracking drift.</span></figcaption>
+                        </figure>
+                      </section>
+
+                      <section class="evidence-cluster">
+                        <span class="subsection-label">Runtime / Ablation Evidence</span>
+                        <figure class="image">
+                          <img alt="Figure 6. Ablation on Gated Recurrent model." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c42ba2668029.png" style="width:640px">
+                          <figcaption><span class="caption-main">Figure 6. Ablation on Gated Recurrent model.</span><span class="caption-note">Without gates, inconsistent geometry accumulates in the latent state.</span></figcaption>
+                        </figure>
+                        <figure class="image">
+                          <img alt="Table V. Ablation of Gate, Local Align, and Submap." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png" style="width:640px">
+                          <figcaption><span class="caption-main">Table V. Ablation of Gate, Local Align, and Submap.</span><span class="caption-note">Gate, local alignment, and submap representation jointly give the strongest reconstruction and pose results.</span></figcaption>
+                        </figure>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Usage / Limits">
+                      <h3 id="en-usage">Usage / Limits: when is it useful?</h3>
+                      <p>GRS-SLAM3R is useful when RGB-only dense geometry and pose are needed online. For very large loops, weak-overlap scenes, or strong domain shift, submap registration quality and covisibility thresholds should be checked carefully.</p>
+
+                      <section class="summary-panel usage-fit-box">
+                        <div class="summary-head">
+                          <span class="section-chip">When to Use / Avoid</span>
+                          <p>The experiments and system design suggest the following application conditions.</p>
+                        </div>
+                        <div class="summary-table-wrap">
+                          <table class="summary-table usage-table">
+                            <thead><tr><th>Category</th><th>Summary</th><th>Reason</th></tr></thead>
+                            <tbody>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>RGB-only dense indoor SLAM</td><td>outputs dense point clouds and pose without depth or intrinsics.</td></tr>
+                              <tr><td><span class="summary-term">Good fit</span></td><td>real-time reconstruction</td><td>targets an online pipeline faster than offline global alignment.</td></tr>
+                              <tr><td><span class="summary-term">Check carefully</span></td><td>long corridors, large loops, weak overlap</td><td>submap split and pose-graph constraints control global drift.</td></tr>
+                              <tr><td><span class="summary-term">Limitation</span></td><td>high-precision metric mapping as the only priority</td><td>online speed and dense reconstruction may still require refinement.</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Conclusion">
+                      <h3 id="en-conclusion">Conclusion: what viewpoint does the paper add?</h3>
+                      <p>GRS-SLAM3R brings DUSt3R-style 3D priors into online SLAM by managing recurrent state with <strong>gates and submaps</strong>. Reset/update gates reduce memory contamination, and hierarchical alignment prevents long-range drift from accumulating in one latent state.</p>
+                      <p>The main lesson is that a strong pointmap predictor is not enough for SLAM. Memory update, keyframe policy, local alignment, and global pose-graph structure must be designed together.</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Takeaway">
+                      <h3 id="en-takeaway">Takeaway</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+
+                    <section class="deep-section" data-section-title="Future Work">
+                      <h3 id="en-future-work">Future Work</h3>
+                      <p>(Writing in progress...)</p>
+                    </section>
+                  </div>
+
+                  <div class="deep-dive-more is-visible" id="deepDiveMore">
+                    <button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+          <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+          <script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div aria-hidden="true" class="lightbox" id="lightbox">
+    <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+    <img alt="preview" id="lightboxImg">
+  </div>
+
+  <script src="script.js?v=grs-slam3r-redesign-20260530"></script>
+</body>
+</html>

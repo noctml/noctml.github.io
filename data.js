@@ -9,7 +9,24 @@ window.SITE_DATA = {
             "Neural Rendering"
         ],
         paperReviews: [
+
             {
+                title: "GRS-SLAM3R: Real-Time Dense SLAM with Gated Recurrent State",
+                desc: "gated recurrent state와 submap alignment로 RGB-only dense SLAM을 실시간화",
+                href: "pages/paper_reviews/GRS-SLAM3R/",
+                thumb: "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png",
+                published: true,
+                group: "Visual SLAM",
+                tags: ["Dense SLAM", "DUSt3R", "Gated Recurrent State", "Submap"]
+            },{
+                title: "FILT3R: Latent State Adaptive Kalman Filter for Streaming 3D Reconstruction",
+                desc: "Kalman-style latent filtering으로 long-horizon streaming 3D reconstruction 안정화",
+                href: "pages/paper_reviews/FILT3R/",
+                thumb: "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cff3911ca59c.png",
+                published: true,
+                group: "3D Reconstruction",
+                tags: ["3D Reconstruction", "Streaming", "Kalman Filter", "Latent State"]
+            },{
                 title: "4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks",
                 desc: "Sparse tensor와 generalized sparse convolution으로 3D/4D 데이터를 효율적으로 처리하는 Minkowski Engine",
                 href: "pages/paper_reviews/MinkowskiCNN/",
