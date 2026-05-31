@@ -1,0 +1,352 @@
+[
+  {
+    "id": "Figure1",
+    "kind": "figure",
+    "page": 1,
+    "box": [
+      175,
+      260,
+      845,
+      548
+    ],
+    "cls": "figure-wide",
+    "title": "Figure 1. TTT3R treats recurrent state as fast weights for online memory update.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      1750,
+      2600,
+      8450,
+      5480
+    ],
+    "file": "TTT3R_Figure1_figure_only_safe_1200dpi.png",
+    "size": [
+      6700,
+      2880
+    ],
+    "status": "included",
+    "qa_note": "1200DPI png16m crop; caption excluded; safe margins checked",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure2",
+    "kind": "figure",
+    "page": 2,
+    "box": [
+      500,
+      145,
+      845,
+      344
+    ],
+    "cls": "figure-medium",
+    "title": "Figure 2. GPU memory cost for inference.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      5000,
+      1450,
+      8450,
+      3440
+    ],
+    "file": "TTT3R_Figure2_figure_only_safe_1200dpi_v3.png",
+    "size": [
+      3450,
+      1990
+    ],
+    "status": "included",
+    "qa_note": "v3 expands bottom to include complete x-axis label without caption",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure3",
+    "kind": "figure",
+    "page": 4,
+    "box": [
+      185,
+      136,
+      845,
+      239
+    ],
+    "cls": "figure-wide",
+    "title": "Figure 3. Sequence Modeling Layers.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      1850,
+      1360,
+      8450,
+      2390
+    ],
+    "file": "TTT3R_Figure3_figure_only_safe_1200dpi.png",
+    "size": [
+      6600,
+      1030
+    ],
+    "status": "included",
+    "qa_note": "1200DPI png16m crop; caption excluded; safe margins checked",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure4",
+    "kind": "figure",
+    "page": 6,
+    "box": [
+      178,
+      137,
+      842,
+      306
+    ],
+    "cls": "figure-wide",
+    "title": "Figure 4. TTT3R Illustration.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      1780,
+      1370,
+      8420,
+      3060
+    ],
+    "file": "TTT3R_Figure4_figure_only_safe_1200dpi.png",
+    "size": [
+      6640,
+      1690
+    ],
+    "status": "included",
+    "qa_note": "1200DPI png16m crop; caption excluded; safe margins checked",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure5",
+    "kind": "figure",
+    "page": 7,
+    "box": [
+      506,
+      255,
+      842,
+      423
+    ],
+    "cls": "figure-medium",
+    "title": "Figure 5. Image-attention-based per-token learning rates mitigate forgetting.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      5060,
+      2550,
+      8420,
+      4230
+    ],
+    "file": "TTT3R_Figure5_figure_only_safe_1200dpi_v3.png",
+    "size": [
+      3360,
+      1820
+    ],
+    "status": "included",
+    "qa_note": "v3 uses the verified figure-only crop plus white bottom padding because the PDF caption begins immediately below the visual",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure6",
+    "kind": "figure",
+    "page": 7,
+    "box": [
+      502,
+      982,
+      845,
+      1188
+    ],
+    "cls": "figure-medium",
+    "title": "Figure 6. Runtime comparison on ScanNet.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      5020,
+      9820,
+      8450,
+      11880
+    ],
+    "file": "TTT3R_Figure6_figure_only_safe_1200dpi_v4.png",
+    "size": [
+      3430,
+      2060
+    ],
+    "status": "included",
+    "qa_note": "v4 expands bottom to include full x-axis title while excluding caption",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure7",
+    "kind": "figure",
+    "page": 8,
+    "box": [
+      180,
+      137,
+      842,
+      340
+    ],
+    "cls": "figure-wide",
+    "title": "Figure 7. Comparison of Camera Pose Estimation.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      1800,
+      1370,
+      8420,
+      3400
+    ],
+    "file": "TTT3R_Figure7_figure_only_safe_1200dpi.png",
+    "size": [
+      6620,
+      2030
+    ],
+    "status": "included",
+    "qa_note": "1200DPI png16m crop; caption excluded; safe margins checked",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure8",
+    "kind": "figure",
+    "page": 8,
+    "box": [
+      178,
+      488,
+      842,
+      925
+    ],
+    "cls": "figure-wide",
+    "title": "Figure 8. Comparison of Video Depth Estimation.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      1780,
+      4880,
+      8420,
+      9250
+    ],
+    "file": "TTT3R_Figure8_figure_only_safe_1200dpi.png",
+    "size": [
+      6640,
+      4370
+    ],
+    "status": "included",
+    "qa_note": "1200DPI png16m crop; caption excluded; safe margins checked",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure9",
+    "kind": "figure",
+    "page": 9,
+    "box": [
+      213,
+      137,
+      842,
+      336
+    ],
+    "cls": "figure-wide",
+    "title": "Figure 9. Comparison of 3D Reconstruction on 7-Scenes.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      2130,
+      1370,
+      8420,
+      3360
+    ],
+    "file": "TTT3R_Figure9_figure_only_safe_1200dpi_v2.png",
+    "size": [
+      6290,
+      1990
+    ],
+    "status": "included",
+    "qa_note": "v2 expands bottom margin for x-axis labels",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  },
+  {
+    "id": "Figure10",
+    "kind": "figure",
+    "page": 10,
+    "box": [
+      180,
+      136,
+      842,
+      655
+    ],
+    "cls": "figure-wide",
+    "title": "Figure 10. Qualitative Results for 3D Reconstruction.",
+    "preview_dpi": 120,
+    "output_dpi": 1200,
+    "scale": 10,
+    "high_res_box": [
+      1800,
+      1360,
+      8420,
+      6550
+    ],
+    "file": "TTT3R_Figure10_figure_only_safe_1200dpi.png",
+    "size": [
+      6620,
+      5190
+    ],
+    "status": "included",
+    "qa_note": "1200DPI png16m crop; caption excluded; safe margins checked",
+    "border_ink": {
+      "top": 0,
+      "bottom": 0,
+      "left": 0,
+      "right": 0
+    }
+  }
+]

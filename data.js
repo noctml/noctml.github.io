@@ -11,6 +11,15 @@ window.SITE_DATA = {
         paperReviews: [
 
             {
+                title: "TTT3R: 3D Reconstruction as Test-Time Training",
+                desc: "test-time state update로 long-context 3D reconstruction의 forgetting을 완화",
+                href: "pages/paper_reviews/TTT3R/",
+                thumb: "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure1_figure_only_safe_1200dpi.png",
+                published: true,
+                group: "3D Reconstruction",
+                tags: ["3D Reconstruction", "Test-Time Training", "Recurrent State", "CUT3R"]
+            },
+            {
                 title: "GRS-SLAM3R: Real-Time Dense SLAM with Gated Recurrent State",
                 desc: "gated recurrent state와 submap alignment로 RGB-only dense SLAM을 실시간화",
                 href: "pages/paper_reviews/GRS-SLAM3R/",
@@ -18,14 +27,6 @@ window.SITE_DATA = {
                 published: true,
                 group: "Visual SLAM",
                 tags: ["Dense SLAM", "DUSt3R", "Gated Recurrent State", "Submap"]
-            },{
-                title: "FILT3R: Latent State Adaptive Kalman Filter for Streaming 3D Reconstruction",
-                desc: "Kalman-style latent filtering으로 long-horizon streaming 3D reconstruction 안정화",
-                href: "pages/paper_reviews/FILT3R/",
-                thumb: "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cff3911ca59c.png",
-                published: true,
-                group: "3D Reconstruction",
-                tags: ["3D Reconstruction", "Streaming", "Kalman Filter", "Latent State"]
             },{
                 title: "4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks",
                 desc: "Sparse tensor와 generalized sparse convolution으로 3D/4D 데이터를 효율적으로 처리하는 Minkowski Engine",
@@ -204,6 +205,14 @@ window.SITE_DATA = {
             },
         ],
         projects: [
+            {
+                title: "ORB-SLAM2 in macOS",
+                desc: "MacBook에서 ORB-SLAM2를 실행하고 평가한 기록",
+                href: "pages/projects/ORB-SLAM2-macOS/",
+                published: true,
+                tags: ["ORB-SLAM2", "macOS", "Visual SLAM", "Pangolin", "evo"],
+                thumb: "pages/projects/ORB-SLAM2-macOS/assets/demo/orb_slam2_macos_thumb.jpg"
+            },
         {
             title: "ORB-SLAM2",
             desc: "오픈소스 실습",

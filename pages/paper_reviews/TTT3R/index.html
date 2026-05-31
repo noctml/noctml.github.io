@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
+  <title>TTT3R Paper Review</title>
+  <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
+  <meta content="TTT3R Paper Review" property="og:title">
+  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta content="website" property="og:type">
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
+  <link href="styles.css?v=ttt3r-subsection-20260531" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+</head>
+<body>
+  <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+  <div class="layout" id="top">
+    <aside aria-label="Paper section bookmark" class="sidebar"><div class="sidebar-card"><nav aria-label="Paper section bookmark" class="section-bookmark"><div class="bookmark-status"><span class="bookmark-eyebrow">Now Reading</span><strong id="currentSectionLabel">핵심 요약</strong></div><div class="bookmark-list" id="sectionBookmarkList"></div></nav></div></aside>
+    <div class="content">
+      <header class="topbar"><div class="topbar-inner"><div class="brandline"><a aria-label="홈으로 이동" class="home-profile" href="../../../index.html"><img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg"></a><span class="brandtext">Paper Reviews</span></div><div class="top-actions"><button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button"><span data-lang-option="ko">KO</span><span data-lang-option="en">EN</span></button><button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button"><span aria-hidden="true" id="themeIcon">☀</span></button></div></div></header>
+      <main class="container" id="main">
+        <section class="section"><div class="panel"><header class="paper-identity"><p class="paper-title-meta">TTT3R: 3D Reconstruction as Test-Time Training</p><div class="paper-meta-card"><div class="paper-meta-top"><span class="paper-meta-venue">ICLR 2026</span><span class="paper-meta-date">Conference Paper</span></div><dl class="paper-meta-grid"><div class="paper-meta-item"><dt>Authors</dt><dd>Xingyu Chen; Yue Chen; Yuliang Xiu; Andreas Geiger; Anpei Chen</dd></div><div class="paper-meta-item"><dt>Affiliations</dt><dd>Zhejiang University; Westlake University; University of Tuebingen / Tuebingen AI Center</dd></div></dl><nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2509.26645" rel="noreferrer" target="_blank">Paper</a><a href="https://rover-xingyu.github.io/TTT3R" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/Inception3D/TTT3R" rel="noreferrer" target="_blank">Code</a></nav><div aria-label="Paper topics" class="paper-meta-topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#3D Reconstruction</span><span class="paper-topic-chip">#Test-Time Training</span><span class="paper-topic-chip">#Recurrent State</span><span class="paper-topic-chip">#CUT3R</span></div></div></div></header>
+          <div class="post-body"><section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary"><div class="paper-map-head"><h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2><p data-en-html="TTT3R reframes recurrent 3D reconstruction state update as &lt;strong&gt;test-time online learning&lt;/strong&gt; and uses alignment confidence as a token-wise learning rate." data-ko-html="TTT3R은 recurrent 3D reconstruction의 state update를 &lt;strong&gt;test-time online learning&lt;/strong&gt;으로 재해석하고, alignment confidence를 token별 learning rate로 사용한다.">TTT3R은 recurrent 3D reconstruction의 state update를 <strong>test-time online learning</strong>으로 재해석하고, alignment confidence를 token별 learning rate로 사용한다.</p></div><div class="tldr-cues"><span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="long-context forgetting" data-ko="long-context forgetting">long-context forgetting</small></span><span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="confidence-guided learning rate" data-ko="confidence-guided learning rate">confidence-guided learning rate</small></span><span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="pose / depth / reconstruction" data-ko="pose / depth / reconstruction">pose / depth / reconstruction</small></span></div>
+            <div class="map-grid"><article class="map-card map-card-wide"><span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span><p data-en-html="TTT3R keeps CUT3R-style constant-memory streaming, but replaces uniform state writing with a confidence-guided per-token update weight &lt;span class=&quot;inline-equation-token&quot;&gt;\(\beta_t\)&lt;/span&gt;." data-ko-html="TTT3R은 CUT3R식 constant-memory streaming을 유지하되, 모든 state를 똑같이 덮어쓰는 대신 confidence-guided per-token update weight &lt;span class=&quot;inline-equation-token&quot;&gt;\(\beta_t\)&lt;/span&gt;로 memory retention과 adaptation을 조절한다.">TTT3R은 CUT3R식 constant-memory streaming을 유지하되, 모든 state를 똑같이 덮어쓰는 대신 confidence-guided per-token update weight <span class="inline-equation-token">\(\beta_t\)</span>로 memory retention과 adaptation을 조절한다.</p></article><article class="map-card"><span class="map-label">Contribution 01</span><h3>TTT View</h3><p data-en="Interprets recurrent state as fast weights updated at test time." data-ko="recurrent state를 test-time에 갱신되는 fast weight로 해석.">recurrent state를 test-time에 갱신되는 fast weight로 해석.</p></article><article class="map-card"><span class="map-label">Contribution 02</span><h3>Learning Rate</h3><p data-en="Derives token-wise learning rates from memory-observation alignment confidence." data-ko="memory-observation alignment confidence에서 token별 learning rate 계산.">memory-observation alignment confidence에서 token별 learning rate 계산.</p></article><article class="map-card"><span class="map-label">Contribution 03</span><h3>Training-free</h3><p data-en="Applies as a plug-in inference-time update rule without model fine-tuning." data-ko="model fine-tuning 없이 inference-time update rule로 plug-in 적용.">model fine-tuning 없이 inference-time update rule로 plug-in 적용.</p></article><article class="map-card"><span class="map-label">Contribution 04</span><h3>Long Context</h3><p data-en="Improves long-horizon pose, depth, and reconstruction while keeping constant memory." data-ko="constant memory를 유지하면서 long-horizon pose/depth/reconstruction 안정성 개선.">constant memory를 유지하면서 long-horizon pose/depth/reconstruction 안정성 개선.</p></article></div>
+            <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div><div aria-label="TTT3R pipeline" class="flow-diagram"><div class="flow-step"><span>01</span><strong>Image Stream</strong><small>incoming frames</small></div><div class="flow-arrow">→</div><div class="flow-step"><span>02</span><strong>Recurrent State</strong><small>CUT3R memory</small></div><div class="flow-arrow">→</div><div class="flow-step"><span>03</span><strong>Alignment</strong><small>state-query / obs-key</small></div><div class="flow-arrow">→</div><div class="flow-step"><span>04</span><strong>Learning Rate</strong><small>token-wise beta</small></div><div class="flow-arrow">→</div><div class="flow-step"><span>05</span><strong>State Update</strong><small>confidence-gated write</small></div><div class="flow-arrow">→</div><div class="flow-step"><span>06</span><strong>Outputs</strong><small>pose / pointmap / depth</small></div></div>
+            <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div><div class="compare-grid"><article><span class="compare-kicker">Full Attention</span><h3>VGGT / Fast3R</h3><p data-en="Strong history, growing memory cost." data-ko="history 보존 강함, memory 증가.">history 보존 강함, memory 증가.</p></article><article><span class="compare-kicker">Recurrent</span><h3>CUT3R</h3><p data-en="Constant memory, but long-context forgetting." data-ko="constant memory, long-context forgetting.">constant memory, long-context forgetting.</p></article><article><span class="compare-kicker">Explicit Memory</span><h3>Point3R</h3><p data-en="Less forgetting, extra memory cost." data-ko="forgetting 완화, memory 비용 증가.">forgetting 완화, memory 비용 증가.</p></article><article><span class="compare-kicker">TTT3R</span><h3>Confidence Gate</h3><p data-en="Recurrent efficiency with confidence-gated writes." data-ko="confidence-gated write로 효율 유지.">confidence-gated write로 효율 유지.</p></article></div></section>
+            <div class="section-divider" aria-hidden="true"></div><section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes"><h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2><p class="deep-dive-intro" data-en="Below is a detailed reading of the paper's core claims, method, equations, and evidence. Background, notation, and supporting material are organized so the main flow stays readable." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p><div class="deep-dive-body has-collapsed-active">
+
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+                    <section class="deep-section">
+                      <h3 id="ko-problem">Problem: 왜 recurrent 3D reconstruction이 긴 sequence에서 무너지는가</h3>
+                      <p>TTT3R의 출발점은 간단하다. CUT3R류 recurrent 3D reconstruction model은 <strong>linear-time, constant-memory inference</strong>를 제공하지만, training context length를 넘어가는 긴 video stream에서는 state가 점점 현재 observation에 끌려가며 forgetting과 drift가 누적된다.</p>
+                      <p>논문은 이 문제를 “state를 어떻게 갱신할 것인가”로 다시 묻는다. 즉, state <span class="inline-equation-token">\(S_t\)</span>를 단순 hidden state가 아니라 test-time에 입력 context로부터 갱신되는 <strong>fast weight</strong>로 해석한다.</p>
+                      <figure class="image">
+                            <img alt="Figure 1. TTT3R treats recurrent state as fast weights for online memory update." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure1_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 1. TTT3R treats recurrent state as fast weights for online memory update.</span><span class="caption-note">논문은 CUT3R의 state overwrite가 긴 sequence에서 forgetting을 만들고, TTT3R은 state update를 fast-weight learning으로 해석해 이를 완화한다고 설명한다.</span></figcaption>
+                          </figure>
+                      <section class="problem-ladder" aria-label="TTT3R problem flow">
+                        <div class="summary-head">
+                          <span class="section-chip">Problem Flow</span>
+                          <p>문제는 “recurrent state를 쓰는가”보다, <strong>긴 sequence에서 state를 얼마나 강하게 갱신할 것인가</strong>에 있다.</p>
+                        </div>
+                        <div class="problem-ladder-grid">
+                          <article><span>01</span><strong>Full attention</strong><p>history 보존은 좋지만 view 수가 늘면 memory/computation이 증가.</p></article>
+                          <article><span>02</span><strong>CUT3R</strong><p>fixed state로 효율적이지만 새 observation을 너무 강하게 반영.</p></article>
+                          <article><span>03</span><strong>Failure</strong><p>long rollout에서 forgetting, overfitting, unexplored state distribution 발생.</p></article>
+                          <article><span>04</span><strong>TTT3R</strong><p>confidence-guided learning rate로 state plasticity를 token별 조절.</p></article>
+                        </div>
+                      </section>
+                      <figure class="image">
+                            <img alt="Figure 2. GPU memory cost for inference." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure2_figure_only_safe_1200dpi_v3.png" style="width:560px">
+                            <figcaption><span class="caption-main">Figure 2. GPU memory cost for inference.</span><span class="caption-note">Full-attention/KV-cache 계열은 view 수가 늘수록 memory가 커지는 반면, recurrent 계열은 거의 constant memory를 유지한다.</span></figcaption>
+                          </figure>
+                      <section class="summary-panel"><div class="summary-head"><span class="section-chip">관련 연구 맥락</span><p>TTT3R은 memory를 더 쌓는 방향이 아니라, 고정 크기 implicit state를 더 잘 업데이트하는 방향을 택한다.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>계열</th><th>장점</th><th>TTT3R 관점</th></tr></thead><tbody><tr><td><span class="summary-term">VGGT / Fast3R</span></td><td>long-range dependency 보존</td><td>full attention이라 긴 stream에서 memory cost가 병목.</td></tr><tr><td><span class="summary-term">CUT3R</span></td><td>linear-time, constant-memory streaming</td><td>state update가 사실상 <span class="inline-equation-token">\(\beta_t=1\)</span>인 강한 write로 작동.</td></tr><tr><td><span class="summary-term">Point3R</span></td><td>explicit point memory로 forgetting 완화</td><td>view 수가 늘수록 memory가 증가.</td></tr><tr><td><span class="summary-term">TTT3R</span></td><td>training-free confidence-guided update</td><td>fixed memory를 유지하면서 update plasticity를 token별로 조절.</td></tr></tbody></table></div></section>
+                    </section>
+                    <section class="deep-section">
+                      <h3 id="ko-mechanism">Mechanism: state update를 test-time learning으로 어떻게 바꾸는가</h3>
+                      <p>방법론의 핵심은 recurrent pointmap regression model을 <strong>update/read operation</strong>으로 정리한 뒤, CUT3R의 recurrent update를 TTT-style gradient descent와 연결하는 것이다.</p>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+X_t &= \operatorname{Tokenize}(I_t) \\
+S_t &= \operatorname{Update}(S_{t-1}, X_t) \\
+Y_t &= \operatorname{Read}(S_t, X_t) \\
+P_t &= \operatorname{De\text{-}tokenize}(Y_t)
+\end{aligned}$$</div><span class="equation-tag">(1)</span></div></div>
+                            <figcaption><span class="caption-main">image stream을 token으로 바꾸고, state를 update한 뒤 output token과 pointmap을 읽어오는 일반식.</span></figcaption>
+                          </figure>
+                      <figure class="image">
+                            <img alt="Figure 3. Sequence Modeling Layers." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure3_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 3. Sequence Modeling Layers.</span><span class="caption-note">Full attention은 state를 append하므로 비용이 증가하고, vanilla RNN은 fixed state를 쓰지만 forgetting이 생긴다. TTT3R은 state를 test-time에 학습되는 fast weight로 본다.</span></figcaption>
+                          </figure>
+                      <section class="summary-panel"><div class="summary-head"><span class="section-chip">방법론 흐름</span><p>TTT3R은 “무엇을 쓸지”보다 “얼마나 강하게 쓸지”를 token별로 조절한다.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>단계</th><th>역할</th><th>핵심 의미</th></tr></thead><tbody><tr><td><span class="summary-term">Sequence formulation</span></td><td>image token, state, readout을 통일 표현</td><td>모델 차이를 update/read rule 차이로 비교 가능.</td></tr><tr><td><span class="summary-term">Full attention</span></td><td>history key/value를 append</td><td>보존은 강하지만 cost가 커짐.</td></tr><tr><td><span class="summary-term">RNN / CUT3R</span></td><td>fixed state를 cross-attention으로 update</td><td>효율적이지만 every-step overwrite 성향.</td></tr><tr><td><span class="summary-term">TTT3R</span></td><td>alignment confidence를 <span class="inline-equation-token">\(\beta_t\)</span>로 사용</td><td>high-confidence token만 더 강하게 update.</td></tr></tbody></table></div></section>
+                      <h4 class="subsection-label">Full attention vs. recurrent state</h4>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+\operatorname{Update}(S_{t-1}, X_t) &= S_{t-1}.\operatorname{append}(K_{X_t}, V_{X_t}) \\
+\operatorname{Read}(S_t, X_t) &= X_t + \operatorname{softmax}(Q_{X_t}K_{S_t}^{\top})V_{S_t}
+\end{aligned}$$</div><span class="equation-tag">(2)</span></div></div>
+                            <figcaption><span class="caption-main">full-attention model은 과거 key/value를 state list에 append하고 현재 token이 전체 state를 읽는다.</span></figcaption>
+                          </figure>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\operatorname{Update}(S_{t-1}, X_t)=S_{t-1}+\operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t}$$</div><span class="equation-tag">(3)</span></div></div>
+                            <figcaption><span class="caption-main">RNN-based reconstruction model은 fixed-size state를 현재 observation value로 갱신한다.</span></figcaption>
+                          </figure>
+                      <p>Eq. (3)은 memory 사용량을 <span class="inline-equation-token">\(O(1)\)</span>로 유지하지만, softmax attention이 observation-token dimension에서 합이 1이 되도록 normalize되기 때문에 새 입력을 매번 강하게 반영하는 구조가 된다.</p>
+                      <h4 class="subsection-label">TTT 관점으로 보는 state update</h4>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\operatorname{Update}(S_{t-1}, X_t)=S_{t-1}-\beta_t\nabla(S_{t-1}, X_t)$$</div><span class="equation-tag">(4)</span></div></div>
+                            <figcaption><span class="caption-main">TTT는 state를 fast weight로 보고, 현재 context에 맞게 gradient descent 형태로 갱신한다.</span></figcaption>
+                          </figure>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\operatorname{Update}(S_{t-1}, X_t)=S_{t-1}-\beta_t\left(S_{t-1}K_{X_t}-V_{X_t}\right)K_{X_t}^{\top}$$</div><span class="equation-tag">(5)</span></div></div>
+                            <figcaption><span class="caption-main">Linear TTT / DeltaNet의 associative memory update 예시. key는 어디에 쓸지, value는 무엇을 쓸지를 정한다.</span></figcaption>
+                          </figure>
+                      <figure class="image">
+                            <img alt="Figure 4. TTT3R Illustration." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure4_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 4. TTT3R Illustration.</span><span class="caption-note">CUT3R update를 TTT-style online learning으로 재해석하고, memory-observation alignment confidence를 per-token learning rate로 사용한다.</span></figcaption>
+                          </figure>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+S_{t-1}+\operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t} &= S_{t-1}-\beta_t\nabla(S_{t-1},X_t) \\
+\beta_t &= 1.0 \\
+\nabla(S_{t-1},X_t) &= -\operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t}
+\end{aligned}$$</div><span class="equation-tag">(6)</span></div></div>
+                            <figcaption><span class="caption-main">CUT3R의 cross-attention update는 learning rate가 항상 1인 TTT update로 해석할 수 있다.</span></figcaption>
+                          </figure>
+                      <p>이 해석의 핵심은 CUT3R이 confidence가 낮은 region에서도 state를 강하게 갱신한다는 점이다. TTT3R은 여기에 <strong>per-token learning rate</strong>를 넣어 memory retention과 adaptation의 균형을 만든다.</p>
+                      <h4 class="subsection-label">Confidence-guided learning rate</h4>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\beta_t=\sigma\left(\sum_m Q_{S_{t-1}}K_{X_t}^{\top}\right),\qquad \beta_t\in\mathbb{R}^{n\times 1}$$</div><span class="equation-tag">(7)</span></div></div>
+                            <figcaption><span class="caption-main">state query와 observation key의 alignment confidence를 sigmoid로 mapping해 token별 learning rate를 만든다.</span></figcaption>
+                          </figure>
+                      <p>여기서 <span class="inline-equation-token">\(m=\{1,\ldots,h\}\times\{1,\ldots,w\}\)</span>는 image-token spatial index이고, 논문은 <span class="inline-equation-token">\(\sum_m\)</span>을 normalized mean으로 둔다. 결과 <span class="inline-equation-token">\(\beta_t\in\mathbb{R}^{n\times1}\)</span>는 state token별 scalar로 channel dimension에 broadcast된다.</p>
+                      <figure class="image">
+                            <img alt="Figure 5. Image-attention-based per-token learning rates mitigate forgetting." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure5_figure_only_safe_1200dpi_v3.png" style="width:560px">
+                            <figcaption><span class="caption-main">Figure 5. Image-attention-based per-token learning rates mitigate forgetting.</span><span class="caption-note">alignment confidence가 높은 token은 더 크게 update하고, textureless/low-quality region처럼 confidence가 낮은 token은 update를 억제한다.</span></figcaption>
+                          </figure>
+                      <figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+\operatorname{Update}(S_{t-1},X_t) &= S_{t-1}-\beta_t\nabla(S_{t-1},X_t) \\
+&= S_{t-1}+\sigma\left(\sum_m Q_{S_{t-1}}K_{X_t}^{\top}\right)\odot \operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t}
+\end{aligned}$$</div><span class="equation-tag">(8)</span></div></div>
+                            <figcaption><span class="caption-main">최종 state update rule. CUT3R의 value write에 confidence-guided learning rate를 곱한다.</span></figcaption>
+                          </figure>
+                      <p>따라서 TTT3R은 backbone을 fine-tuning하지 않고도 CUT3R에 plug-in될 수 있다. 학습된 파라미터를 바꾸는 것이 아니라, inference 중 state update coefficient를 바꾸는 training-free intervention이다.</p>
+                    </section>
+                    <section class="deep-section">
+                      <h3 id="ko-evidence">Evidence: 어떤 task에서 검증했는가</h3>
+                      <p>평가는 camera pose estimation, video depth estimation, 3D reconstruction을 중심으로 구성된다. Baseline은 CUT3R, Point3R, StreamVGGT, VGGT이며, 모든 모델은 single 48GB NVIDIA GPU에서 50-1000 input views로 평가된다.</p>
+                      <section class="result-brief result-brief-wide"><div class="result-brief-head"><span class="section-chip">평가 요약</span><p>TTT3R의 주장은 “CUT3R 수준의 runtime/memory를 유지하면서 long-context drift와 forgetting을 줄인다”는 것이다.</p></div><div class="result-brief-grid"><article><strong>Efficiency</strong><p>CUT3R과 같은 recurrent backbone이라 약 20 FPS, 약 6GB memory 수준 유지.</p></article><article><strong>Pose</strong><p>TUM Dynamics / ScanNet에서 CUT3R 대비 ATE를 크게 낮춤.</p></article><article><strong>Depth</strong><p>KITTI / Bonn long sequence에서 relative/metric depth 안정성 확인.</p></article><article><strong>Reconstruction</strong><p>7-Scenes에서 long view 수에도 Chamfer Distance와 Normal Consistency 유지.</p></article></div></section>
+                      <h4 class="subsection-label">Runtime / Memory</h4><figure class="image">
+                            <img alt="Figure 6. Runtime comparison on ScanNet." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure6_figure_only_safe_1200dpi_v4.png" style="width:560px">
+                            <figcaption><span class="caption-main">Figure 6. Runtime comparison on ScanNet.</span><span class="caption-note">TTT3R은 CUT3R과 유사한 streaming efficiency를 유지하고, full-attention/KV-cache 계열은 긴 view 수에서 memory bottleneck이 발생한다.</span></figcaption>
+                          </figure>
+                      <h4 class="subsection-label">Pose Estimation</h4><figure class="image">
+                            <img alt="Figure 7. Comparison of Camera Pose Estimation." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure7_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 7. Comparison of Camera Pose Estimation.</span><span class="caption-note">VGGT는 offline upper bound 역할을 하지만 latency/memory가 커지고, TTT3R은 CUT3R의 효율을 유지하면서 ATE를 낮춘다.</span></figcaption>
+                          </figure>
+                      <h4 class="subsection-label">Video Depth Estimation</h4><figure class="image">
+                            <img alt="Figure 8. Comparison of Video Depth Estimation." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure8_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 8. Comparison of Video Depth Estimation.</span><span class="caption-note">relative depth에서는 full-attention 계열이 강하지만 긴 sequence에서 OOM이 발생하고, TTT3R은 fine-tuning 없이 long sequence에서 안정적인 depth 결과를 보인다.</span></figcaption>
+                          </figure>
+                      <h4 class="subsection-label">3D Reconstruction</h4><figure class="image">
+                            <img alt="Figure 9. Comparison of 3D Reconstruction on 7-Scenes." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure9_figure_only_safe_1200dpi_v3.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 9. Comparison of 3D Reconstruction on 7-Scenes.</span><span class="caption-note">view 수가 늘어날 때 CUT3R은 forgetting으로 Chamfer Distance가 증가하지만, TTT3R은 long sequence에서도 reconstruction quality를 더 안정적으로 유지한다.</span></figcaption>
+                          </figure>
+                      <figure class="image">
+                            <img alt="Figure 10. Qualitative Results for 3D Reconstruction." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure10_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 10. Qualitative Results for 3D Reconstruction.</span><span class="caption-note">qualitative result에서도 CUT3R의 pose drift, broken geometry, ghosting artifact가 TTT3R에서 완화되는 모습을 보여준다.</span></figcaption>
+                          </figure>
+                    </section>
+                    <section class="deep-section"><h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 조심해야 하나</h3><section class="summary-panel"><div class="summary-head"><span class="section-chip">적용 관점</span><p>TTT3R은 이미 recurrent state를 가진 online reconstruction model에 가장 자연스럽게 붙는다.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>구분</th><th>상황</th><th>해석</th></tr></thead><tbody><tr><td><span class="summary-term">Use</span></td><td>long video stream을 reset 없이 처리해야 하는 경우</td><td>constant memory를 유지하면서 forgetting을 완화.</td></tr><tr><td><span class="summary-term">Use</span></td><td>CUT3R류 recurrent backbone을 이미 사용하는 경우</td><td>training-free update rule이라 plug-and-play 적용 가능.</td></tr><tr><td><span class="summary-term">Caution</span></td><td>offline full-attention reconstruction accuracy가 최우선인 경우</td><td>VGGT 같은 full-history method를 항상 넘는 것은 아님.</td></tr><tr><td><span class="summary-term">Limit</span></td><td>state forgetting 자체를 완전히 해결해야 하는 경우</td><td>논문도 forgetting을 완화하지만 완전히 제거하지는 않는다고 밝힘.</td></tr></tbody></table></div></section></section>
+                    <section class="deep-section"><h3 id="ko-conclusion">Conclusion: TTT3R이 제안하는 관점</h3><p>TTT3R은 recurrent 3D reconstruction의 state update를 단순 hidden-state transition이 아니라 <strong>test-time online learning</strong>으로 재해석한다. 이 관점에서는 state가 fast weight이고, cross-attention alignment confidence가 token별 learning rate 역할을 한다.</p><p>핵심은 모델을 다시 학습하지 않고도 update rule만 바꿔 long-context extrapolation을 개선한다는 점이다. 즉, TTT3R은 더 큰 memory를 쓰는 대신, 고정된 memory를 더 신중하게 갱신하는 방법을 제안한다.</p></section>
+                    <section class="deep-section"><h3 id="ko-thoughts">느낀점</h3><p>(진행중...)</p></section>
+                    <section class="deep-section"><h3 id="ko-future">향후 계획</h3><p>(진행중...)</p></section>
+                  </div>
+
+
+                  <div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden>
+                    <section class="deep-section">
+                      <h3 id="en-problem">Problem: why recurrent 3D reconstruction breaks on long sequences</h3>
+                      <p>TTT3R starts from a practical failure mode: recurrent 3D reconstruction models such as CUT3R provide <strong>linear-time, constant-memory inference</strong>, but their fixed state can forget useful history and accumulate drift when rolled out beyond the training context length.</p>
+                      <p>The paper reframes the question as a state-update problem. The state <span class="inline-equation-token">\(S_t\)</span> is treated not as an ordinary hidden state, but as a <strong>fast weight</strong> updated online during test time.</p>
+                      <figure class="image">
+                            <img alt="Figure 1. TTT3R treats recurrent state as fast weights for online memory update." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure1_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 1. TTT3R treats recurrent state as fast weights for online memory update.</span><span class="caption-note">The paper contrasts CUT3R-style state overwrite with a TTT-style fast-weight update guided by memory-observation alignment confidence.</span></figcaption>
+                          </figure>
+                      <section class="problem-ladder" aria-label="TTT3R problem flow"><div class="summary-head"><span class="section-chip">Problem Flow</span><p>The issue is not only whether a model uses recurrent state, but <strong>how strongly that state should be updated over long sequences</strong>.</p></div><div class="problem-ladder-grid"><article><span>01</span><strong>Full attention</strong><p>Preserves history, but memory and compute grow with views.</p></article><article><span>02</span><strong>CUT3R</strong><p>Efficient fixed-state streaming, but new observations can overwrite history.</p></article><article><span>03</span><strong>Failure</strong><p>Long rollouts suffer from forgetting, overfitting, and unexplored states.</p></article><article><span>04</span><strong>TTT3R</strong><p>Controls state plasticity with confidence-guided token-wise learning rates.</p></article></div></section>
+                      <figure class="image">
+                            <img alt="Figure 2. GPU memory cost for inference." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure2_figure_only_safe_1200dpi_v3.png" style="width:560px">
+                            <figcaption><span class="caption-main">Figure 2. GPU memory cost for inference.</span><span class="caption-note">Full-attention and KV-cache variants become memory-bound as the number of views grows, while recurrent models keep memory nearly constant.</span></figcaption>
+                          </figure>
+                      <section class="summary-panel"><div class="summary-head"><span class="section-chip">Related Position</span><p>TTT3R improves fixed implicit memory instead of adding more explicit memory.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Family</th><th>Strength</th><th>TTT3R reading</th></tr></thead><tbody><tr><td><span class="summary-term">VGGT / Fast3R</span></td><td>Strong long-range dependency modeling.</td><td>Full attention becomes memory-heavy for long streams.</td></tr><tr><td><span class="summary-term">CUT3R</span></td><td>Linear-time, constant-memory streaming.</td><td>The update behaves like a strong write with <span class="inline-equation-token">\(\beta_t=1\)</span>.</td></tr><tr><td><span class="summary-term">Point3R</span></td><td>Explicit point memory reduces forgetting.</td><td>Memory grows with views.</td></tr><tr><td><span class="summary-term">TTT3R</span></td><td>Training-free confidence-guided update.</td><td>Keeps fixed memory while controlling token-wise plasticity.</td></tr></tbody></table></div></section>
+                    </section>
+                    <section class="deep-section"><h3 id="en-mechanism">Mechanism: how does it turn state update into test-time learning?</h3><p>The method first expresses pointmap-oriented reconstruction as an update/read sequence model, then connects CUT3R's recurrent update to TTT-style gradient descent.</p><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+X_t &= \operatorname{Tokenize}(I_t) \\
+S_t &= \operatorname{Update}(S_{t-1}, X_t) \\
+Y_t &= \operatorname{Read}(S_t, X_t) \\
+P_t &= \operatorname{De\text{-}tokenize}(Y_t)
+\end{aligned}$$</div><span class="equation-tag">(1)</span></div></div>
+                            <figcaption><span class="caption-main">Generic sequence formulation: tokenize the image, update the state, read output tokens, and decode pointmaps.</span></figcaption>
+                          </figure><figure class="image">
+                            <img alt="Figure 3. Sequence Modeling Layers." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure3_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 3. Sequence Modeling Layers.</span><span class="caption-note">Full attention appends states and grows cost, vanilla RNN keeps a fixed state but forgets, and TTT treats the state as fast weights learned at test time.</span></figcaption>
+                          </figure><section class="summary-panel"><div class="summary-head"><span class="section-chip">Mechanism Thread Summary</span><p>TTT3R controls how strongly to write, not only what value to write.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Step</th><th>Role</th><th>Meaning</th></tr></thead><tbody><tr><td><span class="summary-term">Sequence formulation</span></td><td>Unifies image token, state, and readout.</td><td>Model families can be compared through update/read rules.</td></tr><tr><td><span class="summary-term">Full attention</span></td><td>Appends history key/value pairs.</td><td>Preserves history but increases cost.</td></tr><tr><td><span class="summary-term">RNN / CUT3R</span></td><td>Updates a fixed state with cross-attention.</td><td>Efficient but tends to overwrite.</td></tr><tr><td><span class="summary-term">TTT3R</span></td><td>Uses alignment confidence as <span class="inline-equation-token">\(\beta_t\)</span>.</td><td>Updates high-confidence tokens more strongly.</td></tr></tbody></table></div></section><h4 class="subsection-label">Full attention vs. recurrent state</h4><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+\operatorname{Update}(S_{t-1}, X_t) &= S_{t-1}.\operatorname{append}(K_{X_t}, V_{X_t}) \\
+\operatorname{Read}(S_t, X_t) &= X_t + \operatorname{softmax}(Q_{X_t}K_{S_t}^{\top})V_{S_t}
+\end{aligned}$$</div><span class="equation-tag">(2)</span></div></div>
+                            <figcaption><span class="caption-main">Full-attention models append past key/value pairs and read from the entire accumulated state.</span></figcaption>
+                          </figure><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\operatorname{Update}(S_{t-1}, X_t)=S_{t-1}+\operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t}$$</div><span class="equation-tag">(3)</span></div></div>
+                            <figcaption><span class="caption-main">RNN-based reconstruction updates a fixed-size state using current observation values.</span></figcaption>
+                          </figure><p>Eq. (3) keeps memory at <span class="inline-equation-token">\(O(1)\)</span>, but the softmax output writes new observations strongly into the state, making long-context forgetting likely.</p><h4 class="subsection-label">State update through the TTT lens</h4><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\operatorname{Update}(S_{t-1}, X_t)=S_{t-1}-\beta_t\nabla(S_{t-1}, X_t)$$</div><span class="equation-tag">(4)</span></div></div>
+                            <figcaption><span class="caption-main">TTT views the state as fast weights updated through a gradient-descent-like rule.</span></figcaption>
+                          </figure><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\operatorname{Update}(S_{t-1}, X_t)=S_{t-1}-\beta_t\left(S_{t-1}K_{X_t}-V_{X_t}\right)K_{X_t}^{\top}$$</div><span class="equation-tag">(5)</span></div></div>
+                            <figcaption><span class="caption-main">Linear TTT / DeltaNet associative-memory update: the key says where to write and the value says what to write.</span></figcaption>
+                          </figure><figure class="image">
+                            <img alt="Figure 4. TTT3R Illustration." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure4_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 4. TTT3R Illustration.</span><span class="caption-note">The paper reformulates CUT3R as a TTT-style online learner and uses alignment confidence as per-token learning rates.</span></figcaption>
+                          </figure><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+S_{t-1}+\operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t} &= S_{t-1}-\beta_t\nabla(S_{t-1},X_t) \\
+\beta_t &= 1.0 \\
+\nabla(S_{t-1},X_t) &= -\operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t}
+\end{aligned}$$</div><span class="equation-tag">(6)</span></div></div>
+                            <figcaption><span class="caption-main">CUT3R cross-attention can be interpreted as a TTT update with learning rate fixed to 1.</span></figcaption>
+                          </figure><p>CUT3R writes even low-confidence observations strongly into the state. TTT3R introduces a <strong>per-token learning rate</strong> to balance retention and adaptation.</p><h4 class="subsection-label">Confidence-guided learning rate</h4><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\beta_t=\sigma\left(\sum_m Q_{S_{t-1}}K_{X_t}^{\top}\right),\qquad \beta_t\in\mathbb{R}^{n\times 1}$$</div><span class="equation-tag">(7)</span></div></div>
+                            <figcaption><span class="caption-main">State-query and observation-key alignment is mapped to token-wise learning rates.</span></figcaption>
+                          </figure><p>Here, <span class="inline-equation-token">\(m=\{1,\ldots,h\}\times\{1,\ldots,w\}\)</span> indexes image tokens, and the paper treats <span class="inline-equation-token">\(\sum_m\)</span> as a normalized mean. The resulting <span class="inline-equation-token">\(\beta_t\in\mathbb{R}^{n\times1}\)</span> is broadcast along the channel dimension.</p><figure class="image">
+                            <img alt="Figure 5. Image-attention-based per-token learning rates mitigate forgetting." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure5_figure_only_safe_1200dpi_v3.png" style="width:560px">
+                            <figcaption><span class="caption-main">Figure 5. Image-attention-based per-token learning rates mitigate forgetting.</span><span class="caption-note">High-confidence state tokens receive larger updates, while low-quality or textureless regions are suppressed.</span></figcaption>
+                          </figure><figure class="equation">
+                            <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\begin{aligned}
+\operatorname{Update}(S_{t-1},X_t) &= S_{t-1}-\beta_t\nabla(S_{t-1},X_t) \\
+&= S_{t-1}+\sigma\left(\sum_m Q_{S_{t-1}}K_{X_t}^{\top}\right)\odot \operatorname{softmax}(Q_{S_{t-1}}K_{X_t}^{\top})V_{X_t}
+\end{aligned}$$</div><span class="equation-tag">(8)</span></div></div>
+                            <figcaption><span class="caption-main">Final state update rule: multiply CUT3R value writing by the confidence-guided learning rate.</span></figcaption>
+                          </figure><p>Thus, TTT3R can be plugged into a frozen CUT3R backbone. It changes the inference-time state update coefficient, not the trained network parameters.</p></section>
+                    <section class="deep-section"><h3 id="en-evidence">Evidence: which tasks test the claim?</h3><p>The evaluation covers camera pose estimation, video depth estimation, and 3D reconstruction. Baselines are CUT3R, Point3R, StreamVGGT, and VGGT, tested with 50-1000 input views on a single 48GB NVIDIA GPU.</p><section class="result-brief result-brief-wide"><div class="result-brief-head"><span class="section-chip">Evaluation Brief</span><p>The central claim is that TTT3R reduces long-context drift and forgetting while keeping CUT3R-like runtime and memory.</p></div><div class="result-brief-grid"><article><strong>Efficiency</strong><p>Keeps about 20 FPS and roughly 6GB memory like CUT3R.</p></article><article><strong>Pose</strong><p>Reduces ATE on TUM Dynamics and ScanNet compared with CUT3R.</p></article><article><strong>Depth</strong><p>Improves long-sequence relative and metric depth stability on KITTI and Bonn.</p></article><article><strong>Reconstruction</strong><p>Maintains Chamfer Distance and Normal Consistency on 7-Scenes.</p></article></div></section><h4 class="subsection-label">Runtime / Memory</h4><figure class="image">
+                            <img alt="Figure 6. Runtime comparison on ScanNet." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure6_figure_only_safe_1200dpi_v4.png" style="width:560px">
+                            <figcaption><span class="caption-main">Figure 6. Runtime comparison on ScanNet.</span><span class="caption-note">TTT3R keeps recurrent streaming efficiency, while full-attention/KV-cache approaches become memory-bound on long inputs.</span></figcaption>
+                          </figure><h4 class="subsection-label">Pose Estimation</h4><figure class="image">
+                            <img alt="Figure 7. Comparison of Camera Pose Estimation." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure7_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 7. Comparison of Camera Pose Estimation.</span><span class="caption-note">VGGT acts as an offline upper bound, while TTT3R keeps CUT3R-style efficiency and lowers trajectory error.</span></figcaption>
+                          </figure><h4 class="subsection-label">Video Depth Estimation</h4><figure class="image">
+                            <img alt="Figure 8. Comparison of Video Depth Estimation." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure8_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 8. Comparison of Video Depth Estimation.</span><span class="caption-note">Full-attention methods are strong for relative depth but can run out of memory; TTT3R is more stable for long sequences without fine-tuning.</span></figcaption>
+                          </figure><h4 class="subsection-label">3D Reconstruction</h4><figure class="image">
+                            <img alt="Figure 9. Comparison of 3D Reconstruction on 7-Scenes." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure9_figure_only_safe_1200dpi_v3.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 9. Comparison of 3D Reconstruction on 7-Scenes.</span><span class="caption-note">As the number of views increases, CUT3R degrades from forgetting, while TTT3R maintains more stable reconstruction quality.</span></figcaption>
+                          </figure><figure class="image">
+                            <img alt="Figure 10. Qualitative Results for 3D Reconstruction." loading="lazy" src="assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure10_figure_only_safe_1200dpi.png" style="width:820px">
+                            <figcaption><span class="caption-main">Figure 10. Qualitative Results for 3D Reconstruction.</span><span class="caption-note">Qualitative results show reduced pose drift, broken geometry, and ghosting artifacts compared with CUT3R.</span></figcaption>
+                          </figure></section>
+                    <section class="deep-section"><h3 id="en-usage">Usage / Limits: when is TTT3R useful?</h3><section class="summary-panel"><div class="summary-head"><span class="section-chip">Deployment Reading</span><p>TTT3R is most natural when the system already has a recurrent state.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Type</th><th>Situation</th><th>Reading</th></tr></thead><tbody><tr><td><span class="summary-term">Use</span></td><td>long video streams without resets</td><td>reduces forgetting while keeping constant memory.</td></tr><tr><td><span class="summary-term">Use</span></td><td>CUT3R-like recurrent backbones</td><td>training-free update rule can be plugged in.</td></tr><tr><td><span class="summary-term">Caution</span></td><td>offline full-history accuracy is the priority</td><td>does not always beat full-attention methods such as VGGT.</td></tr><tr><td><span class="summary-term">Limit</span></td><td>forgetting must be fully eliminated</td><td>the paper mitigates forgetting but does not claim to solve it completely.</td></tr></tbody></table></div></section></section>
+                    <section class="deep-section"><h3 id="en-conclusion">Conclusion: what viewpoint does TTT3R add?</h3><p>TTT3R reinterprets recurrent 3D reconstruction state update as <strong>test-time online learning</strong>. The state is a fast weight, and cross-attention alignment confidence becomes a token-wise learning rate.</p><p>The important part is that the model is not retrained. TTT3R improves long-context extrapolation by changing how fixed memory is updated, rather than by adding more memory.</p></section>
+                    <section class="deep-section"><h3 id="en-thoughts">Personal Notes</h3><p>(In progress...)</p></section>
+                    <section class="deep-section"><h3 id="en-future">Next Steps</h3><p>(In progress...)</p></section>
+                  </div>
+
+              <div class="deep-dive-more is-visible" id="deepDiveMore"><button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button></div></div></section></div></div></section>
+        <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);"><h2 style="margin:0 0 14px; font-size:18px;">Comments</h2><script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script></section>
+      </main></div></div><div aria-hidden="true" class="lightbox" id="lightbox"><button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button><img alt="preview" id="lightboxImg"></div><script src="script.js?v=ttt3r-mathfix-20260531"></script>
+</body>
+</html>

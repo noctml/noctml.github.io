@@ -108,6 +108,18 @@
     });
   };
 
+
+  const renderDynamicMath = (rootNode) => {
+    if (typeof window.renderMathInElement !== "function" || !rootNode) return;
+    window.renderMathInElement(rootNode, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  };
+
   const updateDeepDiveButton = () => {
     if (typeof window.syncDeepDiveReveal === "function") {
       window.syncDeepDiveReveal();
@@ -136,6 +148,7 @@
 
     htmlTranslatable.forEach((node) => {
       node.innerHTML = currentLang === "en" ? node.dataset.enHtml : node.dataset.koHtml;
+      renderDynamicMath(node);
     });
 
     panels.forEach((panel) => {
