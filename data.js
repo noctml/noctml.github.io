@@ -16,6 +16,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/TTT3R/",
                 thumb: "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure1_figure_only_safe_1200dpi.png",
                 published: true,
+                date: "2026-05-31",
                 group: "3D Reconstruction",
                 tags: ["3D Reconstruction", "Test-Time Training", "Recurrent State", "CUT3R"]
             },
@@ -25,6 +26,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/GRS-SLAM3R/",
                 thumb: "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png",
                 published: true,
+                date: "2026-05-30",
                 group: "Visual SLAM",
                 tags: ["Dense SLAM", "DUSt3R", "Gated Recurrent State", "Submap"]
             },{
@@ -33,6 +35,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/MinkowskiCNN/",
                 thumb: "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_c45702943ee2.png",
                 published: true,
+                date: "2026-05-29",
                 group: "3D Perception",
                 tags: ["Sparse CNN", "Minkowski Engine", "3D/4D Perception", "Sparse Tensor"]
             },{
@@ -41,6 +44,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/MapAnything/",
                 thumb: "pages/paper_reviews/MapAnything/assets/논문-스터디/media/media_6bee02b26bbe.png",
                 published: true,
+                date: "2026-05-27",
                 group: "3D Reconstruction",
                 tags: ["3D Reconstruction", "Metric 3D", "Feed-forward", "Foundation Model"]
             },{
@@ -49,6 +53,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/MonST3R/",
                 thumb: "pages/paper_reviews/MonST3R/assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png",
                 published: true,
+                date: "2026-05-27",
                 group: "3D Reconstruction",
                 tags: ["3D Reconstruction", "Dynamic Scene", "Video Geometry", "DUSt3R"]
             },{
@@ -57,6 +62,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/DUSt3R/",
                 thumb: "pages/paper_reviews/DUSt3R/assets/dust3r/media/media_57b92f159fa8.png",
                 published: true,
+                date: "2026-05-27",
                 group: "3D Reconstruction",
                 tags: ["3D Reconstruction", "Pointmap", "Calibration-free", "Stereo"]
             },{
@@ -65,6 +71,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/WildPose/",
                 thumb: "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_4223930ab3c8.jpg",
                 published: true,
+                date: "2026-05-26",
                 group: "Dynamic SLAM",
                 tags: ["Dynamic Scene", "Pose Estimation", "Motion Mask", "Visual SLAM"]
             },
@@ -74,6 +81,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/WildGS-SLAM/",
                 thumb: "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_e1c5b9eba121.png",
                 published: true,
+                date: "2026-05-26",
                 group: "Dynamic SLAM",
                 tags: ["Dynamic Scene", "3DGS", "Uncertainty", "SLAM"]
             },
@@ -83,6 +91,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/CUT3R/",
                 thumb: "pages/paper_reviews/CUT3R/assets/1차-수정본/media/media_c95129ba6731.png",
                 published: true,
+                date: "2026-05-26",
                 group: "3D Reconstruction",
                 tags: ["3D Reconstruction", "Persistent State", "Video Geometry", "Feed-forward"]
             },
@@ -92,6 +101,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/3D-Prior/",
                 thumb: "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_526d869c2e2b.png",
                 published: true,
+                date: "2026-05-22",
                 group: "Dynamic SLAM",
                 tags: ["Dynamic SLAM", "3D Prior", "Feed-forward", "Bundle Adjustment"]
             },
@@ -101,6 +111,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/DROID-W/",
                 thumb: "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_93795521defc.jpg",
                 published: true,
+                date: "2026-05-22",
                 group: "Dynamic SLAM",
                 tags: ["Dynamic SLAM", "DROID-SLAM", "Uncertainty", "Metric Depth"]
             },
@@ -110,6 +121,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/DynaSLAM/",
                 thumb: "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_d8edd9fb5f2d.png",
                 published: true,
+                date: "2026-05-22",
                 group: "Dynamic SLAM",
                 tags: ["Dynamic SLAM", "ORB-SLAM2", "Segmentation", "Inpainting"]
             },
@@ -119,6 +131,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/Chamelion/",
                 thumb: "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_3c5b4f92d139.png",
                 published: true,
+                date: "2026-05-03",
                 group: "Change Detection",
                 tags: ["Change Detection", "LiDAR Mapping", "4D Sparse CNN", "Long-term Mapping"]
             },
@@ -128,6 +141,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/VGGT-SLAM/",
                 thumb: "pages/paper_reviews/VGGT-SLAM/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_1f425cdcdbf8.png",
                 published: true,
+                date: "2026-03-25",
                 group: "3D Reconstruction",
                 tags: ["Dense SLAM", "VGGT", "SL(4)", "Projective Geometry"]
             },
@@ -137,6 +151,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/VGGT/",
                 thumb: "pages/paper_reviews/VGGT/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_960e81560e52.png",
                 published: true,
+                date: "2026-03-07",
                 group: "3D Reconstruction",
                 tags: ["3D Reconstruction", "Transformer", "Multi-view Geometry", "Foundation Model"]
             },
@@ -146,6 +161,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/NeRF/",
                 thumb: "pages/paper_reviews/NeRF/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_7f98f396ea3d.png",
                 published: true,
+                date: "2026-02-24",
                 group: "Neural Rendering",
                 tags: ["Neural Rendering", "Radiance Field", "View Synthesis", "Volume Rendering"]
             },
@@ -155,6 +171,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/Khronos/",
                 thumb: "pages/paper_reviews/Khronos/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_92ee26026671.png",
                 published: true,
+                date: "2026-02-16",
                 group: "Semantic / Scene Graph",
                 tags: ["Metric-Semantic SLAM", "Dynamic Scene", "Scene Graph", "Spatio-temporal"]
             },
@@ -164,6 +181,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/SLIM-VDB/",
                 thumb: "pages/paper_reviews/SLIM-VDB/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_c530c0da14c7.png",
                 published: true,
+                date: "2026-01-30",
                 group: "Semantic / Scene Graph",
                 tags: ["Semantic Mapping", "OpenVDB", "Probabilistic Mapping", "Real-time"]
             },
@@ -173,6 +191,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/3D_DSG/",
                 thumb: "pages/paper_reviews/3D_DSG/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_275d2cf844ae.png",
                 published: true,
+                date: "2026-01-25",
                 group: "Semantic / Scene Graph",
                 tags: ["Dynamic Scene Graph", "Spatial Perception", "Humans", "Objects"]
             },
@@ -182,6 +201,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/3D_SG/",
                 thumb: "pages/paper_reviews/3D_SG/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_527fc720dfd5.png",
                 published: true,
+                date: "2026-01-25",
                 group: "Semantic / Scene Graph",
                 tags: ["Scene Graph", "Semantic SLAM", "3D Space", "Camera"]
             },
@@ -191,6 +211,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/DROID-SLAM/",
                 thumb: "pages/paper_reviews/DROID-SLAM/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_ccc922409c76.png",
                 published: true,
+                date: "2026-01-25",
                 group: "Visual SLAM",
                 tags: ["Visual SLAM", "DROID-SLAM", "Differentiable BA", "Deep Learning"]
             },
@@ -200,6 +221,7 @@ window.SITE_DATA = {
                 href: "pages/paper_reviews/ORB-SLAM2/",
                 thumb: "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_f09800510a62.png",
                 published: true,
+                date: "2026-01-25",
                 group: "Visual SLAM",
                 tags: ["Visual SLAM", "ORB-SLAM2", "Classical SLAM", "Bundle Adjustment"]
             },

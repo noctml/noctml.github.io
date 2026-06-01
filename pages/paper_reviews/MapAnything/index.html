@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
-  <title>MapAnything Paper Review</title>
+  <meta name="description" content="다양한 기하 입력을 통합하는 universal metric 3D reconstruction">
+  <title>[논문 리뷰] MapAnything: Universal Feed-Forward Metric 3D Reconstruction | Insighted</title>
   <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
-  <meta content="MapAnything Paper Review" property="og:title">
-  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta property="og:title" content="[논문 리뷰] MapAnything: Universal Feed-Forward Metric 3D Reconstruction | Insighted">
+  <meta property="og:description" content="다양한 기하 입력을 통합하는 universal metric 3D reconstruction">
   <meta content="website" property="og:type">
   <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
-  <link href="styles.css?v=mapanything-redesign-20260526" rel="stylesheet">
+  <link href="styles.css?v=mapanything-redesign-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 </head>
@@ -34,7 +34,7 @@
         <div class="topbar-inner">
           <div class="brandline">
             <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+              <img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
             </a>
             <span class="brandtext">Paper Reviews</span>
           </div>
@@ -155,7 +155,7 @@
                       <p>논문은 이 분리를 줄이기 위해 image-only setting뿐 아니라 <strong>calibration, pose, depth, partial reconstruction</strong>이 주어지는 상황까지 하나의 feed-forward 모델에서 다루려고 한다.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. MapAnything overview." src="assets/논문-스터디/media/media_6bee02b26bbe.png" style="width:2098px">
+                        <img width="2098" height="778" alt="Figure 1. MapAnything overview." src="assets/논문-스터디/media/media_6bee02b26bbe.png" style="width:2098px">
                         <figcaption><span class="caption-main">Figure 1. MapAnything is a flexible, unified feed-forward 3D reconstruction model.</span><span class="caption-note">논문은 optional camera pose, intrinsics, depth map을 포함한 다양한 input configuration에서 metric 3D reconstruction과 camera를 예측하고, SfM, MVS, camera localization, metric depth completion 등 12개 이상 task를 지원한다고 설명한다.</span></figcaption>
                       </figure>
 
@@ -213,7 +213,7 @@
                       <p>방법론의 핵심은 scene을 pointmap 하나로 바로 예측하지 않고, <strong>local ray direction, up-to-scale ray depth, camera pose, global metric scale</strong>로 나눈 뒤 다시 metric 3D로 조합한다는 점이다. 이렇게 하면 input으로 들어오는 geometry와 output으로 예측하는 geometry가 같은 구조를 공유한다.</p>
 
                       <figure class="image">
-                        <img alt="Figure 2. Overview of the MapAnything Architecture." src="assets/논문-스터디/media/media_317c0db7f253.png" style="width:703.984375px">
+                        <img width="1898" height="1032" alt="Figure 2. Overview of the MapAnything Architecture." src="assets/논문-스터디/media/media_317c0db7f253.png" style="width:703.984375px">
                         <figcaption><span class="caption-main">Figure 2. Overview of the MapAnything Architecture.</span><span class="caption-note">image, ray, pose, depth feature를 공통 latent space에 더하고, reference view embedding과 scale token을 붙인 뒤 alternating-attention transformer, DPT head, pose head, scale MLP로 factored output을 예측한다.</span></figcaption>
                       </figure>
 
@@ -326,8 +326,8 @@ $$
                             </div>
                           </section>
 
-                          <div class="method-equation-cluster">
-                            <figure class="equation">
+                          <div class="method-equation-cluster training-loss-equations">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathcal L_{\mathrm{rays}}=\sum_{i=1}^{N}\|\hat R_i-R_i\|,\qquad
@@ -336,7 +336,7 @@ $$
                               </div></div></div>
                               <figcaption><span class="caption-main">ray direction과 quaternion rotation은 scale-independent quantity라 직접 regression한다.</span></figcaption>
                             </figure>
-                            <figure class="equation">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 z_{\mathrm{metric}}=m\cdot\operatorname{sg}(\tilde z),\qquad
@@ -345,7 +345,7 @@ $$
                               </div></div></div>
                               <figcaption><span class="caption-main">metric scale loss가 geometry를 흔들지 않도록 stop-gradient가 적용된 <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span>을 사용한다.</span></figcaption>
                             </figure>
-                            <figure class="equation">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 f_{\log}(x)=\frac{x}{\|x\|}\log(1+\|x\|),\qquad
@@ -355,22 +355,22 @@ $$
                               </div></div></div>
                               <figcaption><span class="caption-main">ray depth, pointmap, metric scale은 log-space loss가 중요하며, per-pixel loss 상위 5%는 outlier 완화를 위해 제외한다.</span></figcaption>
                             </figure>
-                            <figure class="equation">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathcal L =
 10\mathcal L_{\mathrm{pointmap}}+\mathcal L_{\mathrm{rays}}+\mathcal L_{\mathrm{rot}}
 +\mathcal L_{\mathrm{translation}}+\mathcal L_{\mathrm{depth}}
 +\mathcal L_{\mathrm{lpm}}+\mathcal L_{\mathrm{scale}}
-+\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}} \tag{2}
++\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}}
 $$
-                              </div></div></div>
+                              </div><div class="equation-tag">(2)</div></div></div>
                               <figcaption><span class="caption-main">전체 loss는 pointmap loss를 크게 가중하고 mask loss는 낮게 가중해, geometry 품질을 중심으로 학습한다.</span></figcaption>
                             </figure>
                           </div>
 
                           <figure class="image">
-                            <img alt="Table 1. Datasets used for training and testing MapAnything." src="assets/논문-스터디/media/media_d954458175c2.png" style="width:576px">
+                            <img width="1388" height="1040" alt="Table 1. Datasets used for training and testing MapAnything." src="assets/논문-스터디/media/media_d954458175c2.png" style="width:576px">
                             <figcaption><span class="caption-main">Table 1. Datasets used for training and testing MapAnything.</span><span class="caption-note">학습과 평가에 사용한 13개 dataset을 license, scene 수, metric availability 기준으로 정리하며, Apache 2.0 모델과 CC BY-NC 모델의 dataset 범위를 구분한다.</span></figcaption>
                           </figure>
 
@@ -379,7 +379,7 @@ $$
                               <span class="subsection-label">Training setup 요약</span>
                               <p>geometry input augmentation은 overall probability 0.9로 적용되고, ray direction, ray depth, pose는 각각 0.5 확률로 제공된다. depth input은 dense depth 또는 90% sparsified depth로 주어지며, per-view input probability 0.95로 일부 view에만 geometry가 있는 상황도 학습한다. normal loss와 gradient matching loss는 real geometry noise를 피하기 위해 synthetic dataset에만 적용된다.</p>
                             </div>
-                            <div class="supplement-card-grid">
+                            <div class="supplement-card-grid supplement-card-grid-four training-setup-grid">
                               <article class="supplement-card"><span class="supplement-badge">A</span><strong>Dataset mix</strong><p>indoor, outdoor, in-the-wild scene이 섞인 13개 dataset 사용.</p></article>
                               <article class="supplement-card"><span class="supplement-badge">B</span><strong>View sampling</strong><p>ground-truth depth/pose 기반 pairwise covisibility를 계산하고 25% threshold random walk로 view graph sampling.</p></article>
                               <article class="supplement-card"><span class="supplement-badge">C</span><strong>MPSD metadata</strong><p>monocular metric depth dataset인 MPSD에 pose/camera 정보를 붙여 multi-view metric dataset으로 활용하고 metadata를 공개.</p></article>
@@ -409,11 +409,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Dense Multi-view Reconstruction</span>
                         <figure class="image">
-                          <img alt="Figure 3. Qualitative comparison of MapAnything to VGGT." src="assets/논문-스터디/media/media_0170bd7414bd.png" style="width:703.9921875px">
+                          <img width="1946" height="1202" alt="Figure 3. Qualitative comparison of MapAnything to VGGT." src="assets/논문-스터디/media/media_0170bd7414bd.png" style="width:703.9921875px">
                           <figcaption><span class="caption-main">Figure 3. Qualitative comparison of MapAnything to VGGT using only in-the-wild images as input.</span><span class="caption-note">공정 비교를 위해 양쪽 모두 같은 normal-based edge mask와 sky mask를 적용했으며, MapAnything은 large disparity change, seasonal shift, textureless surface, water body, large scene에서 더 안정적인 reconstruction을 보인다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 4. Dense multi-view reconstruction results." src="assets/논문-스터디/media/media_6f73553e319a.png" style="width:2170px">
+                          <img width="2170" height="966" alt="Figure 4. Dense multi-view reconstruction results." src="assets/논문-스터디/media/media_6f73553e319a.png" style="width:2170px">
                           <figcaption><span class="caption-main">Figure 4. MapAnything shows state-of-the-art dense multi-view reconstruction for input views ranging from 2 to 100 and under different input configurations.</span><span class="caption-note">ETH3D, ScanNet++ v2, TartanAirV2-WB에서 up-to-<span class="inline-equation-token">\(N\)</span> view reconstruction을 평가하며, image-only 성능뿐 아니라 calibration, pose, sparse depth 같은 auxiliary geometry를 활용할 때의 개선도 함께 보여준다.</span></figcaption>
                         </figure>
                       </section>
@@ -421,7 +421,7 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Two-view Reconstruction</span>
                         <figure class="image">
-                          <img alt="Table 2. Two-view reconstruction under different input configurations." src="assets/논문-스터디/media/media_83298a00c42d.png" style="width:528px">
+                          <img width="1378" height="1250" alt="Table 2. Two-view reconstruction under different input configurations." src="assets/논문-스터디/media/media_83298a00c42d.png" style="width:528px">
                           <figcaption><span class="caption-main">Table 2. MapAnything showcases state-of-the-art two-view reconstruction under different input configurations.</span><span class="caption-note">sparse-view reconstruction과 image matching을 평가하며, image-only에서도 DUSt3R, MASt3R, Pow3R, VGGT보다 좋은 평균 성능을 보이고, additional modality가 주어지면 Pow3R보다 크게 앞선다고 보고한다.</span></figcaption>
                         </figure>
                       </section>
@@ -443,21 +443,21 @@ $$
                           <section class="evidence-cluster">
                             <span class="subsection-label">Calibration Evidence</span>
                             <figure class="image">
-                              <img alt="Table 3. Single-image calibration." src="assets/논문-스터디/media/media_1164b0aa03de.png" style="width:528px">
+                              <img width="1452" height="432" alt="Table 3. Single-image calibration." src="assets/논문-스터디/media/media_1164b0aa03de.png" style="width:528px">
                               <figcaption><span class="caption-main">Table 3. MapAnything shows state-of-the-art single-image calibration.</span><span class="caption-note">single-image 전용으로 학습하지 않았지만 ETH3D, ScanNet++ v2, TartanAirV2 frame에서 perspective calibration을 평가하며, non-centered principal point를 확인하기 위해 다양한 aspect ratio crop을 사용한다.</span></figcaption>
                             </figure>
                           </section>
                           <section class="evidence-cluster">
                             <span class="subsection-label">Metric Depth Evidence</span>
                             <figure class="image">
-                              <img alt="Table 4. Metric depth estimation on Robust-MVD benchmark." src="assets/논문-스터디/media/media_47be1e49615e.png" style="width:432px">
+                              <img width="818" height="1414" alt="Table 4. Metric depth estimation on Robust-MVD benchmark." src="assets/논문-스터디/media/media_47be1e49615e.png" style="width:432px">
                               <figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">single-view와 multi-view metric depth를 함께 비교하며, MapAnything은 benchmark 학습 없이 KITTI에서 강한 성능을 보이고, calibration/pose가 주어지면 specialist MVS/depth model과 경쟁 가능한 결과를 낸다.</span></figcaption>
                             </figure>
                           </section>
                           <section class="evidence-cluster">
                             <span class="subsection-label">Ablation Evidence</span>
                             <figure class="image">
-                              <img alt="Table 5. Ablations for key design choices." src="assets/논문-스터디/media/media_a95e74921341.png" style="width:528px">
+                              <img width="1546" height="642" alt="Table 5. Ablations for key design choices." src="assets/논문-스터디/media/media_a95e74921341.png" style="width:528px">
                               <figcaption><span class="caption-main">Table 5. Ablations providing insight into the key design choices.</span><span class="caption-note">RDP &amp; Scale representation이 image-only와 geometry-input 조건 모두에서 핵심이며, 12개 이상 task를 한 번에 학습하는 universal training이 여러 bespoke model보다 효율적임을 보여준다.</span></figcaption>
                             </figure>
                           </section>
@@ -518,7 +518,7 @@ $$
                       <p>The paper tries to reduce this fragmentation by handling not only image-only inputs, but also settings where <strong>calibration, pose, depth, or partial reconstruction</strong> may be available.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. MapAnything overview." src="assets/논문-스터디/media/media_6bee02b26bbe.png" style="width:2098px">
+                        <img width="2098" height="778" alt="Figure 1. MapAnything overview." src="assets/논문-스터디/media/media_6bee02b26bbe.png" style="width:2098px">
                         <figcaption><span class="caption-main">Figure 1. MapAnything is a flexible, unified feed-forward 3D reconstruction model.</span><span class="caption-note">The paper states that MapAnything predicts metric 3D reconstruction and cameras from optional poses, intrinsics, or depth maps, supporting over 12 tasks including SfM, MVS, camera localization, and metric depth completion.</span></figcaption>
                       </figure>
 
@@ -576,7 +576,7 @@ $$
                       <p>The method does not predict one coupled pointmap directly. Instead, it decomposes the scene into <strong>local ray directions, up-to-scale ray depths, camera poses, and one global metric scale</strong>, then composes these factors into metric 3D.</p>
 
                       <figure class="image">
-                        <img alt="Figure 2. Overview of the MapAnything Architecture." src="assets/논문-스터디/media/media_317c0db7f253.png" style="width:703.984375px">
+                        <img width="1898" height="1032" alt="Figure 2. Overview of the MapAnything Architecture." src="assets/논문-스터디/media/media_317c0db7f253.png" style="width:703.984375px">
                         <figcaption><span class="caption-main">Figure 2. Overview of the MapAnything Architecture.</span><span class="caption-note">Image, ray, pose, and depth features are summed in a common latent space; reference-view embedding and a scale token are added before transformer fusion, DPT decoding, pose prediction, and metric scale prediction.</span></figcaption>
                       </figure>
 
@@ -689,8 +689,8 @@ $$
                             </div>
                           </section>
 
-                          <div class="method-equation-cluster">
-                            <figure class="equation">
+                          <div class="method-equation-cluster training-loss-equations">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathcal L_{\mathrm{rays}}=\sum_{i=1}^{N}\|\hat R_i-R_i\|,\qquad
@@ -699,7 +699,7 @@ $$
                               </div></div></div>
                               <figcaption><span class="caption-main">Ray directions and quaternion rotations are scale-independent, so the paper regresses them directly.</span></figcaption>
                             </figure>
-                            <figure class="equation">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 z_{\mathrm{metric}}=m\cdot\operatorname{sg}(\tilde z),\qquad
@@ -708,7 +708,7 @@ $$
                               </div></div></div>
                               <figcaption><span class="caption-main">The metric scale loss uses stop-gradient through <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span> so scale supervision does not distort the geometry.</span></figcaption>
                             </figure>
-                            <figure class="equation">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 f_{\log}(x)=\frac{x}{\|x\|}\log(1+\|x\|),\qquad
@@ -718,22 +718,22 @@ $$
                               </div></div></div>
                               <figcaption><span class="caption-main">Log-space losses are important for ray depth, pointmaps, and metric scale; the top 5% per-pixel losses are dropped to reduce outlier effects.</span></figcaption>
                             </figure>
-                            <figure class="equation">
+                            <figure class="equation training-loss-equation">
                               <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathcal L =
 10\mathcal L_{\mathrm{pointmap}}+\mathcal L_{\mathrm{rays}}+\mathcal L_{\mathrm{rot}}
 +\mathcal L_{\mathrm{translation}}+\mathcal L_{\mathrm{depth}}
 +\mathcal L_{\mathrm{lpm}}+\mathcal L_{\mathrm{scale}}
-+\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}} \tag{2}
++\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}}
 $$
-                              </div></div></div>
+                              </div><div class="equation-tag">(2)</div></div></div>
                               <figcaption><span class="caption-main">The full objective upweights pointmap loss and downweights mask loss to emphasize geometry quality.</span></figcaption>
                             </figure>
                           </div>
 
                           <figure class="image">
-                            <img alt="Table 1. Datasets used for training and testing MapAnything." src="assets/논문-스터디/media/media_d954458175c2.png" style="width:576px">
+                            <img width="1388" height="1040" alt="Table 1. Datasets used for training and testing MapAnything." src="assets/논문-스터디/media/media_d954458175c2.png" style="width:576px">
                             <figcaption><span class="caption-main">Table 1. Datasets used for training and testing MapAnything.</span><span class="caption-note">The table summarizes 13 training/evaluation datasets by license, scene count, and metric availability, separating the Apache 2.0 and CC BY-NC model variants.</span></figcaption>
                           </figure>
 
@@ -742,7 +742,7 @@ $$
                               <span class="subsection-label">Training setup summary</span>
                               <p>Geometry input augmentation is applied with overall probability 0.9. Ray directions, ray depth, and poses each have input probability 0.5. Depth inputs are either dense or 90% sparsified, and per-view input probability 0.95 teaches the model to handle partial geometry availability. Normal and gradient-matching losses are applied only to synthetic datasets to avoid noisy real geometry.</p>
                             </div>
-                            <div class="supplement-card-grid">
+                            <div class="supplement-card-grid supplement-card-grid-four training-setup-grid">
                               <article class="supplement-card"><span class="supplement-badge">A</span><strong>Dataset mix</strong><p>Uses 13 datasets spanning indoor, outdoor, and in-the-wild scenes.</p></article>
                               <article class="supplement-card"><span class="supplement-badge">B</span><strong>View sampling</strong><p>Precomputes pairwise covisibility from depth/pose and samples connected view graphs with a 25% threshold.</p></article>
                               <article class="supplement-card"><span class="supplement-badge">C</span><strong>MPSD metadata</strong><p>The paper adds pose/camera metadata to MPSD to enable real-world multi-view metric-scale training and releases that metadata.</p></article>
@@ -772,11 +772,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Dense Multi-view Reconstruction</span>
                         <figure class="image">
-                          <img alt="Figure 3. Qualitative comparison of MapAnything to VGGT." src="assets/논문-스터디/media/media_0170bd7414bd.png" style="width:703.9921875px">
+                          <img width="1946" height="1202" alt="Figure 3. Qualitative comparison of MapAnything to VGGT." src="assets/논문-스터디/media/media_0170bd7414bd.png" style="width:703.9921875px">
                           <figcaption><span class="caption-main">Figure 3. Qualitative comparison of MapAnything to VGGT using only in-the-wild images as input.</span><span class="caption-note">For a fair comparison, the same normal-based edge mask and sky mask are applied to both methods; MapAnything better handles large disparity changes, seasonal shifts, textureless surfaces, water bodies, and large scenes.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 4. Dense multi-view reconstruction results." src="assets/논문-스터디/media/media_6f73553e319a.png" style="width:2170px">
+                          <img width="2170" height="966" alt="Figure 4. Dense multi-view reconstruction results." src="assets/논문-스터디/media/media_6f73553e319a.png" style="width:2170px">
                           <figcaption><span class="caption-main">Figure 4. MapAnything shows state-of-the-art dense multi-view reconstruction for input views ranging from 2 to 100 and under different input configurations.</span><span class="caption-note">The benchmark uses ETH3D, ScanNet++ v2, and TartanAirV2-WB, showing both image-only performance and gains from calibration, pose, or sparse depth inputs.</span></figcaption>
                         </figure>
                       </section>
@@ -784,7 +784,7 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Two-view Reconstruction</span>
                         <figure class="image">
-                          <img alt="Table 2. Two-view reconstruction under different input configurations." src="assets/논문-스터디/media/media_83298a00c42d.png" style="width:528px">
+                          <img width="1378" height="1250" alt="Table 2. Two-view reconstruction under different input configurations." src="assets/논문-스터디/media/media_83298a00c42d.png" style="width:528px">
                           <figcaption><span class="caption-main">Table 2. MapAnything showcases state-of-the-art two-view reconstruction under different input configurations.</span><span class="caption-note">The paper benchmarks sparse-view reconstruction and image matching, reporting state-of-the-art image-only results and further improvements from additional modalities.</span></figcaption>
                         </figure>
                       </section>
@@ -806,21 +806,21 @@ $$
                           <section class="evidence-cluster">
                             <span class="subsection-label">Calibration Evidence</span>
                             <figure class="image">
-                              <img alt="Table 3. Single-image calibration." src="assets/논문-스터디/media/media_1164b0aa03de.png" style="width:528px">
+                              <img width="1452" height="432" alt="Table 3. Single-image calibration." src="assets/논문-스터디/media/media_1164b0aa03de.png" style="width:528px">
                               <figcaption><span class="caption-main">Table 3. MapAnything shows state-of-the-art single-image calibration.</span><span class="caption-note">Although not trained specifically for single images, the model is evaluated on ETH3D, ScanNet++ v2, and TartanAirV2 frames with aspect-ratio crops to test non-centered principal points.</span></figcaption>
                             </figure>
                           </section>
                           <section class="evidence-cluster">
                             <span class="subsection-label">Metric Depth Evidence</span>
                             <figure class="image">
-                              <img alt="Table 4. Metric depth estimation on Robust-MVD benchmark." src="assets/논문-스터디/media/media_47be1e49615e.png" style="width:432px">
+                              <img width="818" height="1414" alt="Table 4. Metric depth estimation on Robust-MVD benchmark." src="assets/논문-스터디/media/media_47be1e49615e.png" style="width:432px">
                               <figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">The paper compares single-view and multi-view metric depth. MapAnything is not trained on the benchmark, yet reports strong KITTI results and competitive geometry-conditioned depth performance.</span></figcaption>
                             </figure>
                           </section>
                           <section class="evidence-cluster">
                             <span class="subsection-label">Ablation Evidence</span>
                             <figure class="image">
-                              <img alt="Table 5. Ablations for key design choices." src="assets/논문-스터디/media/media_a95e74921341.png" style="width:528px">
+                              <img width="1546" height="642" alt="Table 5. Ablations for key design choices." src="assets/논문-스터디/media/media_a95e74921341.png" style="width:528px">
                               <figcaption><span class="caption-main">Table 5. Ablations providing insight into the key design choices.</span><span class="caption-note">RDP &amp; Scale is identified as the key scene representation, and universal training across 12+ tasks is shown to be compute-efficient compared with separate bespoke models.</span></figcaption>
                             </figure>
                           </section>

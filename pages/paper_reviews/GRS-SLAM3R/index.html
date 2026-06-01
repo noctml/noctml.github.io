@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
-  <title>GRS-SLAM3R Paper Review</title>
+  <meta name="description" content="gated recurrent state와 submap alignment로 RGB-only dense SLAM을 실시간화">
+  <title>[논문 리뷰] GRS-SLAM3R: Real-Time Dense SLAM with Gated Recurrent State | Insighted</title>
   <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
-  <meta content="GRS-SLAM3R Paper Review" property="og:title">
-  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta property="og:title" content="[논문 리뷰] GRS-SLAM3R: Real-Time Dense SLAM with Gated Recurrent State | Insighted">
+  <meta property="og:description" content="gated recurrent state와 submap alignment로 RGB-only dense SLAM을 실시간화">
   <meta content="website" property="og:type">
   <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
-  <link href="styles.css?v=grs-slam3r-redesign-20260530" rel="stylesheet">
+  <link href="styles.css?v=grs-slam3r-redesign-20260530-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 </head>
@@ -34,7 +34,7 @@
         <div class="topbar-inner">
           <div class="brandline">
             <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+              <img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
             </a>
             <span class="brandtext">Paper Reviews</span>
           </div>
@@ -147,7 +147,7 @@
                       <p>GRS-SLAM3R의 출발점은 DUSt3R 기반 end-to-end reconstruction이 camera calibration 없이 dense 3D를 잘 예측하지만, 대개 image pair 또는 short sequence 중심이라 <strong>online SLAM에 필요한 장기 spatial memory와 global consistency</strong>가 부족하다는 점이다.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. Scene Reconstruction Performance." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png" style="width:900px">
+                        <img width="8300" height="1760" alt="Figure 1. Scene Reconstruction Performance." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png" style="width:900px">
                         <figcaption><span class="caption-main">Figure 1. Scene Reconstruction Performance.</span><span class="caption-note">논문은 GRS-SLAM3R이 RGB-only 입력으로 dense reconstruction과 tracking을 동시에 유지한다는 점을 시각적으로 제시한다.</span></figcaption>
                       </figure>
 
@@ -193,7 +193,7 @@
                       <p>방법론은 두 축으로 정리된다. Frontend는 gated recurrent state로 frame-level pointmap과 pose를 예측하고, backend는 keyframe/submap 구조로 local alignment와 inter-submap pose graph를 수행한다.</p>
 
                       <figure class="image">
-                        <img alt="Figure 2. System overview." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_059c944f8bab.png" style="width:900px">
+                        <img width="8500" height="2680" alt="Figure 2. System overview." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_059c944f8bab.png" style="width:900px">
                         <figcaption><span class="caption-main">Figure 2. System overview.</span><span class="caption-note">왼쪽은 gated recurrent state를 이용한 dense reconstruction frontend, 오른쪽은 keyframe/submap 기반 hierarchical alignment를 보여준다.</span></figcaption>
                       </figure>
 
@@ -239,7 +239,7 @@ $$
                         </div>
 
                         <figure class="image">
-                          <img alt="Figure 3. Gate structure." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_42c53333ea5f.png" style="width:560px">
+                          <img width="3520" height="3700" alt="Figure 3. Gate structure." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_42c53333ea5f.png" style="width:560px">
                           <figcaption><span class="caption-main">Figure 3. Gate structure.</span><span class="caption-note">reset/update gate는 memory token과 current frame token을 함께 보고, suppress할 과거 정보와 carry할 정보를 나눠 결정한다.</span></figcaption>
                         </figure>
                       </section>
@@ -414,7 +414,7 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Pose Evidence</span>
                         <figure class="image">
-                          <img alt="Table I. Pose estimation on 7Scenes dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png" style="width:640px">
+                          <img width="4140" height="660" alt="Table I. Pose estimation on 7Scenes dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png" style="width:640px">
                           <figcaption><span class="caption-main">Table I. Pose estimation on 7Scenes dataset.</span><span class="caption-note">7-Scenes에서 per-scene ATE RMSE를 cm 단위로 보고하며, GRS-SLAM3R은 평균 8.27cm로 CUT3R과 MASt3R-SLAM보다 낮다.</span></figcaption>
                         </figure>
                       </section>
@@ -422,23 +422,23 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Surface Reconstruction Evidence</span>
                         <figure class="image">
-                          <img alt="Table II. Reconstruction results on the NRGBD dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png" style="width:620px">
+                          <img width="3400" height="1280" alt="Table II. Reconstruction results on the NRGBD dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png" style="width:620px">
                           <figcaption><span class="caption-main">Table II. Reconstruction results on the NRGBD dataset.</span><span class="caption-note">NRGBD에서 mean accuracy/completion이 CUT3R보다 낮아 sparse sampling과 작은 overlap에서도 recurrent memory가 geometry를 유지함을 보인다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table III. Reconstruction results and runtime on 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png" style="width:860px">
+                          <img width="8440" height="1420" alt="Table III. Reconstruction results and runtime on 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png" style="width:860px">
                           <figcaption><span class="caption-main">Table III. Reconstruction results and runtime (FPS) on 7Scenes.</span><span class="caption-note">GRS-SLAM3R은 7-Scenes에서 reconstruction accuracy/completion과 약 15 FPS의 runtime을 함께 보고해 accuracy-speed trade-off를 강조한다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d2a2c52f6331.png" style="width:860px">
+                          <img width="8460" height="1370" alt="Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d2a2c52f6331.png" style="width:860px">
                           <figcaption><span class="caption-main">Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes.</span><span class="caption-note">red outline은 낮은 predictive accuracy, green outline은 높은 accuracy, yellow는 ground truth를 나타내며, 제안 방법이 local geometry를 더 안정적으로 유지하는 예시다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 5. Qualitative scene reconstruction results on the NES dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d7ad9def0549.png" style="width:860px">
+                          <img width="8460" height="3100" alt="Figure 5. Qualitative scene reconstruction results on the NES dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d7ad9def0549.png" style="width:860px">
                           <figcaption><span class="caption-main">Figure 5. Qualitative scene reconstruction results on the NES dataset.</span><span class="caption-note">긴 corridor와 큰 trajectory에서 기존 방법은 drift, breaking, scale shrinkage를 보이지만, GRS-SLAM3R은 submap alignment로 corridor structure와 scale을 더 안정적으로 유지한다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table IV. Quantitative results on the Apartment dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png" style="width:640px">
+                          <img width="4140" height="1040" alt="Table IV. Quantitative results on the Apartment dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png" style="width:640px">
                           <figcaption><span class="caption-main">Table IV. Quantitative results on the Apartment dataset.</span><span class="caption-note">약 <span class="inline-equation-token">\(100m^2\)</span> 규모의 multi-room scene에서 accuracy, completion, ATE를 함께 보고해 large-scale setting의 drift를 확인한다.</span></figcaption>
                         </figure>
                       </section>
@@ -446,11 +446,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Runtime / Ablation Evidence</span>
                         <figure class="image">
-                          <img alt="Figure 6. Ablation on Gated Recurrent model." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c42ba2668029.png" style="width:640px">
+                          <img width="3980" height="1460" alt="Figure 6. Ablation on Gated Recurrent model." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c42ba2668029.png" style="width:640px">
                           <figcaption><span class="caption-main">Figure 6. Ablation on Gated Recurrent model.</span><span class="caption-note">gate가 없으면 latent state를 제대로 조절하지 못해 inconsistent geometry가 누적되고, gated update는 새 observation을 선택적으로 통합한다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table V. Ablation of Gate, Local Align, and Submap." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png" style="width:640px">
+                          <img width="3920" height="1360" alt="Table V. Ablation of Gate, Local Align, and Submap." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png" style="width:640px">
                           <figcaption><span class="caption-main">Table V. Ablation of Gate, Local Align, and Submap.</span><span class="caption-note">Gate, local align, submap을 모두 제거하면 error와 ATE가 크게 악화되고, 세 구성요소를 함께 사용할 때 가장 좋은 결과를 보인다.</span></figcaption>
                         </figure>
                       </section>
@@ -502,7 +502,7 @@ $$
                       <p>GRS-SLAM3R starts from the gap between strong pairwise pointmap prediction and online dense SLAM. DUSt3R-style methods can recover dense 3D without camera calibration, but online SLAM also needs <strong>long-term spatial memory and global consistency</strong>.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. Scene Reconstruction Performance." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png" style="width:900px">
+                        <img width="8300" height="1760" alt="Figure 1. Scene Reconstruction Performance." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png" style="width:900px">
                         <figcaption><span class="caption-main">Figure 1. Scene Reconstruction Performance.</span><span class="caption-note">The paper visually positions GRS-SLAM3R as RGB-only dense reconstruction and tracking.</span></figcaption>
                       </figure>
 
@@ -548,7 +548,7 @@ $$
                       <p>The method has two main axes. The frontend predicts frame-level pointmaps and pose with a gated recurrent state. The backend uses keyframes and submaps for local alignment and inter-submap pose-graph registration.</p>
 
                       <figure class="image">
-                        <img alt="Figure 2. System overview." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_059c944f8bab.png" style="width:900px">
+                        <img width="8500" height="2680" alt="Figure 2. System overview." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_059c944f8bab.png" style="width:900px">
                         <figcaption><span class="caption-main">Figure 2. System overview.</span><span class="caption-note">The left side shows the gated recurrent frontend, while the right side shows keyframe/submap-based hierarchical alignment.</span></figcaption>
                       </figure>
 
@@ -593,7 +593,7 @@ $$
                           </figure>
                         </div>
                         <figure class="image">
-                          <img alt="Figure 3. Gate structure." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_42c53333ea5f.png" style="width:560px">
+                          <img width="3520" height="3700" alt="Figure 3. Gate structure." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_42c53333ea5f.png" style="width:560px">
                           <figcaption><span class="caption-main">Figure 3. Gate structure.</span><span class="caption-note">The gates decide which memory should be suppressed and which information should be carried forward.</span></figcaption>
                         </figure>
                       </section>
@@ -768,7 +768,7 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Pose Evidence</span>
                         <figure class="image">
-                          <img alt="Table I. Pose estimation on 7Scenes dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png" style="width:640px">
+                          <img width="4140" height="660" alt="Table I. Pose estimation on 7Scenes dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png" style="width:640px">
                           <figcaption><span class="caption-main">Table I. Pose estimation on 7Scenes dataset.</span><span class="caption-note">The table reports per-scene ATE RMSE in centimeters; GRS-SLAM3R has a lower average error than CUT3R and MASt3R-SLAM.</span></figcaption>
                         </figure>
                       </section>
@@ -776,23 +776,23 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Surface Reconstruction Evidence</span>
                         <figure class="image">
-                          <img alt="Table II. Reconstruction results on the NRGBD dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png" style="width:620px">
+                          <img width="3400" height="1280" alt="Table II. Reconstruction results on the NRGBD dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png" style="width:620px">
                           <figcaption><span class="caption-main">Table II. Reconstruction results on the NRGBD dataset.</span><span class="caption-note">The NRGBD results test sparse sampling and smaller view overlap.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table III. Reconstruction results and runtime on 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png" style="width:860px">
+                          <img width="8440" height="1420" alt="Table III. Reconstruction results and runtime on 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png" style="width:860px">
                           <figcaption><span class="caption-main">Table III. Reconstruction results and runtime (FPS) on 7Scenes.</span><span class="caption-note">The paper reports both accuracy/completion and FPS to show an accuracy-speed trade-off.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d2a2c52f6331.png" style="width:860px">
+                          <img width="8460" height="1370" alt="Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d2a2c52f6331.png" style="width:860px">
                           <figcaption><span class="caption-main">Figure 4. Qualitative scene reconstruction results on chess seq-05 in 7Scenes.</span><span class="caption-note">Red outlines mark low predictive accuracy, green outlines mark high accuracy, and yellow indicates ground truth.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 5. Qualitative scene reconstruction results on the NES dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d7ad9def0549.png" style="width:860px">
+                          <img width="8460" height="3100" alt="Figure 5. Qualitative scene reconstruction results on the NES dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d7ad9def0549.png" style="width:860px">
                           <figcaption><span class="caption-main">Figure 5. Qualitative scene reconstruction results on the NES dataset.</span><span class="caption-note">The NES result stresses long corridors and large trajectories where drift, breaking, and scale shrinkage are visible in baselines.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table IV. Quantitative results on the Apartment dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png" style="width:640px">
+                          <img width="4140" height="1040" alt="Table IV. Quantitative results on the Apartment dataset." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png" style="width:640px">
                           <figcaption><span class="caption-main">Table IV. Quantitative results on the Apartment dataset.</span><span class="caption-note">The Apartment dataset is a multi-room scene of about <span class="inline-equation-token">\(100m^2\)</span>, testing large-scale reconstruction and tracking drift.</span></figcaption>
                         </figure>
                       </section>
@@ -800,11 +800,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Runtime / Ablation Evidence</span>
                         <figure class="image">
-                          <img alt="Figure 6. Ablation on Gated Recurrent model." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c42ba2668029.png" style="width:640px">
+                          <img width="3980" height="1460" alt="Figure 6. Ablation on Gated Recurrent model." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c42ba2668029.png" style="width:640px">
                           <figcaption><span class="caption-main">Figure 6. Ablation on Gated Recurrent model.</span><span class="caption-note">Without gates, inconsistent geometry accumulates in the latent state.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table V. Ablation of Gate, Local Align, and Submap." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png" style="width:640px">
+                          <img width="3920" height="1360" alt="Table V. Ablation of Gate, Local Align, and Submap." loading="lazy" src="assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png" style="width:640px">
                           <figcaption><span class="caption-main">Table V. Ablation of Gate, Local Align, and Submap.</span><span class="caption-note">Gate, local alignment, and submap representation jointly give the strongest reconstruction and pose results.</span></figcaption>
                         </figure>
                       </section>

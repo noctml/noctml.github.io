@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
-  <title>DUSt3R Paper Review</title>
+  <meta name="description" content="Calibration 없이 pointmap으로 푸는 범용 3D reconstruction">
+  <title>[논문 리뷰] DUSt3R: Geometric 3D Vision Made Easy | Insighted</title>
   <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
-  <meta content="DUSt3R Paper Review" property="og:title">
-  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta property="og:title" content="[논문 리뷰] DUSt3R: Geometric 3D Vision Made Easy | Insighted">
+  <meta property="og:description" content="Calibration 없이 pointmap으로 푸는 범용 3D reconstruction">
   <meta content="website" property="og:type">
   <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
-  <link href="styles.css?v=dust3r-redesign-20260526" rel="stylesheet">
+  <link href="styles.css?v=dust3r-redesign-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 </head>
@@ -34,7 +34,7 @@
         <div class="topbar-inner">
           <div class="brandline">
             <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+              <img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
             </a>
             <span class="brandtext">Paper Reviews</span>
           </div>
@@ -152,7 +152,7 @@
                       <p>DUSt3R의 문제의식은 multi-view reconstruction이 보통 <strong>camera pose와 intrinsics 추정</strong>에 먼저 의존한다는 데서 출발한다. 실제 사진 모음은 camera가 제각각이고 pose도 없기 때문에, SfM/MVS pipeline은 matching, camera estimation, depth estimation이 순서대로 흔들릴 수 있다.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. DUSt3R overview." src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px">
+                        <img width="1908" height="994" alt="Figure 1. DUSt3R overview." src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px">
                         <figcaption><span class="caption-main">Figure 1. Overview.</span><span class="caption-note">Unconstrained image collection에서 pointmap을 예측하고 camera, depth, matching, 3D reconstruction을 회수하는 전체 관점.</span></figcaption>
                       </figure>
 
@@ -210,7 +210,7 @@
                       <p>DUSt3R의 방법론은 크게 세 단계다. 첫째, 두 image를 transformer로 함께 처리해 <strong>같은 좌표계의 pointmap</strong>을 예측한다. 둘째, confidence-aware regression loss로 불확실한 pixel의 영향을 조절한다. 셋째, 여러 image pair에서 나온 pointmap을 3D 공간에서 global alignment한다.</p>
 
                       <figure class="image">
-                        <img alt="Figure 2. Architecture of the DUSt3R network." src="assets/dust3r/media/media_40c003490199.png" style="width:960px">
+                        <img width="2188" height="538" alt="Figure 2. Architecture of the DUSt3R network." src="assets/dust3r/media/media_40c003490199.png" style="width:960px">
                         <figcaption><span class="caption-main">Figure 2. Architecture of the network <span class="inline-equation-token">\(\mathcal{F}\)</span>.</span><span class="caption-note">두 view를 Siamese ViT encoder와 cross-attention decoder로 처리한 뒤, image <span class="inline-equation-token">\(I_1\)</span> 좌표계에 표현된 두 pointmap과 confidence map을 출력한다.</span></figcaption>
                       </figure>
 
@@ -251,7 +251,7 @@ $$
                         <span class="subsection-label">2. Pairwise pointmap regression</span>
                         <p>network <span class="inline-equation-token">\(\mathcal{F}\)</span>는 두 RGB image <span class="inline-equation-token">\(I_1\)</span>, <span class="inline-equation-token">\(I_2\)</span>를 입력으로 받아 <span class="inline-equation-token">\(X^{1,1}\)</span>, <span class="inline-equation-token">\(X^{2,1}\)</span>과 confidence <span class="inline-equation-token">\(C^{1,1}\)</span>, <span class="inline-equation-token">\(C^{2,1}\)</span>을 출력한다. 두 pointmap은 모두 <strong>첫 번째 image <span class="inline-equation-token">\(I_1\)</span>의 coordinate frame</strong>에 표현된다.</p>
                         <figure class="image">
-                          <img alt="Figure 3. Reconstruction examples from DUSt3R." src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px">
+                          <img width="2028" height="372" alt="Figure 3. Reconstruction examples from DUSt3R." src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px">
                           <figcaption><span class="caption-main">Figure 3. Reconstruction examples on two scenes never seen during training.</span><span class="caption-note">RGB, depth map, confidence map, reconstruction을 함께 보여주며 confidence가 pointmap 품질을 해석하는 보조 신호로 쓰임을 보여준다.</span></figcaption>
                         </figure>
                       </section>
@@ -374,11 +374,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Pose Evidence</span>
                         <figure class="image">
-                          <img alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px">
+                          <img width="1792" height="598" alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px">
                           <figcaption><span class="caption-main">Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks datasets.</span><span class="caption-note">query/database image pair의 raw pointmap으로 correspondence를 만들고 PnP-RANSAC을 적용해 visual localization 성능을 평가한다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px">
+                          <img width="1478" height="664" alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px">
                           <figcaption><span class="caption-main">Table 2. Right: Multi-view pose regression on CO3Dv2 and RealEstate10K with 10 random frames.</span><span class="caption-note">본문에서는 global alignment가 두 dataset에서 가장 좋은 overall 성능을 보이고, PnP 기반 결과도 learning/structure 기반 방법보다 강하다고 설명한다.</span></figcaption>
                         </figure>
                       </section>
@@ -386,11 +386,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Depth Evidence</span>
                         <figure class="image">
-                          <img alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px">
+                          <img width="1292" height="486" alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px">
                           <figcaption><span class="caption-main">Table 2. Left: Monocular depth estimation on multiple benchmarks.</span><span class="caption-note">monocular task에서는 같은 image를 <span class="inline-equation-token">\(\mathcal{F}(I,I)\)</span>로 입력하고, predicted pointmap의 z-coordinate을 depth로 읽어 AbsRel과 <span class="inline-equation-token">\(\delta_{1.25}\)</span>로 평가한다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table 3. Multi-view depth evaluation with different settings." src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px">
+                          <img width="1834" height="1090" alt="Table 3. Multi-view depth evaluation with different settings." src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px">
                           <figcaption><span class="caption-main">Table 3. Multi-view depth evaluation with different settings.</span><span class="caption-note">여러 depth prediction을 confidence로 가중 평균해 multi-view depth를 구성하고, DTU/ETH3D/Tanks and Temples/ScanNet에서 평가한다.</span></figcaption>
                         </figure>
                       </section>
@@ -398,11 +398,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Reconstruction Evidence</span>
                         <figure class="image">
-                          <img alt="Table 4. MVS results on the DTU dataset." src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px">
+                          <img width="1258" height="1034" alt="Table 4. MVS results on the DTU dataset." src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px">
                           <figcaption><span class="caption-main">Table 4. MVS results on the DTU dataset.</span><span class="caption-note">논문은 DUSt3R가 GT camera 없이 global unconstrained MVS를 수행한다는 점을 강조하며, DTU에서 accuracy, completeness, overall distance를 보고한다.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." src="assets/dust3r/media/media_0aee775df721.png" style="width:620px">
+                          <img width="960" height="1398" alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." src="assets/dust3r/media/media_0aee775df721.png" style="width:620px">
                           <figcaption><span class="caption-main">Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene from two images.</span><span class="caption-note">unseen MegaDepth scene에서 두 장의 image만으로 얻은 qualitative reconstruction 예시다.</span></figcaption>
                         </figure>
                       </section>
@@ -460,7 +460,7 @@ $$
                       <p>DUSt3R starts from a practical bottleneck in multi-view reconstruction: most pipelines first depend on <strong>camera poses and intrinsics</strong>. Real image collections are unconstrained, so matching, camera estimation, and dense reconstruction can fail in sequence.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. DUSt3R overview." src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px">
+                        <img width="1908" height="994" alt="Figure 1. DUSt3R overview." src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px">
                         <figcaption><span class="caption-main">Figure 1. Overview.</span><span class="caption-note">The paper frames DUSt3R as a way to predict pointmaps first, then recover camera parameters, depth, matches, and 3D reconstruction.</span></figcaption>
                       </figure>
 
@@ -518,7 +518,7 @@ $$
                       <p>The method has three main pieces. It predicts two pointmaps in a shared coordinate frame, trains them with confidence-aware regression, and aligns pairwise predictions into a global 3D space.</p>
 
                       <figure class="image">
-                        <img alt="Figure 2. Architecture of the DUSt3R network." src="assets/dust3r/media/media_40c003490199.png" style="width:960px">
+                        <img width="2188" height="538" alt="Figure 2. Architecture of the DUSt3R network." src="assets/dust3r/media/media_40c003490199.png" style="width:960px">
                         <figcaption><span class="caption-main">Figure 2. Architecture of the network <span class="inline-equation-token">\(\mathcal{F}\)</span>.</span><span class="caption-note">The two images are encoded with shared ViT encoders, exchange information through cross-attention decoders, and output pointmaps in the coordinate frame of image <span class="inline-equation-token">\(I_1\)</span>.</span></figcaption>
                       </figure>
 
@@ -559,7 +559,7 @@ $$
                         <span class="subsection-label">2. Pairwise pointmap regression</span>
                         <p>The network <span class="inline-equation-token">\(\mathcal{F}\)</span> takes <span class="inline-equation-token">\(I_1\)</span>, <span class="inline-equation-token">\(I_2\)</span> and outputs <span class="inline-equation-token">\(X^{1,1}\)</span>, <span class="inline-equation-token">\(X^{2,1}\)</span> plus confidence maps <span class="inline-equation-token">\(C^{1,1}\)</span>, <span class="inline-equation-token">\(C^{2,1}\)</span>. Both pointmaps are expressed in the coordinate frame of the first image.</p>
                         <figure class="image">
-                          <img alt="Figure 3. Reconstruction examples from DUSt3R." src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px">
+                          <img width="2028" height="372" alt="Figure 3. Reconstruction examples from DUSt3R." src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px">
                           <figcaption><span class="caption-main">Figure 3. Reconstruction examples on two scenes never seen during training.</span><span class="caption-note">The figure shows RGB, depth, confidence, and reconstruction, making the confidence map a useful reliability cue.</span></figcaption>
                         </figure>
                       </section>
@@ -682,11 +682,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Pose Evidence</span>
                         <figure class="image">
-                          <img alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px">
+                          <img width="1792" height="598" alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px">
                           <figcaption><span class="caption-main">Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks datasets.</span><span class="caption-note">DUSt3R uses raw pointmaps to obtain correspondences and then applies PnP-RANSAC for visual localization.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px">
+                          <img width="1478" height="664" alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px">
                           <figcaption><span class="caption-main">Table 2. Right: Multi-view pose regression on CO3Dv2 and RealEstate10K with 10 random frames.</span><span class="caption-note">The paper states that global alignment gives the best overall performance on both datasets, while the PnP variant also outperforms learning- and structure-based baselines.</span></figcaption>
                         </figure>
                       </section>
@@ -694,11 +694,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Depth Evidence</span>
                         <figure class="image">
-                          <img alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px">
+                          <img width="1292" height="486" alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px">
                           <figcaption><span class="caption-main">Table 2. Left: Monocular depth estimation on multiple benchmarks.</span><span class="caption-note">For monocular depth, the same image is fed as <span class="inline-equation-token">\(\mathcal{F}(I,I)\)</span>, and depth is read from the z-coordinate of the predicted pointmap.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Table 3. Multi-view depth evaluation with different settings." src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px">
+                          <img width="1834" height="1090" alt="Table 3. Multi-view depth evaluation with different settings." src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px">
                           <figcaption><span class="caption-main">Table 3. Multi-view depth evaluation with different settings.</span><span class="caption-note">Multiple depth predictions are rescaled and confidence-weighted before evaluation on DTU, ETH3D, Tanks and Temples, and ScanNet.</span></figcaption>
                         </figure>
                       </section>
@@ -706,11 +706,11 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Reconstruction Evidence</span>
                         <figure class="image">
-                          <img alt="Table 4. MVS results on the DTU dataset." src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px">
+                          <img width="1258" height="1034" alt="Table 4. MVS results on the DTU dataset." src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px">
                           <figcaption><span class="caption-main">Table 4. MVS results on the DTU dataset.</span><span class="caption-note">The paper emphasizes global unconstrained MVS without prior camera knowledge and reports accuracy, completeness, and overall distance on DTU.</span></figcaption>
                         </figure>
                         <figure class="image">
-                          <img alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." src="assets/dust3r/media/media_0aee775df721.png" style="width:620px">
+                          <img width="960" height="1398" alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." src="assets/dust3r/media/media_0aee775df721.png" style="width:620px">
                           <figcaption><span class="caption-main">Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene from two images.</span><span class="caption-note">A qualitative example of two-image reconstruction on an unseen MegaDepth scene.</span></figcaption>
                         </figure>
                       </section>

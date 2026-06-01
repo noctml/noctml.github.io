@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Wooseok Song · Paper Reviews &amp; Work" name="description">
-  <title>MonST3R Paper Review</title>
+  <meta name="description" content="동적 장면으로 확장한 DUSt3R 기반 video geometry 모델">
+  <title>[논문 리뷰] MonST3R: A Simple Approach for Estimating Geometry in the Presence of Motion | Insighted</title>
   <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
-  <meta content="MonST3R Paper Review" property="og:title">
-  <meta content="Paper Reviews &amp; Work" property="og:description">
+  <meta property="og:title" content="[논문 리뷰] MonST3R: A Simple Approach for Estimating Geometry in the Presence of Motion | Insighted">
+  <meta property="og:description" content="동적 장면으로 확장한 DUSt3R 기반 video geometry 모델">
   <meta content="website" property="og:type">
   <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
-  <link href="styles.css?v=monst3r-redesign-20260526" rel="stylesheet">
+  <link href="styles.css?v=monst3r-redesign-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 </head>
@@ -34,7 +34,7 @@
         <div class="topbar-inner">
           <div class="brandline">
             <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-              <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+              <img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
             </a>
             <span class="brandtext">Paper Reviews</span>
           </div>
@@ -152,7 +152,7 @@
                       <p>MonST3R의 출발점은 dynamic video에서 geometry를 추정할 때, 기존 방식이 depth, optical flow, trajectory, motion mask 같은 하위 문제로 나눈 뒤 다시 결합하는 경우가 많다는 점이다. 이 방식은 모듈이 많고 느리며, 중간 추정의 오류가 다음 단계로 전파된다.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. MonST3R overview." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png" style="width:960px">
+                        <img width="2158" height="986" alt="Figure 1. MonST3R overview." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png" style="width:960px">
                         <figcaption><span class="caption-main">Figure 1. MonST3R.</span><span class="caption-note">Dynamic video에서 time-varying point cloud, camera pose, intrinsics를 주로 feed-forward 방식으로 만들고, video depth와 dynamic/static mask 같은 task로 연결한다.</span></figcaption>
                       </figure>
 
@@ -170,7 +170,7 @@
                       </section>
 
                       <figure class="image">
-                        <img alt="Figure 2. DUSt3R limitations on dynamic scenes." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_ebf927b0128c.png" style="width:920px">
+                        <img width="2060" height="880" alt="Figure 2. DUSt3R limitations on dynamic scenes." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_ebf927b0128c.png" style="width:920px">
                         <figcaption><span class="caption-main">Figure 2. Limitation of DUSt3R on dynamic scenes.</span><span class="caption-note">DUSt3R는 moving foreground를 alignment anchor로 잘못 쓰거나, foreground object depth를 background로 배치할 수 있다.</span></figcaption>
                       </figure>
 
@@ -246,7 +246,7 @@
                         <span class="subsection-label">2. Dynamic data로 decoder/head만 fine-tuning</span>
                         <p>dynamic scene에는 synchronized image, pose, depth label이 필요하지만 이런 데이터는 많지 않다. MonST3R는 PointOdyssey, TartanAir, Spring, Waymo를 섞고, encoder는 freeze한 채 decoder와 prediction head만 fine-tuning한다.</p>
                         <figure class="image">
-                          <img alt="Table 1. Training datasets used for fine-tuning." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png" style="width:860px">
+                          <img width="2054" height="302" alt="Table 1. Training datasets used for fine-tuning." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png" style="width:860px">
                           <figcaption><span class="caption-main">Table 1. Training datasets used for fine-tuning on dynamic scenes.</span><span class="caption-note">모든 dataset은 camera pose와 depth를 제공하며, PointOdyssey와 Spring은 articulated dynamic object를 포함한다.</span></figcaption>
                         </figure>
                         <div class="summary-table-wrap">
@@ -321,7 +321,7 @@ $$
                         <span class="subsection-label">4. Dynamic global point cloud와 camera pose 최적화</span>
                         <p>video는 frame 수가 많기 때문에 모든 image pair를 연결하지 않고, temporal sliding window 안의 pair만 사용한다. Global pointmap은 camera extrinsics, intrinsics, depth로 reparameterize되어 pose/depth/intrinsics를 함께 최적화할 수 있다.</p>
                         <figure class="image">
-                          <img alt="Figure 3. Dynamic global point cloud and camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_17746717073c.png" style="width:920px">
+                          <img width="2058" height="698" alt="Figure 3. Dynamic global point cloud and camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_17746717073c.png" style="width:920px">
                           <figcaption><span class="caption-main">Figure 3. Dynamic global point cloud and camera pose estimation.</span><span class="caption-note">Pairwise pointmap을 window 단위로 연결하고, static region을 기준으로 global point cloud와 camera trajectory를 정렬한다.</span></figcaption>
                         </figure>
                         <div class="method-equation-cluster">
@@ -457,11 +457,11 @@ $$
                         <span class="subsection-label">Video depth / single-frame depth</span>
                         <p>Video depth는 Sintel, Bonn, KITTI에서 평가하고, single-frame depth는 NYU-v2를 포함해 평가한다. Metric은 Abs Rel과 <span class="inline-equation-token">\(\delta&lt;1.25\)</span>이며, video depth에서는 scale/shift 또는 scale alignment를 사용한다.</p>
                         <figure class="image table-figure table-figure-medium">
-                          <img alt="Table 2. Video depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png" style="width:720px">
+                          <img width="2046" height="802" alt="Table 2. Video depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png" style="width:720px">
                           <figcaption><span class="caption-main">Table 2. Video depth evaluation on Sintel, Bonn, and KITTI datasets.</span><span class="caption-note">MonST3R는 video depth 전용 방법과 경쟁하며, 특히 scale-only normalization에서 DepthCrafter 대비 뚜렷한 이점을 보인다.</span></figcaption>
                         </figure>
                         <figure class="image table-figure table-figure-small">
-                          <img alt="Table 3. Single-frame depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png" style="width:660px">
+                          <img width="1732" height="282" alt="Table 3. Single-frame depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png" style="width:660px">
                           <figcaption><span class="caption-main">Table 3. Single-frame depth evaluation.</span><span class="caption-note">dynamic video fine-tuning 이후에도 original DUSt3R와 비슷한 single-frame depth 성능을 유지한다.</span></figcaption>
                         </figure>
                       </section>
@@ -470,7 +470,7 @@ $$
                         <span class="subsection-label">Camera pose estimation</span>
                         <p>Pose 평가는 Sintel, TUM-dynamics, ScanNet에서 ATE, RPE trans, RPE rot을 Sim(3) Umeyama alignment 후 계산한다. 논문은 MonST3R가 ground-truth intrinsics 없이도 joint depth/pose 계열에서 강한 성능을 보인다고 강조한다.</p>
                         <figure class="image table-figure table-figure-medium">
-                          <img alt="Table 4. Camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png" style="width:720px">
+                          <img width="2044" height="736" alt="Table 4. Camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png" style="width:720px">
                           <figcaption><span class="caption-main">Table 4. Evaluation on camera pose estimation on Sintel, TUM-dynamic, and ScanNet.</span><span class="caption-note">MonST3R는 GT camera intrinsics 없이도 joint depth/pose 계열에서 Sintel과 ScanNet 최고 성능을 보이고, pose-only method와도 경쟁한다.</span></figcaption>
                         </figure>
                       </section>
@@ -479,11 +479,11 @@ $$
                         <span class="subsection-label">Dense reconstruction / ablation</span>
                         <p>DAVIS qualitative comparison에서는 camera trajectory와 dynamic scene geometry를 함께 보는 방식으로 dense reconstruction을 비교한다. Ablation은 dataset choice, fine-tuning target, flow/smooth/static-region loss가 pose와 video depth에 미치는 영향을 분리한다.</p>
                         <figure class="image">
-                          <img alt="Figure 4. Qualitative comparison." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_08e68749a840.png" style="width:860px">
+                          <img width="1834" height="1476" alt="Figure 4. Qualitative comparison." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_08e68749a840.png" style="width:860px">
                           <figcaption><span class="caption-main">Figure 4. Qualitative comparison.</span><span class="caption-note">CasualSAM은 camera trajectory는 안정적이지만 foreground geometry가 흔들릴 수 있고, DUSt3R는 moving foreground 때문에 pose/dense reconstruction이 무너질 수 있음을 대비해 보여준다.</span></figcaption>
                         </figure>
                         <figure class="image table-figure table-figure-medium">
-                          <img alt="Table 5. Ablation study on Sintel." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png" style="width:820px">
+                          <img width="2094" height="1006" alt="Table 5. Ablation study on Sintel." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png" style="width:820px">
                           <figcaption><span class="caption-main">Table 5. Ablation study on Sintel dataset.</span><span class="caption-note">dataset mixture, decoder/head fine-tuning, flow/static-region/smoothness loss가 pose를 개선하며, video depth 성능에는 비교적 작은 영향을 준다.</span></figcaption>
                         </figure>
                       </section>
@@ -527,7 +527,7 @@ $$
                       <p>MonST3R starts from the observation that dynamic reconstruction is often split into depth, optical flow, trajectory, and motion-mask subproblems. Such systems can be slow and brittle because errors in intermediate estimates propagate into later reconstruction.</p>
 
                       <figure class="image">
-                        <img alt="Figure 1. MonST3R overview." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png" style="width:960px">
+                        <img width="2158" height="986" alt="Figure 1. MonST3R overview." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_7339fc70b774.png" style="width:960px">
                         <figcaption><span class="caption-main">Figure 1. MonST3R.</span><span class="caption-note">From a dynamic video, MonST3R produces a time-varying point cloud, camera poses, and intrinsics, then derives video depth and dynamic/static masks.</span></figcaption>
                       </figure>
 
@@ -545,7 +545,7 @@ $$
                       </section>
 
                       <figure class="image">
-                        <img alt="Figure 2. DUSt3R limitations on dynamic scenes." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_ebf927b0128c.png" style="width:920px">
+                        <img width="2060" height="880" alt="Figure 2. DUSt3R limitations on dynamic scenes." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_ebf927b0128c.png" style="width:920px">
                         <figcaption><span class="caption-main">Figure 2. Limitation of DUSt3R on dynamic scenes.</span><span class="caption-note">DUSt3R can align to a moving foreground object or place foreground depth in the background.</span></figcaption>
                       </figure>
 
@@ -621,7 +621,7 @@ $$
                         <span class="subsection-label">2. Fine-tune only decoder/head with dynamic data</span>
                         <p>Dynamic training needs synchronized images, pose, and depth, but such data is limited. MonST3R mixes PointOdyssey, TartanAir, Spring, and Waymo, freezes the encoder, and fine-tunes the decoder and prediction head.</p>
                         <figure class="image">
-                          <img alt="Table 1. Training datasets used for fine-tuning." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png" style="width:860px">
+                          <img width="2054" height="302" alt="Table 1. Training datasets used for fine-tuning." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png" style="width:860px">
                           <figcaption><span class="caption-main">Table 1. Training datasets used for fine-tuning on dynamic scenes.</span><span class="caption-note">All datasets provide camera pose and depth; PointOdyssey and Spring include articulated dynamic objects.</span></figcaption>
                         </figure>
                         <div class="summary-table-wrap">
@@ -696,7 +696,7 @@ $$
                         <span class="subsection-label">4. Optimize dynamic global point cloud and camera pose</span>
                         <p>Rather than connecting every frame pair, MonST3R uses pairs inside temporal sliding windows. The global pointmap is reparameterized by camera extrinsics, intrinsics, and depth, enabling joint optimization.</p>
                         <figure class="image">
-                          <img alt="Figure 3. Dynamic global point cloud and camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_17746717073c.png" style="width:920px">
+                          <img width="2058" height="698" alt="Figure 3. Dynamic global point cloud and camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_17746717073c.png" style="width:920px">
                           <figcaption><span class="caption-main">Figure 3. Dynamic global point cloud and camera pose estimation.</span><span class="caption-note">Pairwise pointmaps are connected within windows, and static regions anchor global point cloud and camera trajectory alignment.</span></figcaption>
                         </figure>
                         <div class="method-equation-cluster">
@@ -819,21 +819,21 @@ $$
                       <section class="evidence-cluster">
                         <span class="subsection-label">Video depth / single-frame depth</span>
                         <p>Video depth is evaluated on Sintel, Bonn, and KITTI; single-frame depth also includes NYU-v2. Metrics are Abs Rel and <span class="inline-equation-token">\(\delta&lt;1.25\)</span>, with scale/shift or scale alignment for video depth.</p>
-                        <figure class="image table-figure table-figure-medium"><img alt="Table 2. Video depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png" style="width:720px"><figcaption><span class="caption-main">Table 2. Video depth evaluation on Sintel, Bonn, and KITTI datasets.</span><span class="caption-note">MonST3R competes with specialized video depth methods and shows a clear advantage over DepthCrafter under scale-only normalization.</span></figcaption></figure>
-                        <figure class="image table-figure table-figure-small"><img alt="Table 3. Single-frame depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png" style="width:660px"><figcaption><span class="caption-main">Table 3. Single-frame depth evaluation.</span><span class="caption-note">After dynamic fine-tuning, single-frame depth remains competitive with original DUSt3R.</span></figcaption></figure>
+                        <figure class="image table-figure table-figure-medium"><img width="2046" height="802" alt="Table 2. Video depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png" style="width:720px"><figcaption><span class="caption-main">Table 2. Video depth evaluation on Sintel, Bonn, and KITTI datasets.</span><span class="caption-note">MonST3R competes with specialized video depth methods and shows a clear advantage over DepthCrafter under scale-only normalization.</span></figcaption></figure>
+                        <figure class="image table-figure table-figure-small"><img width="1732" height="282" alt="Table 3. Single-frame depth evaluation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png" style="width:660px"><figcaption><span class="caption-main">Table 3. Single-frame depth evaluation.</span><span class="caption-note">After dynamic fine-tuning, single-frame depth remains competitive with original DUSt3R.</span></figcaption></figure>
                       </section>
 
                       <section class="evidence-cluster">
                         <span class="subsection-label">Camera pose estimation</span>
                         <p>Pose is evaluated on Sintel, TUM-dynamics, and ScanNet with ATE, RPE trans, and RPE rot after Sim(3) Umeyama alignment.</p>
-                        <figure class="image table-figure table-figure-medium"><img alt="Table 4. Camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png" style="width:720px"><figcaption><span class="caption-main">Table 4. Evaluation on camera pose estimation on Sintel, TUM-dynamic, and ScanNet.</span><span class="caption-note">MonST3R is strongest among joint depth/pose methods on Sintel and ScanNet, while remaining competitive with pose-only methods without ground-truth intrinsics.</span></figcaption></figure>
+                        <figure class="image table-figure table-figure-medium"><img width="2044" height="736" alt="Table 4. Camera pose estimation." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png" style="width:720px"><figcaption><span class="caption-main">Table 4. Evaluation on camera pose estimation on Sintel, TUM-dynamic, and ScanNet.</span><span class="caption-note">MonST3R is strongest among joint depth/pose methods on Sintel and ScanNet, while remaining competitive with pose-only methods without ground-truth intrinsics.</span></figcaption></figure>
                       </section>
 
                       <section class="evidence-cluster">
                         <span class="subsection-label">Dense reconstruction / ablation</span>
                         <p>The DAVIS qualitative comparison evaluates camera trajectory and dynamic geometry together. The ablation isolates datasets, fine-tuning target, and video-specific losses.</p>
-                        <figure class="image"><img alt="Figure 4. Qualitative comparison." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_08e68749a840.png" style="width:860px"><figcaption><span class="caption-main">Figure 4. Qualitative comparison.</span><span class="caption-note">The comparison highlights that CasualSAM can keep trajectories stable while foreground geometry fails, and DUSt3R can fail on both pose and dense reconstruction in dynamic scenes.</span></figcaption></figure>
-                        <figure class="image table-figure table-figure-medium"><img alt="Table 5. Ablation study on Sintel." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png" style="width:820px"><figcaption><span class="caption-main">Table 5. Ablation study on Sintel dataset.</span><span class="caption-note">Dataset mixture, decoder/head fine-tuning, flow/static-region/smoothness losses improve pose robustness with limited impact on video depth.</span></figcaption></figure>
+                        <figure class="image"><img width="1834" height="1476" alt="Figure 4. Qualitative comparison." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_08e68749a840.png" style="width:860px"><figcaption><span class="caption-main">Figure 4. Qualitative comparison.</span><span class="caption-note">The comparison highlights that CasualSAM can keep trajectories stable while foreground geometry fails, and DUSt3R can fail on both pose and dense reconstruction in dynamic scenes.</span></figcaption></figure>
+                        <figure class="image table-figure table-figure-medium"><img width="2094" height="1006" alt="Table 5. Ablation study on Sintel." src="assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png" style="width:820px"><figcaption><span class="caption-main">Table 5. Ablation study on Sintel dataset.</span><span class="caption-note">Dataset mixture, decoder/head fine-tuning, flow/static-region/smoothness losses improve pose robustness with limited impact on video depth.</span></figcaption></figure>
                       </section>
                     </section>
 

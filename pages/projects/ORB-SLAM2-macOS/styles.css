@@ -13,6 +13,10 @@
   --shadow: 0 14px 34px rgba(15, 23, 42, .07);
   --radius: 8px;
   --max: 1040px;
+  --page-max: 1500px;
+  --right-rail: 300px;
+  --layout-gap: 30px;
+  --bookmark-size: 12px;
 }
 
 :root[data-theme="dark-gray"] {
@@ -108,14 +112,23 @@ pre code {
 
 .layout {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) var(--right-rail);
+  column-gap: var(--layout-gap);
+  width: min(var(--page-max), 100%);
+  margin: 0 auto;
   min-height: 100vh;
 }
 
+.layout > * {
+  min-width: 0;
+}
+
 .sidebar {
-  border-right: 1px solid var(--line);
-  background: var(--surface);
-  padding: 18px;
+  grid-column: 2;
+  grid-row: 1;
+  border-left: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 74%, var(--bg));
+  padding: 18px 18px 18px 22px;
 }
 
 .sidebar-card {
@@ -123,12 +136,67 @@ pre code {
   top: 18px;
   display: flex;
   flex-direction: column;
-  min-height: calc(100dvh - 40px);
+  min-height: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--bg);
   box-shadow: var(--shadow);
   padding: 16px;
+}
+
+.section-bookmark {
+  display: grid;
+  gap: 12px;
+}
+
+.bookmark-status {
+  display: grid;
+  gap: 4px;
+}
+
+.bookmark-eyebrow {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.bookmark-status strong {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.bookmark-list {
+  display: grid;
+  gap: 5px;
+  max-height: calc(100dvh - 140px);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-right: 5px;
+}
+
+.bookmark-link {
+  display: block;
+  padding: 8px 10px;
+  border-left: 2px solid transparent;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: var(--bookmark-size);
+  font-weight: 670;
+  line-height: 1.3;
+}
+
+.bookmark-link:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+.bookmark-link.active {
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--surface-strong) 74%, var(--bg));
+  color: var(--text);
 }
 
 .avatar-wrap {
@@ -203,6 +271,8 @@ pre code {
 }
 
 .content {
+  grid-column: 1;
+  grid-row: 1;
   min-width: 0;
   background: var(--bg);
 }
@@ -286,18 +356,11 @@ pre code {
   padding: 54px 0 22px;
 }
 
-.kicker {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 650;
-  margin: 0 0 10px;
-}
-
 .hero h1 {
-  margin: 0 0 14px;
+  margin: 0;
   max-width: 860px;
-  font-size: clamp(30px, 4.6vw, 48px);
-  line-height: 1.12;
+  font-size: clamp(26px, 3.2vw, 38px);
+  line-height: 1.18;
   letter-spacing: 0;
 }
 
@@ -308,26 +371,17 @@ pre code {
   font-size: 18px;
 }
 
-.meta {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 18px;
-}
-
-.pill {
-  border: 1px solid var(--line);
-  background: transparent;
-  padding: 5px 8px;
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.2;
+.hero-tags {
+  margin: 0 0 8px;
+  color: color-mix(in srgb, var(--muted) 86%, var(--bg));
+  font-size: 13px;
+  font-weight: 560;
+  line-height: 1.6;
 }
 
 .media-section {
   width: min(840px, 100%);
-  margin: 10px auto 34px;
+  margin: 14px auto 34px;
 }
 
 .hero-video {
@@ -693,22 +747,12 @@ figcaption {
 
 @media (max-width: 980px) {
   .layout {
-    grid-template-columns: 1fr;
+    display: block;
+    width: 100%;
   }
 
   .sidebar {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .sidebar-card {
-    position: relative;
-    top: 0;
-    min-height: auto;
-  }
-
-  .sidebar-bottom {
-    margin-top: 16px;
+    display: none;
   }
 }
 

@@ -4,49 +4,28 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Wooseok Song · Side Projects" name="description"/>
-<title>실습 진행</title>
+<meta name="description" content="오픈소스 실습 진행 (with office, custom dataset)">
+<title>[프로젝트] VGGT-SLAM 실습 | Insighted</title>
 <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48"/>
-<meta content="Wooseok Song" property="og:title"/>
-<meta content="Side Projects" property="og:description"/>
+<meta property="og:title" content="[프로젝트] VGGT-SLAM 실습 | Insighted">
+<meta property="og:description" content="오픈소스 실습 진행 (with office, custom dataset)">
 <meta content="website" property="og:type"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
 <link href="styles.css" rel="stylesheet"/>
+<link href="../shared/project-shell.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="project-page-v2">
 <a class="skip" href="#main">본문으로 바로가기</a>
 <div class="layout" id="top">
-<aside aria-label="Sidebar" class="sidebar">
+<aside aria-label="Project section bookmark" class="sidebar">
 <div class="sidebar-card">
-<div>
-<div class="avatar-wrap">
-<img alt="Wooseok Song profile photo" class="avatar" src="../../../assets/avatar.jpg"/>
+<nav aria-label="Project section bookmark" class="section-bookmark">
+<div class="bookmark-status">
+<span class="bookmark-eyebrow">Now Reading</span>
+<strong id="currentSectionLabel">실습 진행</strong>
 </div>
-<div class="who">
-<div class="name">Wooseok Song</div>
-<div class="tagline">Side Projects · Work</div>
-</div>
-<div class="info">
-<div class="info-row">
-<span class="label">Focus</span>
-<span class="value">Deep Visual SLAM</span>
-</div>
-<div class="info-row">
-<span class="label">Location</span>
-<span class="value">Korea</span>
-</div>
-<div class="info-row">
-<span class="label">Links</span>
-<span class="value">
-<a href="https://github.com/noctml" rel="noreferrer" target="_blank">GitHub</a>
-</span>
-</div>
-</div>
-</div>
-<div class="sidebar-bottom">
-<a class="btn small" href="mailto:pdwytime@gmail.com">Email</a>
-<p class="tiny muted">© 2025 wooseoksong</p>
-</div>
+<div class="bookmark-list" id="sectionBookmarkList"></div>
+</nav>
 </div>
 </aside>
 <div class="content">
@@ -64,8 +43,9 @@
 <main class="container" id="main">
 <section class="section">
 <div class="panel">
-<h1 style="margin:0 0 10px; font-size:28px; letter-spacing:-0.01em;">실습 진행</h1>
-<div class="page-subtitle" id="pageSubtitle" hidden></div>
+<p class="hero-tags">#VGGT-SLAM #Visual-SLAM #Open-Source #Custom-Dataset</p>
+<h1>VGGT-SLAM 실습</h1>
+<div class="page-subtitle" id="pageSubtitle">오픈소스 실습 진행 (with office, custom dataset)</div>
 <div class="post-body"><div dir="auto" style="display:contents"><blockquote class="" id="32af65f1-13f4-802d-ac77-f030871c9644"><strong>실습 (SLAM only)</strong></blockquote></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32cf65f1-13f4-80b4-963d-c1e117c9bf1c"><li style="list-style-type:disc"><strong>결과</strong><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-8030-92bd-d59c03d977b5"><li><details><summary><strong>office 데이터셋 </strong><mark class="highlight-teal"><strong>(default)</strong></mark></summary><div dir="auto" style="display:contents"><div class="column-list" id="32af65f1-13f4-8043-8c14-e23458627081"><div dir="auto" style="display:contents"><div class="column" id="32af65f1-13f4-80c0-8891-f6dd3ed964e2" style="width:31.25%"><div dir="ltr" style="display:contents"><figure class="image" id="32af65f1-13f4-80fd-980e-d4be9f119691"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_f58800e22a2b.png" style="width:709.982666015625px"/><figcaption>외부</figcaption></figure></div></div></div><div dir="auto" style="display:contents"><div class="column" id="32af65f1-13f4-806b-87e1-e99bbd1b806f" style="width:68.75%"><div dir="ltr" style="display:contents"><figure class="image" id="32af65f1-13f4-8041-9efc-dab625a60847"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_0967d51397e1.png" style="width:709.96533203125px"/><figcaption>내부</figcaption></figure></div></div></div></div></div></details></li></ul></div><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-80c4-832c-e2f4bf4e489e"><li><details><summary><strong>커스텀 데이터셋</strong></summary><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80ff-853b-ca54d981dfc4"><li style="list-style-type:disc">nr_room<div dir="ltr" style="display:contents"><figure id="32af65f1-13f4-8099-909c-db92efd02e46"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/video/nr-room-slam.webm" type="video/webm"/></video></div></figure></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-80ae-98c6-cf49f6aba09d"><li style="list-style-type:disc">library<div dir="ltr" style="display:contents"><figure id="32af65f1-13f4-808d-b624-cd62d36535c0"><div class="source"><video controls="True" preload="metadata" style="max-width:100%; border-radius:12px;"><source src="assets/video/library-slam.webm" type="video/webm"/></video></div><figcaption>vggt-slam 4배속 (중간에 OOM 떠서 끊음)</figcaption></figure></div><div dir="ltr" style="display:contents"><figure class="image" id="32af65f1-13f4-80fe-82eb-c5c774ef7fac"><img src="assets/%EC%8B%A4%EC%8A%B5-%EC%A7%84%ED%96%89/media/media_2dabfbcab1f4.png" style="width:432px"/><figcaption>약간 다운샘플링된 지도</figcaption></figure></div></li></ul></div></details></li></ul></div></li></ul></div><div dir="auto" style="display:contents"><ul class="bulleted-list" id="32af65f1-13f4-8067-9a92-c0bab49397d5"><li style="list-style-type:disc"><strong>과정</strong><div dir="auto" style="display:contents"><ul class="toggle" id="32af65f1-13f4-800d-9919-c01f7258e523"><li><details><summary><strong>Content</strong></summary><div dir="auto" style="display:contents"><blockquote class="" id="30cf65f1-13f4-80cf-bf15-f89d1d8efaa0"><strong>실습 세팅</strong></blockquote></div><div dir="ltr" style="display:contents"><figure id="30cf65f1-13f4-8027-b45c-f3c92a1c5828"><a class="bookmark source" href="https://github.com/MIT-SPARK/VGGT-SLAM?tab=readme-ov-file#quick-start"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">GitHub - MIT-SPARK/VGGT-SLAM: VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold</div><div class="bookmark-description">VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold - MIT-SPARK/VGGT-SLAM</div></div><div class="bookmark-href"><img class="icon bookmark-icon" src="https://github.com/fluidicon.png"/>https://github.com/MIT-SPARK/VGGT-SLAM?tab=readme-ov-file#quick-start</div></div><img class="bookmark-image" src="https://opengraph.githubassets.com/dca525d447e95845ac050cffea54db564e2eda83c36ccc07b656805f36289653/MIT-SPARK/VGGT-SLAM"/></a></figure></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-80d0-a08b-cea02d265407"><strong>GPU:</strong> 5070ti</p></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-8099-9778-f36059e223fb"><strong>CUDA:</strong> 12.8 nightly</p></div><div dir="auto" style="display:contents"><p class="" id="30cf65f1-13f4-80d2-bfb9-eb2809b57c02">
 </p></div><div dir="auto" style="display:contents"><blockquote class="" id="30cf65f1-13f4-80bf-9037-ee41b6607829"><strong>명령어</strong></blockquote></div><div dir="auto" style="display:contents"><link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/><pre class="code code-wrap" id="30cf65f1-13f4-80a3-b0ee-e96d95dbde33"><code style="white-space:pre-wrap;word-break:break-all">git clone https://github.com/MIT-SPARK/VGGT-SLAM
 cd VGGT-SLAM
@@ -577,11 +557,12 @@ import torch</code></pre></div><div dir="auto" style="display:contents"><p class
   const el = document.getElementById("pageSubtitle") || document.getElementById("paperTitle");
   if (!el) return;
 
-  el.textContent = item.title;
+  el.textContent = item.desc || item.title;
   el.hidden = false;
 })();
 </script>
 
+<script src="../shared/project-shell.js" defer></script>
 <script src="script.js?v=theme-20260509" defer></script>
 
 </body>

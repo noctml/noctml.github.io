@@ -4308,3 +4308,335 @@ html[data-theme="dark"]{
   .paper-meta-topics{ grid-template-columns:1fr; gap:6px; }
   .paper-meta-topic-label{ padding-top:0; }
 }
+
+/* Quiet shape refinement: keeps the original colors, trims only the UI shape. */
+:root{
+  --radius: 8px;
+  --shadow: 0 6px 18px rgba(15, 23, 42, .04);
+  --shape-radius: 5px;
+  --shape-radius-small: 3px;
+  --cue-radius: 6px;
+}
+
+:root[data-theme="dark-gray"]{
+  --shadow: 0 8px 22px rgba(0,0,0,.24);
+}
+
+:root[data-theme="dark"]{
+  --shadow: 0 8px 24px rgba(0,0,0,.28);
+}
+
+.sidebar-card,
+.panel,
+.card{
+  border-radius: var(--radius);
+}
+
+.card:hover{
+  transform: translateY(-1px);
+}
+
+.post-body .paper-map{
+  margin: 8px 0 38px;
+  padding: 18px 0 24px;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.post-body .paper-map-head{
+  max-width: 780px;
+  margin-bottom: 16px;
+}
+
+.post-body .paper-map .tldr-cues,
+.paper-map .tldr-cues,
+.post-body .tldr-cues{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0 18px;
+  padding: 0;
+  border: 0;
+}
+
+.post-body .paper-map .cue-chip,
+.paper-map .cue-chip,
+.post-body .cue-chip{
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--line) 86%, transparent);
+  border-radius: var(--cue-radius);
+  background: color-mix(in srgb, var(--panel2) 58%, transparent);
+  box-shadow: none;
+}
+
+.post-body .map-grid{
+  gap: 10px;
+  margin: 18px 0;
+  border: 0;
+}
+
+.post-body .map-card{
+  padding: 13px;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+  border-radius: var(--shape-radius);
+  background: color-mix(in srgb, var(--panel2) 58%, transparent);
+  box-shadow: none;
+}
+
+.post-body .map-card-wide{
+  padding: 14px 0 15px 12px;
+  border: 0;
+  border-left: 2px solid color-mix(in srgb, var(--text) 24%, var(--line));
+  border-radius: 0;
+  background: transparent;
+}
+
+.post-body .compare-grid article,
+.post-body .flow-step,
+.post-body .problem-ladder-grid article,
+.post-body .design-choice-grid article,
+.post-body .supplement-card,
+.post-body .supplement-stepper article,
+.post-body .result-brief article{
+  border-radius: var(--shape-radius);
+  box-shadow: none;
+}
+
+.post-body .summary-panel,
+.post-body .module-note,
+.post-body .visual-summary{
+  padding: 16px 0;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 58%, transparent);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.post-body .problem-ladder,
+.post-body .design-choice-box{
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--text) 28%, var(--line));
+  border-radius: var(--shape-radius);
+  background: color-mix(in srgb, var(--panel2) 66%, transparent);
+  box-shadow: none;
+}
+
+.post-body .section-note,
+.post-body .result-brief{
+  border-radius: var(--shape-radius);
+  box-shadow: none;
+}
+
+.post-body .deep-dive-note{
+  padding: 10px 0 10px 12px;
+  border: 0;
+  border-left: 2px solid color-mix(in srgb, var(--text) 24%, var(--line));
+  border-radius: 0;
+  background: transparent;
+}
+
+.post-body .summary-table-wrap,
+.post-body details.supplement-toggle > summary,
+.post-body figure.image img,
+.post-body figure.equation .equation-container{
+  border-radius: var(--shape-radius);
+}
+
+.post-body :is(
+  .section-chip,
+  .subsection-label,
+  .map-label,
+  .summary-term,
+  .cue-chip strong,
+  .result-brief .section-chip,
+  .section-note .section-chip,
+  .paper-topic-chip,
+  .paper-meta-links a
+){
+  border-radius: var(--shape-radius-small);
+}
+
+.post-body .flow-step:not(:last-child)::after,
+.post-body .problem-ladder-grid article:not(:last-child)::after{
+  color: color-mix(in srgb, var(--muted) 76%, transparent);
+}
+
+.paper-meta-card{
+  border-radius: var(--shape-radius);
+}
+
+@media (max-width: 720px){
+  .post-body .paper-map .tldr-cues,
+  .paper-map .tldr-cues,
+  .post-body .tldr-cues{
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+/* Paper-review equation block polish 2026-06-01 */
+.post-body figure.equation > .equation-container{
+  max-width: min(100%, 980px);
+  margin-inline: auto;
+}
+
+.post-body figure.equation .equation-render{
+  align-items: center;
+  justify-items: center;
+  overflow: visible;
+  scrollbar-width: none;
+}
+
+.post-body figure.equation .equation-render::-webkit-scrollbar,
+.post-body figure.equation .equation-main::-webkit-scrollbar,
+.post-body figure.equation .equation-main-original::-webkit-scrollbar,
+.post-body figure.equation .original-equation-part::-webkit-scrollbar,
+.post-body figure.equation .katex-display::-webkit-scrollbar{
+  display: none;
+}
+
+.post-body figure.equation .equation-main,
+.post-body figure.equation .equation-main-original,
+.post-body figure.equation .original-equation-stack,
+.post-body figure.equation .original-equation-part,
+.post-body figure.equation .original-equation-part > .equation-container,
+.post-body figure.equation .katex-display{
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+  text-align: center;
+  scrollbar-width: none;
+}
+
+.post-body figure.equation .katex-display > .katex,
+.post-body figure.equation .katex-html{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-body figure.equation:not(.equation-tag-gutter):not(.has-original-equation-number) > .equation-container > .equation-render:has(> .equation-tag){
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 12px;
+  align-items: center;
+}
+
+.post-body figure.equation:not(.equation-tag-gutter):not(.has-original-equation-number) > .equation-container > .equation-render:has(> .equation-tag) > .equation-main{
+  justify-self: center;
+}
+
+.post-body figure.equation:not(.equation-tag-gutter):not(.has-original-equation-number) > .equation-container > .equation-render:has(> .equation-tag) > .equation-tag{
+  justify-self: end;
+  align-self: center;
+  min-width: 2.35em;
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px){
+  .post-body figure.equation > .equation-container{
+    max-width: 100%;
+  }
+
+  .post-body figure.equation .equation-main,
+  .post-body figure.equation .equation-main-original{
+    font-size: clamp(.64rem, 2.25vw, .92rem);
+  }
+
+  .post-body figure.equation:not(.equation-tag-gutter):not(.has-original-equation-number) > .equation-container > .equation-render:has(> .equation-tag){
+    column-gap: 8px;
+  }
+
+  .post-body figure.equation:not(.equation-tag-gutter):not(.has-original-equation-number) > .equation-container > .equation-render:has(> .equation-tag) > .equation-tag{
+    min-width: 2em;
+    font-size: .92rem;
+  }
+}
+
+/* KaTeX internal tag width fix 2026-06-01 */
+.post-body figure.equation > .equation-container > span:has(> .katex-display),
+.post-body figure.equation .equation-main > span:has(> .katex-display),
+.post-body figure.equation .original-equation-part > span:has(> .katex-display){
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.equation .katex-display{
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.equation .katex-display > .katex,
+.post-body figure.equation .katex-html{
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.equation:not(.equation-tag-gutter) .katex-html .tag{
+  position: absolute !important;
+  right: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Equation main width for internal KaTeX tags 2026-06-01 */
+.post-body figure.equation .equation-main,
+.post-body figure.equation .equation-main-original,
+.post-body figure.equation .original-equation-stack,
+.post-body figure.equation .original-equation-part{
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Section divider and subheading polish 2026-06-01 */
+.paper-identity{
+  border-bottom:0 !important;
+}
+.paper-meta-topics{
+  border-top:0 !important;
+}
+.post-body .paper-map{
+  border-top:1px solid color-mix(in srgb, var(--line) 78%, transparent) !important;
+  border-bottom:0 !important;
+}
+.post-body .paper-map .cue-chip,
+.paper-map .cue-chip,
+.post-body .cue-chip,
+.post-body .subsection-label,
+body .post-body h4.subsection-label{
+  border-radius:9px !important;
+}
+.post-body :is(
+  .section-chip,
+  .map-label,
+  .summary-term,
+  .cue-chip strong,
+  .result-brief .section-chip,
+  .section-note .section-chip
+){
+  border-radius:7px !important;
+}
+
+/* Paper bookmark active state: neutral gray, aligned with project pages 2026-06-01 */
+.bookmark-link.active{
+  border-left-color: color-mix(in srgb, var(--text) 34%, var(--line)) !important;
+  background: color-mix(in srgb, var(--panel) 82%, var(--text) 4%) !important;
+  color: var(--text) !important;
+}
+:root[data-theme="dark-gray"] .bookmark-link.active,
+:root[data-theme="dark"] .bookmark-link.active{
+  border-left-color: color-mix(in srgb, var(--text) 42%, var(--line)) !important;
+  background: color-mix(in srgb, var(--panel) 84%, #fff 4%) !important;
+}

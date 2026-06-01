@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Wooseok Song · Paper Reviews" name="description"/>
-<title>ORB-SLAM2 Paper Review</title>
+<meta name="description" content="근본 Visual SLAM">
+<title>[논문 리뷰] ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras | Insighted</title>
 <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48"/>
-<meta content="ORB-SLAM2 Paper Review" property="og:title"/>
-<meta content="Paper Reviews" property="og:description"/>
+<meta property="og:title" content="[논문 리뷰] ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras | Insighted">
+<meta property="og:description" content="근본 Visual SLAM">
 <meta content="website" property="og:type"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
-<link href="styles.css?v=math-baseline-20260524b" rel="stylesheet"/>
+<link href="styles.css?v=math-baseline-20260524b-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
 </head>
-<body><a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a><div class="layout" id="top"><aside aria-label="Paper section bookmark" class="sidebar"><div class="sidebar-card"><nav aria-label="Paper section bookmark" class="section-bookmark"><div class="bookmark-status"><span class="bookmark-eyebrow">Now Reading</span><strong id="currentSectionLabel">핵심 요약</strong></div><div class="bookmark-list" id="sectionBookmarkList"></div></nav></div></aside><div class="content"><header class="topbar"><div class="topbar-inner"><div class="brandline"><a aria-label="홈으로 이동" class="home-profile" href="../../../index.html"><img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg"></a><span class="brandtext">Paper Reviews</span></div><div class="top-actions"><button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button"><span data-lang-option="ko">KO</span><span data-lang-option="en">EN</span></button><button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme"><span aria-hidden="true" id="themeIcon">☀</span></button></div></div></header><main class="container" id="main"><section class="section"><div class="panel"><header class="paper-identity"><p class="paper-title-meta">ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras</p>
+<body><a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a><div class="layout" id="top"><aside aria-label="Paper section bookmark" class="sidebar"><div class="sidebar-card"><nav aria-label="Paper section bookmark" class="section-bookmark"><div class="bookmark-status"><span class="bookmark-eyebrow">Now Reading</span><strong id="currentSectionLabel">핵심 요약</strong></div><div class="bookmark-list" id="sectionBookmarkList"></div></nav></div></aside><div class="content"><header class="topbar"><div class="topbar-inner"><div class="brandline"><a aria-label="홈으로 이동" class="home-profile" href="../../../index.html"><img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg"></a><span class="brandtext">Paper Reviews</span></div><div class="top-actions"><button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button"><span data-lang-option="ko">KO</span><span data-lang-option="en">EN</span></button><button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme"><span aria-hidden="true" id="themeIcon">☀</span></button></div></div></header><main class="container" id="main"><section class="section"><div class="panel"><header class="paper-identity"><p class="paper-title-meta">ORB-SLAM2: an Open-Source SLAM System for Monocular, Stereo and RGB-D Cameras</p>
 <div class="paper-meta-card">
   <div class="paper-meta-top"><span class="paper-meta-venue">IEEE Transactions on Robotics, 2017</span><span class="paper-meta-date">Accepted / arXiv v2: 19 Jun 2017</span></div>
   <dl class="paper-meta-grid">

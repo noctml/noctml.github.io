@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="MacBook에서 ORB-SLAM2를 빌드하고 TUM RGB-D fr1_room 시퀀스로 실행 및 evo 정량 평가까지 진행한 프로젝트 기록" />
-  <title>ORB-SLAM2를 MacBook에서 실행해보기</title>
+  <meta name="description" content="MacBook에서 ORB-SLAM2를 실행하고 평가한 기록">
+  <title>[프로젝트] ORB-SLAM2 in macOS | Insighted</title>
   <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48" />
-  <meta property="og:title" content="ORB-SLAM2를 MacBook에서 실행해보기" />
-  <meta property="og:description" content="macOS 포팅, Pangolin Viewer main-thread 수정, TUM RGB-D 실행, evo 정량 평가까지 정리한 프로젝트 기록" />
+  <meta property="og:title" content="[프로젝트] ORB-SLAM2 in macOS | Insighted">
+  <meta property="og:description" content="MacBook에서 ORB-SLAM2를 실행하고 평가한 기록">
   <meta property="og:type" content="article" />
   <meta property="og:image" content="assets/demo/orb_slam2_macos_thumb.jpg" />
   <link href="styles.css" rel="stylesheet" />
@@ -15,37 +15,15 @@
 <body>
   <a class="skip" href="#main">본문으로 바로가기</a>
   <div class="layout" id="top">
-    <aside aria-label="Sidebar" class="sidebar">
+    <aside aria-label="Project section bookmark" class="sidebar">
       <div class="sidebar-card">
-        <div>
-          <div class="avatar-wrap">
-            <img alt="Wooseok Song profile photo" class="avatar" src="../../../assets/avatar.jpg" />
+        <nav aria-label="Project section bookmark" class="section-bookmark">
+          <div class="bookmark-status">
+            <span class="bookmark-eyebrow">Now Reading</span>
+            <strong id="currentSectionLabel">시작한 이유</strong>
           </div>
-          <div class="who">
-            <div class="name">Wooseok Song</div>
-            <div class="tagline">Side Projects · Work</div>
-          </div>
-          <div class="info">
-            <div class="info-row">
-              <span class="label">Focus</span>
-              <span class="value">Visual SLAM</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Topic</span>
-              <span class="value">macOS Porting</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Links</span>
-              <span class="value">
-                <a href="https://github.com/noctml" rel="noreferrer" target="_blank">GitHub</a>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="sidebar-bottom">
-          <a class="btn small" href="mailto:pdwytime@gmail.com">Email</a>
-          <p class="tiny muted">© 2026 wooseoksong</p>
-        </div>
+          <div class="bookmark-list" id="sectionBookmarkList"></div>
+        </nav>
       </div>
     </aside>
 
@@ -67,19 +45,8 @@
       <main class="container" id="main">
         <article class="article">
           <header class="hero">
-            <p class="kicker">#ORB-SLAM2 #macOS #RGB-D-SLAM</p>
-            <h1>ORB-SLAM2를 MacBook에서 실행해보기</h1>
-            <p class="sub">
-              오래된 Linux 중심 Visual SLAM 오픈소스를 macOS에서 빌드하고, Pangolin Viewer 실행 구조를 수정한 뒤,
-              TUM RGB-D fr1_room 시퀀스로 정량 평가까지 진행한 포팅 기록이다.
-            </p>
-            <div class="meta">
-              <span class="pill">#macOS</span>
-              <span class="pill">#Pangolin</span>
-              <span class="pill">#OpenCV4</span>
-              <span class="pill">#TUM-RGBD</span>
-              <span class="pill">#evo</span>
-            </div>
+            <p class="hero-tags">#ORB-SLAM2 #macOS #RGB-D-SLAM #Pangolin #evo</p>
+            <h1>ORB-SLAM2 in macOS</h1>
           </header>
 
           <section class="media-section" aria-label="macOS demo">

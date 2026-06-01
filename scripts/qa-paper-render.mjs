@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import { createRequire } from "node:module";
+import fs from "node:fs";
+import path from "node:path";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
@@ -10,21 +12,14 @@ const chromePath =
   process.env.CHROME_PATH ||
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-const pages = [
-  "ORB-SLAM2",
-  "DROID-SLAM",
-  "3D_SG",
-  "3D_DSG",
-  "SLIM-VDB",
-  "Khronos",
-  "NeRF",
-  "VGGT",
-  "VGGT-SLAM",
-  "Chamelion",
-  "DynaSLAM",
-  "DROID-W",
-  "3D-Prior"
-];
+const pagesRoot = path.resolve("pages/paper_reviews");
+const pages = fs
+  .readdirSync(pagesRoot, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .filter((pageName) => !pageName.startsWith("_"))
+  .filter((pageName) => fs.existsSync(path.join(pagesRoot, pageName, "index.html")))
+  .sort((a, b) => a.localeCompare(b));
 
 const viewports = [
   { label: "desktop", width: 1280, height: 920 },
@@ -171,6 +166,7 @@ async function scanPage(page, pageName, lang, viewport) {
 
       const rawUnderscore = [...root.querySelectorAll(".inline-math, .math-token, .model-token")]
         .filter(isVisible)
+        .filter((el) => !el.querySelector(".katex") && !el.classList.contains("katex-source-rendered"))
         .map((el) => cleanText(el))
         .filter((text) => /[A-Za-z0-9α-ωΑ-Ωπθτλξωŷĉ]\s*[_^]\s*[A-Za-z0-9{]/.test(text))
         .slice(0, 8);

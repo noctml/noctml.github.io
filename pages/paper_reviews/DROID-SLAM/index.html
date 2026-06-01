@@ -4,14 +4,14 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Wooseok Song · Paper Reviews &amp; Work" name="description"/>
-<title>DROID-SLAM Paper Review</title>
+<meta name="description" content="딥러닝을 이용한 SLAM 최적화 방식 제안">
+<title>[논문 리뷰] DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras | Insighted</title>
 <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48"/>
-<meta content="DROID-SLAM Paper Review" property="og:title"/>
-<meta content="Paper Reviews &amp; Work" property="og:description"/>
+<meta property="og:title" content="[논문 리뷰] DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras | Insighted">
+<meta property="og:description" content="딥러닝을 이용한 SLAM 최적화 방식 제안">
 <meta content="website" property="og:type"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
-<link href="styles.css?v=equation-qa-20260526" rel="stylesheet"/>
+<link href="styles.css?v=equation-qa-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 바로가기</a>
@@ -32,7 +32,7 @@
 <div class="topbar-inner">
 <div class="brandline">
 <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-<img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg"/>
+<img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg"/>
 </a>
 <span class="brandtext">Paper Reviews</span>
 </div>
@@ -190,7 +190,7 @@
 </p></div></div></details><div class="section-chip-row" id="2daf65f1-13f4-80b9-bd86-cb3486a958cc"><span class="section-chip section-chip-muted">Timing and Memory</span></div><section class="result-brief" aria-labelledby="timing-brief-title"><div class="result-brief-head"><span class="section-chip" id="timing-brief-title">Timing / Memory Brief</span><p>성능 개선의 반대편에서 DROID-SLAM이 어떤 compute/memory cost를 요구하는지 확인하는 파트다.</p></div><div class="result-brief-grid"><article><strong>실시간 조건</strong><ul class="brief-list"><li>RTX 3090 2개 사용</li><li>frontend local BA와 backend global BA를 분리 운용</li></ul></article><article><strong>FPS</strong><ul class="brief-list"><li>EuRoC 평균 20fps</li><li>TUM-RGBD 평균 30fps</li><li>TartanAir는 빠른 camera motion으로 평균 8fps</li></ul></article><article><strong>Memory 병목</strong><p>backend가 전체 image feature map을 저장하므로 long sequence에서 메모리 요구량 증가.</p></article><article><strong>읽는 포인트</strong><p>정확도와 robustness는 강하지만, classical SLAM 대비 resource cost가 중요한 trade-off.</p></article></div></section><details class="supplement-toggle supplement-structured"><summary>Timing / Memory 세부 조건 보기</summary><div class="appendix-details supplement-details"><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-8002-a016-e2ac135af682">DROID-SLAM은 3090 GPU 2개로 실시간 운용 가능하며, 첫 번째 GPU에서는 tracking과 local BA를, 두 번째 GPU에서는 global BA와 loop closure를 수행한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-8041-b6fd-c117be6ee8b2">EuRoC 데이터셋은 320x512 해상도로 downsampling하고 나머지 프레임들을 skip하여 평균 20fps로 사용했는데, 위에서 봤던 Table 3이 해당 setting으로 얻은 결과이다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-80ff-a441-c9ddf414602f">또한 TUM-RGBD 데이터셋은 240x320 해상도로 downsampling하고 나머지 프레임들을 skip하여 평균 30fps로 사용했는데, 마찬가지로 위에서 봤던 Table 4가 해당 setting으로 얻은 결과이다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-807e-960e-cf579bd00e93">TartanAir 데이터셋은 훨씬 빠른 카메라 움직임으로 인해 실시간 운용이 불가능했으며, 평균 8fps로 사용했다. 하지만 여전히 TartanAir SLAM challenge에서 1, 2등을 차지한 COLMAP 기반 방법론들 대비 16배 빠른 결과를 보여주었다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-8072-a9bb-ead715856b9b">DROID-SLAM의 frontend는 8GB의 GPU 메모리로 운용할 수 있지만, backend는 모든 이미지에 대한 feature map을 저장해야 하기 때문에 더 많은 메모리를 요구한다. TUM-RGBD 데이터셋의 모든 평가 결과는 단일 1080Ti GPU로 얻을 수 있고, EuRoC, TartanAir, ETH-3D(video 시퀀스 하나가 5000 프레임까지 구성될 수 있는) 데이터셋의 평가 결과는 24GB의 메모리를 가진 GPU를 필요로 한다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-80e5-a906-c38b34f9fb47">DROID-SLAM의 현재 가장 큰 한계는 메모리와 리소스에 대한 요구사항(requirements)이며, 이는 중복 연산 제거(culling) 및 더 효율적인 표현(representation) 방법으로 극적으로 감소시킬 수 있다.</p></div></div></details><div class="section-note"><span class="section-note-label">평가 결과를 읽는 방식</span><ul class="brief-list"><li><strong>Accuracy</strong>: 단순 평균 오차뿐 아니라 failure가 포함된 결과인지 확인</li><li><strong>Robustness</strong>: catastrophic failure가 줄었는지가 DROID-SLAM의 핵심 주장</li><li><strong>Resource</strong>: backend가 feature map을 저장하므로 긴 sequence에서는 memory가 병목</li></ul></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-805b-9422-f6efa4ea4422">
 </p></div><div dir="auto" style="display:contents"><p class="" id="2daf65f1-13f4-800f-b478-c2dbba6e4bbf">
 </p></div><div dir="auto" style="display:contents"><h3 class="block-color-brown_background" id="2daf65f1-13f4-80b8-9b61-d4b8fef3dd52">Usage / Limits: 어떤 SLAM 기준선으로 남았나</h3></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-804f-9dc8-eb7bfa8f7b0b">본 연구에서는 visual SLAM을 위한 end-to-end 신경망 구조인 DROID-SLAM을 소개하며, 이는 정확하고 강건하고 다재다능하며, monocular, stereo, RGB-D video에 대해 운용될 수 있고, 이전 연구들 대비 어려운 벤치마크에서 큰 차이(margin)를 보여주며 능가하는 성능을 보였다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dbf65f1-13f4-8009-8e7f-d5d0319fd798">
-</p></div><div dir="auto" style="display:contents"><hr id="2dcf65f1-13f4-80e4-8e88-ce0e88f0384e"/></div><div dir="auto" style="display:contents"><h3 class="block-color-gray_background" id="2dcf65f1-13f4-8064-aa7c-e79f0e248ca4">느낀점 </h3></div><div dir="auto" style="display:contents"><p class="" id="2dcf65f1-13f4-80e7-a990-fd0554de54dc">SLAM의 백엔드 최적화를 DBA라는 미분 가능한 레이어로 통합하여, 반복적으로 pose와 depth를 업데이트하며 frame graph를 재구성하는 방식이 인상적이었다. 또한 monocular 학습만으로도 stereo나 RGB-D 입력에서 성능이 향상되는 일반화 능력이 눈에 띄었고, 처음 두 개의 pose를 고정하여 gauge freedom을 제거하고 학습을 안정화한 점도 이해에 큰 도움이 되었다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dcf65f1-13f4-80e1-825d-d1b5c928b576">
+</p></div><div dir="auto" style="display:contents"><h3 class="block-color-gray_background" id="2dcf65f1-13f4-8064-aa7c-e79f0e248ca4">느낀점 </h3></div><div dir="auto" style="display:contents"><p class="" id="2dcf65f1-13f4-80e7-a990-fd0554de54dc">SLAM의 백엔드 최적화를 DBA라는 미분 가능한 레이어로 통합하여, 반복적으로 pose와 depth를 업데이트하며 frame graph를 재구성하는 방식이 인상적이었다. 또한 monocular 학습만으로도 stereo나 RGB-D 입력에서 성능이 향상되는 일반화 능력이 눈에 띄었고, 처음 두 개의 pose를 고정하여 gauge freedom을 제거하고 학습을 안정화한 점도 이해에 큰 도움이 되었다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dcf65f1-13f4-80e1-825d-d1b5c928b576">
 </p></div><div dir="auto" style="display:contents"><h3 class="block-color-gray_background" id="2dcf65f1-13f4-801f-b82b-c5092954cedd">향후 계획 </h3></div><div dir="auto" style="display:contents"><p class="" id="2dcf65f1-13f4-809f-95be-fc999ce02f84">2021년에 나왔던 논문이다 보니, 현재는 해당 연도 대비 딥러닝 기술이 상당히 발전해왔다고 생각한다. 따라서 해당 논문에서 언급했던 메모리나 리소스 문제를 개선한 후속연구들이 있는지 찾아볼 예정이며, VLM/semantic 정보를 SLAM 파이프라인에 결합한 사례가 있는지도 함께 찾아볼 예정이다.</p></div><div dir="auto" style="display:contents"><p class="" id="2dcf65f1-13f4-8003-a07a-c6309f744531">
 </p></div></div>
 <div class="deep-dive-more is-visible" id="deepDiveRevealWrap">

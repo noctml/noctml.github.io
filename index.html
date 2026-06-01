@@ -3,16 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Wooseok Song · Paper Reviews & Work" />
-  <title>Wooseok Song</title>
+  <meta name="description" content="Insighted · Paper Reviews & Work" />
+  <meta name="author" content="Wooseok Song" />
+  <title>Insighted</title>
 
   <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon.png" />
-  <meta property="og:title" content="Wooseok Song" />
+  <link rel="canonical" href="https://noctml.github.io/" />
+  <meta name="application-name" content="noctml" />
+  <meta property="og:site_name" content="noctml" />
+  <meta property="og:url" content="https://noctml.github.io/" />
+  <meta property="og:title" content="Insighted" />
   <meta property="og:description" content="Paper Reviews & Work" />
   <meta property="og:type" content="website" />
   <meta name="visit-counter-endpoint" content="https://wooseok-visit-counter.pdwytime.workers.dev" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "noctml",
+    "alternateName": ["Insighted", "NoctML"],
+    "url": "https://noctml.github.io/",
+    "publisher": {
+      "@type": "Person",
+      "name": "Wooseok Song",
+      "url": "https://noctml.github.io/"
+    }
+  }
+  </script>
 
-  <link rel="stylesheet" href="styles.css?v=main-cleanup-20260525" />
+  <link rel="stylesheet" href="assets/site-theme.css?v=quiet-archive-20260601c" />
+  <link rel="stylesheet" href="styles.css?v=quiet-flat-20260601" />
 
   <style>
     /* Sidebar */
@@ -31,7 +51,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:13px;
+      gap:9px;
     }
     .contact-label{
       display:grid;
@@ -79,6 +99,10 @@
       stroke-linecap:round;
       stroke-linejoin:round;
     }
+    .contact-icon.cv svg{
+      width:20px;
+      height:20px;
+    }
     .contact-icon.github svg,
     .contact-icon.linkedin svg{
       fill:currentColor;
@@ -91,7 +115,24 @@
       align-items:flex-end;
       justify-content:space-between;
       gap:14px;
-      margin-bottom:12px;
+      margin-bottom:14px;
+      padding:0 0 12px;
+      border:0;
+      border-bottom:1px solid var(--line);
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+    }
+    #paper-reviews{
+      padding-top:30px;
+    }
+    #paper-reviews .section-head.row h2{
+      font-size:22px;
+      letter-spacing:-0.018em;
+    }
+    #work .section-head.row h2{
+      font-size:22px;
+      letter-spacing:-0.018em;
     }
     .pager{
       display:inline-flex;
@@ -107,12 +148,12 @@
       text-align:center;
     }
     .pager-btn{
-      width:34px;
-      height:34px;
-      border-radius:12px;
+      width:32px;
+      height:32px;
+      border-radius:9px;
       border:1px solid var(--line);
-      background:var(--panel2);
-      box-shadow:var(--shadow);
+      background:transparent;
+      box-shadow:none;
       color:var(--text);
       display:inline-flex;
       align-items:center;
@@ -128,15 +169,21 @@
     .paper-groups{
       display:flex;
       flex-wrap:nowrap;
-      gap:3px;
+      gap:2px;
       width:100%;
-      margin:0 0 16px;
-      padding:4px;
+      margin:0 0 18px;
+      padding:0 18px 8px 0;
       overflow-x:auto;
-      border:1px solid var(--line);
-      border-radius:14px;
-      background:color-mix(in srgb, var(--panel2) 78%, var(--bg));
-      scrollbar-width:thin;
+      border:0;
+      border-bottom:1px solid var(--line);
+      border-radius:0;
+      background:transparent;
+      scrollbar-width:none;
+      -webkit-mask-image:linear-gradient(90deg, #000 0, #000 calc(100% - 30px), transparent 100%);
+      mask-image:linear-gradient(90deg, #000 0, #000 calc(100% - 30px), transparent 100%);
+    }
+    .paper-groups::-webkit-scrollbar{
+      display:none;
     }
     .paper-group-btn{
       display:inline-flex;
@@ -146,7 +193,7 @@
       min-height:28px;
       padding:5px 9px;
       border:0;
-      border-radius:10px;
+      border-radius:7px;
       background:transparent;
       color:var(--muted);
       font-size:12px;
@@ -163,12 +210,12 @@
     }
     .paper-group-btn:hover{
       color:var(--text);
-      background:color-mix(in srgb, var(--panel) 72%, var(--text) 4%);
+      background:color-mix(in srgb, var(--panel) 70%, transparent);
     }
     .paper-group-btn.is-active{
       color:var(--text);
-      background:color-mix(in srgb, var(--panel2) 62%, var(--text) 8%);
-      box-shadow:0 1px 0 color-mix(in srgb, #fff 42%, transparent) inset;
+      background:color-mix(in srgb, var(--panel) 74%, transparent);
+      box-shadow:inset 0 -1px 0 color-mix(in srgb, var(--text) 34%, transparent);
     }
     .paper-group-count{
       color:color-mix(in srgb, var(--muted) 80%, var(--text));
@@ -179,22 +226,22 @@
 
     /* Fixed frame to prevent layout jump */
     .paper-frame{
-      min-height: calc(5 * 118px + 4 * 12px);
+      min-height: calc(5 * 112px + 4 * 12px);
       display:grid;
       gap:12px;
     }
 
     .paper-card{
-      min-height:118px;
+      min-height:112px;
       display:grid;
-      grid-template-columns: 148px minmax(0, 1fr) auto;
+      grid-template-columns: 136px minmax(0, 1fr) auto;
       align-items:center;
       gap:14px;
       padding:12px;
       border:1px solid var(--line);
       border-radius:var(--radius);
-      background:var(--panel2);
-      box-shadow:0 8px 22px color-mix(in srgb, var(--text) 4%, transparent);
+      background:color-mix(in srgb, var(--panel2) 88%, var(--bg));
+      box-shadow:none;
       color:inherit;
       text-decoration:none;
       transition:background .15s ease, border-color .15s ease, transform .15s ease, opacity .15s ease;
@@ -202,14 +249,14 @@
     .paper-card:hover{
       transform: translateY(-1px);
       border-color:color-mix(in srgb, var(--line) 62%, var(--text) 24%);
-      background:color-mix(in srgb, var(--panel2) 82%, var(--bg));
+      background:color-mix(in srgb, var(--panel2) 72%, var(--bg));
     }
     .paper-thumb{
-      width:148px;
+      width:136px;
       aspect-ratio:16 / 10;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      border-radius:9px;
+      border:1px solid color-mix(in srgb, var(--line) 84%, transparent);
+      background: color-mix(in srgb, var(--panel) 58%, transparent);
       overflow:hidden;
     }
     .paper-thumb img{
@@ -217,12 +264,15 @@
       height:100%;
       object-fit:cover;
       display:block;
+      opacity:.9;
+      filter:saturate(.82) contrast(.98);
+      transition:opacity .15s ease, filter .15s ease;
     }
     .paper-body{
       min-width:0;
       display:flex;
       flex-direction:column;
-      gap:6px;
+      gap:5px;
     }
     .paper-card .row-title{
       line-height:1.25;
@@ -232,11 +282,35 @@
       overflow:hidden;
     }
     .paper-card .row-sub{
-      line-height:1.35;
+      line-height:1.45;
       display:-webkit-box;
       -webkit-line-clamp:2;
       -webkit-box-orient:vertical;
       overflow:hidden;
+      color:color-mix(in srgb, var(--muted) 88%, var(--text));
+      font-size:12.5px;
+    }
+    .paper-date{
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.15;
+      letter-spacing:.01em;
+      opacity:.56;
+      white-space:nowrap;
+      font-variant-numeric:tabular-nums;
+    }
+    .paper-card .arrow{
+      color:color-mix(in srgb, var(--muted) 70%, transparent);
+      opacity:.46;
+      transition:opacity .15s ease, color .15s ease;
+    }
+    .paper-card:hover .arrow{
+      color:var(--muted);
+      opacity:.78;
+    }
+    .paper-card:hover .paper-thumb img{
+      opacity:.98;
+      filter:saturate(.96) contrast(1);
     }
     .paper-card.placeholder{
       opacity:.45;
@@ -255,7 +329,7 @@
 
     /* Work: 3 rows x 2 cols fixed */
     .work-frame{
-      min-height: calc(3 * 196px + 2 * 14px);
+      min-height: 0;
     }
 
     .grid.fixed-rows{
@@ -297,9 +371,9 @@
     }
     .work-thumb{
       height:110px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      border-radius:10px;
+      border:1px solid color-mix(in srgb, var(--line) 84%, transparent);
+      background: color-mix(in srgb, var(--panel) 58%, transparent);
       overflow:hidden;
       display:flex;
       align-items:center;
@@ -310,6 +384,9 @@
       height:100%;
       object-fit:cover;
       display:block;
+      opacity:.9;
+      filter:saturate(.82) contrast(.98);
+      transition:opacity .15s ease, filter .15s ease;
     }
     .work-body{
       display:flex;
@@ -325,15 +402,20 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow:hidden;
+      color:var(--text);
     }
     .work-desc{
       font-size: 13px;
-      color: var(--muted);
+      color: color-mix(in srgb, var(--muted) 88%, var(--text));
       line-height: 1.25;
       display:-webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow:hidden;
+    }
+    #workGrid .card:hover .work-thumb img{
+      opacity:.98;
+      filter:saturate(.96) contrast(1);
     }
     .work-meta{
       margin-top:auto;
@@ -389,14 +471,96 @@
 
     @media (max-width: 620px){
       .paper-frame{
-        min-height: calc(5 * 156px + 4 * 12px);
+        min-height: calc(5 * 150px + 4 * 12px);
       }
       .paper-card{
-        min-height:156px;
-        grid-template-columns: 112px minmax(0, 1fr);
+        min-height:150px;
+        grid-template-columns: 104px minmax(0, 1fr);
       }
-      .paper-thumb{ width:112px; }
+      .paper-thumb{ width:104px; }
       .paper-card .arrow{ display:none; }
+    }
+
+    /* Quiet archive: flatten cards into rows and reduce wrapper weight. */
+    .paper-frame{
+      gap:0;
+      min-height: calc(5 * 105px);
+      border-bottom:1px solid var(--line);
+    }
+    .paper-card{
+      min-height:105px;
+      padding:13px 2px;
+      border:0;
+      border-top:1px solid var(--line);
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+    }
+    .paper-card:hover{
+      transform:none;
+      background:color-mix(in srgb, var(--panel) 35%, transparent);
+      border-color:var(--line);
+    }
+    .paper-thumb{
+      width:126px;
+      border-radius:4px;
+      border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
+      background:transparent;
+    }
+    .paper-card .row-title{
+      font-weight:760;
+    }
+    .paper-card.placeholder .paper-thumb,
+    .paper-card.placeholder .row-title,
+    .paper-card.placeholder .row-sub{
+      border-radius:4px;
+    }
+    .grid.fixed-rows{
+      column-gap:18px;
+      row-gap:0;
+      grid-auto-rows:172px;
+      border-bottom:1px solid var(--line);
+    }
+    #workGrid .card{
+      height:172px;
+      padding:14px 2px 13px;
+      border:0;
+      border-top:1px solid var(--line);
+      border-radius:0;
+      background:transparent;
+    }
+    #workGrid .card:hover{
+      transform:none;
+      background:color-mix(in srgb, var(--panel) 35%, transparent);
+      border-color:var(--line);
+    }
+    .work-card,
+    .work-unpub{
+      height:145px;
+      gap:9px;
+    }
+    .work-body{ gap:5px; }
+    .work-thumb{
+      height:82px;
+      border-radius:4px;
+      background:transparent;
+    }
+    .card.placeholder .work-thumb,
+    .card.placeholder .work-title,
+    .card.placeholder .work-desc,
+    .card.placeholder .work-date{
+      border-radius:4px;
+    }
+
+    @media (max-width: 620px){
+      .paper-frame{
+        min-height: calc(5 * 142px);
+      }
+      .paper-card{
+        min-height:142px;
+        padding:13px 0;
+      }
+      .paper-thumb{ width:104px; }
     }
   </style>
 </head>
@@ -414,7 +578,6 @@
 
           <div class="who">
             <div class="name">Wooseok Song</div>
-            <div class="tagline">Paper Reviews · Work</div>
           </div>
 
           <div class="info">
@@ -464,6 +627,15 @@
                 <path d="m3 7 9 6 9-6"/>
               </svg>
             </a>
+            <a class="contact-icon cv" href="assets/cv.pdf" target="_blank" rel="noreferrer" aria-label="CV" title="CV">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <rect x="4" y="5" width="16" height="14" rx="2.4"/>
+                <circle cx="10" cy="11" r="2"/>
+                <path d="M7 16.2a3.2 3.2 0 0 1 6 0"/>
+                <path d="M14.5 10h2.5"/>
+                <path d="M14.5 13.5h2.5"/>
+              </svg>
+            </a>
           </div>
           <p class="tiny muted">© 2026 wooseoksong</p>
         </div>
@@ -474,8 +646,10 @@
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brandline">
-            <span class="dot" aria-hidden="true"></span>
-            <span class="brandtext">Wooseok Song</span>
+            <span class="insight-mark" aria-hidden="true">
+              <span class="insight-core"></span>
+            </span>
+            <span class="brandtext">Insighted</span>
           </div>
 
           <button id="themeBtn" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">
@@ -485,17 +659,10 @@
       </header>
 
       <main id="main" class="container">
-        <section class="hero">
-          <!-- <p class="kicker">Lets,</p> -->
-          <h1>기록하자</h1>
-          <p class="sub">그리고 살아남자...</p>
-        </section>
-
         <section id="paper-reviews" class="section">
           <div class="section-head row">
             <div>
               <h2>Paper Reviews</h2>
-              <p class="muted">읽은 논문 정리</p>
             </div>
             <div class="pager" aria-label="Paper reviews pagination">
               <button class="pager-btn" id="paperPrev" aria-label="Previous paper review page">←</button>
@@ -511,8 +678,7 @@
         <section id="work" class="section">
           <div class="section-head row">
             <div>
-              <h2>Projects</h2>
-              <p class="muted">코드 실습 및 여러가지...</p>
+              <h2>Side Projects</h2>
             </div>
             <div class="pager" aria-label="Work pagination">
               <button class="pager-btn" id="workPrev" aria-label="Previous work page">←</button>
@@ -530,7 +696,7 @@
     </div>
   </div>
 
-  <script src="data.js?v=paper-tags-20260531-ttt3r"></script>
+  <script src="data.js?v=paper-dates-20260601"></script>
   <script src="script.js?v=main-cleanup-20260525"></script>
 
   <script>
@@ -637,6 +803,7 @@
         const title = safeText(item.title);
         const titleAttr = safeAttr(item.title);
         const desc = safeText(item.desc);
+        const date = safeText(formatPaperDate(item.date));
         const thumb = safeAttr(item.thumb || "");
         const href = disabled ? "#" : item.href;
         return `
@@ -647,6 +814,7 @@
             <div class="paper-body">
               <div class="row-title">${title}</div>
               <div class="row-sub muted">${desc}</div>
+              ${date ? `<div class="paper-date">${date}</div>` : ``}
               ${disabled ? `<div class="coming-text">준비중...</div>` : ``}
             </div>
             <span class="arrow">→</span>
@@ -697,32 +865,17 @@
       return safeText(s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     }
 
+    function formatPaperDate(value) {
+      if (!value) return "";
+      return String(value).trim().replace(/-/g, ".");
+    }
+
     function renderWork() {
       const total = Math.max(1, workPages.length);
       const realPage = workPages[workPage] || [];
-      const page = padToSize(realPage, WORK_PAGE_SIZE, () => ({
-        __placeholder: true
-      }));
+      const page = realPage;
 
       workGridEl.innerHTML = page.map(item => {
-        if (item.__placeholder) {
-          return `
-            <div class="card placeholder" aria-hidden="true">
-              <div class="work-card">
-                <div class="work-thumb"></div>
-                <div class="work-body">
-                  <div class="work-title">placeholder</div>
-                  <div class="work-desc">placeholder</div>
-                  <div class="work-meta">
-                    <span class="work-date">placeholder</span>
-                    <span></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
         const published = !!item.published && item.href && item.href !== "#";
         const title = safeText(item.title);
         const desc = safeText(item.desc);
