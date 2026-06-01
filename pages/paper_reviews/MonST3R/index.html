@@ -381,30 +381,14 @@ $$
                       </section>
 
                       <details class="supplement-toggle supplement-structured">
-                        <summary>Smooth / flow loss 세부 수식 보기</summary>
+                        <summary>Global flow / static mask 세부 수식 보기</summary>
                         <div class="appendix-details supplement-details">
                           <section class="summary-panel summary-panel-soft">
                             <div class="summary-head">
                               <span class="subsection-label">Appendix D의 역할</span>
-                              <p>본문 Eq. (5), Eq. (6)은 global point cloud 변수 <span class="inline-equation-token">\(X\)</span> 기준으로 줄여 쓴 표현이다. Appendix D는 rotation/translation, global flow, static mask가 실제로 어떻게 계산되는지 전개한다.</p>
+                              <p>본문 Eq. (5), Eq. (6)은 global point cloud 변수 <span class="inline-equation-token">\(X\)</span> 기준으로 쓴 핵심식이다. 여기서는 이를 계산하는 데 필요한 global camera-induced flow와 static mask 전개만 따로 확인한다.</p>
                             </div>
                             <div class="method-equation-cluster">
-                              <figure class="equation">
-                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
-$$
-\mathcal{L}_{smooth}(R,T)=\sum_{t=0}^{N-1}\left(\left\|R_t^TR_{t+1}-I\right\|_F+\left\|T_{t+1}-T_t\right\|_2\right) \tag{8}
-$$
-                                </div></div></div>
-                                <figcaption><span class="caption-main">pose parameter 기준으로 쓴 trajectory smoothness loss.</span></figcaption>
-                              </figure>
-                              <figure class="equation">
-                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
-$$
-\mathcal{L}_{flow}(F_{cam},S)=\sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}\left\|S^{global;t\rightarrow t'}\cdot\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{9}
-$$
-                                </div></div></div>
-                                <figcaption><span class="caption-main">flow consistency loss를 camera-induced flow와 static mask 기준으로 다시 쓴 형태.</span></figcaption>
-                              </figure>
                               <figure class="equation">
                                 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
@@ -744,30 +728,14 @@ $$
                       </section>
 
                       <details class="supplement-toggle supplement-structured">
-                        <summary>Smooth / flow loss derivation details</summary>
+                        <summary>Global flow / static mask derivation details</summary>
                         <div class="appendix-details supplement-details">
                           <section class="summary-panel summary-panel-soft">
                             <div class="summary-head">
                               <span class="subsection-label">Role of Appendix D</span>
-                              <p>Main-text Eq. (5) and Eq. (6) are compact forms written over <span class="inline-equation-token">\(X\)</span>. Appendix D expands them into pose, global flow, and mask computations.</p>
+                              <p>Main-text Eq. (5) and Eq. (6) are the core losses written over <span class="inline-equation-token">\(X\)</span>. This supplement keeps only the global camera-induced flow and static-mask expansions needed to compute them.</p>
                             </div>
                             <div class="method-equation-cluster">
-                              <figure class="equation">
-                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
-$$
-\mathcal{L}_{smooth}(R,T)=\sum_{t=0}^{N-1}\left(\left\|R_t^TR_{t+1}-I\right\|_F+\left\|T_{t+1}-T_t\right\|_2\right) \tag{8}
-$$
-                                </div></div></div>
-                                <figcaption><span class="caption-main">Trajectory smoothness in pose-parameter form.</span></figcaption>
-                              </figure>
-                              <figure class="equation">
-                                <div class="equation-container"><div class="equation-render"><div class="equation-main">
-$$
-\mathcal{L}_{flow}(F_{cam},S)=\sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}\left\|S^{global;t\rightarrow t'}\cdot\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{9}
-$$
-                                </div></div></div>
-                                <figcaption><span class="caption-main">Flow consistency written with camera-induced flow and static mask.</span></figcaption>
-                              </figure>
                               <figure class="equation">
                                 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$

@@ -4640,3 +4640,77 @@ body .post-body h4.subsection-label{
   border-left-color: color-mix(in srgb, var(--text) 42%, var(--line)) !important;
   background: color-mix(in srgb, var(--panel) 84%, #fff 4%) !important;
 }
+
+/* Deep section hierarchy spacing: 2026-06-01 */
+body .post-body .paper-map{
+  padding-top: 24px;
+}
+body .post-body .paper-map-head > p,
+body .post-body .paper-map .map-card-wide > p,
+body .post-body .paper-map .insight-box > p{
+  margin-left: clamp(5px, .7vw, 10px);
+  margin-right: clamp(3px, .45vw, 7px);
+  max-width: calc(100% - clamp(8px, 1.15vw, 17px));
+}
+body .post-body .paper-map-head > p{
+  position: relative;
+  padding: 8px 0 8px clamp(20px, 2vw, 28px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--text) 74%, var(--muted));
+  line-height: 1.76;
+  letter-spacing: 0;
+}
+body .post-body .paper-map-head > p::before{
+  content: "\201C";
+  position: absolute;
+  left: 0;
+  top: 0.03em;
+  color: color-mix(in srgb, var(--text) 28%, transparent);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 2.5vw, 36px);
+  font-weight: 700;
+  line-height: 1;
+}
+body .post-body .deep-section > :is(p, ul, ol, blockquote, figure, details.supplement-toggle, .summary-panel, .result-brief, .section-note, .summary-table-wrap, .method-equation-cluster, .problem-ladder, .design-choice-box, .method-step-block, .evidence-cluster, .evaluation-evidence-panel, .module-note, .visual-summary, .visual-pair, .flow-diagram, .compare-grid, .next-question-note, .equation-explain),
+body .post-body .deep-section > section:not(.no-hierarchy-offset),
+body .post-body .deep-section > div:not(.section-chip-row):not(.no-hierarchy-offset){
+  margin-left: clamp(10px, 1.35vw, 22px);
+  margin-right: clamp(5px, .8vw, 11px);
+  max-width: calc(100% - clamp(15px, 2.15vw, 33px));
+}
+body .post-body :is(.method-step-block, .evidence-cluster, .summary-head, .section-note, .result-brief-head, .result-brief article, .design-choice-box, .problem-ladder) > p{
+  margin-left: clamp(5px, .7vw, 10px);
+  margin-right: clamp(3px, .45vw, 7px);
+  max-width: calc(100% - clamp(8px, 1.15vw, 17px));
+}
+body .post-body .deep-section > figure.image img,
+body .post-body .deep-section > figure.table-figure img,
+body .post-body .deep-section > figure.system-overview-figure img,
+body .post-body :is(.method-step-block, .evidence-cluster, .summary-panel, .result-brief, .section-note, .problem-ladder, .design-choice-box) > figure.image img,
+body .post-body :is(.method-step-block, .evidence-cluster, .summary-panel, .result-brief, .section-note, .problem-ladder, .design-choice-box) > figure.table-figure img{
+  max-width: 100% !important;
+}
+@media (max-width: 640px){
+  body .post-body .paper-map{
+    padding-top: 20px;
+  }
+  body .post-body .paper-map-head > p,
+  body .post-body .paper-map .map-card-wide > p,
+  body .post-body .paper-map .insight-box > p,
+  body .post-body .deep-section > :is(p, ul, ol, blockquote, figure, details.supplement-toggle, .summary-panel, .result-brief, .section-note, .summary-table-wrap, .method-equation-cluster, .problem-ladder, .design-choice-box, .method-step-block, .evidence-cluster, .evaluation-evidence-panel, .module-note, .visual-summary, .visual-pair, .flow-diagram, .compare-grid, .next-question-note, .equation-explain),
+  body .post-body .deep-section > section:not(.no-hierarchy-offset),
+  body .post-body .deep-section > div:not(.section-chip-row):not(.no-hierarchy-offset),
+  body .post-body :is(.method-step-block, .evidence-cluster, .summary-head, .section-note, .result-brief-head, .result-brief article, .design-choice-box, .problem-ladder) > p{
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+  body .post-body .paper-map-head > p{
+    padding: 6px 0 6px 18px;
+  }
+  body .post-body .paper-map-head > p::before{
+    font-size: 25px;
+  }
+}
