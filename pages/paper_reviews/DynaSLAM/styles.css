@@ -5035,3 +5035,55 @@ body .post-body :is(.method-step-block, .evidence-cluster, .summary-panel, .resu
     font-size: 25px;
   }
 }
+
+/* Paper responsive display scaling: 2026-06-01 */
+:root{
+  --paper-display-scale: 1;
+}
+body{
+  font-size: calc(16px * var(--paper-display-scale));
+}
+.post-body{
+  font-size: calc(16px * var(--paper-display-scale));
+}
+/* MacBook Pro 14-inch default viewport is treated as the visual baseline. */
+@media (min-width: 1600px) and (min-aspect-ratio: 16/10){
+  :root{
+    --paper-display-scale: 1.02;
+    --max: 1005px;
+    --right-rail: 340px;
+    --content-side-gutter: clamp(30px, 4.1vw, 70px);
+  }
+}
+@media (min-width: 1920px) and (min-aspect-ratio: 16/10){
+  :root{
+    --paper-display-scale: 1.045;
+    --max: 1035px;
+    --right-rail: 352px;
+    --content-side-gutter: clamp(34px, 4.3vw, 82px);
+  }
+}
+@media (min-width: 2560px) and (min-aspect-ratio: 16/10){
+  :root{
+    --paper-display-scale: 1.07;
+    --max: 1085px;
+    --right-rail: 370px;
+    --content-side-gutter: clamp(40px, 4.6vw, 96px);
+  }
+}
+@media (min-width: 3200px) and (min-aspect-ratio: 16/9){
+  :root{
+    --paper-display-scale: 1.085;
+    --max: 1130px;
+    --right-rail: 388px;
+    --content-side-gutter: clamp(46px, 4.9vw, 112px);
+  }
+}
+@media (max-width: 640px){
+  :root{
+    --paper-display-scale: 1;
+  }
+  .post-body{
+    font-size: 15px;
+  }
+}
