@@ -1,16 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1" name="viewport">
-<meta name="description" content="동적 환경에서 3D Gaussian map을 안정적으로 구성하는 monocular SLAM">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="동적 환경에서 3D Gaussian map을 안정적으로 구성하는 monocular SLAM" name="description"/>
 <title>[논문 리뷰] WildGS-SLAM: Monocular Gaussian Splatting SLAM in Dynamic Environments | Insighted</title>
-<link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
-<meta property="og:title" content="[논문 리뷰] WildGS-SLAM: Monocular Gaussian Splatting SLAM in Dynamic Environments | Insighted">
-<meta property="og:description" content="동적 환경에서 3D Gaussian map을 안정적으로 구성하는 monocular SLAM">
-<meta content="website" property="og:type">
-<link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
-<link href="styles.css?v=wildgs-eval-setup-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet">
+<link href="../../../assets/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<meta content="[논문 리뷰] WildGS-SLAM: Monocular Gaussian Splatting SLAM in Dynamic Environments | Insighted" property="og:title"/>
+<meta content="동적 환경에서 3D Gaussian map을 안정적으로 구성하는 monocular SLAM" property="og:description"/>
+<meta content="website" property="og:type"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet"/>
+<link href="styles.css?v=wildgs-eval-setup-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
 </head>
 <body>
 <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
@@ -31,7 +32,7 @@
 <div class="topbar-inner">
 <div class="brandline">
 <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-<img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
+<img alt="Wooseok Song profile photo" height="4032" src="../../../assets/avatar.jpg" width="3024"/>
 </a>
 <span class="brandtext">Paper Reviews</span>
 </div>
@@ -52,13 +53,13 @@
 <header class="paper-identity">
 <p class="paper-title-meta">WildGS-SLAM: Monocular Gaussian Splatting SLAM in Dynamic Environments</p>
 <div class="paper-meta-card">
-  <div class="paper-meta-top"><span class="paper-meta-venue">CVPR 2025</span><span class="paper-meta-date">arXiv v1: 4 Apr 2025</span></div>
-  <dl class="paper-meta-grid">
-    <div class="paper-meta-item"><dt>Authors</dt><dd>Jianhao Zheng; Zihan Zhu; Valentin Bieri; Marc Pollefeys; Songyou Peng; Iro Armeni</dd></div>
-    <div class="paper-meta-item"><dt>Affiliations</dt><dd>Stanford University; ETH Zurich; Microsoft</dd></div>
-  </dl>
-  <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2504.03886" rel="noreferrer" target="_blank">Paper</a><a href="https://wildgs-slam.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/GradientSpaces/WildGS-SLAM" rel="noreferrer" target="_blank">GitHub</a></nav>
-  <div class="paper-meta-topics" aria-label="Paper topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#Dynamic SLAM</span><span class="paper-topic-chip">#Dynamic Scene</span><span class="paper-topic-chip">#3DGS</span><span class="paper-topic-chip">#Uncertainty</span><span class="paper-topic-chip">#SLAM</span></div></div>
+<div class="paper-meta-top"><span class="paper-meta-venue">CVPR 2025</span><span class="paper-meta-date">arXiv v1: 4 Apr 2025</span></div>
+<dl class="paper-meta-grid">
+<div class="paper-meta-item"><dt>Authors</dt><dd>Jianhao Zheng; Zihan Zhu; Valentin Bieri; Marc Pollefeys; Songyou Peng; Iro Armeni</dd></div>
+<div class="paper-meta-item"><dt>Affiliations</dt><dd>Stanford University; ETH Zurich; Microsoft</dd></div>
+</dl>
+<nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2504.03886" rel="noreferrer" target="_blank">Paper</a><a href="https://wildgs-slam.github.io/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/GradientSpaces/WildGS-SLAM" rel="noreferrer" target="_blank">GitHub</a></nav>
+<div aria-label="Paper topics" class="paper-meta-topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#Dynamic SLAM</span><span class="paper-topic-chip">#Dynamic Scene</span><span class="paper-topic-chip">#3DGS</span><span class="paper-topic-chip">#Uncertainty</span><span class="paper-topic-chip">#SLAM</span></div></div>
 </div>
 </header>
 <div class="post-body">
@@ -67,13 +68,11 @@
 <h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
 <p data-en="WildGS-SLAM is a monocular RGB SLAM system that uses per-pixel uncertainty to reduce dynamic distractor influence during both DROID-style tracking and 3D Gaussian mapping." data-ko="WildGS-SLAM은 monocular RGB만으로 동적 distractor의 영향을 줄이기 위해, per-pixel uncertainty를 DROID식 tracking과 3D Gaussian mapping 양쪽에 넣는 SLAM 시스템이다.">WildGS-SLAM은 monocular RGB만으로 동적 distractor의 영향을 줄이기 위해, per-pixel uncertainty를 DROID식 tracking과 3D Gaussian mapping 양쪽에 넣는 SLAM 시스템이다.</p>
 </div>
-
 <div class="tldr-cues">
 <span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Dynamic distractors break static-scene SLAM." data-ko="동적 distractor → static SLAM 붕괴">동적 distractor → static SLAM 붕괴</small></span>
 <span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Uncertainty-weighted tracking and mapping." data-ko="uncertainty-weighted tracking/mapping">uncertainty-weighted tracking/mapping</small></span>
 <span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="tracking / rendering / ablation" data-ko="tracking / rendering / ablation">tracking / rendering / ablation</small></span>
 </div>
-
 <div class="map-grid">
 <article class="map-card map-card-wide">
 <span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
@@ -100,12 +99,10 @@
 <p data-en="Provides MoCap RGB-D sequences and iPhone RGB videos for in-the-wild dynamic evaluation." data-ko="MoCap RGB-D sequence와 iPhone RGB video로 in-the-wild dynamic 평가 제공.">MoCap RGB-D sequence와 iPhone RGB video로 in-the-wild dynamic 평가 제공.</p>
 </article>
 </div>
-
 <div class="insight-box">
 <strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
 <p data-en="WildGS-SLAM is useful to read as a bridge between DROID-W-style uncertainty-weighted tracking and 3D Gaussian map optimization. The same uncertainty signal becomes a shared language between pose estimation and rendering." data-ko="WildGS-SLAM은 DROID-W식 uncertainty-weighted tracking을 3D Gaussian map optimization까지 확장한 논문으로 읽으면 이해가 쉽다. 같은 uncertainty 신호가 pose estimation과 rendering을 연결하는 공통 언어가 된다.">WildGS-SLAM은 DROID-W식 uncertainty-weighted tracking을 3D Gaussian map optimization까지 확장한 논문으로 읽으면 이해가 쉽다. 같은 uncertainty 신호가 pose estimation과 rendering을 연결하는 공통 언어가 된다.</p>
 </div>
-
 <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
 <div aria-label="WildGS-SLAM processing flow" class="flow-diagram">
 <div class="flow-step"><span>01</span><strong>RGB Sequence</strong><small>monocular dynamic video</small></div>
@@ -115,7 +112,6 @@
 <div class="flow-step"><span>05</span><strong>3DGS Mapping</strong><small>β-weighted render loss</small></div>
 <div class="flow-step"><span>06</span><strong>Static Map</strong><small>artifact-reduced rendering</small></div>
 </div>
-
 <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
 <div class="compare-grid">
 <article>
@@ -135,7 +131,6 @@
 </article>
 </div>
 </section>
-
 <section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
 <h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
 <p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper content as much as possible. Background, related-work context, dataset details, and baseline-source notes are folded when they interrupt the main reading flow." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, related work, dataset 세부 조건, baseline 출처 메모는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, related work, dataset 세부 조건, baseline 출처 메모는 접어두었다.</p>
@@ -145,7 +140,7 @@
 <h3 id="ko-problem">Problem: dynamic distractor가 tracking과 rendering을 동시에 흔든다</h3>
 <p>WildGS-SLAM의 문제 제기는 static-world assumption에 있다. 기존 monocular SLAM과 3DGS SLAM은 camera와 static scene이 일관되게 관측된다고 가정하지만, 실제 video에는 사람, 그림자, occlusion, 조명 변화처럼 <strong>pose update와 map optimization을 동시에 오염시키는 dynamic distractor</strong>가 들어온다.</p>
 <figure class="image">
-<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121.png" style="width:2150px">
+<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121.png" style="width:2150px"/>
 <figcaption><span class="caption-main">Figure 1. WildGS-SLAM.</span><span class="caption-note">dynamic distractor가 있는 monocular video에서 camera trajectory를 추적하고, static element만 3D Gaussian map으로 재구성하는 목표를 보여준다.</span></figcaption>
 </figure>
 <section class="problem-ladder">
@@ -190,12 +185,11 @@
 </div>
 </details>
 </section>
-
 <section class="deep-section" data-section-title="Mechanism">
 <h3 id="ko-mechanism">Mechanism: uncertainty를 tracking과 mapping에 어떻게 넣나</h3>
 <p>방법론의 핵심은 uncertainty map <span class="inline-math">\( \beta_i \)</span>를 한 번만 예측하고 끝내는 것이 아니라, <strong>DBA tracking의 residual weight</strong>와 <strong>3DGS mapping의 rendering loss weight</strong>로 함께 사용한다는 점이다. 그래서 dynamic distractor는 pose update에서도 약해지고, Gaussian map에도 덜 남는다.</p>
 <figure class="image">
-<img alt="Figure 2. System Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d56f027c75a3.png" style="width:2182px">
+<img alt="Figure 2. System Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d56f027c75a3.png" style="width:2182px"/>
 <figcaption><span class="caption-main">Figure 2. System Overview.</span><span class="caption-note">DINOv2 feature에서 uncertainty MLP가 per-pixel uncertainty를 예측하고, tracking의 DBA와 mapping의 rendering loss에 같은 uncertainty가 들어간다.</span></figcaption>
 </figure>
 <section class="summary-panel">
@@ -262,7 +256,7 @@
 <figcaption><span class="caption-main">patch <span class="inline-math">\(P\)</span>와 rendered patch <span class="inline-math">\(\hat{P}\)</span> 사이의 luminance, contrast, structure 차이를 모두 반영.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{N}(r)=\{r'\mid \cos(f,f')>\eta\},\qquad \bar{\beta}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}\beta(r')$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{N}(r)=\{r'\mid \cos(f,f')&gt;\eta\},\qquad \bar{\beta}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}\beta(r')$$</div></div></div>
 <figcaption><span class="caption-main">DINO feature가 비슷한 ray 집합을 만들고, 그 안에서 평균 uncertainty를 계산.</span></figcaption>
 </figure>
 <figure class="equation">
@@ -334,7 +328,6 @@
 </details>
 </section>
 </section>
-
 <section class="deep-section" data-section-title="Evidence">
 <h3 id="ko-evidence">Evidence: 어떤 task에서 검증했나</h3>
 <p>평가는 크게 tracking, novel view synthesis, ablation으로 읽으면 된다. WildGS-SLAM의 핵심 claim은 <strong>동적 distractor를 uncertainty로 낮춰 tracking과 rendering을 동시에 개선한다</strong>는 것이므로, ATE와 rendering metric을 함께 봐야 한다.</p>
@@ -403,45 +396,45 @@
 <section class="evidence-cluster">
 <span class="subsection-label">Tracking Evidence</span>
 <figure class="image">
-<img alt="Table 1. Tracking Performance on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9ee9c68de437.png" style="width:703.9765625px">
+<img alt="Table 1. Tracking Performance on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9ee9c68de437.png" style="width:703.9765625px"/>
 <figcaption><span class="caption-main">Table 1. Tracking Performance on Wild-SLAM MoCap Dataset.</span><span class="caption-note">ATE RMSE 기준으로 WildGS-SLAM은 평균 0.46cm를 기록하며, 대부분의 dynamic sequence에서 baseline보다 안정적이다.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Table 3. Tracking Performance on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b42f2af311f9.png" style="width:703.984375px">
+<img alt="Table 3. Tracking Performance on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b42f2af311f9.png" style="width:703.984375px"/>
 <figcaption><span class="caption-main">Table 3. Tracking Performance on Bonn RGB-D Dynamic Dataset.</span><span class="caption-note">RGB-D/semantic에 의존하는 방법과 monocular baselines를 함께 비교하며, WildGS-SLAM은 평균 ATE 2.31cm로 가장 낮다.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Table 4. Tracking Performance on TUM RGB-D Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b0d920c62800.png" style="width:703.9921875px">
+<img alt="Table 4. Tracking Performance on TUM RGB-D Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b0d920c62800.png" style="width:703.9921875px"/>
 <figcaption><span class="caption-main">Table 4. Tracking Performance on TUM RGB-D Dataset.</span><span class="caption-note">dynamic sequence subset에서 WildGS-SLAM은 가장 높은 overall performance를 보인다고 논문은 설명한다.</span></figcaption>
 </figure>
 </section>
 <section class="evidence-cluster">
 <span class="subsection-label">Rendering Evidence</span>
 <figure class="image">
-<img alt="Table 2. Novel View Synthesis Evaluation on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_854068e6f0ca.png" style="width:2106px">
+<img alt="Table 2. Novel View Synthesis Evaluation on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_854068e6f0ca.png" style="width:2106px"/>
 <figcaption><span class="caption-main">Table 2. Novel View Synthesis Evaluation on Wild-SLAM MoCap Dataset.</span><span class="caption-note">Splat-SLAM 대비 PSNR/SSIM은 높고 LPIPS는 낮아, uncertainty-aware mapping이 rendering quality를 개선함을 보여준다.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_19e2a73b0a09.png" style="width:2086px">
+<img alt="Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_19e2a73b0a09.png" style="width:2086px"/>
 <figcaption><span class="caption-main">Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">distractor 종류와 관계없이 distractor를 제거하고 static scene을 더 realistic하게 rendering한다고 설명한다.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23.png" style="width:2122px">
+<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23.png" style="width:2122px"/>
 <figcaption><span class="caption-main">Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">static scene subset에서 novel view synthesis를 평가하며, 이미지 안에 PSNR metric이 함께 표시된다.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 5. Input View Synthesis Results on Wild-SLAM iPhone Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_cc2addf8f0b0.png" style="width:2124px">
+<img alt="Figure 5. Input View Synthesis Results on Wild-SLAM iPhone Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_cc2addf8f0b0.png" style="width:2124px"/>
 <figcaption><span class="caption-main">Figure 5. Input View Synthesis Results on Wild-SLAM iPhone Dataset.</span><span class="caption-note">monocular-only 비교를 보여주며, uncertainty map은 DINOv2 feature 해상도와 mapping downsampling 때문에 다소 blurry할 수 있다고 논문은 설명한다.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 6. View Synthesis Results on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1d99e9eaaba1.png" style="width:2104px">
+<img alt="Figure 6. View Synthesis Results on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1d99e9eaaba1.png" style="width:2104px"/>
 <figcaption><span class="caption-main">Figure 6. View Synthesis Results on Bonn RGB-D Dynamic Dataset.</span><span class="caption-note">Balloon/Crowd sequence에서 ReFusion과 DynaSLAM의 artifact를 비교하며, WildGS-SLAM은 motion blur가 있어도 더 안정적인 rendering을 보인다.</span></figcaption>
 </figure>
 </section>
 <section class="evidence-cluster">
 <span class="subsection-label">Ablation Evidence</span>
 <figure class="image">
-<img alt="Table 5. WildGS-SLAM Ablation Study." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1077b3e2e2b3.png" style="width:528px">
+<img alt="Table 5. WildGS-SLAM Ablation Study." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1077b3e2e2b3.png" style="width:528px"/>
 <figcaption><span class="caption-main">Table 5. WildGS-SLAM Ablation Study.</span><span class="caption-note">uncertainty mask, L1 depth loss, disparity regularization을 제거한 variant와 full model을 비교하며, F는 해당 dataset 내 sequence failure를 의미한다.</span></figcaption>
 </figure>
 </section>
@@ -455,7 +448,6 @@
 </div>
 </section>
 </section>
-
 <section class="deep-section" data-section-title="Usage / Limits">
 <h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 약한가</h3>
 <p>WildGS-SLAM은 monocular RGB만 있는 dynamic scene에서 tracking과 rendering을 동시에 얻고 싶을 때 특히 유용하다. semantic class가 정해지지 않은 distractor나 shadow처럼 hard mask로 처리하기 애매한 요소를 uncertainty로 downweight할 수 있기 때문이다.</p>
@@ -481,23 +473,18 @@
 </div>
 </section>
 </section>
-
 <section class="deep-section" data-section-title="Takeaway">
 <h3 id="ko-takeaway">느낀점</h3>
 <p>(진행중...)</p>
 </section>
-<section class="deep-section" data-section-title="Future Work">
-<h3 id="ko-future-work">향후 계획</h3>
-<p>(진행중...)</p>
-</section>
-</div>
 
-<div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden id="deepDiveContentEn">
+</div>
+<div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden="" id="deepDiveContentEn">
 <section class="deep-section" data-section-title="Problem">
 <h3 id="en-problem">Problem: dynamic distractors destabilize both tracking and rendering</h3>
 <p>WildGS-SLAM starts from the static-world assumption. Monocular SLAM and 3DGS SLAM often assume that cameras observe a consistent static scene, but real videos contain people, shadows, occlusions, and lighting changes that <strong>contaminate both pose update and map optimization</strong>.</p>
 <figure class="image">
-<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121.png" style="width:2150px">
+<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121.png" style="width:2150px"/>
 <figcaption><span class="caption-main">Figure 1. WildGS-SLAM.</span><span class="caption-note">The figure shows the goal: track the camera trajectory from dynamic monocular video and reconstruct only static elements as a 3D Gaussian map.</span></figcaption>
 </figure>
 <section class="problem-ladder">
@@ -542,12 +529,11 @@
 </div>
 </details>
 </section>
-
 <section class="deep-section" data-section-title="Mechanism">
 <h3 id="en-mechanism">Mechanism: how is uncertainty injected into tracking and mapping?</h3>
 <p>The key is not just predicting an uncertainty map <span class="inline-math">\( \beta_i \)</span>. WildGS-SLAM uses the same uncertainty as <strong>a residual weight in DBA tracking</strong> and <strong>a rendering-loss weight in 3DGS mapping</strong>. Dynamic distractors therefore affect both pose update and Gaussian map optimization less.</p>
 <figure class="image">
-<img alt="Figure 2. System Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d56f027c75a3.png" style="width:2182px">
+<img alt="Figure 2. System Overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d56f027c75a3.png" style="width:2182px"/>
 <figcaption><span class="caption-main">Figure 2. System Overview.</span><span class="caption-note">DINOv2 features feed the uncertainty MLP, and the resulting per-pixel uncertainty is used in both DBA tracking and rendering-loss-based mapping.</span></figcaption>
 </figure>
 <section class="summary-panel">
@@ -614,7 +600,7 @@
 <figcaption><span class="caption-main">Uses luminance, contrast, and structure differences between patch <span class="inline-math">\(P\)</span> and rendered patch <span class="inline-math">\(\hat{P}\)</span>.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{N}(r)=\{r'\mid \cos(f,f')>\eta\},\qquad \bar{\beta}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}\beta(r')$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{N}(r)=\{r'\mid \cos(f,f')&gt;\eta\},\qquad \bar{\beta}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}\beta(r')$$</div></div></div>
 <figcaption><span class="caption-main">Builds a DINO-feature-neighbor set and averages uncertainty within it.</span></figcaption>
 </figure>
 <figure class="equation">
@@ -686,7 +672,6 @@
 </details>
 </section>
 </section>
-
 <section class="deep-section" data-section-title="Evidence">
 <h3 id="en-evidence">Evidence: which tasks are tested?</h3>
 <p>The evaluation is best read through tracking, novel view synthesis, and ablation. The core claim is that <strong>uncertainty reduces dynamic-distractor influence and improves both tracking and rendering</strong>, so ATE and rendering metrics should be considered together.</p>
@@ -755,45 +740,45 @@
 <section class="evidence-cluster">
 <span class="subsection-label">Tracking Evidence</span>
 <figure class="image">
-<img alt="Table 1. Tracking Performance on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9ee9c68de437.png" style="width:703.9765625px">
+<img alt="Table 1. Tracking Performance on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9ee9c68de437.png" style="width:703.9765625px"/>
 <figcaption><span class="caption-main">Table 1. Tracking Performance on Wild-SLAM MoCap Dataset.</span><span class="caption-note">WildGS-SLAM reports an average ATE RMSE of 0.46 cm and remains stable on most dynamic sequences.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Table 3. Tracking Performance on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b42f2af311f9.png" style="width:703.984375px">
+<img alt="Table 3. Tracking Performance on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b42f2af311f9.png" style="width:703.984375px"/>
 <figcaption><span class="caption-main">Table 3. Tracking Performance on Bonn RGB-D Dynamic Dataset.</span><span class="caption-note">The table compares RGB-D/semantic methods and monocular baselines; WildGS-SLAM achieves the lowest average ATE of 2.31 cm.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Table 4. Tracking Performance on TUM RGB-D Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b0d920c62800.png" style="width:703.9921875px">
+<img alt="Table 4. Tracking Performance on TUM RGB-D Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b0d920c62800.png" style="width:703.9921875px"/>
 <figcaption><span class="caption-main">Table 4. Tracking Performance on TUM RGB-D Dataset.</span><span class="caption-note">The paper reports the strongest overall tracking performance on the dynamic TUM subset.</span></figcaption>
 </figure>
 </section>
 <section class="evidence-cluster">
 <span class="subsection-label">Rendering Evidence</span>
 <figure class="image">
-<img alt="Table 2. Novel View Synthesis Evaluation on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_854068e6f0ca.png" style="width:2106px">
+<img alt="Table 2. Novel View Synthesis Evaluation on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_854068e6f0ca.png" style="width:2106px"/>
 <figcaption><span class="caption-main">Table 2. Novel View Synthesis Evaluation on Wild-SLAM MoCap Dataset.</span><span class="caption-note">Compared with Splat-SLAM, WildGS-SLAM improves PSNR/SSIM and lowers LPIPS through uncertainty-aware mapping.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_19e2a73b0a09.png" style="width:2086px">
+<img alt="Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_19e2a73b0a09.png" style="width:2086px"/>
 <figcaption><span class="caption-main">Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">The paper states that WildGS-SLAM removes distractors and renders realistic static scenes regardless of distractor type.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23.png" style="width:2122px">
+<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23.png" style="width:2122px"/>
 <figcaption><span class="caption-main">Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">Novel-view rendering is evaluated on static-scene subsets, with PSNR metrics shown inside the images.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 5. Input View Synthesis Results on Wild-SLAM iPhone Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_cc2addf8f0b0.png" style="width:2124px">
+<img alt="Figure 5. Input View Synthesis Results on Wild-SLAM iPhone Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_cc2addf8f0b0.png" style="width:2124px"/>
 <figcaption><span class="caption-main">Figure 5. Input View Synthesis Results on Wild-SLAM iPhone Dataset.</span><span class="caption-note">Only monocular methods are shown; the paper notes that the uncertainty map is blurry because DINOv2 features and mapping operate at reduced resolution for efficiency.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 6. View Synthesis Results on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1d99e9eaaba1.png" style="width:2104px">
+<img alt="Figure 6. View Synthesis Results on Bonn RGB-D Dynamic Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1d99e9eaaba1.png" style="width:2104px"/>
 <figcaption><span class="caption-main">Figure 6. View Synthesis Results on Bonn RGB-D Dynamic Dataset.</span><span class="caption-note">On Balloon/Crowd sequences, the paper compares artifacts from ReFusion and DynaSLAM against WildGS-SLAM's more stable rendering.</span></figcaption>
 </figure>
 </section>
 <section class="evidence-cluster">
 <span class="subsection-label">Ablation Evidence</span>
 <figure class="image">
-<img alt="Table 5. WildGS-SLAM Ablation Study." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1077b3e2e2b3.png" style="width:528px">
+<img alt="Table 5. WildGS-SLAM Ablation Study." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1077b3e2e2b3.png" style="width:528px"/>
 <figcaption><span class="caption-main">Table 5. WildGS-SLAM Ablation Study.</span><span class="caption-note">Compares the full model against variants without uncertainty mask, L1 depth loss, or disparity regularization; F means failure on at least one sequence.</span></figcaption>
 </figure>
 </section>
@@ -807,7 +792,6 @@
 </div>
 </section>
 </section>
-
 <section class="deep-section" data-section-title="Usage / Limits">
 <h3 id="en-usage">Usage / Limits: when is it useful?</h3>
 <p>WildGS-SLAM is useful when monocular RGB dynamic videos need both camera tracking and a static 3D Gaussian map. It is especially relevant when semantic categories are unknown or when shadows and ambiguous distractors make hard masks brittle.</p>
@@ -833,15 +817,11 @@
 </div>
 </section>
 </section>
-
 <section class="deep-section" data-section-title="Takeaway">
 <h3 id="en-takeaway">Takeaway</h3>
 <p>(In progress...)</p>
 </section>
-<section class="deep-section" data-section-title="Future Work">
-<h3 id="en-future-work">Future Work</h3>
-<p>(In progress...)</p>
-</section>
+
 </div>
 <div class="deep-dive-more is-visible" id="deepDiveMore">
 <button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
@@ -853,17 +833,17 @@
 </section>
 <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
 <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
-<script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
 </section>
 </main>
 </div>
 </div>
 <div aria-hidden="true" class="lightbox" id="lightbox">
 <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
-<img alt="preview" id="lightboxImg">
+<img alt="preview" id="lightboxImg"/>
 </div>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 <script>
 window.addEventListener("DOMContentLoaded", () => {
   if (!window.renderMathInElement) return;
@@ -877,6 +857,6 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-<script src="script.js?v=wildgs-redesign-20260525" defer></script>
+<script defer="" src="script.js?v=wildgs-redesign-20260525"></script>
 </body>
 </html>

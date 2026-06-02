@@ -1,218 +1,203 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta name="description" content="Sparse tensor와 generalized sparse convolution으로 3D/4D 데이터를 효율적으로 처리하는 Minkowski Engine">
-  <title>[논문 리뷰] 4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks | Insighted</title>
-  <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
-  <meta property="og:title" content="[논문 리뷰] 4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks | Insighted">
-  <meta property="og:description" content="Sparse tensor와 generalized sparse convolution으로 3D/4D 데이터를 효율적으로 처리하는 Minkowski Engine">
-  <meta content="website" property="og:type">
-  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
-  <link href="styles.css?v=minkowski-redesign-20260529-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Sparse tensor와 generalized sparse convolution으로 3D/4D 데이터를 효율적으로 처리하는 Minkowski Engine" name="description"/>
+<title>[논문 리뷰] 4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks | Insighted</title>
+<link href="../../../assets/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<meta content="[논문 리뷰] 4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks | Insighted" property="og:title"/>
+<meta content="Sparse tensor와 generalized sparse convolution으로 3D/4D 데이터를 효율적으로 처리하는 Minkowski Engine" property="og:description"/>
+<meta content="website" property="og:type"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet"/>
+<link href="styles.css?v=minkowski-redesign-20260529-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer="" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
-  <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
-  <div class="layout" id="top">
-    <aside aria-label="Paper section bookmark" class="sidebar">
-      <div class="sidebar-card">
-        <nav aria-label="Paper section bookmark" class="section-bookmark">
-          <div class="bookmark-status">
-            <span class="bookmark-eyebrow">Now Reading</span>
-            <strong id="currentSectionLabel">핵심 요약</strong>
-          </div>
-          <div class="bookmark-list" id="sectionBookmarkList"></div>
-        </nav>
-      </div>
-    </aside>
-
-    <div class="content">
-      <header class="topbar">
-        <div class="topbar-inner">
-          <div class="brandline">
-            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-              <img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
-            </a>
-            <span class="brandtext">Paper Reviews</span>
-          </div>
-          <div class="top-actions">
-            <button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
-              <span data-lang-option="ko">KO</span>
-              <span data-lang-option="en">EN</span>
-            </button>
-            <button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
-              <span aria-hidden="true" id="themeIcon">☀</span>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main class="container" id="main">
-        <section class="section">
-          <div class="panel">
-            <header class="paper-identity">
-              <p class="paper-title-meta">4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks</p>
-              <div class="paper-meta-card">
-                <div class="paper-meta-top"><span class="paper-meta-venue">CVPR 2019</span><span class="paper-meta-date">arXiv: 18 Apr 2019</span></div>
-                <dl class="paper-meta-grid">
-                  <div class="paper-meta-item"><dt>Authors</dt><dd>Christopher Choy; JunYoung Gwak; Silvio Savarese</dd></div>
-                  <div class="paper-meta-item"><dt>Affiliations</dt><dd>Stanford University</dd></div>
-                </dl>
-                <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/1904.08755" rel="noreferrer" target="_blank">Paper</a><a href="https://github.com/StanfordVL/MinkowskiEngine" rel="noreferrer" target="_blank">GitHub</a></nav>
-                <div aria-label="Paper topics" class="paper-meta-topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#3D Perception</span><span class="paper-topic-chip">#Sparse CNN</span><span class="paper-topic-chip">#Minkowski Engine</span><span class="paper-topic-chip">#3D/4D Perception</span><span class="paper-topic-chip">#Sparse Tensor</span></div></div>
-              </div>
-            </header>
-
-            <div class="post-body">
-              <section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
-                <div class="paper-map-head">
-                  <h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
-                  <p data-en-html="MinkowskiCNN turns sparse 3D and 4D perception data into a CNN-friendly representation by computing convolution only on &lt;strong&gt;observed sparse coordinates&lt;/strong&gt;." data-ko-html="MinkowskiCNN은 3D/4D perception 데이터에서 &lt;strong&gt;관측된 sparse coordinate만 계산&lt;/strong&gt;하도록 만들어, dense voxel grid의 낭비 없이 CNN 구조를 고차원 sparse signal에 적용한다.">MinkowskiCNN은 3D/4D perception 데이터에서 <strong>관측된 sparse coordinate만 계산</strong>하도록 만들어, dense voxel grid의 낭비 없이 CNN 구조를 고차원 sparse signal에 적용한다.</p>
-                </div>
-
-                <div class="tldr-cues">
-                  <span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Empty voxel waste" data-ko="빈 voxel 계산 낭비">빈 voxel 계산 낭비</small></span>
-                  <span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Generalized sparse conv" data-ko="generalized sparse conv">generalized sparse conv</small></span>
-                  <span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="3D / 4D segmentation" data-ko="3D / 4D segmentation">3D / 4D segmentation</small></span>
-                </div>
-
-                <div class="map-grid">
-                  <article class="map-card map-card-wide">
-                    <span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
-                    <p data-en-html="MinkowskiCNN defines sparse tensors and kernel maps so convolution runs only where coordinates exist, enabling efficient 3D/4D semantic segmentation without dense voxel waste." data-ko-html="MinkowskiCNN은 좌표가 존재하는 곳만 convolution하도록 sparse tensor와 kernel map을 정의해, dense voxel 낭비 없이 3D/4D semantic segmentation을 수행하게 만든다.">MinkowskiCNN은 좌표가 존재하는 곳만 convolution하도록 sparse tensor와 kernel map을 정의해, dense voxel 낭비 없이 3D/4D semantic segmentation을 수행하게 만든다.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 01</span>
-                    <h3>Generalized Sparse Convolution</h3>
-                    <p data-en="Unifies dense convolution, sparse submanifold convolution, strided convolution, dilated kernels, and arbitrary kernel shapes." data-ko="dense convolution, sparse submanifold convolution, stride, dilation, arbitrary kernel shape를 하나의 식으로 통합.">dense convolution, sparse submanifold convolution, stride, dilation, arbitrary kernel shape를 하나의 식으로 통합.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 02</span>
-                    <h3>Minkowski Engine</h3>
-                    <p data-en="Provides coordinate quantization, coordinate manager, kernel maps, pooling, and transposed convolution for high-dimensional sparse tensors." data-ko="coordinate quantization, coordinate manager, kernel map, pooling, transposed convolution을 고차원 sparse tensor용으로 제공.">coordinate quantization, coordinate manager, kernel map, pooling, transposed convolution을 고차원 sparse tensor용으로 제공.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 03</span>
-                    <h3>4D Spatio-temporal ConvNets</h3>
-                    <p data-en="Treats 3D videos as sparse 4D signals, allowing temporal context to be processed by convolution rather than frame-wise aggregation." data-ko="3D video를 sparse 4D signal로 보고, frame-wise aggregation 대신 convolution으로 temporal context를 직접 처리.">3D video를 sparse 4D signal로 보고, frame-wise aggregation 대신 convolution으로 temporal context를 직접 처리.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 04</span>
-                    <h3>Hybrid Kernel / TS-CRF</h3>
-                    <p data-en="Uses non-hypercubic kernels to reduce 4D cost and a 7D trilateral stationary CRF for spatio-temporal consistency." data-ko="4D cost를 줄이는 non-hypercubic kernel과 spatio-temporal consistency를 위한 7D trilateral stationary CRF 제안.">4D cost를 줄이는 non-hypercubic kernel과 spatio-temporal consistency를 위한 7D trilateral stationary CRF 제안.</p>
-                  </article>
-                </div>
-
-                <div class="insight-box">
-                  <strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
-                  <p data-en-html="The core value is not simply “4D convolution.” It is the system design that lets CNN layers operate over &lt;strong&gt;sets of existing coordinates&lt;/strong&gt;, so standard CNN architecture ideas become reusable in sparse 3D/4D domains." data-ko-html="핵심은 단순히 “4D convolution을 했다”가 아니다. CNN layer가 &lt;strong&gt;존재하는 coordinate set 위에서만 연산&lt;/strong&gt;하도록 시스템을 만든 덕분에, 기존 CNN architecture 아이디어를 sparse 3D/4D domain에 재사용할 수 있게 된 점이 중요하다.">핵심은 단순히 “4D convolution을 했다”가 아니다. CNN layer가 <strong>존재하는 coordinate set 위에서만 연산</strong>하도록 시스템을 만든 덕분에, 기존 CNN architecture 아이디어를 sparse 3D/4D domain에 재사용할 수 있게 된 점이 중요하다.</p>
-                </div>
-
-                <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
-                <div aria-label="MinkowskiCNN pipeline" class="flow-diagram">
-                  <div class="flow-step"><span>01</span><strong>3D/4D Points</strong><small>space + time</small></div>
-                  <div class="flow-step"><span>02</span><strong>Quantization</strong><small>continuous to lattice</small></div>
-                  <div class="flow-step"><span>03</span><strong>Sparse Tensor</strong><small>coordinates + features</small></div>
-                  <div class="flow-step"><span>04</span><strong>Kernel Map</strong><small>input-output pairs</small></div>
-                  <div class="flow-step"><span>05</span><strong>MinkowskiNet</strong><small>3D / 4D sparse CNN</small></div>
-                  <div class="flow-step"><span>06</span><strong>Segmentation</strong><small>semantic labels</small></div>
-                </div>
-
-                <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
-                <div class="compare-grid">
-                  <article>
-                    <span class="compare-kicker">Dense 3D CNN</span>
-                    <h3 data-en="Dense grid first" data-ko="dense grid first">dense grid first</h3>
-                    <p data-en="Easy to implement but wastes memory and compute on empty 3D space." data-ko="구현은 직관적이지만 빈 3D 공간까지 계산해 memory와 compute 낭비가 큼.">구현은 직관적이지만 빈 3D 공간까지 계산해 memory와 compute 낭비가 큼.</p>
-                  </article>
-                  <article>
-                    <span class="compare-kicker">Point-based Networks</span>
-                    <h3 data-en="Point set first" data-ko="point set first">point set first</h3>
-                    <p data-en="Avoids dense voxels, but CNN-style local weight sharing and hierarchy are less direct." data-ko="dense voxel은 피하지만 CNN식 local weight sharing과 hierarchy를 그대로 쓰기 어려움.">dense voxel은 피하지만 CNN식 local weight sharing과 hierarchy를 그대로 쓰기 어려움.</p>
-                  </article>
-                  <article>
-                    <span class="compare-kicker">MinkowskiCNN</span>
-                    <h3 data-en="Sparse coordinate first" data-ko="sparse coordinate first">sparse coordinate first</h3>
-                    <p data-en="Keeps only observed coordinates and runs convolution through reusable offset-wise maps." data-ko="관측 coordinate만 유지하고 offset별 kernel map으로 convolution을 수행.">관측 coordinate만 유지하고 offset별 kernel map으로 convolution을 수행.</p>
-                  </article>
-                </div>
-              </section>
-
-              <section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
-                <h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
-                <p class="deep-dive-note" data-en="From here, the detailed notes preserve as much of the original paper content as possible. Background knowledge, notation, and supplementary material that fall outside the core flow are folded away." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
-
-                <div class="deep-dive-body">
-                  <div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
-                    <section class="deep-section" data-section-title="Problem">
-                      <h3 id="ko-problem">Problem: 3D video를 dense grid 없이 어떻게 처리할까</h3>
-                      <p>논문의 출발점은 3D/4D perception 데이터가 대부분 <strong>sparse</strong>하다는 사실이다. LiDAR scan, depth camera sequence, RGB-D reconstruction은 전체 voxel grid 중 일부 위치에만 관측값이 존재하므로, dense 3D/4D convolution을 그대로 적용하면 빈 공간까지 계산하게 된다.</p>
-
-                      <figure class="image">
-                        <img width="3960" height="940" alt="Figure 1. An example of 3D video: 3D scenes at different time steps." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_c45702943ee2.png" style="width:620px">
-                        <figcaption><span class="caption-main">Figure 1. An example of 3D video: 3D scenes at different time steps.</span><span class="caption-note">논문은 3D video를 시간에 따라 변하는 3D scan sequence로 정의한다. 즉 입력은 단순 point cloud가 아니라 공간 좌표와 시간 축을 함께 갖는 sparse signal이다.</span></figcaption>
-                      </figure>
-
-                      <section class="problem-ladder">
-                        <div class="summary-head">
-                          <span class="section-chip">Problem Flow</span>
-                          <p>Introduction의 문제 제기는 “4D를 쓰고 싶지만 dense 방식은 너무 비싸고, 기존 3D 방법은 temporal structure를 직접 다루지 못한다”로 요약된다.</p>
-                        </div>
-                        <div class="problem-ladder-grid">
-                          <article><span>01</span><strong>3D/4D data is sparse</strong><p>관측된 surface 주변에만 point가 있고 대부분의 voxel은 비어 있음.</p></article>
-                          <article><span>02</span><strong>Dense convolution is expensive</strong><p>차원이 올라갈수록 kernel 위치와 volume size가 급격히 증가.</p></article>
-                          <article><span>03</span><strong>Frame-wise processing loses time</strong><p>3D video를 frame별로 처리하면 temporal consistency를 network 내부에서 직접 학습하기 어려움.</p></article>
-                          <article><span>04</span><strong>Sparse tensor as common format</strong><p>coordinate와 feature를 함께 저장하면 기존 CNN layer를 sparse domain으로 확장 가능.</p></article>
-                        </div>
-                      </section>
-
-                      <figure class="image">
-                        <img width="4300" height="1120" alt="Figure 2. 2D projections of hypercubes in various dimensions." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_f77038bc90c9.png" style="width:520px">
-                        <figcaption><span class="caption-main">Figure 2. 2D projections of hypercubes in various dimensions.</span><span class="caption-note">차원이 커질수록 hypercube kernel의 후보 위치가 늘어난다. 이 그림은 왜 4D에서 full hypercubic kernel만 쓰면 부담이 커지는지 직관을 준다.</span></figcaption>
-                      </figure>
-
-                      <details class="supplement-toggle supplement-structured">
-                        <summary>Related Work 맥락 보기</summary>
-                        <div class="appendix-details supplement-details">
-                          <section class="summary-panel summary-panel-soft">
-                            <div class="summary-head">
-                              <span class="subsection-label">기존 접근의 위치</span>
-                              <p>Related Work는 논문이 왜 sparse tensor와 convolutional representation을 선택했는지 설명하는 배경이다.</p>
-                            </div>
-                            <div class="summary-table-wrap">
-                              <table class="summary-table">
-                                <thead><tr><th>계열</th><th>장점</th><th>논문이 보는 한계</th></tr></thead>
-                                <tbody>
-                                  <tr><td><span class="summary-term">Dense voxel CNN</span></td><td>3D grid 위에서 CNN을 직접 적용</td><td>대부분의 3D 공간이 비어 있어 memory/computation 비용이 큼</td></tr>
-                                  <tr><td><span class="summary-term">Point-based network</span></td><td>point set을 직접 처리해 voxel 낭비를 줄임</td><td>CNN의 local weight sharing과 계층적 architecture prior를 그대로 쓰기 어려움</td></tr>
-                                  <tr><td><span class="summary-term">Sparse convolution</span></td><td>관측 좌표만 처리</td><td>논문은 이를 임의 차원, arbitrary kernel, reusable coordinate map으로 일반화</td></tr>
-                                  <tr><td><span class="summary-term">Early 4D perception</span></td><td>spatio-temporal data를 다룸</td><td>homogeneous convolutional representation으로 깊은 4D network를 구성한 사례가 제한적</td></tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </section>
-                        </div>
-                      </details>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Mechanism">
-                      <h3 id="ko-mechanism">Mechanism: generalized sparse convolution이 무엇을 바꾸나</h3>
-                      <p>방법론의 핵심은 <strong>sparse tensor representation</strong>과 <strong>input/output coordinate set을 분리한 convolution 정의</strong>다. 이 덕분에 dense convolution, sparse submanifold convolution, strided convolution, transposed convolution, pooling을 같은 coordinate-map 기반 연산으로 다룰 수 있다.</p>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">1. Sparse tensor representation</span>
-                        <p>논문은 coordinate matrix와 feature matrix를 함께 저장한다. 실제 4D video에서는 coordinate가 <span class="inline-equation-token">\((x,y,z,t)\)</span>를 포함하고, batch 처리를 위해 batch index가 좌표에 추가된다.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+<div class="layout" id="top">
+<aside aria-label="Paper section bookmark" class="sidebar">
+<div class="sidebar-card">
+<nav aria-label="Paper section bookmark" class="section-bookmark">
+<div class="bookmark-status">
+<span class="bookmark-eyebrow">Now Reading</span>
+<strong id="currentSectionLabel">핵심 요약</strong>
+</div>
+<div class="bookmark-list" id="sectionBookmarkList"></div>
+</nav>
+</div>
+</aside>
+<div class="content">
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brandline">
+<a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+<img alt="Wooseok Song profile photo" height="4032" src="../../../assets/avatar.jpg" width="3024"/>
+</a>
+<span class="brandtext">Paper Reviews</span>
+</div>
+<div class="top-actions">
+<button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+<span data-lang-option="ko">KO</span>
+<span data-lang-option="en">EN</span>
+</button>
+<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+<span aria-hidden="true" id="themeIcon">☀</span>
+</button>
+</div>
+</div>
+</header>
+<main class="container" id="main">
+<section class="section">
+<div class="panel">
+<header class="paper-identity">
+<p class="paper-title-meta">4D Spatio-Temporal ConvNets: Minkowski Convolutional Neural Networks</p>
+<div class="paper-meta-card">
+<div class="paper-meta-top"><span class="paper-meta-venue">CVPR 2019</span><span class="paper-meta-date">arXiv: 18 Apr 2019</span></div>
+<dl class="paper-meta-grid">
+<div class="paper-meta-item"><dt>Authors</dt><dd>Christopher Choy; JunYoung Gwak; Silvio Savarese</dd></div>
+<div class="paper-meta-item"><dt>Affiliations</dt><dd>Stanford University</dd></div>
+</dl>
+<nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/1904.08755" rel="noreferrer" target="_blank">Paper</a><a href="https://github.com/StanfordVL/MinkowskiEngine" rel="noreferrer" target="_blank">GitHub</a></nav>
+<div aria-label="Paper topics" class="paper-meta-topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#3D Perception</span><span class="paper-topic-chip">#Sparse CNN</span><span class="paper-topic-chip">#Minkowski Engine</span><span class="paper-topic-chip">#3D/4D Perception</span><span class="paper-topic-chip">#Sparse Tensor</span></div></div>
+</div>
+</header>
+<div class="post-body">
+<section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+<div class="paper-map-head">
+<h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+<p data-en-html="MinkowskiCNN turns sparse 3D and 4D perception data into a CNN-friendly representation by computing convolution only on &lt;strong&gt;observed sparse coordinates&lt;/strong&gt;." data-ko-html="MinkowskiCNN은 3D/4D perception 데이터에서 &lt;strong&gt;관측된 sparse coordinate만 계산&lt;/strong&gt;하도록 만들어, dense voxel grid의 낭비 없이 CNN 구조를 고차원 sparse signal에 적용한다.">MinkowskiCNN은 3D/4D perception 데이터에서 <strong>관측된 sparse coordinate만 계산</strong>하도록 만들어, dense voxel grid의 낭비 없이 CNN 구조를 고차원 sparse signal에 적용한다.</p>
+</div>
+<div class="tldr-cues">
+<span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Empty voxel waste" data-ko="빈 voxel 계산 낭비">빈 voxel 계산 낭비</small></span>
+<span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Generalized sparse conv" data-ko="generalized sparse conv">generalized sparse conv</small></span>
+<span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="3D / 4D segmentation" data-ko="3D / 4D segmentation">3D / 4D segmentation</small></span>
+</div>
+<div class="map-grid">
+<article class="map-card map-card-wide">
+<span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+<p data-en-html="MinkowskiCNN defines sparse tensors and kernel maps so convolution runs only where coordinates exist, enabling efficient 3D/4D semantic segmentation without dense voxel waste." data-ko-html="MinkowskiCNN은 좌표가 존재하는 곳만 convolution하도록 sparse tensor와 kernel map을 정의해, dense voxel 낭비 없이 3D/4D semantic segmentation을 수행하게 만든다.">MinkowskiCNN은 좌표가 존재하는 곳만 convolution하도록 sparse tensor와 kernel map을 정의해, dense voxel 낭비 없이 3D/4D semantic segmentation을 수행하게 만든다.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 01</span>
+<h3>Generalized Sparse Convolution</h3>
+<p data-en="Unifies dense convolution, sparse submanifold convolution, strided convolution, dilated kernels, and arbitrary kernel shapes." data-ko="dense convolution, sparse submanifold convolution, stride, dilation, arbitrary kernel shape를 하나의 식으로 통합.">dense convolution, sparse submanifold convolution, stride, dilation, arbitrary kernel shape를 하나의 식으로 통합.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 02</span>
+<h3>Minkowski Engine</h3>
+<p data-en="Provides coordinate quantization, coordinate manager, kernel maps, pooling, and transposed convolution for high-dimensional sparse tensors." data-ko="coordinate quantization, coordinate manager, kernel map, pooling, transposed convolution을 고차원 sparse tensor용으로 제공.">coordinate quantization, coordinate manager, kernel map, pooling, transposed convolution을 고차원 sparse tensor용으로 제공.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 03</span>
+<h3>4D Spatio-temporal ConvNets</h3>
+<p data-en="Treats 3D videos as sparse 4D signals, allowing temporal context to be processed by convolution rather than frame-wise aggregation." data-ko="3D video를 sparse 4D signal로 보고, frame-wise aggregation 대신 convolution으로 temporal context를 직접 처리.">3D video를 sparse 4D signal로 보고, frame-wise aggregation 대신 convolution으로 temporal context를 직접 처리.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 04</span>
+<h3>Hybrid Kernel / TS-CRF</h3>
+<p data-en="Uses non-hypercubic kernels to reduce 4D cost and a 7D trilateral stationary CRF for spatio-temporal consistency." data-ko="4D cost를 줄이는 non-hypercubic kernel과 spatio-temporal consistency를 위한 7D trilateral stationary CRF 제안.">4D cost를 줄이는 non-hypercubic kernel과 spatio-temporal consistency를 위한 7D trilateral stationary CRF 제안.</p>
+</article>
+</div>
+<div class="insight-box">
+<strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
+<p data-en-html="The core value is not simply “4D convolution.” It is the system design that lets CNN layers operate over &lt;strong&gt;sets of existing coordinates&lt;/strong&gt;, so standard CNN architecture ideas become reusable in sparse 3D/4D domains." data-ko-html="핵심은 단순히 “4D convolution을 했다”가 아니다. CNN layer가 &lt;strong&gt;존재하는 coordinate set 위에서만 연산&lt;/strong&gt;하도록 시스템을 만든 덕분에, 기존 CNN architecture 아이디어를 sparse 3D/4D domain에 재사용할 수 있게 된 점이 중요하다.">핵심은 단순히 “4D convolution을 했다”가 아니다. CNN layer가 <strong>존재하는 coordinate set 위에서만 연산</strong>하도록 시스템을 만든 덕분에, 기존 CNN architecture 아이디어를 sparse 3D/4D domain에 재사용할 수 있게 된 점이 중요하다.</p>
+</div>
+<div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
+<div aria-label="MinkowskiCNN pipeline" class="flow-diagram">
+<div class="flow-step"><span>01</span><strong>3D/4D Points</strong><small>space + time</small></div>
+<div class="flow-step"><span>02</span><strong>Quantization</strong><small>continuous to lattice</small></div>
+<div class="flow-step"><span>03</span><strong>Sparse Tensor</strong><small>coordinates + features</small></div>
+<div class="flow-step"><span>04</span><strong>Kernel Map</strong><small>input-output pairs</small></div>
+<div class="flow-step"><span>05</span><strong>MinkowskiNet</strong><small>3D / 4D sparse CNN</small></div>
+<div class="flow-step"><span>06</span><strong>Segmentation</strong><small>semantic labels</small></div>
+</div>
+<div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
+<div class="compare-grid">
+<article>
+<span class="compare-kicker">Dense 3D CNN</span>
+<h3 data-en="Dense grid first" data-ko="dense grid first">dense grid first</h3>
+<p data-en="Easy to implement but wastes memory and compute on empty 3D space." data-ko="구현은 직관적이지만 빈 3D 공간까지 계산해 memory와 compute 낭비가 큼.">구현은 직관적이지만 빈 3D 공간까지 계산해 memory와 compute 낭비가 큼.</p>
+</article>
+<article>
+<span class="compare-kicker">Point-based Networks</span>
+<h3 data-en="Point set first" data-ko="point set first">point set first</h3>
+<p data-en="Avoids dense voxels, but CNN-style local weight sharing and hierarchy are less direct." data-ko="dense voxel은 피하지만 CNN식 local weight sharing과 hierarchy를 그대로 쓰기 어려움.">dense voxel은 피하지만 CNN식 local weight sharing과 hierarchy를 그대로 쓰기 어려움.</p>
+</article>
+<article>
+<span class="compare-kicker">MinkowskiCNN</span>
+<h3 data-en="Sparse coordinate first" data-ko="sparse coordinate first">sparse coordinate first</h3>
+<p data-en="Keeps only observed coordinates and runs convolution through reusable offset-wise maps." data-ko="관측 coordinate만 유지하고 offset별 kernel map으로 convolution을 수행.">관측 coordinate만 유지하고 offset별 kernel map으로 convolution을 수행.</p>
+</article>
+</div>
+</section>
+<section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+<h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+<p class="deep-dive-note" data-en="From here, the detailed notes preserve as much of the original paper content as possible. Background knowledge, notation, and supplementary material that fall outside the core flow are folded away." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
+<div class="deep-dive-body">
+<div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="ko-problem">Problem: 3D video를 dense grid 없이 어떻게 처리할까</h3>
+<p>논문의 출발점은 3D/4D perception 데이터가 대부분 <strong>sparse</strong>하다는 사실이다. LiDAR scan, depth camera sequence, RGB-D reconstruction은 전체 voxel grid 중 일부 위치에만 관측값이 존재하므로, dense 3D/4D convolution을 그대로 적용하면 빈 공간까지 계산하게 된다.</p>
+<figure class="image">
+<img alt="Figure 1. An example of 3D video: 3D scenes at different time steps." height="940" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_c45702943ee2.png" style="width:620px" width="3960"/>
+<figcaption><span class="caption-main">Figure 1. An example of 3D video: 3D scenes at different time steps.</span><span class="caption-note">논문은 3D video를 시간에 따라 변하는 3D scan sequence로 정의한다. 즉 입력은 단순 point cloud가 아니라 공간 좌표와 시간 축을 함께 갖는 sparse signal이다.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head">
+<span class="section-chip">Problem Flow</span>
+<p>Introduction의 문제 제기는 “4D를 쓰고 싶지만 dense 방식은 너무 비싸고, 기존 3D 방법은 temporal structure를 직접 다루지 못한다”로 요약된다.</p>
+</div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>3D/4D data is sparse</strong><p>관측된 surface 주변에만 point가 있고 대부분의 voxel은 비어 있음.</p></article>
+<article><span>02</span><strong>Dense convolution is expensive</strong><p>차원이 올라갈수록 kernel 위치와 volume size가 급격히 증가.</p></article>
+<article><span>03</span><strong>Frame-wise processing loses time</strong><p>3D video를 frame별로 처리하면 temporal consistency를 network 내부에서 직접 학습하기 어려움.</p></article>
+<article><span>04</span><strong>Sparse tensor as common format</strong><p>coordinate와 feature를 함께 저장하면 기존 CNN layer를 sparse domain으로 확장 가능.</p></article>
+</div>
+</section>
+<figure class="image">
+<img alt="Figure 2. 2D projections of hypercubes in various dimensions." height="1120" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_f77038bc90c9.png" style="width:520px" width="4300"/>
+<figcaption><span class="caption-main">Figure 2. 2D projections of hypercubes in various dimensions.</span><span class="caption-note">차원이 커질수록 hypercube kernel의 후보 위치가 늘어난다. 이 그림은 왜 4D에서 full hypercubic kernel만 쓰면 부담이 커지는지 직관을 준다.</span></figcaption>
+</figure>
+<details class="supplement-toggle supplement-structured">
+<summary>Related Work 맥락 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">기존 접근의 위치</span>
+<p>Related Work는 논문이 왜 sparse tensor와 convolutional representation을 선택했는지 설명하는 배경이다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>계열</th><th>장점</th><th>논문이 보는 한계</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Dense voxel CNN</span></td><td>3D grid 위에서 CNN을 직접 적용</td><td>대부분의 3D 공간이 비어 있어 memory/computation 비용이 큼</td></tr>
+<tr><td><span class="summary-term">Point-based network</span></td><td>point set을 직접 처리해 voxel 낭비를 줄임</td><td>CNN의 local weight sharing과 계층적 architecture prior를 그대로 쓰기 어려움</td></tr>
+<tr><td><span class="summary-term">Sparse convolution</span></td><td>관측 좌표만 처리</td><td>논문은 이를 임의 차원, arbitrary kernel, reusable coordinate map으로 일반화</td></tr>
+<tr><td><span class="summary-term">Early 4D perception</span></td><td>spatio-temporal data를 다룸</td><td>homogeneous convolutional representation으로 깊은 4D network를 구성한 사례가 제한적</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</details>
+</section>
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="ko-mechanism">Mechanism: generalized sparse convolution이 무엇을 바꾸나</h3>
+<p>방법론의 핵심은 <strong>sparse tensor representation</strong>과 <strong>input/output coordinate set을 분리한 convolution 정의</strong>다. 이 덕분에 dense convolution, sparse submanifold convolution, strided convolution, transposed convolution, pooling을 같은 coordinate-map 기반 연산으로 다룰 수 있다.</p>
+<section class="method-step-block">
+<span class="subsection-label">1. Sparse tensor representation</span>
+<p>논문은 coordinate matrix와 feature matrix를 함께 저장한다. 실제 4D video에서는 coordinate가 <span class="inline-equation-token">\((x,y,z,t)\)</span>를 포함하고, batch 처리를 위해 batch index가 좌표에 추가된다.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathbf{C}=\begin{bmatrix}
-x_1 & y_1 & z_1 & t_1 & b_1 \\
-\vdots & \vdots & \vdots & \vdots & \vdots \\
-x_N & y_N & z_N & t_N & b_N
+x_1 &amp; y_1 &amp; z_1 &amp; t_1 &amp; b_1 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+x_N &amp; y_N &amp; z_N &amp; t_N &amp; b_N
 \end{bmatrix},\quad
 \mathbf{F}=\begin{bmatrix}
 \mathbf{f}_1^{\top} \\
@@ -222,17 +207,16 @@ x_N & y_N & z_N & t_N & b_N
 \tag{1}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">Sparse tensor는 비어 있지 않은 좌표와 해당 feature vector만 저장한다.</span></figcaption>
-                          </figure>
-                        </div>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">2. Generalized sparse convolution</span>
-                        <p>논문은 먼저 dense convolution을 Eq. (2)로 두고, Eq. (3)에서 실제 존재하는 input coordinate와 predefined output coordinate 사이의 offset만 합산하도록 일반화한다. 핵심은 <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span>과 <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span>이 같을 필요가 없다는 점이다.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Sparse tensor는 비어 있지 않은 좌표와 해당 feature vector만 저장한다.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">2. Generalized sparse convolution</span>
+<p>논문은 먼저 dense convolution을 Eq. (2)로 두고, Eq. (3)에서 실제 존재하는 input coordinate와 predefined output coordinate 사이의 offset만 합산하도록 일반화한다. 핵심은 <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span>과 <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span>이 같을 필요가 없다는 점이다.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathbf{x}^{\mathrm{out}}_{\mathbf{u}}
 = \sum_{\mathbf{i}\in V^D(K)} \mathbf{W}_{\mathbf{i}}\mathbf{x}^{\mathrm{in}}_{\mathbf{u}+\mathbf{i}}
@@ -240,10 +224,10 @@ $$
 \tag{2}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main"><span class="inline-equation-token">\(D\)</span>차원 dense grid에서의 conventional convolution.</span></figcaption>
-                          </figure>
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main"><span class="inline-equation-token">\(D\)</span>차원 dense grid에서의 conventional convolution.</span></figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathbf{x}^{\mathrm{out}}_{\mathbf{u}}
 = \sum_{\mathbf{i}\in\mathcal{N}^D(\mathbf{u},\mathcal{C}^{\mathrm{in}})}
@@ -252,98 +236,93 @@ $$
 \tag{3}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">Generalized sparse convolution은 입력 coordinate set에 실제로 존재하는 offset만 합산한다.</span></figcaption>
-                          </figure>
-                        </div>
-                        <section class="summary-panel">
-                          <div class="summary-head">
-                            <span class="section-chip">Convolution Meaning</span>
-                            <p>Eq. (3)의 “일반화”는 수식 모양보다 coordinate set의 자유도가 중요하다.</p>
-                          </div>
-                          <div class="summary-table-wrap">
-                            <table class="summary-table">
-                              <thead><tr><th>구성요소</th><th>역할</th><th>해석</th></tr></thead>
-                              <tbody>
-                                <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span></span></td><td>입력 sparse tensor의 coordinate set</td><td>실제로 feature가 존재하는 lattice 위치</td></tr>
-                                <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span></span></td><td>출력 sparse tensor의 coordinate set</td><td>stride, pooling, transposed convolution 등에 따라 새로 정의 가능</td></tr>
-                                <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{N}^D\)</span></span></td><td>kernel shape / offset set</td><td>hypercube뿐 아니라 hyper-cross, dilated, custom shape 가능</td></tr>
-                                <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathbf{W}_{\mathbf{i}}\)</span></span></td><td>offset별 learnable weight</td><td>각 offset에서 들어온 feature를 output channel로 변환</td></tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </section>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">3. Kernel shape: hypercube vs hyper-cross</span>
-                        <p>4D 이상에서는 full hypercube kernel의 offset 수가 빠르게 커진다. 논문은 이 문제를 줄이기 위해 공간/시간 방향을 모두 보는 full kernel뿐 아니라, 축 방향 offset을 중심으로 구성한 <strong>hyper-cross</strong>와 hybrid kernel을 함께 사용한다.</p>
-                        <figure class="image">
-                          <img width="4060" height="1070" alt="Figure 3. Various kernels in space-time." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_058b81bcc936.png" style="width:720px">
-                          <figcaption><span class="caption-main">Figure 3. Various kernels in space-time.</span><span class="caption-note">빨간 화살표는 temporal dimension을 의미한다. 논문은 hypercubic kernel과 hypercross kernel을 조합해 4D receptive field와 계산량 사이의 균형을 잡는다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">4. Minkowski Engine: coordinate manager와 kernel map</span>
-                        <p>Minkowski Engine은 sparse convolution을 매번 brute-force neighbor search로 처리하지 않는다. coordinate manager가 coordinate set을 관리하고, kernel map은 offset별 input row와 output row의 연결을 저장한다. 같은 coordinate/kernel specification이 반복되면 이 mapping을 cache할 수 있다.</p>
-                        <section class="summary-panel">
-                          <div class="summary-head">
-                            <span class="section-chip">System Thread Summary</span>
-                            <p>구현 관점에서 가장 중요한 흐름은 coordinate quantization → coordinate map → kernel map → gather/GEMM/scatter-add다.</p>
-                          </div>
-                          <div class="summary-table-wrap">
-                            <table class="summary-table">
-                              <thead><tr><th>단계</th><th>무엇을 담당하나</th><th>왜 필요한가</th></tr></thead>
-                              <tbody>
-                                <tr><td><span class="summary-term">Coordinate quantization</span></td><td>연속 point를 discrete lattice coordinate로 변환</td><td>point cloud를 sparse tensor로 만들기 위한 입력 정규화</td></tr>
-                                <tr><td><span class="summary-term">Coordinate manager</span></td><td>unique coordinate set과 coordinate stride 관리</td><td>layer 간 coordinate reuse와 lookup 비용 절감</td></tr>
-                                <tr><td><span class="summary-term">Kernel map</span></td><td>offset별 input/output row index pair 저장</td><td>실제 존재하는 neighbor만 gather하고 scatter-add 수행</td></tr>
-                                <tr><td><span class="summary-term">Sparse operators</span></td><td>convolution, pooling, transposed convolution 실행</td><td>dense CNN의 layer 문법을 sparse domain으로 옮김</td></tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </section>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">5. Network architecture와 TS-CRF</span>
-                        <p>MinkowskiNet은 ResNet 계열 구조를 sparse convolution으로 옮긴 모델이고, MinkowskiUNet은 semantic segmentation을 위한 encoder-decoder 구조다. 논문은 4D network의 output을 더 일관되게 만들기 위해 7D space-time-chroma space에서 TS-CRF도 사용한다.</p>
-                        <figure class="image">
-                          <img width="2060" height="3940" alt="Figure 4. Architecture of ResNet18 and MinkowskiNet18." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_fafa62f61f52.png" style="width:760px">
-                          <figcaption><span class="caption-main">Figure 4. Architecture of ResNet18 (left) and MinkowskiNet18 (right).</span><span class="caption-note">MinkowskiNet은 기존 ResNet block의 구조적 prior를 유지하면서 convolution primitive만 sparse convolution으로 바꾼다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="6180" height="1690" alt="Figure 5. Architecture of MinkowskiUNet32." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_7a9279bbf3ca.png" style="width:820px">
-                          <figcaption><span class="caption-main">Figure 5. Architecture of MinkowskiUNet32.</span><span class="caption-note">캡션의 <span class="inline-equation-token">\(\times\)</span>는 hypercubic kernel, <span class="inline-equation-token">\(+\)</span>는 hypercross kernel을 의미한다. U-Net 구조는 coarse context와 local detail을 함께 쓰기 위해 encoder-decoder skip connection을 사용한다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <details class="supplement-toggle supplement-structured">
-                        <summary>Implementation algorithm / TS-CRF 수식 보기</summary>
-                        <div class="appendix-details supplement-details">
-                          <section class="summary-panel summary-panel-soft">
-                            <div class="summary-head">
-                              <span class="subsection-label">Algorithm 역할</span>
-                              <p>논문에는 엔진 구현을 설명하는 알고리즘들이 들어간다. 핵심 수식은 본문에 유지하고, 구현 보조 흐름은 아래처럼 역할 중심으로 접어둔다.</p>
-                            </div>
-                            <div class="summary-table-wrap">
-                              <table class="summary-table">
-                                <thead><tr><th>Algorithm</th><th>역할</th><th>핵심 동작</th></tr></thead>
-                                <tbody>
-                                  <tr><td><span class="summary-term">Alg. 1</span></td><td>GPU Sparse Tensor Quantization</td><td>coordinate를 hash key로 바꾸고 sort/unique/reduce로 collision과 label conflict 처리</td></tr>
-                                  <tr><td><span class="summary-term">Alg. 2</span></td><td>Generalized Sparse Convolution</td><td>offset별 kernel map을 따라 feature gather, matrix multiplication, output scatter-add 수행</td></tr>
-                                  <tr><td><span class="summary-term">Alg. 3-4</span></td><td>Max / Average Pooling</td><td>같은 출력 coordinate로 모이는 input feature를 reduce하거나 sparse matrix 곱으로 평균화</td></tr>
-                                  <tr><td><span class="summary-term">Alg. 5</span></td><td>TS-CRF Variational Inference</td><td>7D coordinate <span class="inline-equation-token">\([C,F,T]\)</span> 위에서 sparse convolution과 softmax를 반복</td></tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </section>
-
-                          <section class="method-step-block">
-                            <span class="subsection-label">TS-CRF fixed-point update</span>
-                            <p>TS-CRF는 7D space-time-chroma coordinate에서 pairwise message passing을 generalized sparse convolution으로 구현한다.</p>
-                            <figure class="equation">
-                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Generalized sparse convolution은 입력 coordinate set에 실제로 존재하는 offset만 합산한다.</span></figcaption>
+</figure>
+</div>
+<section class="summary-panel">
+<div class="summary-head">
+<span class="section-chip">Convolution Meaning</span>
+<p>Eq. (3)의 “일반화”는 수식 모양보다 coordinate set의 자유도가 중요하다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>구성요소</th><th>역할</th><th>해석</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span></span></td><td>입력 sparse tensor의 coordinate set</td><td>실제로 feature가 존재하는 lattice 위치</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span></span></td><td>출력 sparse tensor의 coordinate set</td><td>stride, pooling, transposed convolution 등에 따라 새로 정의 가능</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{N}^D\)</span></span></td><td>kernel shape / offset set</td><td>hypercube뿐 아니라 hyper-cross, dilated, custom shape 가능</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathbf{W}_{\mathbf{i}}\)</span></span></td><td>offset별 learnable weight</td><td>각 offset에서 들어온 feature를 output channel로 변환</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">3. Kernel shape: hypercube vs hyper-cross</span>
+<p>4D 이상에서는 full hypercube kernel의 offset 수가 빠르게 커진다. 논문은 이 문제를 줄이기 위해 공간/시간 방향을 모두 보는 full kernel뿐 아니라, 축 방향 offset을 중심으로 구성한 <strong>hyper-cross</strong>와 hybrid kernel을 함께 사용한다.</p>
+<figure class="image">
+<img alt="Figure 3. Various kernels in space-time." height="1070" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_058b81bcc936.png" style="width:720px" width="4060"/>
+<figcaption><span class="caption-main">Figure 3. Various kernels in space-time.</span><span class="caption-note">빨간 화살표는 temporal dimension을 의미한다. 논문은 hypercubic kernel과 hypercross kernel을 조합해 4D receptive field와 계산량 사이의 균형을 잡는다.</span></figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">4. Minkowski Engine: coordinate manager와 kernel map</span>
+<p>Minkowski Engine은 sparse convolution을 매번 brute-force neighbor search로 처리하지 않는다. coordinate manager가 coordinate set을 관리하고, kernel map은 offset별 input row와 output row의 연결을 저장한다. 같은 coordinate/kernel specification이 반복되면 이 mapping을 cache할 수 있다.</p>
+<section class="summary-panel">
+<div class="summary-head">
+<span class="section-chip">System Thread Summary</span>
+<p>구현 관점에서 가장 중요한 흐름은 coordinate quantization → coordinate map → kernel map → gather/GEMM/scatter-add다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>단계</th><th>무엇을 담당하나</th><th>왜 필요한가</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Coordinate quantization</span></td><td>연속 point를 discrete lattice coordinate로 변환</td><td>point cloud를 sparse tensor로 만들기 위한 입력 정규화</td></tr>
+<tr><td><span class="summary-term">Coordinate manager</span></td><td>unique coordinate set과 coordinate stride 관리</td><td>layer 간 coordinate reuse와 lookup 비용 절감</td></tr>
+<tr><td><span class="summary-term">Kernel map</span></td><td>offset별 input/output row index pair 저장</td><td>실제 존재하는 neighbor만 gather하고 scatter-add 수행</td></tr>
+<tr><td><span class="summary-term">Sparse operators</span></td><td>convolution, pooling, transposed convolution 실행</td><td>dense CNN의 layer 문법을 sparse domain으로 옮김</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">5. Network architecture와 TS-CRF</span>
+<p>MinkowskiNet은 ResNet 계열 구조를 sparse convolution으로 옮긴 모델이고, MinkowskiUNet은 semantic segmentation을 위한 encoder-decoder 구조다. 논문은 4D network의 output을 더 일관되게 만들기 위해 7D space-time-chroma space에서 TS-CRF도 사용한다.</p>
+<figure class="image">
+<img alt="Figure 4. Architecture of ResNet18 and MinkowskiNet18." height="3940" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_fafa62f61f52.png" style="width:760px" width="2060"/>
+<figcaption><span class="caption-main">Figure 4. Architecture of ResNet18 (left) and MinkowskiNet18 (right).</span><span class="caption-note">MinkowskiNet은 기존 ResNet block의 구조적 prior를 유지하면서 convolution primitive만 sparse convolution으로 바꾼다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 5. Architecture of MinkowskiUNet32." height="1690" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_7a9279bbf3ca.png" style="width:820px" width="6180"/>
+<figcaption><span class="caption-main">Figure 5. Architecture of MinkowskiUNet32.</span><span class="caption-note">캡션의 <span class="inline-equation-token">\(\times\)</span>는 hypercubic kernel, <span class="inline-equation-token">\(+\)</span>는 hypercross kernel을 의미한다. U-Net 구조는 coarse context와 local detail을 함께 쓰기 위해 encoder-decoder skip connection을 사용한다.</span></figcaption>
+</figure>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Implementation algorithm / TS-CRF 수식 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">Algorithm 역할</span>
+<p>논문에는 엔진 구현을 설명하는 알고리즘들이 들어간다. 핵심 수식은 본문에 유지하고, 구현 보조 흐름은 아래처럼 역할 중심으로 접어둔다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Algorithm</th><th>역할</th><th>핵심 동작</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Alg. 1</span></td><td>GPU Sparse Tensor Quantization</td><td>coordinate를 hash key로 바꾸고 sort/unique/reduce로 collision과 label conflict 처리</td></tr>
+<tr><td><span class="summary-term">Alg. 2</span></td><td>Generalized Sparse Convolution</td><td>offset별 kernel map을 따라 feature gather, matrix multiplication, output scatter-add 수행</td></tr>
+<tr><td><span class="summary-term">Alg. 3-4</span></td><td>Max / Average Pooling</td><td>같은 출력 coordinate로 모이는 input feature를 reduce하거나 sparse matrix 곱으로 평균화</td></tr>
+<tr><td><span class="summary-term">Alg. 5</span></td><td>TS-CRF Variational Inference</td><td>7D coordinate <span class="inline-equation-token">\([C,F,T]\)</span> 위에서 sparse convolution과 softmax를 반복</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">TS-CRF fixed-point update</span>
+<p>TS-CRF는 7D space-time-chroma coordinate에서 pairwise message passing을 generalized sparse convolution으로 구현한다.</p>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 Q_i^{+}(x_i)=\frac{1}{Z_i}\exp\left\{
 \phi_u(x_i)+\sum_{j\in\mathcal{N}^7(x_i)}\sum_{x_j}
@@ -352,10 +331,10 @@ Q_i^{+}(x_i)=\frac{1}{Z_i}\exp\left\{
 \tag{4}
 $$
                               </div></div></div>
-                              <figcaption><span class="caption-main">Trilateral stationary CRF의 mean-field fixed-point update.</span></figcaption>
-                            </figure>
-                            <figure class="equation">
-                              <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Trilateral stationary CRF의 mean-field fixed-point update.</span></figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \frac{\partial L}{\partial \phi_p}
 = \sum_{n}^{N}\frac{\partial L}{\partial Q_n^{+}}\frac{\partial Q_n^{+}}{\partial \phi_p},
@@ -365,146 +344,132 @@ $$
 \tag{5}
 $$
                               </div></div></div>
-                              <figcaption><span class="caption-main">Unary network와 CRF compatibility function을 학습하기 위한 gradient.</span></figcaption>
-                            </figure>
-                          </section>
-                        </div>
-                      </details>
-                    </section>
+<figcaption><span class="caption-main">Unary network와 CRF compatibility function을 학습하기 위한 gradient.</span></figcaption>
+</figure>
+</section>
+</div>
+</details>
+</section>
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="ko-evidence">Evidence: 어떤 task에서 sparse 3D/4D CNN을 검증했나</h3>
+<p>실험은 “sparse CNN이 3D segmentation에서 강한가”, “4D convolution이 temporal context에 실제로 도움이 되는가”, “엔진이 충분히 효율적인가”를 나누어 검증한다. 핵심 평가는 dataset 이름보다 task 단위로 읽는 편이 흐름을 따라가기 쉽다.</p>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head">
+<span class="section-chip">Evaluation Brief</span>
+<p>각 실험은 generalized sparse convolution의 표현력, 4D temporal modeling, runtime 효율을 다른 각도에서 확인한다.</p>
+</div>
+<div class="result-brief-grid">
+<article><strong>3D semantic segmentation</strong><p>ScanNet, S3DIS, RueMonge에서 sparse CNN의 3D scene understanding 성능 확인.</p></article>
+<article><strong>4D spatio-temporal segmentation</strong><p>Synthia 4D와 noisy Synthia에서 시간 축 convolution과 TS-CRF 효과 확인.</p></article>
+<article><strong>Efficiency</strong><p>voxel size와 video length에 따른 3D/4D MinkNet runtime 비교.</p></article>
+</div>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">3D semantic segmentation</span>
+<figure class="image">
+<img alt="Table 1. 3D Semantic Label Benchmark on ScanNet." height="2720" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_5dd38fccd02f.png" style="width:360px" width="2060"/>
+<figcaption><span class="caption-main">Table 1. 3D Semantic Label Benchmark on ScanNet.</span><span class="caption-note">논문은 submission 당시 ScanNet에서 67.9% mIoU를 보고했고, voxel size를 2cm로 줄인 post-CVPR setting에서는 72.1% mIoU를 제시한다. 괄호 안 값은 voxel size다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 7. Visualization of Scannet predictions." height="3520" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_4c561b48712c.png" style="width:680px" width="4200"/>
+<figcaption><span class="caption-main">Figure 7. Visualization of Scannet predictions.</span><span class="caption-note">위에서부터 3D input point cloud, network prediction, ground truth 순서다.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">4D spatio-temporal segmentation</span>
+<figure class="image">
+<img alt="Table 2. Segmentation results on the 4D Synthia dataset." height="1520" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8988832a766e.png" style="width:360px" width="2590"/>
+<figcaption><span class="caption-main">Table 2. Segmentation results on the 4D Synthia dataset.</span><span class="caption-note">TA는 temporal averaging이다. 4D MinkNet + TS-CRF가 mIoU/mAcc에서 가장 높은 조합으로 보고된다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 3. Segmentation results on the noisy Synthia 4D dataset." height="1000" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8397ca90ca71.png" style="width:840px" width="8300"/>
+<figcaption><span class="caption-main">Table 3. Segmentation results on the noisy Synthia 4D dataset.</span><span class="caption-note">논문은 noisy input에서 temporal averaging이 오히려 noise를 도입할 수 있고, 4D network가 더 robust하다고 분석한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 6. Visualizations of 3D and 4D networks on Synthia." height="1570" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_73867c972397.png" style="width:760px" width="4160"/>
+<figcaption><span class="caption-main">Figure 6. Visualizations of 3D (top) and 4D networks (bottom) on Synthia.</span><span class="caption-note">동일한 Synthia sequence에서 3D frame-wise prediction과 4D temporal prediction의 차이를 보여준다.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Additional 3D benchmarks / runtime</span>
+<figure class="image">
+<img alt="Table 4. Stanford Area 5 Test results." height="2050" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_1947e5fc5006.png" style="width:360px" width="2350"/>
+<figcaption><span class="caption-main">Table 4. Stanford Area 5 Test (Fold #1) on S3DIS.</span><span class="caption-note">S3DIS에서도 MinkowskiNet20/32가 point-based와 sparse baseline 대비 경쟁력 있는 mIoU/mAcc를 보인다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 8. Visualization of Stanford dataset Area 5 test results." height="3370" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3695a3a7fa6d.png" style="width:680px" width="4100"/>
+<figcaption><span class="caption-main">Figure 8. Visualization of Stanford dataset Area 5 test results.</span><span class="caption-note">위에서부터 RGB input, prediction, ground truth 순서다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 5. RueMonge 2014 dataset results." height="1900" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3a2962dbfdd2.png" style="width:340px" width="2230"/>
+<figcaption><span class="caption-main">Table 5. RueMonge 2014 dataset (Varcity) TASK3.</span><span class="caption-note">논문은 RueMonge가 작은 dataset이라 성능이 빠르게 포화되고, Synthia 4D가 ablation에 더 적합하다고 설명한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 6. Runtime comparison between 3D and 4D MinkNet." height="920" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_d201419823e8.png" style="width:760px" width="3780"/>
+<figcaption><span class="caption-main">Table 6. Time to process 3D videos with 3D and 4D MinkNet.</span><span class="caption-note">voxel size와 video length를 바꿔 3D, 4D, 4D-CRF runtime을 비교한다. 4D network는 temporal context를 보면서도 batch-like sparse volume 처리로 속도 이득이 나타나는 설정이 있다.</span></figcaption>
+</figure>
+</section>
+</section>
+<section class="deep-section" data-section-title="Usage / Limits">
+<h3 id="ko-usage">Usage / Limits: 언제 쓰기 좋은가</h3>
+<p>MinkowskiCNN은 point cloud나 voxelized reconstruction처럼 공간 대부분이 비어 있는 데이터에 적합하다. 특히 temporal point cloud sequence를 4D sparse tensor로 묶을 수 있을 때, frame-wise 3D network보다 시간 정보를 자연스럽게 통합할 수 있다.</p>
+<section class="summary-panel usage-fit-box">
+<div class="summary-head">
+<span class="section-chip">When to Use / Avoid</span>
+<p>이 방법은 sparse coordinate structure가 강할수록 장점이 뚜렷하다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table usage-table">
+<thead><tr><th>상황</th><th>판단</th><th>이유</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Good fit</span></td><td>LiDAR, RGB-D, reconstructed point cloud, 3D video segmentation</td><td>빈 voxel이 많아 sparse coordinate 연산 이점이 큼</td></tr>
+<tr><td><span class="summary-term">Strong use case</span></td><td>temporal point cloud / 3D video</td><td>4D convolution이 temporal context를 feature hierarchy 내부에서 처리</td></tr>
+<tr><td><span class="summary-term">Check carefully</span></td><td>quantization resolution 선택</td><td>voxel size가 accuracy/runtime trade-off를 크게 좌우</td></tr>
+<tr><td><span class="summary-term">Limitation</span></td><td>관측이 거의 dense하거나 coordinate가 계속 새로 생성되는 문제</td><td>sparse map reuse와 empty-space saving의 이점이 줄어들 수 있음</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="deep-section" data-section-title="Conclusion">
+<h3 id="ko-conclusion">Conclusion</h3>
+<p>이 논문은 고차원 sparse perception에서 중요한 것이 “차원을 늘린 convolution” 자체보다 <strong>coordinate set을 명시적으로 관리하며 필요한 위치만 계산하는 sparse tensor system</strong>임을 보여준다. Generalized sparse convolution은 discrete convolution 계열을 하나의 틀로 묶고, Minkowski Engine은 이를 실제 3D/4D segmentation network로 사용할 수 있게 만든다.</p>
+</section>
+<section class="deep-section" data-section-title="느낀점">
+<h3 id="ko-takeaway">느낀점</h3>
+<p>(진행중...)</p>
+</section>
 
-                    <section class="deep-section" data-section-title="Evidence">
-                      <h3 id="ko-evidence">Evidence: 어떤 task에서 sparse 3D/4D CNN을 검증했나</h3>
-                      <p>실험은 “sparse CNN이 3D segmentation에서 강한가”, “4D convolution이 temporal context에 실제로 도움이 되는가”, “엔진이 충분히 효율적인가”를 나누어 검증한다. 핵심 평가는 dataset 이름보다 task 단위로 읽는 편이 흐름을 따라가기 쉽다.</p>
-
-                      <section class="result-brief result-brief-wide">
-                        <div class="result-brief-head">
-                          <span class="section-chip">Evaluation Brief</span>
-                          <p>각 실험은 generalized sparse convolution의 표현력, 4D temporal modeling, runtime 효율을 다른 각도에서 확인한다.</p>
-                        </div>
-                        <div class="result-brief-grid">
-                          <article><strong>3D semantic segmentation</strong><p>ScanNet, S3DIS, RueMonge에서 sparse CNN의 3D scene understanding 성능 확인.</p></article>
-                          <article><strong>4D spatio-temporal segmentation</strong><p>Synthia 4D와 noisy Synthia에서 시간 축 convolution과 TS-CRF 효과 확인.</p></article>
-                          <article><strong>Efficiency</strong><p>voxel size와 video length에 따른 3D/4D MinkNet runtime 비교.</p></article>
-                        </div>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">3D semantic segmentation</span>
-                        <figure class="image">
-                          <img width="2060" height="2720" alt="Table 1. 3D Semantic Label Benchmark on ScanNet." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_5dd38fccd02f.png" style="width:360px">
-                          <figcaption><span class="caption-main">Table 1. 3D Semantic Label Benchmark on ScanNet.</span><span class="caption-note">논문은 submission 당시 ScanNet에서 67.9% mIoU를 보고했고, voxel size를 2cm로 줄인 post-CVPR setting에서는 72.1% mIoU를 제시한다. 괄호 안 값은 voxel size다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="4200" height="3520" alt="Figure 7. Visualization of Scannet predictions." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_4c561b48712c.png" style="width:680px">
-                          <figcaption><span class="caption-main">Figure 7. Visualization of Scannet predictions.</span><span class="caption-note">위에서부터 3D input point cloud, network prediction, ground truth 순서다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">4D spatio-temporal segmentation</span>
-                        <figure class="image">
-                          <img width="2590" height="1520" alt="Table 2. Segmentation results on the 4D Synthia dataset." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8988832a766e.png" style="width:360px">
-                          <figcaption><span class="caption-main">Table 2. Segmentation results on the 4D Synthia dataset.</span><span class="caption-note">TA는 temporal averaging이다. 4D MinkNet + TS-CRF가 mIoU/mAcc에서 가장 높은 조합으로 보고된다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="8300" height="1000" alt="Table 3. Segmentation results on the noisy Synthia 4D dataset." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8397ca90ca71.png" style="width:840px">
-                          <figcaption><span class="caption-main">Table 3. Segmentation results on the noisy Synthia 4D dataset.</span><span class="caption-note">논문은 noisy input에서 temporal averaging이 오히려 noise를 도입할 수 있고, 4D network가 더 robust하다고 분석한다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="4160" height="1570" alt="Figure 6. Visualizations of 3D and 4D networks on Synthia." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_73867c972397.png" style="width:760px">
-                          <figcaption><span class="caption-main">Figure 6. Visualizations of 3D (top) and 4D networks (bottom) on Synthia.</span><span class="caption-note">동일한 Synthia sequence에서 3D frame-wise prediction과 4D temporal prediction의 차이를 보여준다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">Additional 3D benchmarks / runtime</span>
-                        <figure class="image">
-                          <img width="2350" height="2050" alt="Table 4. Stanford Area 5 Test results." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_1947e5fc5006.png" style="width:360px">
-                          <figcaption><span class="caption-main">Table 4. Stanford Area 5 Test (Fold #1) on S3DIS.</span><span class="caption-note">S3DIS에서도 MinkowskiNet20/32가 point-based와 sparse baseline 대비 경쟁력 있는 mIoU/mAcc를 보인다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="4100" height="3370" alt="Figure 8. Visualization of Stanford dataset Area 5 test results." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3695a3a7fa6d.png" style="width:680px">
-                          <figcaption><span class="caption-main">Figure 8. Visualization of Stanford dataset Area 5 test results.</span><span class="caption-note">위에서부터 RGB input, prediction, ground truth 순서다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="2230" height="1900" alt="Table 5. RueMonge 2014 dataset results." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3a2962dbfdd2.png" style="width:340px">
-                          <figcaption><span class="caption-main">Table 5. RueMonge 2014 dataset (Varcity) TASK3.</span><span class="caption-note">논문은 RueMonge가 작은 dataset이라 성능이 빠르게 포화되고, Synthia 4D가 ablation에 더 적합하다고 설명한다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="3780" height="920" alt="Table 6. Runtime comparison between 3D and 4D MinkNet." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_d201419823e8.png" style="width:760px">
-                          <figcaption><span class="caption-main">Table 6. Time to process 3D videos with 3D and 4D MinkNet.</span><span class="caption-note">voxel size와 video length를 바꿔 3D, 4D, 4D-CRF runtime을 비교한다. 4D network는 temporal context를 보면서도 batch-like sparse volume 처리로 속도 이득이 나타나는 설정이 있다.</span></figcaption>
-                        </figure>
-                      </section>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Usage / Limits">
-                      <h3 id="ko-usage">Usage / Limits: 언제 쓰기 좋은가</h3>
-                      <p>MinkowskiCNN은 point cloud나 voxelized reconstruction처럼 공간 대부분이 비어 있는 데이터에 적합하다. 특히 temporal point cloud sequence를 4D sparse tensor로 묶을 수 있을 때, frame-wise 3D network보다 시간 정보를 자연스럽게 통합할 수 있다.</p>
-                      <section class="summary-panel usage-fit-box">
-                        <div class="summary-head">
-                          <span class="section-chip">When to Use / Avoid</span>
-                          <p>이 방법은 sparse coordinate structure가 강할수록 장점이 뚜렷하다.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table usage-table">
-                            <thead><tr><th>상황</th><th>판단</th><th>이유</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term">Good fit</span></td><td>LiDAR, RGB-D, reconstructed point cloud, 3D video segmentation</td><td>빈 voxel이 많아 sparse coordinate 연산 이점이 큼</td></tr>
-                              <tr><td><span class="summary-term">Strong use case</span></td><td>temporal point cloud / 3D video</td><td>4D convolution이 temporal context를 feature hierarchy 내부에서 처리</td></tr>
-                              <tr><td><span class="summary-term">Check carefully</span></td><td>quantization resolution 선택</td><td>voxel size가 accuracy/runtime trade-off를 크게 좌우</td></tr>
-                              <tr><td><span class="summary-term">Limitation</span></td><td>관측이 거의 dense하거나 coordinate가 계속 새로 생성되는 문제</td><td>sparse map reuse와 empty-space saving의 이점이 줄어들 수 있음</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Conclusion">
-                      <h3 id="ko-conclusion">Conclusion</h3>
-                      <p>이 논문은 고차원 sparse perception에서 중요한 것이 “차원을 늘린 convolution” 자체보다 <strong>coordinate set을 명시적으로 관리하며 필요한 위치만 계산하는 sparse tensor system</strong>임을 보여준다. Generalized sparse convolution은 discrete convolution 계열을 하나의 틀로 묶고, Minkowski Engine은 이를 실제 3D/4D segmentation network로 사용할 수 있게 만든다.</p>
-                    </section>
-
-                    <section class="deep-section" data-section-title="느낀점">
-                      <h3 id="ko-takeaway">느낀점</h3>
-                      <p>(진행중...)</p>
-                    </section>
-
-                    <section class="deep-section" data-section-title="향후 계획">
-                      <h3 id="ko-future-work">향후 계획</h3>
-                      <p>(진행중...)</p>
-                    </section>
-                  </div>
-
-                  <div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden>
-                    <section class="deep-section" data-section-title="Problem">
-                      <h3 id="en-problem">Problem: how can 3D videos be processed without dense grids?</h3>
-                      <p>The paper starts from a simple observation: most 3D/4D perception data is <strong>sparse</strong>. LiDAR scans, depth-camera sequences, and RGB-D reconstructions occupy only a small subset of a full voxel grid, so dense 3D/4D convolution wastes computation on empty space.</p>
-                      <figure class="image">
-                        <img width="3960" height="940" alt="Figure 1. An example of 3D video: 3D scenes at different time steps." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_c45702943ee2.png" style="width:620px">
-                        <figcaption><span class="caption-main">Figure 1. An example of 3D video: 3D scenes at different time steps.</span><span class="caption-note">A 3D video is a temporal sequence of 3D scans, so the signal naturally has space and time coordinates.</span></figcaption>
-                      </figure>
-                      <section class="problem-ladder">
-                        <div class="summary-head"><span class="section-chip">Problem Flow</span><p>The introduction argues that 4D perception is attractive, but dense processing is expensive and frame-wise 3D processing does not model temporal structure directly.</p></div>
-                        <div class="problem-ladder-grid">
-                          <article><span>01</span><strong>3D/4D data is sparse</strong><p>Only observed surfaces contain points; most cells are empty.</p></article>
-                          <article><span>02</span><strong>Dense convolution is expensive</strong><p>Kernel locations and volume size grow quickly with dimension.</p></article>
-                          <article><span>03</span><strong>Frame-wise processing loses time</strong><p>Temporal consistency is not learned inside the network hierarchy.</p></article>
-                          <article><span>04</span><strong>Sparse tensor as common format</strong><p>Coordinates and features allow CNN layers to move into sparse domains.</p></article>
-                        </div>
-                      </section>
-                      <figure class="image"><img width="4300" height="1120" alt="Figure 2. 2D projections of hypercubes in various dimensions." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_f77038bc90c9.png" style="width:520px"><figcaption><span class="caption-main">Figure 2. 2D projections of hypercubes in various dimensions.</span><span class="caption-note">The figure motivates why full hypercubic kernels become costly in higher-dimensional spaces.</span></figcaption></figure>
-                      <details class="supplement-toggle supplement-structured"><summary>Related work context</summary><div class="appendix-details supplement-details"><section class="summary-panel summary-panel-soft"><div class="summary-head"><span class="subsection-label">Where prior work fits</span><p>Related work explains why the paper chooses sparse tensors and convolutional representation.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Family</th><th>Strength</th><th>Limitation in this paper</th></tr></thead><tbody><tr><td><span class="summary-term">Dense voxel CNN</span></td><td>Direct CNN on 3D grids</td><td>High memory and compute because most 3D cells are empty</td></tr><tr><td><span class="summary-term">Point networks</span></td><td>Avoid dense voxelization</td><td>CNN-style locality and hierarchy are less direct</td></tr><tr><td><span class="summary-term">Sparse convolution</span></td><td>Computes only at observed coordinates</td><td>This paper generalizes it to arbitrary dimension, kernel shape, and reusable maps</td></tr><tr><td><span class="summary-term">Early 4D perception</span></td><td>Handles spatio-temporal data</td><td>Deep homogeneous 4D convolutional networks were limited</td></tr></tbody></table></div></section></div></details>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Mechanism">
-                      <h3 id="en-mechanism">Mechanism: what does generalized sparse convolution change?</h3>
-                      <p>The method combines <strong>sparse tensor representation</strong> with a convolution definition whose input and output coordinate sets can differ. This is what lets dense convolution, sparse submanifold convolution, strided convolution, pooling, and transposed convolution share one coordinate-map view.</p>
-                      <section class="method-step-block"><span class="subsection-label">1. Sparse tensor representation</span><p>The paper stores coordinates and features together. In 4D video, coordinates include <span class="inline-equation-token">\((x,y,z,t)\)</span>, plus a batch index in implementation.</p><div class="method-equation-cluster"><figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
+</div>
+<div class="deep-dive-content is-collapsed" data-lang-panel="en" hidden="">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="en-problem">Problem: how can 3D videos be processed without dense grids?</h3>
+<p>The paper starts from a simple observation: most 3D/4D perception data is <strong>sparse</strong>. LiDAR scans, depth-camera sequences, and RGB-D reconstructions occupy only a small subset of a full voxel grid, so dense 3D/4D convolution wastes computation on empty space.</p>
+<figure class="image">
+<img alt="Figure 1. An example of 3D video: 3D scenes at different time steps." height="940" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_c45702943ee2.png" style="width:620px" width="3960"/>
+<figcaption><span class="caption-main">Figure 1. An example of 3D video: 3D scenes at different time steps.</span><span class="caption-note">A 3D video is a temporal sequence of 3D scans, so the signal naturally has space and time coordinates.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head"><span class="section-chip">Problem Flow</span><p>The introduction argues that 4D perception is attractive, but dense processing is expensive and frame-wise 3D processing does not model temporal structure directly.</p></div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>3D/4D data is sparse</strong><p>Only observed surfaces contain points; most cells are empty.</p></article>
+<article><span>02</span><strong>Dense convolution is expensive</strong><p>Kernel locations and volume size grow quickly with dimension.</p></article>
+<article><span>03</span><strong>Frame-wise processing loses time</strong><p>Temporal consistency is not learned inside the network hierarchy.</p></article>
+<article><span>04</span><strong>Sparse tensor as common format</strong><p>Coordinates and features allow CNN layers to move into sparse domains.</p></article>
+</div>
+</section>
+<figure class="image"><img alt="Figure 2. 2D projections of hypercubes in various dimensions." height="1120" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_f77038bc90c9.png" style="width:520px" width="4300"/><figcaption><span class="caption-main">Figure 2. 2D projections of hypercubes in various dimensions.</span><span class="caption-note">The figure motivates why full hypercubic kernels become costly in higher-dimensional spaces.</span></figcaption></figure>
+<details class="supplement-toggle supplement-structured"><summary>Related work context</summary><div class="appendix-details supplement-details"><section class="summary-panel summary-panel-soft"><div class="summary-head"><span class="subsection-label">Where prior work fits</span><p>Related work explains why the paper chooses sparse tensors and convolutional representation.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Family</th><th>Strength</th><th>Limitation in this paper</th></tr></thead><tbody><tr><td><span class="summary-term">Dense voxel CNN</span></td><td>Direct CNN on 3D grids</td><td>High memory and compute because most 3D cells are empty</td></tr><tr><td><span class="summary-term">Point networks</span></td><td>Avoid dense voxelization</td><td>CNN-style locality and hierarchy are less direct</td></tr><tr><td><span class="summary-term">Sparse convolution</span></td><td>Computes only at observed coordinates</td><td>This paper generalizes it to arbitrary dimension, kernel shape, and reusable maps</td></tr><tr><td><span class="summary-term">Early 4D perception</span></td><td>Handles spatio-temporal data</td><td>Deep homogeneous 4D convolutional networks were limited</td></tr></tbody></table></div></section></div></details>
+</section>
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="en-mechanism">Mechanism: what does generalized sparse convolution change?</h3>
+<p>The method combines <strong>sparse tensor representation</strong> with a convolution definition whose input and output coordinate sets can differ. This is what lets dense convolution, sparse submanifold convolution, strided convolution, pooling, and transposed convolution share one coordinate-map view.</p>
+<section class="method-step-block"><span class="subsection-label">1. Sparse tensor representation</span><p>The paper stores coordinates and features together. In 4D video, coordinates include <span class="inline-equation-token">\((x,y,z,t)\)</span>, plus a batch index in implementation.</p><div class="method-equation-cluster"><figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathbf{C}=\begin{bmatrix}
-x_1 & y_1 & z_1 & t_1 & b_1 \\
-\vdots & \vdots & \vdots & \vdots & \vdots \\
-x_N & y_N & z_N & t_N & b_N
+x_1 &amp; y_1 &amp; z_1 &amp; t_1 &amp; b_1 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+x_N &amp; y_N &amp; z_N &amp; t_N &amp; b_N
 \end{bmatrix},\quad
 \mathbf{F}=\begin{bmatrix}
 \mathbf{f}_1^{\top} \\
@@ -514,7 +479,7 @@ x_N & y_N & z_N & t_N & b_N
 \tag{1}
 $$
                       </div></div></div><figcaption><span class="caption-main">Sparse tensor stores only non-empty coordinates and their feature vectors.</span></figcaption></figure></div></section>
-                      <section class="method-step-block"><span class="subsection-label">2. Generalized sparse convolution</span><p>Eq. (2) is the dense reference. Eq. (3) relaxes it by summing only over offsets that exist in the input coordinate set and by allowing <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span> and <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span> to differ.</p><div class="method-equation-cluster"><figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
+<section class="method-step-block"><span class="subsection-label">2. Generalized sparse convolution</span><p>Eq. (2) is the dense reference. Eq. (3) relaxes it by summing only over offsets that exist in the input coordinate set and by allowing <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span> and <span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span> to differ.</p><div class="method-equation-cluster"><figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathbf{x}^{\mathrm{out}}_{\mathbf{u}}
 = \sum_{\mathbf{i}\in V^D(K)} \mathbf{W}_{\mathbf{i}}\mathbf{x}^{\mathrm{in}}_{\mathbf{u}+\mathbf{i}}
@@ -530,11 +495,11 @@ $$
 \tag{3}
 $$
                       </div></div></div><figcaption><span class="caption-main">Generalized sparse convolution computes only existing input neighbors.</span></figcaption></figure></div></section>
-                      <section class="summary-panel"><div class="summary-head"><span class="section-chip">Convolution Meaning</span><p>The generalization is mainly about coordinate-set freedom.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Element</th><th>Role</th><th>Reading</th></tr></thead><tbody><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span></span></td><td>Input coordinate set</td><td>Locations where features exist</td></tr><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span></span></td><td>Output coordinate set</td><td>Can change through stride, pooling, or transposed convolution</td></tr><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{N}^D\)</span></span></td><td>Kernel offsets</td><td>Hypercube, hyper-cross, dilated, or custom shape</td></tr><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathbf{W}_{\mathbf{i}}\)</span></span></td><td>Learnable offset weights</td><td>Transforms neighbor features into output channels</td></tr></tbody></table></div></section>
-                      <section class="method-step-block"><span class="subsection-label">3. Kernel shape</span><p>For 4D and higher dimensions, full hypercubic kernels become expensive. The paper therefore combines hypercubic and hyper-cross kernels.</p><figure class="image"><img width="4060" height="1070" alt="Figure 3. Various kernels in space-time." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_058b81bcc936.png" style="width:720px"><figcaption><span class="caption-main">Figure 3. Various kernels in space-time.</span><span class="caption-note">The red arrow denotes the temporal dimension; hybrid kernels balance receptive field and cost.</span></figcaption></figure></section>
-                      <section class="method-step-block"><span class="subsection-label">4. Minkowski Engine</span><p>The engine avoids brute-force neighbor search. A coordinate manager maintains sparse coordinate sets, and kernel maps store offset-wise input/output row pairs that can be reused.</p><section class="summary-panel"><div class="summary-head"><span class="section-chip">System Thread Summary</span><p>The main implementation flow is quantization → coordinate map → kernel map → gather/GEMM/scatter-add.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Step</th><th>Role</th><th>Why it matters</th></tr></thead><tbody><tr><td><span class="summary-term">Coordinate quantization</span></td><td>Converts continuous points to discrete lattice coordinates</td><td>Creates sparse tensor input</td></tr><tr><td><span class="summary-term">Coordinate manager</span></td><td>Manages unique coordinate sets and strides</td><td>Enables reuse and fast lookup</td></tr><tr><td><span class="summary-term">Kernel map</span></td><td>Stores row pairs per offset</td><td>Computes only existing neighbors</td></tr><tr><td><span class="summary-term">Sparse operators</span></td><td>Runs convolution, pooling, and transposed convolution</td><td>Transfers CNN layer grammar to sparse domains</td></tr></tbody></table></div></section></section>
-                      <section class="method-step-block"><span class="subsection-label">5. Networks and TS-CRF</span><p>MinkowskiNet transfers ResNet-style blocks to sparse convolution, and MinkowskiUNet builds an encoder-decoder for semantic segmentation. TS-CRF adds a 7D space-time-chroma refinement layer.</p><figure class="image"><img width="2060" height="3940" alt="Figure 4. Architecture of ResNet18 and MinkowskiNet18." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_fafa62f61f52.png" style="width:760px"><figcaption><span class="caption-main">Figure 4. Architecture of ResNet18 (left) and MinkowskiNet18 (right).</span><span class="caption-note">MinkowskiNet preserves the ResNet prior while changing the convolution primitive.</span></figcaption></figure><figure class="image"><img width="6180" height="1690" alt="Figure 5. Architecture of MinkowskiUNet32." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_7a9279bbf3ca.png" style="width:820px"><figcaption><span class="caption-main">Figure 5. Architecture of MinkowskiUNet32.</span><span class="caption-note"><span class="inline-equation-token">\(\times\)</span> indicates a hypercubic kernel, and <span class="inline-equation-token">\(+\)</span> indicates a hypercross kernel.</span></figcaption></figure></section>
-                      <details class="supplement-toggle supplement-structured"><summary>Implementation algorithms / TS-CRF equations</summary><div class="appendix-details supplement-details"><section class="summary-panel summary-panel-soft"><div class="summary-head"><span class="subsection-label">Algorithm roles</span><p>The implementation algorithms are support material for understanding the engine.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Algorithm</th><th>Role</th><th>Main operation</th></tr></thead><tbody><tr><td><span class="summary-term">Alg. 1</span></td><td>GPU Sparse Tensor Quantization</td><td>Hash, sort, unique, and reduce coordinates/labels</td></tr><tr><td><span class="summary-term">Alg. 2</span></td><td>Generalized Sparse Convolution</td><td>Gather, GEMM, and scatter-add through kernel maps</td></tr><tr><td><span class="summary-term">Alg. 3-4</span></td><td>Max / Average Pooling</td><td>Reduce or average features that map to the same output coordinate</td></tr><tr><td><span class="summary-term">Alg. 5</span></td><td>TS-CRF Variational Inference</td><td>Iterates sparse convolution and softmax on <span class="inline-equation-token">\([C,F,T]\)</span></td></tr></tbody></table></div></section><section class="method-step-block"><span class="subsection-label">TS-CRF fixed-point update</span><figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
+<section class="summary-panel"><div class="summary-head"><span class="section-chip">Convolution Meaning</span><p>The generalization is mainly about coordinate-set freedom.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Element</th><th>Role</th><th>Reading</th></tr></thead><tbody><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{in}}\)</span></span></td><td>Input coordinate set</td><td>Locations where features exist</td></tr><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{C}^{\mathrm{out}}\)</span></span></td><td>Output coordinate set</td><td>Can change through stride, pooling, or transposed convolution</td></tr><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{N}^D\)</span></span></td><td>Kernel offsets</td><td>Hypercube, hyper-cross, dilated, or custom shape</td></tr><tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathbf{W}_{\mathbf{i}}\)</span></span></td><td>Learnable offset weights</td><td>Transforms neighbor features into output channels</td></tr></tbody></table></div></section>
+<section class="method-step-block"><span class="subsection-label">3. Kernel shape</span><p>For 4D and higher dimensions, full hypercubic kernels become expensive. The paper therefore combines hypercubic and hyper-cross kernels.</p><figure class="image"><img alt="Figure 3. Various kernels in space-time." height="1070" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_058b81bcc936.png" style="width:720px" width="4060"/><figcaption><span class="caption-main">Figure 3. Various kernels in space-time.</span><span class="caption-note">The red arrow denotes the temporal dimension; hybrid kernels balance receptive field and cost.</span></figcaption></figure></section>
+<section class="method-step-block"><span class="subsection-label">4. Minkowski Engine</span><p>The engine avoids brute-force neighbor search. A coordinate manager maintains sparse coordinate sets, and kernel maps store offset-wise input/output row pairs that can be reused.</p><section class="summary-panel"><div class="summary-head"><span class="section-chip">System Thread Summary</span><p>The main implementation flow is quantization → coordinate map → kernel map → gather/GEMM/scatter-add.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Step</th><th>Role</th><th>Why it matters</th></tr></thead><tbody><tr><td><span class="summary-term">Coordinate quantization</span></td><td>Converts continuous points to discrete lattice coordinates</td><td>Creates sparse tensor input</td></tr><tr><td><span class="summary-term">Coordinate manager</span></td><td>Manages unique coordinate sets and strides</td><td>Enables reuse and fast lookup</td></tr><tr><td><span class="summary-term">Kernel map</span></td><td>Stores row pairs per offset</td><td>Computes only existing neighbors</td></tr><tr><td><span class="summary-term">Sparse operators</span></td><td>Runs convolution, pooling, and transposed convolution</td><td>Transfers CNN layer grammar to sparse domains</td></tr></tbody></table></div></section></section>
+<section class="method-step-block"><span class="subsection-label">5. Networks and TS-CRF</span><p>MinkowskiNet transfers ResNet-style blocks to sparse convolution, and MinkowskiUNet builds an encoder-decoder for semantic segmentation. TS-CRF adds a 7D space-time-chroma refinement layer.</p><figure class="image"><img alt="Figure 4. Architecture of ResNet18 and MinkowskiNet18." height="3940" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_fafa62f61f52.png" style="width:760px" width="2060"/><figcaption><span class="caption-main">Figure 4. Architecture of ResNet18 (left) and MinkowskiNet18 (right).</span><span class="caption-note">MinkowskiNet preserves the ResNet prior while changing the convolution primitive.</span></figcaption></figure><figure class="image"><img alt="Figure 5. Architecture of MinkowskiUNet32." height="1690" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_7a9279bbf3ca.png" style="width:820px" width="6180"/><figcaption><span class="caption-main">Figure 5. Architecture of MinkowskiUNet32.</span><span class="caption-note"><span class="inline-equation-token">\(\times\)</span> indicates a hypercubic kernel, and <span class="inline-equation-token">\(+\)</span> indicates a hypercross kernel.</span></figcaption></figure></section>
+<details class="supplement-toggle supplement-structured"><summary>Implementation algorithms / TS-CRF equations</summary><div class="appendix-details supplement-details"><section class="summary-panel summary-panel-soft"><div class="summary-head"><span class="subsection-label">Algorithm roles</span><p>The implementation algorithms are support material for understanding the engine.</p></div><div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Algorithm</th><th>Role</th><th>Main operation</th></tr></thead><tbody><tr><td><span class="summary-term">Alg. 1</span></td><td>GPU Sparse Tensor Quantization</td><td>Hash, sort, unique, and reduce coordinates/labels</td></tr><tr><td><span class="summary-term">Alg. 2</span></td><td>Generalized Sparse Convolution</td><td>Gather, GEMM, and scatter-add through kernel maps</td></tr><tr><td><span class="summary-term">Alg. 3-4</span></td><td>Max / Average Pooling</td><td>Reduce or average features that map to the same output coordinate</td></tr><tr><td><span class="summary-term">Alg. 5</span></td><td>TS-CRF Variational Inference</td><td>Iterates sparse convolution and softmax on <span class="inline-equation-token">\([C,F,T]\)</span></td></tr></tbody></table></div></section><section class="method-step-block"><span class="subsection-label">TS-CRF fixed-point update</span><figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 Q_i^{+}(x_i)=\frac{1}{Z_i}\exp\left\{
 \phi_u(x_i)+\sum_{j\in\mathcal{N}^7(x_i)}\sum_{x_j}
@@ -552,45 +517,39 @@ $$
 \tag{5}
 $$
                         </div></div></div><figcaption><span class="caption-main">Training gradients for unary and CRF compatibility parameters.</span></figcaption></figure></section></div></details>
-                    </section>
+</section>
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="en-evidence">Evidence: which tasks validate sparse 3D/4D CNNs?</h3>
+<p>The experiments test three questions: whether sparse CNNs work for 3D segmentation, whether 4D convolution helps temporal data, and whether the system is efficient enough in practice.</p>
+<section class="result-brief result-brief-wide"><div class="result-brief-head"><span class="section-chip">Evaluation Brief</span><p>Each evidence block corresponds to a claim about representation, temporal modeling, or runtime.</p></div><div class="result-brief-grid"><article><strong>3D semantic segmentation</strong><p>ScanNet, S3DIS, and RueMonge evaluate sparse 3D scene understanding.</p></article><article><strong>4D segmentation</strong><p>Synthia 4D and noisy Synthia test temporal context and TS-CRF.</p></article><article><strong>Efficiency</strong><p>Runtime varies voxel size and video length for 3D/4D networks.</p></article></div></section>
+<section class="evidence-cluster"><span class="subsection-label">3D semantic segmentation</span><figure class="image"><img alt="Table 1. 3D Semantic Label Benchmark on ScanNet." height="2720" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_5dd38fccd02f.png" style="width:360px" width="2060"/><figcaption><span class="caption-main">Table 1. 3D Semantic Label Benchmark on ScanNet.</span><span class="caption-note">The paper reports 67.9% mIoU at submission and 72.1% with 2cm voxels in a post-CVPR setting.</span></figcaption></figure><figure class="image"><img alt="Figure 7. Visualization of Scannet predictions." height="3520" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_4c561b48712c.png" style="width:680px" width="4200"/><figcaption><span class="caption-main">Figure 7. Visualization of Scannet predictions.</span><span class="caption-note">From top to bottom: input point cloud, prediction, and ground truth.</span></figcaption></figure></section>
+<section class="evidence-cluster"><span class="subsection-label">4D spatio-temporal segmentation</span><figure class="image"><img alt="Table 2. Segmentation results on the 4D Synthia dataset." height="1520" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8988832a766e.png" style="width:360px" width="2590"/><figcaption><span class="caption-main">Table 2. Segmentation results on the 4D Synthia dataset.</span><span class="caption-note">TA denotes temporal averaging; 4D MinkNet + TS-CRF gives the strongest reported combination.</span></figcaption></figure><figure class="image"><img alt="Table 3. Segmentation results on the noisy Synthia 4D dataset." height="1000" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8397ca90ca71.png" style="width:840px" width="8300"/><figcaption><span class="caption-main">Table 3. Segmentation results on the noisy Synthia 4D dataset.</span><span class="caption-note">The paper notes that temporal averaging can introduce noise, while 4D networks are more robust.</span></figcaption></figure><figure class="image"><img alt="Figure 6. Visualizations of 3D and 4D networks on Synthia." height="1570" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_73867c972397.png" style="width:760px" width="4160"/><figcaption><span class="caption-main">Figure 6. Visualizations of 3D (top) and 4D networks (bottom) on Synthia.</span><span class="caption-note">A qualitative comparison between frame-wise 3D prediction and 4D temporal prediction.</span></figcaption></figure></section>
+<section class="evidence-cluster"><span class="subsection-label">Additional 3D benchmarks / runtime</span><figure class="image"><img alt="Table 4. Stanford Area 5 Test results." height="2050" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_1947e5fc5006.png" style="width:360px" width="2350"/><figcaption><span class="caption-main">Table 4. Stanford Area 5 Test (Fold #1) on S3DIS.</span><span class="caption-note">MinkowskiNet20/32 remain competitive against point-based and sparse baselines.</span></figcaption></figure><figure class="image"><img alt="Figure 8. Visualization of Stanford dataset Area 5 test results." height="3370" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3695a3a7fa6d.png" style="width:680px" width="4100"/><figcaption><span class="caption-main">Figure 8. Visualization of Stanford dataset Area 5 test results.</span><span class="caption-note">From top to bottom: RGB input, prediction, and ground truth.</span></figcaption></figure><figure class="image"><img alt="Table 5. RueMonge 2014 dataset results." height="1900" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3a2962dbfdd2.png" style="width:340px" width="2230"/><figcaption><span class="caption-main">Table 5. RueMonge 2014 dataset (Varcity) TASK3.</span><span class="caption-note">The paper notes quick performance saturation because the training set is small.</span></figcaption></figure><figure class="image"><img alt="Table 6. Runtime comparison between 3D and 4D MinkNet." height="920" src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_d201419823e8.png" style="width:760px" width="3780"/><figcaption><span class="caption-main">Table 6. Time to process 3D videos with 3D and 4D MinkNet.</span><span class="caption-note">Runtime is measured under different voxel sizes and video lengths.</span></figcaption></figure></section>
+</section>
+<section class="deep-section" data-section-title="Usage / Limits"><h3 id="en-usage">Usage / Limits: when is it useful?</h3><p>MinkowskiCNN is well suited to sparse point clouds, voxelized reconstructions, and temporal point-cloud sequences. Its advantage is strongest when empty-space saving and coordinate-map reuse matter.</p><section class="summary-panel usage-fit-box"><div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>The method is most useful when sparse coordinate structure is strong.</p></div><div class="summary-table-wrap"><table class="summary-table usage-table"><thead><tr><th>Situation</th><th>Judgment</th><th>Reason</th></tr></thead><tbody><tr><td><span class="summary-term">Good fit</span></td><td>LiDAR, RGB-D, reconstructed point clouds, 3D video segmentation</td><td>Most voxels are empty</td></tr><tr><td><span class="summary-term">Strong use case</span></td><td>Temporal point-cloud / 3D video</td><td>4D convolution handles time inside the feature hierarchy</td></tr><tr><td><span class="summary-term">Check carefully</span></td><td>Quantization resolution</td><td>Voxel size controls accuracy/runtime trade-off</td></tr><tr><td><span class="summary-term">Limitation</span></td><td>Nearly dense observations or constantly changing coordinates</td><td>Sparse-map reuse and empty-space savings become weaker</td></tr></tbody></table></div></section></section>
+<section class="deep-section" data-section-title="Conclusion"><h3 id="en-conclusion">Conclusion</h3><p>The paper shows that high-dimensional sparse perception needs a coordinate-aware sparse tensor system, not just a higher-dimensional convolution. Generalized sparse convolution unifies several discrete convolution cases, and Minkowski Engine makes them practical for 3D/4D segmentation networks.</p></section>
+<section class="deep-section" data-section-title="Takeaway"><h3 id="en-takeaway">Takeaway</h3><p>(Writing in progress...)</p></section>
 
-                    <section class="deep-section" data-section-title="Evidence">
-                      <h3 id="en-evidence">Evidence: which tasks validate sparse 3D/4D CNNs?</h3>
-                      <p>The experiments test three questions: whether sparse CNNs work for 3D segmentation, whether 4D convolution helps temporal data, and whether the system is efficient enough in practice.</p>
-                      <section class="result-brief result-brief-wide"><div class="result-brief-head"><span class="section-chip">Evaluation Brief</span><p>Each evidence block corresponds to a claim about representation, temporal modeling, or runtime.</p></div><div class="result-brief-grid"><article><strong>3D semantic segmentation</strong><p>ScanNet, S3DIS, and RueMonge evaluate sparse 3D scene understanding.</p></article><article><strong>4D segmentation</strong><p>Synthia 4D and noisy Synthia test temporal context and TS-CRF.</p></article><article><strong>Efficiency</strong><p>Runtime varies voxel size and video length for 3D/4D networks.</p></article></div></section>
-                      <section class="evidence-cluster"><span class="subsection-label">3D semantic segmentation</span><figure class="image"><img width="2060" height="2720" alt="Table 1. 3D Semantic Label Benchmark on ScanNet." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_5dd38fccd02f.png" style="width:360px"><figcaption><span class="caption-main">Table 1. 3D Semantic Label Benchmark on ScanNet.</span><span class="caption-note">The paper reports 67.9% mIoU at submission and 72.1% with 2cm voxels in a post-CVPR setting.</span></figcaption></figure><figure class="image"><img width="4200" height="3520" alt="Figure 7. Visualization of Scannet predictions." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_4c561b48712c.png" style="width:680px"><figcaption><span class="caption-main">Figure 7. Visualization of Scannet predictions.</span><span class="caption-note">From top to bottom: input point cloud, prediction, and ground truth.</span></figcaption></figure></section>
-                      <section class="evidence-cluster"><span class="subsection-label">4D spatio-temporal segmentation</span><figure class="image"><img width="2590" height="1520" alt="Table 2. Segmentation results on the 4D Synthia dataset." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8988832a766e.png" style="width:360px"><figcaption><span class="caption-main">Table 2. Segmentation results on the 4D Synthia dataset.</span><span class="caption-note">TA denotes temporal averaging; 4D MinkNet + TS-CRF gives the strongest reported combination.</span></figcaption></figure><figure class="image"><img width="8300" height="1000" alt="Table 3. Segmentation results on the noisy Synthia 4D dataset." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8397ca90ca71.png" style="width:840px"><figcaption><span class="caption-main">Table 3. Segmentation results on the noisy Synthia 4D dataset.</span><span class="caption-note">The paper notes that temporal averaging can introduce noise, while 4D networks are more robust.</span></figcaption></figure><figure class="image"><img width="4160" height="1570" alt="Figure 6. Visualizations of 3D and 4D networks on Synthia." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_73867c972397.png" style="width:760px"><figcaption><span class="caption-main">Figure 6. Visualizations of 3D (top) and 4D networks (bottom) on Synthia.</span><span class="caption-note">A qualitative comparison between frame-wise 3D prediction and 4D temporal prediction.</span></figcaption></figure></section>
-                      <section class="evidence-cluster"><span class="subsection-label">Additional 3D benchmarks / runtime</span><figure class="image"><img width="2350" height="2050" alt="Table 4. Stanford Area 5 Test results." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_1947e5fc5006.png" style="width:360px"><figcaption><span class="caption-main">Table 4. Stanford Area 5 Test (Fold #1) on S3DIS.</span><span class="caption-note">MinkowskiNet20/32 remain competitive against point-based and sparse baselines.</span></figcaption></figure><figure class="image"><img width="4100" height="3370" alt="Figure 8. Visualization of Stanford dataset Area 5 test results." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3695a3a7fa6d.png" style="width:680px"><figcaption><span class="caption-main">Figure 8. Visualization of Stanford dataset Area 5 test results.</span><span class="caption-note">From top to bottom: RGB input, prediction, and ground truth.</span></figcaption></figure><figure class="image"><img width="2230" height="1900" alt="Table 5. RueMonge 2014 dataset results." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3a2962dbfdd2.png" style="width:340px"><figcaption><span class="caption-main">Table 5. RueMonge 2014 dataset (Varcity) TASK3.</span><span class="caption-note">The paper notes quick performance saturation because the training set is small.</span></figcaption></figure><figure class="image"><img width="3780" height="920" alt="Table 6. Runtime comparison between 3D and 4D MinkNet." src="assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_d201419823e8.png" style="width:760px"><figcaption><span class="caption-main">Table 6. Time to process 3D videos with 3D and 4D MinkNet.</span><span class="caption-note">Runtime is measured under different voxel sizes and video lengths.</span></figcaption></figure></section>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Usage / Limits"><h3 id="en-usage">Usage / Limits: when is it useful?</h3><p>MinkowskiCNN is well suited to sparse point clouds, voxelized reconstructions, and temporal point-cloud sequences. Its advantage is strongest when empty-space saving and coordinate-map reuse matter.</p><section class="summary-panel usage-fit-box"><div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>The method is most useful when sparse coordinate structure is strong.</p></div><div class="summary-table-wrap"><table class="summary-table usage-table"><thead><tr><th>Situation</th><th>Judgment</th><th>Reason</th></tr></thead><tbody><tr><td><span class="summary-term">Good fit</span></td><td>LiDAR, RGB-D, reconstructed point clouds, 3D video segmentation</td><td>Most voxels are empty</td></tr><tr><td><span class="summary-term">Strong use case</span></td><td>Temporal point-cloud / 3D video</td><td>4D convolution handles time inside the feature hierarchy</td></tr><tr><td><span class="summary-term">Check carefully</span></td><td>Quantization resolution</td><td>Voxel size controls accuracy/runtime trade-off</td></tr><tr><td><span class="summary-term">Limitation</span></td><td>Nearly dense observations or constantly changing coordinates</td><td>Sparse-map reuse and empty-space savings become weaker</td></tr></tbody></table></div></section></section>
-                    <section class="deep-section" data-section-title="Conclusion"><h3 id="en-conclusion">Conclusion</h3><p>The paper shows that high-dimensional sparse perception needs a coordinate-aware sparse tensor system, not just a higher-dimensional convolution. Generalized sparse convolution unifies several discrete convolution cases, and Minkowski Engine makes them practical for 3D/4D segmentation networks.</p></section>
-                    <section class="deep-section" data-section-title="Takeaway"><h3 id="en-takeaway">Takeaway</h3><p>(Writing in progress...)</p></section>
-                    <section class="deep-section" data-section-title="Future Work"><h3 id="en-future-work">Future Work</h3><p>(Writing in progress...)</p></section>
-                  </div>
-
-                  <div class="deep-dive-more is-visible" id="deepDiveMore">
-                    <button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-        </section>
-
-        <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
-          <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
-          <script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
-        </section>
-      </main>
-    </div>
-  </div>
-
-  <div aria-hidden="true" class="lightbox" id="lightbox">
-    <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
-    <img alt="preview" id="lightboxImg">
-  </div>
-
-  <script src="script.js?v=minkowski-redesign-20260529"></script>
+</div>
+<div class="deep-dive-more is-visible" id="deepDiveMore">
+<button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</section>
+<section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+<h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+</section>
+</main>
+</div>
+</div>
+<div aria-hidden="true" class="lightbox" id="lightbox">
+<button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+<img alt="preview" id="lightboxImg"/>
+</div>
+<script src="script.js?v=minkowski-redesign-20260529"></script>
 </body>
 </html>

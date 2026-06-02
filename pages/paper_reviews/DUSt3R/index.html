@@ -1,789 +1,723 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta name="description" content="Calibration 없이 pointmap으로 푸는 범용 3D reconstruction">
-  <title>[논문 리뷰] DUSt3R: Geometric 3D Vision Made Easy | Insighted</title>
-  <link href="../../../assets/favicon.png" rel="icon" type="image/png" sizes="48x48">
-  <meta property="og:title" content="[논문 리뷰] DUSt3R: Geometric 3D Vision Made Easy | Insighted">
-  <meta property="og:description" content="Calibration 없이 pointmap으로 푸는 범용 3D reconstruction">
-  <meta content="website" property="og:type">
-  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet">
-  <link href="styles.css?v=dust3r-redesign-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Calibration 없이 pointmap으로 푸는 범용 3D reconstruction" name="description"/>
+<title>[논문 리뷰] DUSt3R: Geometric 3D Vision Made Easy | Insighted</title>
+<link href="../../../assets/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<meta content="[논문 리뷰] DUSt3R: Geometric 3D Vision Made Easy | Insighted" property="og:title"/>
+<meta content="Calibration 없이 pointmap으로 푸는 범용 3D reconstruction" property="og:description"/>
+<meta content="website" property="og:type"/>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet"/>
+<link href="styles.css?v=dust3r-redesign-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer="" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
-  <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
-  <div class="layout" id="top">
-    <aside aria-label="Paper section bookmark" class="sidebar">
-      <div class="sidebar-card">
-        <nav aria-label="Paper section bookmark" class="section-bookmark">
-          <div class="bookmark-status">
-            <span class="bookmark-eyebrow">Now Reading</span>
-            <strong id="currentSectionLabel">핵심 요약</strong>
-          </div>
-          <div class="bookmark-list" id="sectionBookmarkList"></div>
-        </nav>
-      </div>
-    </aside>
-
-    <div class="content">
-      <header class="topbar">
-        <div class="topbar-inner">
-          <div class="brandline">
-            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
-              <img width="3024" height="4032" alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg">
-            </a>
-            <span class="brandtext">Paper Reviews</span>
-          </div>
-          <div class="top-actions">
-            <button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
-              <span data-lang-option="ko">KO</span>
-              <span data-lang-option="en">EN</span>
-            </button>
-            <button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
-              <span aria-hidden="true" id="themeIcon">☀</span>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main class="container" id="main">
-        <section class="section">
-          <div class="panel">
-            <header class="paper-identity">
-              <p class="paper-title-meta">DUSt3R: Geometric 3D Vision Made Easy</p>
-<div class="paper-meta-card">
-  <div class="paper-meta-top"><span class="paper-meta-venue">CVPR 2024</span><span class="paper-meta-date">arXiv v3: 2 Dec 2024</span></div>
-  <dl class="paper-meta-grid">
-    <div class="paper-meta-item"><dt>Authors</dt><dd>Shuzhe Wang; Vincent Leroy; Yohann Cabon; Boris Chidlovskii; Jerome Revaud</dd></div>
-    <div class="paper-meta-item"><dt>Affiliations</dt><dd>Aalto University; Naver Labs Europe</dd></div>
-  </dl>
-  <nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2312.14132" rel="noreferrer" target="_blank">Paper</a><a href="https://dust3r.europe.naverlabs.com/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/naver/dust3r" rel="noreferrer" target="_blank">GitHub</a></nav>
-  <div class="paper-meta-topics" aria-label="Paper topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#3D Reconstruction</span><span class="paper-topic-chip">#Pointmap</span><span class="paper-topic-chip">#Calibration-free</span><span class="paper-topic-chip">#Stereo</span></div></div>
+<a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
+<div class="layout" id="top">
+<aside aria-label="Paper section bookmark" class="sidebar">
+<div class="sidebar-card">
+<nav aria-label="Paper section bookmark" class="section-bookmark">
+<div class="bookmark-status">
+<span class="bookmark-eyebrow">Now Reading</span>
+<strong id="currentSectionLabel">핵심 요약</strong>
 </div>
-            </header>
-
-            <div class="post-body">
-              <section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
-                <div class="paper-map-head">
-                  <h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
-                  <p data-en-html="DUSt3R turns unconstrained image collections into dense 3D geometry by &lt;strong&gt;regressing pointmaps directly&lt;/strong&gt;, without requiring camera poses or intrinsics as input." data-ko-html="DUSt3R는 camera pose와 intrinsics를 입력으로 요구하지 않고, &lt;strong&gt;pointmap을 직접 회귀&lt;/strong&gt;해 unconstrained image collection을 dense 3D geometry로 바꾸는 방법이다.">DUSt3R는 camera pose와 intrinsics를 입력으로 요구하지 않고, <strong>pointmap을 직접 회귀</strong>해 unconstrained image collection을 dense 3D geometry로 바꾸는 방법이다.</p>
-                </div>
-
-                <div class="tldr-cues">
-                  <span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Camera prior dependency" data-ko="camera prior 의존">camera prior 의존</small></span>
-                  <span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Pointmap regression" data-ko="pointmap 직접 회귀">pointmap 직접 회귀</small></span>
-                  <span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="Depth / pose / MVS" data-ko="depth / pose / MVS">depth / pose / MVS</small></span>
-                </div>
-
-                <div class="map-grid">
-                  <article class="map-card map-card-wide">
-                    <span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
-                    <p data-en-html="DUSt3R reverses the usual order of 3D vision: instead of estimating camera parameters first and reconstructing 3D later, it predicts &lt;strong&gt;two aligned dense pointmaps&lt;/strong&gt; first and recovers depth, matches, poses, and reconstruction from them." data-ko-html="DUSt3R는 camera를 먼저 추정한 뒤 3D를 복원하는 기존 순서를 뒤집어, 먼저 &lt;strong&gt;두 view가 같은 좌표계에 놓인 dense pointmap&lt;/strong&gt;을 예측하고 여기서 depth, matching, pose, reconstruction을 회수한다.">DUSt3R는 camera를 먼저 추정한 뒤 3D를 복원하는 기존 순서를 뒤집어, 먼저 <strong>두 view가 같은 좌표계에 놓인 dense pointmap</strong>을 예측하고 여기서 depth, matching, pose, reconstruction을 회수한다.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 01</span>
-                    <h3>Pointmap Representation</h3>
-                    <p data-en="Represents each pixel as a 3D point and implicitly carries geometry, pixel-to-scene mapping, and viewpoint relation." data-ko="각 pixel을 3D point로 표현해 geometry, pixel-to-scene mapping, viewpoint 관계를 함께 담음.">각 pixel을 3D point로 표현해 geometry, pixel-to-scene mapping, viewpoint 관계를 함께 담음.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 02</span>
-                    <h3>Calibration-free Pairwise 3D</h3>
-                    <p data-en="Predicts two corresponding pointmaps and confidence maps from an image pair without known intrinsics or pose." data-ko="known intrinsics/pose 없이 image pair에서 대응 pointmap과 confidence map을 예측.">known intrinsics/pose 없이 image pair에서 대응 pointmap과 confidence map을 예측.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 03</span>
-                    <h3>Global Alignment</h3>
-                    <p data-en="Aligns pairwise pointmap predictions into a shared 3D frame using 3D-space optimization." data-ko="pairwise pointmap prediction을 3D 공간 최적화로 하나의 global frame에 정렬.">pairwise pointmap prediction을 3D 공간 최적화로 하나의 global frame에 정렬.</p>
-                  </article>
-                  <article class="map-card">
-                    <span class="map-label">Contribution 04</span>
-                    <h3>Unified 3D Tasks</h3>
-                    <p data-en="Uses one representation for monocular depth, pixel matching, relative/absolute pose, and MVS reconstruction." data-ko="monocular depth, pixel matching, relative/absolute pose, MVS reconstruction을 하나의 표현으로 연결.">monocular depth, pixel matching, relative/absolute pose, MVS reconstruction을 하나의 표현으로 연결.</p>
-                  </article>
-                </div>
-
-                <div class="insight-box">
-                  <strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
-                  <p data-en-html="The important shift is not just “a stronger stereo network.” DUSt3R treats &lt;strong&gt;dense 3D pointmaps as the common currency&lt;/strong&gt; from which camera, depth, matches, and multi-view reconstruction can be derived." data-ko-html="중요한 변화는 단순히 “더 강한 stereo network”가 아니라, &lt;strong&gt;dense 3D pointmap을 공통 화폐처럼 두고&lt;/strong&gt; camera, depth, matching, multi-view reconstruction을 모두 파생시킨다는 점이다.">중요한 변화는 단순히 “더 강한 stereo network”가 아니라, <strong>dense 3D pointmap을 공통 화폐처럼 두고</strong> camera, depth, matching, multi-view reconstruction을 모두 파생시킨다는 점이다.</p>
-                </div>
-
-                <div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
-                <div aria-label="DUSt3R pipeline" class="flow-diagram">
-                  <div class="flow-step"><span>01</span><strong>Image Pair</strong><small>unknown pose / intrinsics</small></div>
-                  <div class="flow-step"><span>02</span><strong>ViT Encoder</strong><small>shared visual tokens</small></div>
-                  <div class="flow-step"><span>03</span><strong>Cross-view Decoder</strong><small>information exchange</small></div>
-                  <div class="flow-step"><span>04</span><strong>Pointmaps</strong><small>same frame as image 1</small></div>
-                  <div class="flow-step"><span>05</span><strong>Confidence</strong><small>pixel reliability</small></div>
-                  <div class="flow-step"><span>06</span><strong>Global Alignment</strong><small>multi-view 3D space</small></div>
-                </div>
-
-                <div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
-                <div class="compare-grid">
-                  <article>
-                    <span class="compare-kicker">Classical SfM / MVS</span>
-                    <h3 data-en="Camera-first Pipeline" data-ko="camera-first pipeline">camera-first pipeline</h3>
-                    <p data-en="Estimate matches, cameras, and depth/reconstruction in sequential modules; errors can accumulate when calibration or pose is missing." data-ko="matching, camera, depth/reconstruction을 순차 모듈로 추정하므로 calibration이나 pose가 없을 때 오류가 누적되기 쉬움.">matching, camera, depth/reconstruction을 순차 모듈로 추정하므로 calibration이나 pose가 없을 때 오류가 누적되기 쉬움.</p>
-                  </article>
-                  <article>
-                    <span class="compare-kicker">Monocular Depth</span>
-                    <h3 data-en="Single-view Geometry Prior" data-ko="single-view geometry prior">single-view geometry prior</h3>
-                    <p data-en="Predicts depth from one image, but scale and viewpoint relation are still hard to resolve." data-ko="한 장의 이미지에서 depth를 예측하지만 scale과 viewpoint 관계는 여전히 풀기 어려움.">한 장의 이미지에서 depth를 예측하지만 scale과 viewpoint 관계는 여전히 풀기 어려움.</p>
-                  </article>
-                  <article>
-                    <span class="compare-kicker">DUSt3R</span>
-                    <h3 data-en="Pointmap-first Reconstruction" data-ko="pointmap-first reconstruction">pointmap-first reconstruction</h3>
-                    <p data-en="Predicts aligned pointmaps first, then derives camera pose, depth, matching, and full reconstruction." data-ko="aligned pointmap을 먼저 예측하고 camera pose, depth, matching, full reconstruction을 뒤에서 회수.">aligned pointmap을 먼저 예측하고 camera pose, depth, matching, full reconstruction을 뒤에서 회수.</p>
-                  </article>
-                </div>
-              </section>
-
-              <section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
-                <h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
-                <p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper's core content while folding background, notation, and auxiliary recovery details." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
-
-                <div class="deep-dive-body">
-                  <div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
-                    <section class="deep-section" data-section-title="Problem">
-                      <h3 id="ko-problem">Problem: camera 없이 3D를 얼마나 직접 복원할 수 있나</h3>
-                      <p>DUSt3R의 문제의식은 multi-view reconstruction이 보통 <strong>camera pose와 intrinsics 추정</strong>에 먼저 의존한다는 데서 출발한다. 실제 사진 모음은 camera가 제각각이고 pose도 없기 때문에, SfM/MVS pipeline은 matching, camera estimation, depth estimation이 순서대로 흔들릴 수 있다.</p>
-
-                      <figure class="image">
-                        <img width="1908" height="994" alt="Figure 1. DUSt3R overview." src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px">
-                        <figcaption><span class="caption-main">Figure 1. Overview.</span><span class="caption-note">Unconstrained image collection에서 pointmap을 예측하고 camera, depth, matching, 3D reconstruction을 회수하는 전체 관점.</span></figcaption>
-                      </figure>
-
-                      <section class="problem-ladder">
-                        <div class="summary-head">
-                          <span class="section-chip">Problem Flow</span>
-                          <p>논문은 기존 geometry pipeline의 순서를 바꾸어 <strong>3D pointmap을 먼저 얻고 나머지를 파생</strong>시키는 방향으로 문제를 다시 잡는다.</p>
-                        </div>
-                        <div class="problem-ladder-grid">
-                          <article><span>01</span><strong>Unknown cameras</strong><p>입력 image collection에 pose와 intrinsics가 없거나 일관되지 않음.</p></article>
-                          <article><span>02</span><strong>Pipeline dependency</strong><p>matching, camera recovery, MVS가 서로의 품질에 의존.</p></article>
-                          <article><span>03</span><strong>Task fragmentation</strong><p>depth, pose, correspondence, reconstruction이 별도 task처럼 나뉨.</p></article>
-                          <article><span>04</span><strong>DUSt3R의 재정의</strong><p>pointmap을 공통 표현으로 만들고 여러 3D task를 한 흐름에 묶음.</p></article>
-                        </div>
-                      </section>
-
-                      <section class="summary-panel">
-                        <div class="summary-head">
-                          <span class="section-chip">Problem / Proposal</span>
-                          <p>Introduction과 Conclusion의 핵심은 “카메라를 먼저 풀어야 3D를 얻는다”는 전제를 약하게 만드는 것이다.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table">
-                            <thead><tr><th>기존 병목</th><th>DUSt3R의 제안</th><th>얻는 효과</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term">Camera prior</span></td><td>known intrinsics/pose 없이 pointmap 회귀</td><td>unconstrained image pair에도 적용 가능</td></tr>
-                              <tr><td><span class="summary-term">Sequential errors</span></td><td>network가 두 view를 함께 보고 aligned pointmap 예측</td><td>matching/camera/depth를 한 표현에서 회수</td></tr>
-                              <tr><td><span class="summary-term">Multi-view fusion</span></td><td>pairwise pointmap을 global alignment로 정렬</td><td>full-scale MVS reconstruction으로 확장</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-
-                      <details class="supplement-toggle supplement-structured">
-                        <summary>관련 연구 계열 자세히 보기</summary>
-                        <div class="appendix-details supplement-details">
-                          <section class="summary-panel summary-panel-soft">
-                            <div class="summary-head">
-                              <span class="subsection-label">어떤 흐름 위에 놓이는가</span>
-                              <p>Related Work는 DUSt3R가 classical SfM/MVS를 그대로 학습하는 대신, <strong>camera를 암시적으로 담는 dense pointmap</strong>을 직접 예측한다는 위치를 잡아준다.</p>
-                            </div>
-                            <div class="supplement-card-grid supplement-card-grid-four">
-                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Classical SfM / MVS</strong><p>feature matching, pose estimation, triangulation, dense reconstruction으로 이어지는 camera-first pipeline.</p></article>
-                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Learned MVS</strong><p>cost volume이나 differentiable SfM 구조를 사용하지만 intrinsics/pose 입력에 기대는 경우가 많음.</p></article>
-                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Monocular depth</strong><p>single image geometry prior는 강하지만 scale과 view relation은 본질적으로 모호함.</p></article>
-                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>Pointmap</strong><p>pixel-aligned 3D point field로 camera relation과 geometry를 동시에 담는 표현.</p></article>
-                            </div>
-                          </section>
-                        </div>
-                      </details>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Mechanism">
-                      <h3 id="ko-mechanism">Mechanism: pointmap을 어떻게 예측하고 정렬하나</h3>
-                      <p>DUSt3R의 방법론은 크게 세 단계다. 첫째, 두 image를 transformer로 함께 처리해 <strong>같은 좌표계의 pointmap</strong>을 예측한다. 둘째, confidence-aware regression loss로 불확실한 pixel의 영향을 조절한다. 셋째, 여러 image pair에서 나온 pointmap을 3D 공간에서 global alignment한다.</p>
-
-                      <figure class="image">
-                        <img width="2188" height="538" alt="Figure 2. Architecture of the DUSt3R network." src="assets/dust3r/media/media_40c003490199.png" style="width:960px">
-                        <figcaption><span class="caption-main">Figure 2. Architecture of the network <span class="inline-equation-token">\(\mathcal{F}\)</span>.</span><span class="caption-note">두 view를 Siamese ViT encoder와 cross-attention decoder로 처리한 뒤, image <span class="inline-equation-token">\(I_1\)</span> 좌표계에 표현된 두 pointmap과 confidence map을 출력한다.</span></figcaption>
-                      </figure>
-
-                      <section class="summary-panel">
-                        <div class="summary-head">
-                          <span class="section-chip">Mechanism Thread Summary</span>
-                          <p>핵심은 pointmap이 <strong>geometry와 viewpoint relation을 동시에 담는 표현</strong>이라서, camera를 직접 입력하지 않아도 여러 3D quantity를 뒤에서 회수할 수 있다는 점이다.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table method-table">
-                            <thead><tr><th>구간</th><th>무엇을 해결하나</th><th>핵심 장치</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term">Pointmap definition</span></td><td>pixel별 3D 위치와 camera coordinate 관계를 하나의 field로 표현</td><td><span class="inline-equation-token">\(X^{n,m}=P_mP_n^{-1}h(X^n)\)</span></td></tr>
-                              <tr><td><span class="summary-term">Network output</span></td><td>image pair에서 두 view의 aligned 3D를 직접 예측</td><td>shared ViT encoder + cross-view decoder + DPT head</td></tr>
-                              <tr><td><span class="summary-term">Training objective</span></td><td>scale ambiguity와 hard-to-predict region 처리</td><td>scale-normalized regression + confidence weighting</td></tr>
-                              <tr><td><span class="summary-term">Global alignment</span></td><td>pairwise prediction을 multi-view scene으로 확장</td><td>3D pointmap alignment objective</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">1. Pointmap이 담는 정보</span>
-                        <p>camera intrinsics <span class="inline-equation-token">\(K\)</span>와 depth <span class="inline-equation-token">\(D\)</span>가 있으면 pointmap은 각 pixel을 camera coordinate의 3D point로 바꾼 것이다. 논문은 camera <span class="inline-equation-token">\(n\)</span>에서 얻은 pointmap을 camera <span class="inline-equation-token">\(m\)</span>의 좌표계로 표현하는 식을 먼저 정의한다.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<div class="bookmark-list" id="sectionBookmarkList"></div>
+</nav>
+</div>
+</aside>
+<div class="content">
+<header class="topbar">
+<div class="topbar-inner">
+<div class="brandline">
+<a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+<img alt="Wooseok Song profile photo" height="4032" src="../../../assets/avatar.jpg" width="3024"/>
+</a>
+<span class="brandtext">Paper Reviews</span>
+</div>
+<div class="top-actions">
+<button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
+<span data-lang-option="ko">KO</span>
+<span data-lang-option="en">EN</span>
+</button>
+<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
+<span aria-hidden="true" id="themeIcon">☀</span>
+</button>
+</div>
+</div>
+</header>
+<main class="container" id="main">
+<section class="section">
+<div class="panel">
+<header class="paper-identity">
+<p class="paper-title-meta">DUSt3R: Geometric 3D Vision Made Easy</p>
+<div class="paper-meta-card">
+<div class="paper-meta-top"><span class="paper-meta-venue">CVPR 2024</span><span class="paper-meta-date">arXiv v3: 2 Dec 2024</span></div>
+<dl class="paper-meta-grid">
+<div class="paper-meta-item"><dt>Authors</dt><dd>Shuzhe Wang; Vincent Leroy; Yohann Cabon; Boris Chidlovskii; Jerome Revaud</dd></div>
+<div class="paper-meta-item"><dt>Affiliations</dt><dd>Aalto University; Naver Labs Europe</dd></div>
+</dl>
+<nav aria-label="Paper links" class="paper-meta-links"><a href="https://arxiv.org/abs/2312.14132" rel="noreferrer" target="_blank">Paper</a><a href="https://dust3r.europe.naverlabs.com/" rel="noreferrer" target="_blank">Page</a><a href="https://github.com/naver/dust3r" rel="noreferrer" target="_blank">GitHub</a></nav>
+<div aria-label="Paper topics" class="paper-meta-topics"><span class="paper-meta-topic-label">Topics</span><div class="paper-topic-list"><span class="paper-topic-chip">#3D Reconstruction</span><span class="paper-topic-chip">#Pointmap</span><span class="paper-topic-chip">#Calibration-free</span><span class="paper-topic-chip">#Stereo</span></div></div>
+</div>
+</header>
+<div class="post-body">
+<section aria-labelledby="paper-map-title" class="paper-map" data-bookmark="핵심 요약" data-bookmark-en="Key Summary">
+<div class="paper-map-head">
+<h2 data-en="Key Summary" data-ko="핵심 요약" id="paper-map-title">핵심 요약</h2>
+<p data-en-html="DUSt3R turns unconstrained image collections into dense 3D geometry by &lt;strong&gt;regressing pointmaps directly&lt;/strong&gt;, without requiring camera poses or intrinsics as input." data-ko-html="DUSt3R는 camera pose와 intrinsics를 입력으로 요구하지 않고, &lt;strong&gt;pointmap을 직접 회귀&lt;/strong&gt;해 unconstrained image collection을 dense 3D geometry로 바꾸는 방법이다.">DUSt3R는 camera pose와 intrinsics를 입력으로 요구하지 않고, <strong>pointmap을 직접 회귀</strong>해 unconstrained image collection을 dense 3D geometry로 바꾸는 방법이다.</p>
+</div>
+<div class="tldr-cues">
+<span class="cue-chip"><strong data-en="Problem" data-ko="문제">문제</strong><small data-en="Camera prior dependency" data-ko="camera prior 의존">camera prior 의존</small></span>
+<span class="cue-chip"><strong data-en="Solution" data-ko="해결">해결</strong><small data-en="Pointmap regression" data-ko="pointmap 직접 회귀">pointmap 직접 회귀</small></span>
+<span class="cue-chip"><strong data-en="Evidence" data-ko="근거">근거</strong><small data-en="Depth / pose / MVS" data-ko="depth / pose / MVS">depth / pose / MVS</small></span>
+</div>
+<div class="map-grid">
+<article class="map-card map-card-wide">
+<span class="map-label" data-en="One-sentence Summary" data-ko="한 문장 요약">한 문장 요약</span>
+<p data-en-html="DUSt3R reverses the usual order of 3D vision: instead of estimating camera parameters first and reconstructing 3D later, it predicts &lt;strong&gt;two aligned dense pointmaps&lt;/strong&gt; first and recovers depth, matches, poses, and reconstruction from them." data-ko-html="DUSt3R는 camera를 먼저 추정한 뒤 3D를 복원하는 기존 순서를 뒤집어, 먼저 &lt;strong&gt;두 view가 같은 좌표계에 놓인 dense pointmap&lt;/strong&gt;을 예측하고 여기서 depth, matching, pose, reconstruction을 회수한다.">DUSt3R는 camera를 먼저 추정한 뒤 3D를 복원하는 기존 순서를 뒤집어, 먼저 <strong>두 view가 같은 좌표계에 놓인 dense pointmap</strong>을 예측하고 여기서 depth, matching, pose, reconstruction을 회수한다.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 01</span>
+<h3>Pointmap Representation</h3>
+<p data-en="Represents each pixel as a 3D point and implicitly carries geometry, pixel-to-scene mapping, and viewpoint relation." data-ko="각 pixel을 3D point로 표현해 geometry, pixel-to-scene mapping, viewpoint 관계를 함께 담음.">각 pixel을 3D point로 표현해 geometry, pixel-to-scene mapping, viewpoint 관계를 함께 담음.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 02</span>
+<h3>Calibration-free Pairwise 3D</h3>
+<p data-en="Predicts two corresponding pointmaps and confidence maps from an image pair without known intrinsics or pose." data-ko="known intrinsics/pose 없이 image pair에서 대응 pointmap과 confidence map을 예측.">known intrinsics/pose 없이 image pair에서 대응 pointmap과 confidence map을 예측.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 03</span>
+<h3>Global Alignment</h3>
+<p data-en="Aligns pairwise pointmap predictions into a shared 3D frame using 3D-space optimization." data-ko="pairwise pointmap prediction을 3D 공간 최적화로 하나의 global frame에 정렬.">pairwise pointmap prediction을 3D 공간 최적화로 하나의 global frame에 정렬.</p>
+</article>
+<article class="map-card">
+<span class="map-label">Contribution 04</span>
+<h3>Unified 3D Tasks</h3>
+<p data-en="Uses one representation for monocular depth, pixel matching, relative/absolute pose, and MVS reconstruction." data-ko="monocular depth, pixel matching, relative/absolute pose, MVS reconstruction을 하나의 표현으로 연결.">monocular depth, pixel matching, relative/absolute pose, MVS reconstruction을 하나의 표현으로 연결.</p>
+</article>
+</div>
+<div class="insight-box">
+<strong data-en="My Insight" data-ko="내가 얻은 인사이트">내가 얻은 인사이트</strong>
+<p data-en-html="The important shift is not just “a stronger stereo network.” DUSt3R treats &lt;strong&gt;dense 3D pointmaps as the common currency&lt;/strong&gt; from which camera, depth, matches, and multi-view reconstruction can be derived." data-ko-html="중요한 변화는 단순히 “더 강한 stereo network”가 아니라, &lt;strong&gt;dense 3D pointmap을 공통 화폐처럼 두고&lt;/strong&gt; camera, depth, matching, multi-view reconstruction을 모두 파생시킨다는 점이다.">중요한 변화는 단순히 “더 강한 stereo network”가 아니라, <strong>dense 3D pointmap을 공통 화폐처럼 두고</strong> camera, depth, matching, multi-view reconstruction을 모두 파생시킨다는 점이다.</p>
+</div>
+<div class="map-subsection-title"><span data-en="Processing Flow" data-ko="처리 흐름">처리 흐름</span></div>
+<div aria-label="DUSt3R pipeline" class="flow-diagram">
+<div class="flow-step"><span>01</span><strong>Image Pair</strong><small>unknown pose / intrinsics</small></div>
+<div class="flow-step"><span>02</span><strong>ViT Encoder</strong><small>shared visual tokens</small></div>
+<div class="flow-step"><span>03</span><strong>Cross-view Decoder</strong><small>information exchange</small></div>
+<div class="flow-step"><span>04</span><strong>Pointmaps</strong><small>same frame as image 1</small></div>
+<div class="flow-step"><span>05</span><strong>Confidence</strong><small>pixel reliability</small></div>
+<div class="flow-step"><span>06</span><strong>Global Alignment</strong><small>multi-view 3D space</small></div>
+</div>
+<div class="map-subsection-title"><span data-en="Approach Comparison" data-ko="접근 방식 비교">접근 방식 비교</span></div>
+<div class="compare-grid">
+<article>
+<span class="compare-kicker">Classical SfM / MVS</span>
+<h3 data-en="Camera-first Pipeline" data-ko="camera-first pipeline">camera-first pipeline</h3>
+<p data-en="Estimate matches, cameras, and depth/reconstruction in sequential modules; errors can accumulate when calibration or pose is missing." data-ko="matching, camera, depth/reconstruction을 순차 모듈로 추정하므로 calibration이나 pose가 없을 때 오류가 누적되기 쉬움.">matching, camera, depth/reconstruction을 순차 모듈로 추정하므로 calibration이나 pose가 없을 때 오류가 누적되기 쉬움.</p>
+</article>
+<article>
+<span class="compare-kicker">Monocular Depth</span>
+<h3 data-en="Single-view Geometry Prior" data-ko="single-view geometry prior">single-view geometry prior</h3>
+<p data-en="Predicts depth from one image, but scale and viewpoint relation are still hard to resolve." data-ko="한 장의 이미지에서 depth를 예측하지만 scale과 viewpoint 관계는 여전히 풀기 어려움.">한 장의 이미지에서 depth를 예측하지만 scale과 viewpoint 관계는 여전히 풀기 어려움.</p>
+</article>
+<article>
+<span class="compare-kicker">DUSt3R</span>
+<h3 data-en="Pointmap-first Reconstruction" data-ko="pointmap-first reconstruction">pointmap-first reconstruction</h3>
+<p data-en="Predicts aligned pointmaps first, then derives camera pose, depth, matching, and full reconstruction." data-ko="aligned pointmap을 먼저 예측하고 camera pose, depth, matching, full reconstruction을 뒤에서 회수.">aligned pointmap을 먼저 예측하고 camera pose, depth, matching, full reconstruction을 뒤에서 회수.</p>
+</article>
+</div>
+</section>
+<section aria-labelledby="deep-dive-title" class="deep-dive" data-bookmark="논문 상세 정리" data-bookmark-en="Detailed Paper Notes">
+<h2 data-en="Detailed Paper Notes" data-ko="논문 상세 정리" id="deep-dive-title">논문 상세 정리</h2>
+<p class="deep-dive-note" data-en="From here, the detailed notes preserve the paper's core content while folding background, notation, and auxiliary recovery details." data-ko="아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.">아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.</p>
+<div class="deep-dive-body">
+<div class="deep-dive-content is-collapsed" data-lang-panel="ko" id="deepDiveContent">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="ko-problem">Problem: camera 없이 3D를 얼마나 직접 복원할 수 있나</h3>
+<p>DUSt3R의 문제의식은 multi-view reconstruction이 보통 <strong>camera pose와 intrinsics 추정</strong>에 먼저 의존한다는 데서 출발한다. 실제 사진 모음은 camera가 제각각이고 pose도 없기 때문에, SfM/MVS pipeline은 matching, camera estimation, depth estimation이 순서대로 흔들릴 수 있다.</p>
+<figure class="image">
+<img alt="Figure 1. DUSt3R overview." height="994" src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px" width="1908"/>
+<figcaption><span class="caption-main">Figure 1. Overview.</span><span class="caption-note">Unconstrained image collection에서 pointmap을 예측하고 camera, depth, matching, 3D reconstruction을 회수하는 전체 관점.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head">
+<span class="section-chip">Problem Flow</span>
+<p>논문은 기존 geometry pipeline의 순서를 바꾸어 <strong>3D pointmap을 먼저 얻고 나머지를 파생</strong>시키는 방향으로 문제를 다시 잡는다.</p>
+</div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>Unknown cameras</strong><p>입력 image collection에 pose와 intrinsics가 없거나 일관되지 않음.</p></article>
+<article><span>02</span><strong>Pipeline dependency</strong><p>matching, camera recovery, MVS가 서로의 품질에 의존.</p></article>
+<article><span>03</span><strong>Task fragmentation</strong><p>depth, pose, correspondence, reconstruction이 별도 task처럼 나뉨.</p></article>
+<article><span>04</span><strong>DUSt3R의 재정의</strong><p>pointmap을 공통 표현으로 만들고 여러 3D task를 한 흐름에 묶음.</p></article>
+</div>
+</section>
+<section class="summary-panel">
+<div class="summary-head">
+<span class="section-chip">Problem / Proposal</span>
+<p>Introduction과 Conclusion의 핵심은 “카메라를 먼저 풀어야 3D를 얻는다”는 전제를 약하게 만드는 것이다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>기존 병목</th><th>DUSt3R의 제안</th><th>얻는 효과</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Camera prior</span></td><td>known intrinsics/pose 없이 pointmap 회귀</td><td>unconstrained image pair에도 적용 가능</td></tr>
+<tr><td><span class="summary-term">Sequential errors</span></td><td>network가 두 view를 함께 보고 aligned pointmap 예측</td><td>matching/camera/depth를 한 표현에서 회수</td></tr>
+<tr><td><span class="summary-term">Multi-view fusion</span></td><td>pairwise pointmap을 global alignment로 정렬</td><td>full-scale MVS reconstruction으로 확장</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>관련 연구 계열 자세히 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">어떤 흐름 위에 놓이는가</span>
+<p>Related Work는 DUSt3R가 classical SfM/MVS를 그대로 학습하는 대신, <strong>camera를 암시적으로 담는 dense pointmap</strong>을 직접 예측한다는 위치를 잡아준다.</p>
+</div>
+<div class="supplement-card-grid supplement-card-grid-four">
+<article class="supplement-card"><span class="supplement-badge">A</span><strong>Classical SfM / MVS</strong><p>feature matching, pose estimation, triangulation, dense reconstruction으로 이어지는 camera-first pipeline.</p></article>
+<article class="supplement-card"><span class="supplement-badge">B</span><strong>Learned MVS</strong><p>cost volume이나 differentiable SfM 구조를 사용하지만 intrinsics/pose 입력에 기대는 경우가 많음.</p></article>
+<article class="supplement-card"><span class="supplement-badge">C</span><strong>Monocular depth</strong><p>single image geometry prior는 강하지만 scale과 view relation은 본질적으로 모호함.</p></article>
+<article class="supplement-card"><span class="supplement-badge">D</span><strong>Pointmap</strong><p>pixel-aligned 3D point field로 camera relation과 geometry를 동시에 담는 표현.</p></article>
+</div>
+</section>
+</div>
+</details>
+</section>
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="ko-mechanism">Mechanism: pointmap을 어떻게 예측하고 정렬하나</h3>
+<p>DUSt3R의 방법론은 크게 세 단계다. 첫째, 두 image를 transformer로 함께 처리해 <strong>같은 좌표계의 pointmap</strong>을 예측한다. 둘째, confidence-aware regression loss로 불확실한 pixel의 영향을 조절한다. 셋째, 여러 image pair에서 나온 pointmap을 3D 공간에서 global alignment한다.</p>
+<figure class="image">
+<img alt="Figure 2. Architecture of the DUSt3R network." height="538" src="assets/dust3r/media/media_40c003490199.png" style="width:960px" width="2188"/>
+<figcaption><span class="caption-main">Figure 2. Architecture of the network <span class="inline-equation-token">\(\mathcal{F}\)</span>.</span><span class="caption-note">두 view를 Siamese ViT encoder와 cross-attention decoder로 처리한 뒤, image <span class="inline-equation-token">\(I_1\)</span> 좌표계에 표현된 두 pointmap과 confidence map을 출력한다.</span></figcaption>
+</figure>
+<section class="summary-panel">
+<div class="summary-head">
+<span class="section-chip">Mechanism Thread Summary</span>
+<p>핵심은 pointmap이 <strong>geometry와 viewpoint relation을 동시에 담는 표현</strong>이라서, camera를 직접 입력하지 않아도 여러 3D quantity를 뒤에서 회수할 수 있다는 점이다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table method-table">
+<thead><tr><th>구간</th><th>무엇을 해결하나</th><th>핵심 장치</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Pointmap definition</span></td><td>pixel별 3D 위치와 camera coordinate 관계를 하나의 field로 표현</td><td><span class="inline-equation-token">\(X^{n,m}=P_mP_n^{-1}h(X^n)\)</span></td></tr>
+<tr><td><span class="summary-term">Network output</span></td><td>image pair에서 두 view의 aligned 3D를 직접 예측</td><td>shared ViT encoder + cross-view decoder + DPT head</td></tr>
+<tr><td><span class="summary-term">Training objective</span></td><td>scale ambiguity와 hard-to-predict region 처리</td><td>scale-normalized regression + confidence weighting</td></tr>
+<tr><td><span class="summary-term">Global alignment</span></td><td>pairwise prediction을 multi-view scene으로 확장</td><td>3D pointmap alignment objective</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">1. Pointmap이 담는 정보</span>
+<p>camera intrinsics <span class="inline-equation-token">\(K\)</span>와 depth <span class="inline-equation-token">\(D\)</span>가 있으면 pointmap은 각 pixel을 camera coordinate의 3D point로 바꾼 것이다. 논문은 camera <span class="inline-equation-token">\(n\)</span>에서 얻은 pointmap을 camera <span class="inline-equation-token">\(m\)</span>의 좌표계로 표현하는 식을 먼저 정의한다.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 X^{n,m}=P_mP_n^{-1}h(X^n) \tag{1}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">camera <span class="inline-equation-token">\(n\)</span>의 pointmap <span class="inline-equation-token">\(X^n\)</span>을 camera <span class="inline-equation-token">\(m\)</span> coordinate frame으로 옮기는 정의.</span></figcaption>
-                          </figure>
-                        </div>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">2. Pairwise pointmap regression</span>
-                        <p>network <span class="inline-equation-token">\(\mathcal{F}\)</span>는 두 RGB image <span class="inline-equation-token">\(I_1\)</span>, <span class="inline-equation-token">\(I_2\)</span>를 입력으로 받아 <span class="inline-equation-token">\(X^{1,1}\)</span>, <span class="inline-equation-token">\(X^{2,1}\)</span>과 confidence <span class="inline-equation-token">\(C^{1,1}\)</span>, <span class="inline-equation-token">\(C^{2,1}\)</span>을 출력한다. 두 pointmap은 모두 <strong>첫 번째 image <span class="inline-equation-token">\(I_1\)</span>의 coordinate frame</strong>에 표현된다.</p>
-                        <figure class="image">
-                          <img width="2028" height="372" alt="Figure 3. Reconstruction examples from DUSt3R." src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px">
-                          <figcaption><span class="caption-main">Figure 3. Reconstruction examples on two scenes never seen during training.</span><span class="caption-note">RGB, depth map, confidence map, reconstruction을 함께 보여주며 confidence가 pointmap 품질을 해석하는 보조 신호로 쓰임을 보여준다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">3. Confidence-aware training objective</span>
-                        <p>논문은 pointmap regression을 3D 공간의 거리로 학습한다. scale ambiguity를 줄이기 위해 prediction과 ground truth를 평균 거리 기준으로 정규화하고, 어려운 pixel에는 confidence를 함께 학습한다.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">camera <span class="inline-equation-token">\(n\)</span>의 pointmap <span class="inline-equation-token">\(X^n\)</span>을 camera <span class="inline-equation-token">\(m\)</span> coordinate frame으로 옮기는 정의.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">2. Pairwise pointmap regression</span>
+<p>network <span class="inline-equation-token">\(\mathcal{F}\)</span>는 두 RGB image <span class="inline-equation-token">\(I_1\)</span>, <span class="inline-equation-token">\(I_2\)</span>를 입력으로 받아 <span class="inline-equation-token">\(X^{1,1}\)</span>, <span class="inline-equation-token">\(X^{2,1}\)</span>과 confidence <span class="inline-equation-token">\(C^{1,1}\)</span>, <span class="inline-equation-token">\(C^{2,1}\)</span>을 출력한다. 두 pointmap은 모두 <strong>첫 번째 image <span class="inline-equation-token">\(I_1\)</span>의 coordinate frame</strong>에 표현된다.</p>
+<figure class="image">
+<img alt="Figure 3. Reconstruction examples from DUSt3R." height="372" src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px" width="2028"/>
+<figcaption><span class="caption-main">Figure 3. Reconstruction examples on two scenes never seen during training.</span><span class="caption-note">RGB, depth map, confidence map, reconstruction을 함께 보여주며 confidence가 pointmap 품질을 해석하는 보조 신호로 쓰임을 보여준다.</span></figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">3. Confidence-aware training objective</span>
+<p>논문은 pointmap regression을 3D 공간의 거리로 학습한다. scale ambiguity를 줄이기 위해 prediction과 ground truth를 평균 거리 기준으로 정규화하고, 어려운 pixel에는 confidence를 함께 학습한다.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \ell_{\mathrm{regr}}(v,i)=\left\|\frac{1}{z}X_i^{v,1}-\frac{1}{\bar{z}}\bar{X}_i^{v,1}\right\| \tag{2}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">valid pixel <span class="inline-equation-token">\(i\)</span>에 대한 scale-normalized 3D regression loss.</span></figcaption>
-                          </figure>
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">valid pixel <span class="inline-equation-token">\(i\)</span>에 대한 scale-normalized 3D regression loss.</span></figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathrm{norm}(X^1,X^2)=\frac{1}{|D_1|+|D_2|}\sum_{v\in\{1,2\}}\sum_{i\in D_v}\|X_i^v\| \tag{3}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">두 view의 valid point가 원점에서 얼마나 떨어져 있는지를 평균낸 scale normalization.</span></figcaption>
-                          </figure>
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">두 view의 valid point가 원점에서 얼마나 떨어져 있는지를 평균낸 scale normalization.</span></figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathcal{L}_{\mathrm{conf}}=\sum_{v\in\{1,2\}}\sum_{i\in D_v} C_i^{v,1}\ell_{\mathrm{regr}}(v,i)-\alpha\log C_i^{v,1} \tag{4}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">confidence-weighted regression loss. <span class="inline-equation-token">\(C_i^{v,1}\)</span>은 pixel별 예측 신뢰도를 의미한다.</span></figcaption>
-                          </figure>
-                        </div>
-                      </section>
-
-                      <section class="summary-panel summary-panel-soft">
-                        <div class="summary-head">
-                          <span class="subsection-label">Notation: pointmap과 global alignment</span>
-                          <p>DUSt3R의 수식은 pointmap이 어느 coordinate frame에 표현되는지와, pairwise prediction을 global 3D frame으로 맞추는 변수를 구분해 읽으면 훨씬 명확하다.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table">
-                            <thead><tr><th>Notation</th><th>의미</th><th>읽는 포인트</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(X^n\)</span>, <span class="inline-equation-token">\(X^{n,m}\)</span></span></td><td>camera <span class="inline-equation-token">\(n\)</span>에서 예측한 pointmap과 이를 camera <span class="inline-equation-token">\(m\)</span> 좌표계로 옮긴 pointmap</td><td>DUSt3R는 depth map이 아니라 dense 3D pointmap을 직접 예측.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(P_n\)</span>, <span class="inline-equation-token">\(P_m\)</span>, <span class="inline-equation-token">\(h(\cdot)\)</span></span></td><td>camera pose와 homogeneous coordinate 변환</td><td>Eq. (1)은 pointmap을 다른 camera frame으로 바꾸는 rigid transform.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(D_v\)</span>, <span class="inline-equation-token">\(i\)</span>, <span class="inline-equation-token">\(v\)</span></span></td><td>view <span class="inline-equation-token">\(v\)</span>의 valid pixel 집합과 pixel index</td><td>invalid depth/occlusion 영역은 training loss에서 제외.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(z\)</span>, <span class="inline-equation-token">\(\bar z\)</span></span></td><td>prediction과 ground truth의 scale normalization factor</td><td>unknown scale을 없애고 3D 방향/형상 차이에 집중.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i^{v,1}\)</span></span></td><td>pixel confidence</td><td>어려운 pixel의 영향은 낮추되, <span class="inline-equation-token">\(-\alpha\log C\)</span>로 confidence collapse를 방지.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\chi_i^v\)</span>, <span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_e\)</span></span></td><td>global pointmap, pair scale, pair pose</td><td>Eq. (5)는 pairwise pointmap을 global 3D frame으로 정렬하는 DUSt3R식 BA 역할.</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">4. Global alignment</span>
-                        <p>두 장짜리 prediction만으로는 전체 scene reconstruction이 되지 않는다. DUSt3R는 image pair를 edge로 둔 connectivity graph를 만들고, 각 pair의 pointmap을 공통 3D frame에 맞추는 최적화를 수행한다. 전통적인 BA처럼 2D reprojection error를 최소화하는 대신, <strong>3D pointmap alignment error</strong>를 직접 최소화한다.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">confidence-weighted regression loss. <span class="inline-equation-token">\(C_i^{v,1}\)</span>은 pixel별 예측 신뢰도를 의미한다.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">Notation: pointmap과 global alignment</span>
+<p>DUSt3R의 수식은 pointmap이 어느 coordinate frame에 표현되는지와, pairwise prediction을 global 3D frame으로 맞추는 변수를 구분해 읽으면 훨씬 명확하다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Notation</th><th>의미</th><th>읽는 포인트</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(X^n\)</span>, <span class="inline-equation-token">\(X^{n,m}\)</span></span></td><td>camera <span class="inline-equation-token">\(n\)</span>에서 예측한 pointmap과 이를 camera <span class="inline-equation-token">\(m\)</span> 좌표계로 옮긴 pointmap</td><td>DUSt3R는 depth map이 아니라 dense 3D pointmap을 직접 예측.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(P_n\)</span>, <span class="inline-equation-token">\(P_m\)</span>, <span class="inline-equation-token">\(h(\cdot)\)</span></span></td><td>camera pose와 homogeneous coordinate 변환</td><td>Eq. (1)은 pointmap을 다른 camera frame으로 바꾸는 rigid transform.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(D_v\)</span>, <span class="inline-equation-token">\(i\)</span>, <span class="inline-equation-token">\(v\)</span></span></td><td>view <span class="inline-equation-token">\(v\)</span>의 valid pixel 집합과 pixel index</td><td>invalid depth/occlusion 영역은 training loss에서 제외.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(z\)</span>, <span class="inline-equation-token">\(\bar z\)</span></span></td><td>prediction과 ground truth의 scale normalization factor</td><td>unknown scale을 없애고 3D 방향/형상 차이에 집중.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i^{v,1}\)</span></span></td><td>pixel confidence</td><td>어려운 pixel의 영향은 낮추되, <span class="inline-equation-token">\(-\alpha\log C\)</span>로 confidence collapse를 방지.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(\chi_i^v\)</span>, <span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_e\)</span></span></td><td>global pointmap, pair scale, pair pose</td><td>Eq. (5)는 pairwise pointmap을 global 3D frame으로 정렬하는 DUSt3R식 BA 역할.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">4. Global alignment</span>
+<p>두 장짜리 prediction만으로는 전체 scene reconstruction이 되지 않는다. DUSt3R는 image pair를 edge로 둔 connectivity graph를 만들고, 각 pair의 pointmap을 공통 3D frame에 맞추는 최적화를 수행한다. 전통적인 BA처럼 2D reprojection error를 최소화하는 대신, <strong>3D pointmap alignment error</strong>를 직접 최소화한다.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \chi^*=\arg\min_{\chi,P,\sigma}\sum_{e\in E}\sum_{v\in e}\sum_{i=1}^{HW} C_i^{v,e}\left\|\chi_i^v-\sigma_eP_eX_i^{v,e}\right\| \tag{5}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">pairwise pointmap <span class="inline-equation-token">\(X_i^{v,e}\)</span>를 global pointmap <span class="inline-equation-token">\(\chi_i^v\)</span>에 맞추는 3D-space alignment objective.</span></figcaption>
-                          </figure>
-                        </div>
-                      </section>
-
-                      <details class="supplement-toggle supplement-structured">
-                        <summary>Camera recovery / focal estimation 세부 보기</summary>
-                        <div class="appendix-details supplement-details">
-                          <section class="summary-panel summary-panel-soft">
-                            <div class="summary-head">
-                              <span class="subsection-label">Pointmap에서 무엇을 회수할 수 있나</span>
-                              <p>pointmap은 3D geometry뿐 아니라 pixel correspondence와 camera parameter recovery에도 쓰인다. 이 부분은 논문의 주장을 뒷받침하지만, 핵심 흐름에서는 보조 설명으로 접어둔다.</p>
-                            </div>
-                            <div class="summary-table-wrap">
-                              <table class="summary-table">
-                                <thead><tr><th>회수 대상</th><th>방식</th><th>의미</th></tr></thead>
-                                <tbody>
-                                  <tr><td><span class="summary-term">Pixel matches</span></td><td>두 pointmap 사이의 nearest neighbor를 이용</td><td>feature descriptor 없이 dense correspondence 도출</td></tr>
-                                  <tr><td><span class="summary-term">Focal length</span></td><td>principal point centered, square pixel 가정 아래 pointmap projection 최적화</td><td>intrinsics가 없어도 camera parameter 추정 가능</td></tr>
-                                  <tr><td><span class="summary-term">Relative pose</span></td><td>2D-2D matching 또는 pointmap의 3D-3D alignment 이용</td><td>pose estimation task로 연결</td></tr>
-                                  <tr><td><span class="summary-term">Absolute pose</span></td><td>database image와 query image 사이 correspondence를 만들고 PnP-RANSAC 적용</td><td>visual localization에도 zero-shot으로 사용</td></tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </section>
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">pairwise pointmap <span class="inline-equation-token">\(X_i^{v,e}\)</span>를 global pointmap <span class="inline-equation-token">\(\chi_i^v\)</span>에 맞추는 3D-space alignment objective.</span></figcaption>
+</figure>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Camera recovery / focal estimation 세부 보기</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">Pointmap에서 무엇을 회수할 수 있나</span>
+<p>pointmap은 3D geometry뿐 아니라 pixel correspondence와 camera parameter recovery에도 쓰인다. 이 부분은 논문의 주장을 뒷받침하지만, 핵심 흐름에서는 보조 설명으로 접어둔다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>회수 대상</th><th>방식</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Pixel matches</span></td><td>두 pointmap 사이의 nearest neighbor를 이용</td><td>feature descriptor 없이 dense correspondence 도출</td></tr>
+<tr><td><span class="summary-term">Focal length</span></td><td>principal point centered, square pixel 가정 아래 pointmap projection 최적화</td><td>intrinsics가 없어도 camera parameter 추정 가능</td></tr>
+<tr><td><span class="summary-term">Relative pose</span></td><td>2D-2D matching 또는 pointmap의 3D-3D alignment 이용</td><td>pose estimation task로 연결</td></tr>
+<tr><td><span class="summary-term">Absolute pose</span></td><td>database image와 query image 사이 correspondence를 만들고 PnP-RANSAC 적용</td><td>visual localization에도 zero-shot으로 사용</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 f_1^*=\arg\min_{f_1}\sum_{i=0}^{W}\sum_{j=0}^{H}C_{i,j}^{1,1}
 \left\|(i',j')-f_1\frac{(X_{i,j,0}^{1,1},X_{i,j,1}^{1,1})}{X_{i,j,2}^{1,1}}\right\|
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">논문 본문에서는 centered principal point와 square pixel 가정 아래 <span class="inline-equation-token">\(f_1\)</span>만 최적화하는 형태로 설명한다.</span></figcaption>
-                          </figure>
-                        </div>
-                      </details>
-                    </section>
+<figcaption><span class="caption-main">논문 본문에서는 centered principal point와 square pixel 가정 아래 <span class="inline-equation-token">\(f_1\)</span>만 최적화하는 형태로 설명한다.</span></figcaption>
+</figure>
+</div>
+</details>
+</section>
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="ko-evidence">Evidence: 어떤 task에서 검증했나</h3>
+<p>DUSt3R의 평가는 하나의 task 성능만 보는 방식이 아니다. pointmap 표현이 실제로 범용적인지 확인하기 위해 <strong>visual localization, multi-view pose, monocular depth, multi-view depth, 3D reconstruction</strong>을 모두 연결해서 검증한다.</p>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head">
+<span class="section-chip">Evaluation Roadmap</span>
+<p>각 결과는 “pointmap만으로 무엇을 회수할 수 있는가”라는 질문에 대응된다.</p>
+</div>
+<div class="result-brief-grid">
+<article><strong>Pose</strong><p>correspondence와 camera를 pointmap에서 회수할 수 있는지 확인.</p></article>
+<article><strong>Depth</strong><p>pointmap의 z-coordinate와 confidence aggregation이 depth task로 이어지는지 확인.</p></article>
+<article><strong>Reconstruction</strong><p>pairwise pointmap을 global 3D scene으로 정렬할 수 있는지 확인.</p></article>
+</div>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Pose Evidence</span>
+<figure class="image">
+<img alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." height="598" src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px" width="1792"/>
+<figcaption><span class="caption-main">Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks datasets.</span><span class="caption-note">query/database image pair의 raw pointmap으로 correspondence를 만들고 PnP-RANSAC을 적용해 visual localization 성능을 평가한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." height="664" src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px" width="1478"/>
+<figcaption><span class="caption-main">Table 2. Right: Multi-view pose regression on CO3Dv2 and RealEstate10K with 10 random frames.</span><span class="caption-note">본문에서는 global alignment가 두 dataset에서 가장 좋은 overall 성능을 보이고, PnP 기반 결과도 learning/structure 기반 방법보다 강하다고 설명한다.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Depth Evidence</span>
+<figure class="image">
+<img alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." height="486" src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px" width="1292"/>
+<figcaption><span class="caption-main">Table 2. Left: Monocular depth estimation on multiple benchmarks.</span><span class="caption-note">monocular task에서는 같은 image를 <span class="inline-equation-token">\(\mathcal{F}(I,I)\)</span>로 입력하고, predicted pointmap의 z-coordinate을 depth로 읽어 AbsRel과 <span class="inline-equation-token">\(\delta_{1.25}\)</span>로 평가한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 3. Multi-view depth evaluation with different settings." height="1090" src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px" width="1834"/>
+<figcaption><span class="caption-main">Table 3. Multi-view depth evaluation with different settings.</span><span class="caption-note">여러 depth prediction을 confidence로 가중 평균해 multi-view depth를 구성하고, DTU/ETH3D/Tanks and Temples/ScanNet에서 평가한다.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Reconstruction Evidence</span>
+<figure class="image">
+<img alt="Table 4. MVS results on the DTU dataset." height="1034" src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px" width="1258"/>
+<figcaption><span class="caption-main">Table 4. MVS results on the DTU dataset.</span><span class="caption-note">논문은 DUSt3R가 GT camera 없이 global unconstrained MVS를 수행한다는 점을 강조하며, DTU에서 accuracy, completeness, overall distance를 보고한다.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." height="1398" src="assets/dust3r/media/media_0aee775df721.png" style="width:620px" width="960"/>
+<figcaption><span class="caption-main">Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene from two images.</span><span class="caption-note">unseen MegaDepth scene에서 두 장의 image만으로 얻은 qualitative reconstruction 예시다.</span></figcaption>
+</figure>
+</section>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head">
+<span class="section-chip">Evaluation Brief</span>
+<p>결과를 하나로 묶으면, DUSt3R는 “pointmap 하나로 여러 3D vision task를 풀 수 있다”는 주장을 실험적으로 밀고 간다.</p>
+</div>
+<div class="result-brief-grid">
+<article><strong>Pose</strong><p>pointmap에서 correspondence와 camera를 회수해 localization/multi-view pose에 사용.</p></article>
+<article><strong>Depth</strong><p>pointmap의 z-coordinate와 confidence aggregation으로 mono/multi-view depth 평가.</p></article>
+<article><strong>Reconstruction</strong><p>global alignment를 통해 camera-free MVS reconstruction으로 확장.</p></article>
+</div>
+</section>
+</section>
+<section class="deep-section" data-section-title="Usage / Limits">
+<h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 조심해야 하나</h3>
+<p>DUSt3R는 입력 image의 camera 정보가 없거나, 여러 3D task를 빠르게 하나의 representation에서 뽑아내고 싶을 때 강하다. 반면 global alignment는 pairwise prediction의 품질과 graph 연결성에 기대기 때문에, 장면 overlap이 약하거나 domain gap이 큰 상황에서는 alignment 품질을 따로 확인해야 한다.</p>
+<section class="summary-panel usage-fit-box">
+<div class="summary-head">
+<span class="section-chip">When to Use / Avoid</span>
+<p>논문의 결론과 실험 범위를 application 조건으로 정리하면 다음과 같다.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table usage-table">
+<thead><tr><th>구분</th><th>요약</th><th>이유</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Good fit</span></td><td>pose/intrinsics가 없는 image pair 또는 small image collection</td><td>camera-free pointmap prediction이 바로 작동</td></tr>
+<tr><td><span class="summary-term">Useful output</span></td><td>depth, matching, relative/absolute pose, reconstruction을 함께 보고 싶을 때</td><td>pointmap이 여러 quantity를 회수하는 공통 표현 역할</td></tr>
+<tr><td><span class="summary-term">Check carefully</span></td><td>overlap이 낮거나 pair graph가 약한 multi-view scene</td><td>global alignment가 pairwise prediction과 confidence에 의존</td></tr>
+<tr><td><span class="summary-term">Limitation</span></td><td>metric precision이나 dense MVS 전용 tuning이 중요한 경우</td><td>generic reconstruction prior이므로 downstream refinement가 필요할 수 있음</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="deep-section" data-section-title="Takeaway">
+<h3 id="ko-takeaway">느낀점</h3>
+<p>(진행중...)</p>
+</section>
 
-                    <section class="deep-section" data-section-title="Evidence">
-                      <h3 id="ko-evidence">Evidence: 어떤 task에서 검증했나</h3>
-                      <p>DUSt3R의 평가는 하나의 task 성능만 보는 방식이 아니다. pointmap 표현이 실제로 범용적인지 확인하기 위해 <strong>visual localization, multi-view pose, monocular depth, multi-view depth, 3D reconstruction</strong>을 모두 연결해서 검증한다.</p>
-
-                      <section class="result-brief result-brief-wide">
-                        <div class="result-brief-head">
-                          <span class="section-chip">Evaluation Roadmap</span>
-                          <p>각 결과는 “pointmap만으로 무엇을 회수할 수 있는가”라는 질문에 대응된다.</p>
-                        </div>
-                        <div class="result-brief-grid">
-                          <article><strong>Pose</strong><p>correspondence와 camera를 pointmap에서 회수할 수 있는지 확인.</p></article>
-                          <article><strong>Depth</strong><p>pointmap의 z-coordinate와 confidence aggregation이 depth task로 이어지는지 확인.</p></article>
-                          <article><strong>Reconstruction</strong><p>pairwise pointmap을 global 3D scene으로 정렬할 수 있는지 확인.</p></article>
-                        </div>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">Pose Evidence</span>
-                        <figure class="image">
-                          <img width="1792" height="598" alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px">
-                          <figcaption><span class="caption-main">Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks datasets.</span><span class="caption-note">query/database image pair의 raw pointmap으로 correspondence를 만들고 PnP-RANSAC을 적용해 visual localization 성능을 평가한다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="1478" height="664" alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px">
-                          <figcaption><span class="caption-main">Table 2. Right: Multi-view pose regression on CO3Dv2 and RealEstate10K with 10 random frames.</span><span class="caption-note">본문에서는 global alignment가 두 dataset에서 가장 좋은 overall 성능을 보이고, PnP 기반 결과도 learning/structure 기반 방법보다 강하다고 설명한다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">Depth Evidence</span>
-                        <figure class="image">
-                          <img width="1292" height="486" alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px">
-                          <figcaption><span class="caption-main">Table 2. Left: Monocular depth estimation on multiple benchmarks.</span><span class="caption-note">monocular task에서는 같은 image를 <span class="inline-equation-token">\(\mathcal{F}(I,I)\)</span>로 입력하고, predicted pointmap의 z-coordinate을 depth로 읽어 AbsRel과 <span class="inline-equation-token">\(\delta_{1.25}\)</span>로 평가한다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="1834" height="1090" alt="Table 3. Multi-view depth evaluation with different settings." src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px">
-                          <figcaption><span class="caption-main">Table 3. Multi-view depth evaluation with different settings.</span><span class="caption-note">여러 depth prediction을 confidence로 가중 평균해 multi-view depth를 구성하고, DTU/ETH3D/Tanks and Temples/ScanNet에서 평가한다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">Reconstruction Evidence</span>
-                        <figure class="image">
-                          <img width="1258" height="1034" alt="Table 4. MVS results on the DTU dataset." src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px">
-                          <figcaption><span class="caption-main">Table 4. MVS results on the DTU dataset.</span><span class="caption-note">논문은 DUSt3R가 GT camera 없이 global unconstrained MVS를 수행한다는 점을 강조하며, DTU에서 accuracy, completeness, overall distance를 보고한다.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="960" height="1398" alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." src="assets/dust3r/media/media_0aee775df721.png" style="width:620px">
-                          <figcaption><span class="caption-main">Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene from two images.</span><span class="caption-note">unseen MegaDepth scene에서 두 장의 image만으로 얻은 qualitative reconstruction 예시다.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="result-brief result-brief-wide">
-                        <div class="result-brief-head">
-                          <span class="section-chip">Evaluation Brief</span>
-                          <p>결과를 하나로 묶으면, DUSt3R는 “pointmap 하나로 여러 3D vision task를 풀 수 있다”는 주장을 실험적으로 밀고 간다.</p>
-                        </div>
-                        <div class="result-brief-grid">
-                          <article><strong>Pose</strong><p>pointmap에서 correspondence와 camera를 회수해 localization/multi-view pose에 사용.</p></article>
-                          <article><strong>Depth</strong><p>pointmap의 z-coordinate와 confidence aggregation으로 mono/multi-view depth 평가.</p></article>
-                          <article><strong>Reconstruction</strong><p>global alignment를 통해 camera-free MVS reconstruction으로 확장.</p></article>
-                        </div>
-                      </section>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Usage / Limits">
-                      <h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 조심해야 하나</h3>
-                      <p>DUSt3R는 입력 image의 camera 정보가 없거나, 여러 3D task를 빠르게 하나의 representation에서 뽑아내고 싶을 때 강하다. 반면 global alignment는 pairwise prediction의 품질과 graph 연결성에 기대기 때문에, 장면 overlap이 약하거나 domain gap이 큰 상황에서는 alignment 품질을 따로 확인해야 한다.</p>
-
-                      <section class="summary-panel usage-fit-box">
-                        <div class="summary-head">
-                          <span class="section-chip">When to Use / Avoid</span>
-                          <p>논문의 결론과 실험 범위를 application 조건으로 정리하면 다음과 같다.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table usage-table">
-                            <thead><tr><th>구분</th><th>요약</th><th>이유</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term">Good fit</span></td><td>pose/intrinsics가 없는 image pair 또는 small image collection</td><td>camera-free pointmap prediction이 바로 작동</td></tr>
-                              <tr><td><span class="summary-term">Useful output</span></td><td>depth, matching, relative/absolute pose, reconstruction을 함께 보고 싶을 때</td><td>pointmap이 여러 quantity를 회수하는 공통 표현 역할</td></tr>
-                              <tr><td><span class="summary-term">Check carefully</span></td><td>overlap이 낮거나 pair graph가 약한 multi-view scene</td><td>global alignment가 pairwise prediction과 confidence에 의존</td></tr>
-                              <tr><td><span class="summary-term">Limitation</span></td><td>metric precision이나 dense MVS 전용 tuning이 중요한 경우</td><td>generic reconstruction prior이므로 downstream refinement가 필요할 수 있음</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Takeaway">
-                      <h3 id="ko-takeaway">느낀점</h3>
-                      <p>(진행중...)</p>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Future Work">
-                      <h3 id="ko-future-work">향후 계획</h3>
-                      <p>(진행중...)</p>
-                    </section>
-                  </div>
-
-                  <div class="deep-dive-content is-collapsed" data-lang-panel="en">
-                    <section class="deep-section" data-section-title="Problem">
-                      <h3 id="en-problem">Problem: can 3D be recovered without camera priors?</h3>
-                      <p>DUSt3R starts from a practical bottleneck in multi-view reconstruction: most pipelines first depend on <strong>camera poses and intrinsics</strong>. Real image collections are unconstrained, so matching, camera estimation, and dense reconstruction can fail in sequence.</p>
-
-                      <figure class="image">
-                        <img width="1908" height="994" alt="Figure 1. DUSt3R overview." src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px">
-                        <figcaption><span class="caption-main">Figure 1. Overview.</span><span class="caption-note">The paper frames DUSt3R as a way to predict pointmaps first, then recover camera parameters, depth, matches, and 3D reconstruction.</span></figcaption>
-                      </figure>
-
-                      <section class="problem-ladder">
-                        <div class="summary-head">
-                          <span class="section-chip">Problem Flow</span>
-                          <p>The paper changes the order of the geometry pipeline: <strong>obtain dense 3D pointmaps first</strong>, then derive the rest.</p>
-                        </div>
-                        <div class="problem-ladder-grid">
-                          <article><span>01</span><strong>Unknown cameras</strong><p>Image collections may lack consistent pose and intrinsic information.</p></article>
-                          <article><span>02</span><strong>Pipeline dependency</strong><p>Matching, camera recovery, and MVS depend on one another.</p></article>
-                          <article><span>03</span><strong>Task fragmentation</strong><p>Depth, pose, correspondence, and reconstruction are often treated as separate tasks.</p></article>
-                          <article><span>04</span><strong>DUSt3R's reframing</strong><p>Use pointmaps as a shared representation for many 3D tasks.</p></article>
-                        </div>
-                      </section>
-
-                      <section class="summary-panel">
-                        <div class="summary-head">
-                          <span class="section-chip">Problem / Proposal</span>
-                          <p>The introduction and conclusion both weaken the assumption that cameras must be solved before 3D can be recovered.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table">
-                            <thead><tr><th>Bottleneck</th><th>DUSt3R's proposal</th><th>Effect</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term">Camera prior</span></td><td>Regress pointmaps without known intrinsics or pose</td><td>Works on unconstrained image pairs</td></tr>
-                              <tr><td><span class="summary-term">Sequential errors</span></td><td>Process two views jointly and predict aligned pointmaps</td><td>Derive matching, camera, and depth from one representation</td></tr>
-                              <tr><td><span class="summary-term">Multi-view fusion</span></td><td>Align pairwise pointmaps through global alignment</td><td>Extends to full-scale MVS reconstruction</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-
-                      <details class="supplement-toggle supplement-structured">
-                        <summary>Related work details</summary>
-                        <div class="appendix-details supplement-details">
-                          <section class="summary-panel summary-panel-soft">
-                            <div class="summary-head">
-                              <span class="subsection-label">Where the paper sits</span>
-                              <p>DUSt3R is positioned against camera-first SfM/MVS and learned MVS methods that still often depend on camera inputs.</p>
-                            </div>
-                            <div class="supplement-card-grid supplement-card-grid-four">
-                              <article class="supplement-card"><span class="supplement-badge">A</span><strong>Classical SfM / MVS</strong><p>A camera-first pipeline of feature matching, pose estimation, triangulation, and dense reconstruction.</p></article>
-                              <article class="supplement-card"><span class="supplement-badge">B</span><strong>Learned MVS</strong><p>Often uses cost volumes or differentiable SfM but still depends on camera intrinsics or poses.</p></article>
-                              <article class="supplement-card"><span class="supplement-badge">C</span><strong>Monocular depth</strong><p>Strong single-view priors, but scale and viewpoint relations remain ambiguous.</p></article>
-                              <article class="supplement-card"><span class="supplement-badge">D</span><strong>Pointmap</strong><p>A pixel-aligned 3D point field that implicitly contains geometry and viewpoint relation.</p></article>
-                            </div>
-                          </section>
-                        </div>
-                      </details>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Mechanism">
-                      <h3 id="en-mechanism">Mechanism: how are pointmaps predicted and aligned?</h3>
-                      <p>The method has three main pieces. It predicts two pointmaps in a shared coordinate frame, trains them with confidence-aware regression, and aligns pairwise predictions into a global 3D space.</p>
-
-                      <figure class="image">
-                        <img width="2188" height="538" alt="Figure 2. Architecture of the DUSt3R network." src="assets/dust3r/media/media_40c003490199.png" style="width:960px">
-                        <figcaption><span class="caption-main">Figure 2. Architecture of the network <span class="inline-equation-token">\(\mathcal{F}\)</span>.</span><span class="caption-note">The two images are encoded with shared ViT encoders, exchange information through cross-attention decoders, and output pointmaps in the coordinate frame of image <span class="inline-equation-token">\(I_1\)</span>.</span></figcaption>
-                      </figure>
-
-                      <section class="summary-panel">
-                        <div class="summary-head">
-                          <span class="section-chip">Mechanism Thread Summary</span>
-                          <p>The key is that a pointmap is a representation that carries <strong>both geometry and viewpoint relation</strong>.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table method-table">
-                            <thead><tr><th>Part</th><th>What it solves</th><th>Core device</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term">Pointmap definition</span></td><td>Represents pixel-wise 3D locations and camera-frame relation</td><td><span class="inline-equation-token">\(X^{n,m}=P_mP_n^{-1}h(X^n)\)</span></td></tr>
-                              <tr><td><span class="summary-term">Network output</span></td><td>Predicts aligned 3D from an image pair</td><td>Shared ViT encoder + cross-view decoder + DPT head</td></tr>
-                              <tr><td><span class="summary-term">Training objective</span></td><td>Handles scale ambiguity and uncertain pixels</td><td>Scale-normalized regression + confidence weighting</td></tr>
-                              <tr><td><span class="summary-term">Global alignment</span></td><td>Extends pairwise predictions to a multi-view scene</td><td>3D pointmap alignment objective</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">1. What a pointmap contains</span>
-                        <p>With intrinsics <span class="inline-equation-token">\(K\)</span> and depth <span class="inline-equation-token">\(D\)</span>, a pointmap maps each pixel into a 3D point in camera coordinates. The paper defines how a pointmap from camera <span class="inline-equation-token">\(n\)</span> is represented in camera <span class="inline-equation-token">\(m\)</span>'s coordinate frame.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+</div>
+<div class="deep-dive-content is-collapsed" data-lang-panel="en">
+<section class="deep-section" data-section-title="Problem">
+<h3 id="en-problem">Problem: can 3D be recovered without camera priors?</h3>
+<p>DUSt3R starts from a practical bottleneck in multi-view reconstruction: most pipelines first depend on <strong>camera poses and intrinsics</strong>. Real image collections are unconstrained, so matching, camera estimation, and dense reconstruction can fail in sequence.</p>
+<figure class="image">
+<img alt="Figure 1. DUSt3R overview." height="994" src="assets/dust3r/media/media_57b92f159fa8.png" style="width:960px" width="1908"/>
+<figcaption><span class="caption-main">Figure 1. Overview.</span><span class="caption-note">The paper frames DUSt3R as a way to predict pointmaps first, then recover camera parameters, depth, matches, and 3D reconstruction.</span></figcaption>
+</figure>
+<section class="problem-ladder">
+<div class="summary-head">
+<span class="section-chip">Problem Flow</span>
+<p>The paper changes the order of the geometry pipeline: <strong>obtain dense 3D pointmaps first</strong>, then derive the rest.</p>
+</div>
+<div class="problem-ladder-grid">
+<article><span>01</span><strong>Unknown cameras</strong><p>Image collections may lack consistent pose and intrinsic information.</p></article>
+<article><span>02</span><strong>Pipeline dependency</strong><p>Matching, camera recovery, and MVS depend on one another.</p></article>
+<article><span>03</span><strong>Task fragmentation</strong><p>Depth, pose, correspondence, and reconstruction are often treated as separate tasks.</p></article>
+<article><span>04</span><strong>DUSt3R's reframing</strong><p>Use pointmaps as a shared representation for many 3D tasks.</p></article>
+</div>
+</section>
+<section class="summary-panel">
+<div class="summary-head">
+<span class="section-chip">Problem / Proposal</span>
+<p>The introduction and conclusion both weaken the assumption that cameras must be solved before 3D can be recovered.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Bottleneck</th><th>DUSt3R's proposal</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Camera prior</span></td><td>Regress pointmaps without known intrinsics or pose</td><td>Works on unconstrained image pairs</td></tr>
+<tr><td><span class="summary-term">Sequential errors</span></td><td>Process two views jointly and predict aligned pointmaps</td><td>Derive matching, camera, and depth from one representation</td></tr>
+<tr><td><span class="summary-term">Multi-view fusion</span></td><td>Align pairwise pointmaps through global alignment</td><td>Extends to full-scale MVS reconstruction</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Related work details</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">Where the paper sits</span>
+<p>DUSt3R is positioned against camera-first SfM/MVS and learned MVS methods that still often depend on camera inputs.</p>
+</div>
+<div class="supplement-card-grid supplement-card-grid-four">
+<article class="supplement-card"><span class="supplement-badge">A</span><strong>Classical SfM / MVS</strong><p>A camera-first pipeline of feature matching, pose estimation, triangulation, and dense reconstruction.</p></article>
+<article class="supplement-card"><span class="supplement-badge">B</span><strong>Learned MVS</strong><p>Often uses cost volumes or differentiable SfM but still depends on camera intrinsics or poses.</p></article>
+<article class="supplement-card"><span class="supplement-badge">C</span><strong>Monocular depth</strong><p>Strong single-view priors, but scale and viewpoint relations remain ambiguous.</p></article>
+<article class="supplement-card"><span class="supplement-badge">D</span><strong>Pointmap</strong><p>A pixel-aligned 3D point field that implicitly contains geometry and viewpoint relation.</p></article>
+</div>
+</section>
+</div>
+</details>
+</section>
+<section class="deep-section" data-section-title="Mechanism">
+<h3 id="en-mechanism">Mechanism: how are pointmaps predicted and aligned?</h3>
+<p>The method has three main pieces. It predicts two pointmaps in a shared coordinate frame, trains them with confidence-aware regression, and aligns pairwise predictions into a global 3D space.</p>
+<figure class="image">
+<img alt="Figure 2. Architecture of the DUSt3R network." height="538" src="assets/dust3r/media/media_40c003490199.png" style="width:960px" width="2188"/>
+<figcaption><span class="caption-main">Figure 2. Architecture of the network <span class="inline-equation-token">\(\mathcal{F}\)</span>.</span><span class="caption-note">The two images are encoded with shared ViT encoders, exchange information through cross-attention decoders, and output pointmaps in the coordinate frame of image <span class="inline-equation-token">\(I_1\)</span>.</span></figcaption>
+</figure>
+<section class="summary-panel">
+<div class="summary-head">
+<span class="section-chip">Mechanism Thread Summary</span>
+<p>The key is that a pointmap is a representation that carries <strong>both geometry and viewpoint relation</strong>.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table method-table">
+<thead><tr><th>Part</th><th>What it solves</th><th>Core device</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Pointmap definition</span></td><td>Represents pixel-wise 3D locations and camera-frame relation</td><td><span class="inline-equation-token">\(X^{n,m}=P_mP_n^{-1}h(X^n)\)</span></td></tr>
+<tr><td><span class="summary-term">Network output</span></td><td>Predicts aligned 3D from an image pair</td><td>Shared ViT encoder + cross-view decoder + DPT head</td></tr>
+<tr><td><span class="summary-term">Training objective</span></td><td>Handles scale ambiguity and uncertain pixels</td><td>Scale-normalized regression + confidence weighting</td></tr>
+<tr><td><span class="summary-term">Global alignment</span></td><td>Extends pairwise predictions to a multi-view scene</td><td>3D pointmap alignment objective</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">1. What a pointmap contains</span>
+<p>With intrinsics <span class="inline-equation-token">\(K\)</span> and depth <span class="inline-equation-token">\(D\)</span>, a pointmap maps each pixel into a 3D point in camera coordinates. The paper defines how a pointmap from camera <span class="inline-equation-token">\(n\)</span> is represented in camera <span class="inline-equation-token">\(m\)</span>'s coordinate frame.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 X^{n,m}=P_mP_n^{-1}h(X^n) \tag{1}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">Transforming the pointmap <span class="inline-equation-token">\(X^n\)</span> from camera <span class="inline-equation-token">\(n\)</span> into camera <span class="inline-equation-token">\(m\)</span>'s coordinate frame.</span></figcaption>
-                          </figure>
-                        </div>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">2. Pairwise pointmap regression</span>
-                        <p>The network <span class="inline-equation-token">\(\mathcal{F}\)</span> takes <span class="inline-equation-token">\(I_1\)</span>, <span class="inline-equation-token">\(I_2\)</span> and outputs <span class="inline-equation-token">\(X^{1,1}\)</span>, <span class="inline-equation-token">\(X^{2,1}\)</span> plus confidence maps <span class="inline-equation-token">\(C^{1,1}\)</span>, <span class="inline-equation-token">\(C^{2,1}\)</span>. Both pointmaps are expressed in the coordinate frame of the first image.</p>
-                        <figure class="image">
-                          <img width="2028" height="372" alt="Figure 3. Reconstruction examples from DUSt3R." src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px">
-                          <figcaption><span class="caption-main">Figure 3. Reconstruction examples on two scenes never seen during training.</span><span class="caption-note">The figure shows RGB, depth, confidence, and reconstruction, making the confidence map a useful reliability cue.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">3. Confidence-aware training objective</span>
-                        <p>The model is trained in 3D space. To handle scale ambiguity, prediction and ground truth pointmaps are normalized by average point distance; confidence weighting handles difficult or ill-defined regions.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Transforming the pointmap <span class="inline-equation-token">\(X^n\)</span> from camera <span class="inline-equation-token">\(n\)</span> into camera <span class="inline-equation-token">\(m\)</span>'s coordinate frame.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">2. Pairwise pointmap regression</span>
+<p>The network <span class="inline-equation-token">\(\mathcal{F}\)</span> takes <span class="inline-equation-token">\(I_1\)</span>, <span class="inline-equation-token">\(I_2\)</span> and outputs <span class="inline-equation-token">\(X^{1,1}\)</span>, <span class="inline-equation-token">\(X^{2,1}\)</span> plus confidence maps <span class="inline-equation-token">\(C^{1,1}\)</span>, <span class="inline-equation-token">\(C^{2,1}\)</span>. Both pointmaps are expressed in the coordinate frame of the first image.</p>
+<figure class="image">
+<img alt="Figure 3. Reconstruction examples from DUSt3R." height="372" src="assets/dust3r/media/media_e4026516eae5.png" style="width:960px" width="2028"/>
+<figcaption><span class="caption-main">Figure 3. Reconstruction examples on two scenes never seen during training.</span><span class="caption-note">The figure shows RGB, depth, confidence, and reconstruction, making the confidence map a useful reliability cue.</span></figcaption>
+</figure>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">3. Confidence-aware training objective</span>
+<p>The model is trained in 3D space. To handle scale ambiguity, prediction and ground truth pointmaps are normalized by average point distance; confidence weighting handles difficult or ill-defined regions.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \ell_{\mathrm{regr}}(v,i)=\left\|\frac{1}{z}X_i^{v,1}-\frac{1}{\bar{z}}\bar{X}_i^{v,1}\right\| \tag{2}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">Scale-normalized 3D regression loss for a valid pixel <span class="inline-equation-token">\(i\)</span>.</span></figcaption>
-                          </figure>
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Scale-normalized 3D regression loss for a valid pixel <span class="inline-equation-token">\(i\)</span>.</span></figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathrm{norm}(X^1,X^2)=\frac{1}{|D_1|+|D_2|}\sum_{v\in\{1,2\}}\sum_{i\in D_v}\|X_i^v\| \tag{3}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">Scale normalization from the average distance of valid points to the origin.</span></figcaption>
-                          </figure>
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Scale normalization from the average distance of valid points to the origin.</span></figcaption>
+</figure>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \mathcal{L}_{\mathrm{conf}}=\sum_{v\in\{1,2\}}\sum_{i\in D_v} C_i^{v,1}\ell_{\mathrm{regr}}(v,i)-\alpha\log C_i^{v,1} \tag{4}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">Confidence-weighted regression loss.</span></figcaption>
-                          </figure>
-                        </div>
-                      </section>
-
-                      <section class="summary-panel summary-panel-soft">
-                        <div class="summary-head">
-                          <span class="subsection-label">Notation: pointmaps and global alignment</span>
-                          <p>DUSt3R equations are easiest to read by separating coordinate-frame notation from the variables used to align pairwise predictions into a global 3D frame.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table">
-                            <thead><tr><th>Notation</th><th>Meaning</th><th>How to read it</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(X^n\)</span>, <span class="inline-equation-token">\(X^{n,m}\)</span></span></td><td>Pointmap predicted from camera <span class="inline-equation-token">\(n\)</span>, and the same pointmap expressed in camera <span class="inline-equation-token">\(m\)</span>'s frame</td><td>DUSt3R predicts dense 3D pointmaps directly, not only depth maps.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(P_n\)</span>, <span class="inline-equation-token">\(P_m\)</span>, <span class="inline-equation-token">\(h(\cdot)\)</span></span></td><td>Camera poses and homogeneous-coordinate conversion</td><td>Eq. (1) is the rigid transform that changes the pointmap coordinate frame.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(D_v\)</span>, <span class="inline-equation-token">\(i\)</span>, <span class="inline-equation-token">\(v\)</span></span></td><td>Valid pixel set, pixel index, and view index</td><td>Invalid depth or occlusion regions are excluded from the training loss.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(z\)</span>, <span class="inline-equation-token">\(\bar z\)</span></span></td><td>Scale normalization factors for prediction and ground truth</td><td>Removes unknown scale so the loss focuses on 3D direction and shape.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i^{v,1}\)</span></span></td><td>Pixel confidence</td><td>Downweights difficult pixels while <span class="inline-equation-token">\(-\alpha\log C\)</span> prevents confidence collapse.</td></tr>
-                              <tr><td><span class="summary-term"><span class="inline-equation-token">\(\chi_i^v\)</span>, <span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_e\)</span></span></td><td>Global pointmap, pair scale, and pair pose</td><td>Eq. (5) plays a DUSt3R-style BA role by aligning pairwise pointmaps into one global 3D frame.</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-
-                      <section class="method-step-block">
-                        <span class="subsection-label">4. Global alignment</span>
-                        <p>For multiple images, DUSt3R constructs a connectivity graph over image pairs and aligns pairwise pointmap predictions in 3D space. Unlike classical BA, the objective minimizes 3D alignment error rather than 2D reprojection error.</p>
-                        <div class="method-equation-cluster">
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Confidence-weighted regression loss.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">Notation: pointmaps and global alignment</span>
+<p>DUSt3R equations are easiest to read by separating coordinate-frame notation from the variables used to align pairwise predictions into a global 3D frame.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Notation</th><th>Meaning</th><th>How to read it</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(X^n\)</span>, <span class="inline-equation-token">\(X^{n,m}\)</span></span></td><td>Pointmap predicted from camera <span class="inline-equation-token">\(n\)</span>, and the same pointmap expressed in camera <span class="inline-equation-token">\(m\)</span>'s frame</td><td>DUSt3R predicts dense 3D pointmaps directly, not only depth maps.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(P_n\)</span>, <span class="inline-equation-token">\(P_m\)</span>, <span class="inline-equation-token">\(h(\cdot)\)</span></span></td><td>Camera poses and homogeneous-coordinate conversion</td><td>Eq. (1) is the rigid transform that changes the pointmap coordinate frame.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(D_v\)</span>, <span class="inline-equation-token">\(i\)</span>, <span class="inline-equation-token">\(v\)</span></span></td><td>Valid pixel set, pixel index, and view index</td><td>Invalid depth or occlusion regions are excluded from the training loss.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(z\)</span>, <span class="inline-equation-token">\(\bar z\)</span></span></td><td>Scale normalization factors for prediction and ground truth</td><td>Removes unknown scale so the loss focuses on 3D direction and shape.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i^{v,1}\)</span></span></td><td>Pixel confidence</td><td>Downweights difficult pixels while <span class="inline-equation-token">\(-\alpha\log C\)</span> prevents confidence collapse.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(\chi_i^v\)</span>, <span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_e\)</span></span></td><td>Global pointmap, pair scale, and pair pose</td><td>Eq. (5) plays a DUSt3R-style BA role by aligning pairwise pointmaps into one global 3D frame.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="method-step-block">
+<span class="subsection-label">4. Global alignment</span>
+<p>For multiple images, DUSt3R constructs a connectivity graph over image pairs and aligns pairwise pointmap predictions in 3D space. Unlike classical BA, the objective minimizes 3D alignment error rather than 2D reprojection error.</p>
+<div class="method-equation-cluster">
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \chi^*=\arg\min_{\chi,P,\sigma}\sum_{e\in E}\sum_{v\in e}\sum_{i=1}^{HW} C_i^{v,e}\left\|\chi_i^v-\sigma_eP_eX_i^{v,e}\right\| \tag{5}
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">Global 3D-space pointmap alignment objective.</span></figcaption>
-                          </figure>
-                        </div>
-                      </section>
-
-                      <details class="supplement-toggle supplement-structured">
-                        <summary>Camera recovery / focal estimation details</summary>
-                        <div class="appendix-details supplement-details">
-                          <section class="summary-panel summary-panel-soft">
-                            <div class="summary-head">
-                              <span class="subsection-label">What can be recovered from pointmaps?</span>
-                              <p>Pointmaps can also recover pixel correspondences and camera parameters. These details support the paper's claim but are secondary to the main mechanism.</p>
-                            </div>
-                            <div class="summary-table-wrap">
-                              <table class="summary-table">
-                                <thead><tr><th>Recovered target</th><th>How</th><th>Meaning</th></tr></thead>
-                                <tbody>
-                                  <tr><td><span class="summary-term">Pixel matches</span></td><td>Nearest neighbors between pointmaps</td><td>Dense correspondence without a separate descriptor</td></tr>
-                                  <tr><td><span class="summary-term">Focal length</span></td><td>Optimize projection under centered-principal-point and square-pixel assumptions</td><td>Recover intrinsics from a pointmap</td></tr>
-                                  <tr><td><span class="summary-term">Relative pose</span></td><td>Use 2D matches or direct 3D-3D pointmap alignment</td><td>Connects to pose estimation</td></tr>
-                                  <tr><td><span class="summary-term">Absolute pose</span></td><td>Create query/database correspondences and run PnP-RANSAC</td><td>Enables visual localization</td></tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </section>
-                          <figure class="equation">
-                            <div class="equation-container"><div class="equation-render"><div class="equation-main">
+<figcaption><span class="caption-main">Global 3D-space pointmap alignment objective.</span></figcaption>
+</figure>
+</div>
+</section>
+<details class="supplement-toggle supplement-structured">
+<summary>Camera recovery / focal estimation details</summary>
+<div class="appendix-details supplement-details">
+<section class="summary-panel summary-panel-soft">
+<div class="summary-head">
+<span class="subsection-label">What can be recovered from pointmaps?</span>
+<p>Pointmaps can also recover pixel correspondences and camera parameters. These details support the paper's claim but are secondary to the main mechanism.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table">
+<thead><tr><th>Recovered target</th><th>How</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Pixel matches</span></td><td>Nearest neighbors between pointmaps</td><td>Dense correspondence without a separate descriptor</td></tr>
+<tr><td><span class="summary-term">Focal length</span></td><td>Optimize projection under centered-principal-point and square-pixel assumptions</td><td>Recover intrinsics from a pointmap</td></tr>
+<tr><td><span class="summary-term">Relative pose</span></td><td>Use 2D matches or direct 3D-3D pointmap alignment</td><td>Connects to pose estimation</td></tr>
+<tr><td><span class="summary-term">Absolute pose</span></td><td>Create query/database correspondences and run PnP-RANSAC</td><td>Enables visual localization</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<figure class="equation">
+<div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 f_1^*=\arg\min_{f_1}\sum_{i=0}^{W}\sum_{j=0}^{H}C_{i,j}^{1,1}
 \left\|(i',j')-f_1\frac{(X_{i,j,0}^{1,1},X_{i,j,1}^{1,1})}{X_{i,j,2}^{1,1}}\right\|
 $$
                             </div></div></div>
-                            <figcaption><span class="caption-main">The paper estimates only <span class="inline-equation-token">\(f_1\)</span> under centered-principal-point and square-pixel assumptions.</span></figcaption>
-                          </figure>
-                        </div>
-                      </details>
-                    </section>
+<figcaption><span class="caption-main">The paper estimates only <span class="inline-equation-token">\(f_1\)</span> under centered-principal-point and square-pixel assumptions.</span></figcaption>
+</figure>
+</div>
+</details>
+</section>
+<section class="deep-section" data-section-title="Evidence">
+<h3 id="en-evidence">Evidence: which tasks validate the idea?</h3>
+<p>DUSt3R is evaluated across several tasks because the central claim is representational: one pointmap-based model should support visual localization, multi-view pose, monocular depth, multi-view depth, and 3D reconstruction.</p>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head">
+<span class="section-chip">Evaluation Roadmap</span>
+<p>Each result corresponds to a different question about what can be derived from pointmaps.</p>
+</div>
+<div class="result-brief-grid">
+<article><strong>Pose</strong><p>Can correspondences and cameras be recovered from pointmaps?</p></article>
+<article><strong>Depth</strong><p>Can z-coordinates and confidence aggregation support depth tasks?</p></article>
+<article><strong>Reconstruction</strong><p>Can pairwise pointmaps be aligned into a global 3D scene?</p></article>
+</div>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Pose Evidence</span>
+<figure class="image">
+<img alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." height="598" src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px" width="1792"/>
+<figcaption><span class="caption-main">Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks datasets.</span><span class="caption-note">DUSt3R uses raw pointmaps to obtain correspondences and then applies PnP-RANSAC for visual localization.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." height="664" src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px" width="1478"/>
+<figcaption><span class="caption-main">Table 2. Right: Multi-view pose regression on CO3Dv2 and RealEstate10K with 10 random frames.</span><span class="caption-note">The paper states that global alignment gives the best overall performance on both datasets, while the PnP variant also outperforms learning- and structure-based baselines.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Depth Evidence</span>
+<figure class="image">
+<img alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." height="486" src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px" width="1292"/>
+<figcaption><span class="caption-main">Table 2. Left: Monocular depth estimation on multiple benchmarks.</span><span class="caption-note">For monocular depth, the same image is fed as <span class="inline-equation-token">\(\mathcal{F}(I,I)\)</span>, and depth is read from the z-coordinate of the predicted pointmap.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Table 3. Multi-view depth evaluation with different settings." height="1090" src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px" width="1834"/>
+<figcaption><span class="caption-main">Table 3. Multi-view depth evaluation with different settings.</span><span class="caption-note">Multiple depth predictions are rescaled and confidence-weighted before evaluation on DTU, ETH3D, Tanks and Temples, and ScanNet.</span></figcaption>
+</figure>
+</section>
+<section class="evidence-cluster">
+<span class="subsection-label">Reconstruction Evidence</span>
+<figure class="image">
+<img alt="Table 4. MVS results on the DTU dataset." height="1034" src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px" width="1258"/>
+<figcaption><span class="caption-main">Table 4. MVS results on the DTU dataset.</span><span class="caption-note">The paper emphasizes global unconstrained MVS without prior camera knowledge and reports accuracy, completeness, and overall distance on DTU.</span></figcaption>
+</figure>
+<figure class="image">
+<img alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." height="1398" src="assets/dust3r/media/media_0aee775df721.png" style="width:620px" width="960"/>
+<figcaption><span class="caption-main">Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene from two images.</span><span class="caption-note">A qualitative example of two-image reconstruction on an unseen MegaDepth scene.</span></figcaption>
+</figure>
+</section>
+<section class="result-brief result-brief-wide">
+<div class="result-brief-head">
+<span class="section-chip">Evaluation Brief</span>
+<p>The experiments collectively support the claim that pointmaps can serve as one representation for many 3D vision tasks.</p>
+</div>
+<div class="result-brief-grid">
+<article><strong>Pose</strong><p>Correspondence and camera recovery are derived from pointmaps.</p></article>
+<article><strong>Depth</strong><p>The z-coordinate and confidence aggregation support mono/multi-view depth.</p></article>
+<article><strong>Reconstruction</strong><p>Global alignment turns pairwise predictions into MVS reconstruction.</p></article>
+</div>
+</section>
+</section>
+<section class="deep-section" data-section-title="Usage / Limits">
+<h3 id="en-usage">Usage / Limits: when is it useful?</h3>
+<p>DUSt3R is useful when image poses and intrinsics are unavailable, or when many 3D outputs should be derived from one representation. However, global alignment still depends on pairwise prediction quality and graph connectivity.</p>
+<section class="summary-panel usage-fit-box">
+<div class="summary-head">
+<span class="section-chip">When to Use / Avoid</span>
+<p>The paper's conclusion and experimental scope can be summarized as application conditions.</p>
+</div>
+<div class="summary-table-wrap">
+<table class="summary-table usage-table">
+<thead><tr><th>Category</th><th>Summary</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><span class="summary-term">Good fit</span></td><td>Image pairs or small collections without pose/intrinsics</td><td>Camera-free pointmap prediction works directly</td></tr>
+<tr><td><span class="summary-term">Useful output</span></td><td>Depth, matching, pose, and reconstruction from one model</td><td>Pointmaps act as a shared representation</td></tr>
+<tr><td><span class="summary-term">Check carefully</span></td><td>Low-overlap multi-view scenes or weak connectivity graphs</td><td>Global alignment depends on pairwise predictions and confidence</td></tr>
+<tr><td><span class="summary-term">Limitation</span></td><td>Highly precise metric MVS or domain-specific reconstruction</td><td>Generic priors may still need downstream refinement</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="deep-section" data-section-title="Takeaway">
+<h3 id="en-takeaway">Takeaway</h3>
+<p>(Writing in progress...)</p>
+</section>
 
-                    <section class="deep-section" data-section-title="Evidence">
-                      <h3 id="en-evidence">Evidence: which tasks validate the idea?</h3>
-                      <p>DUSt3R is evaluated across several tasks because the central claim is representational: one pointmap-based model should support visual localization, multi-view pose, monocular depth, multi-view depth, and 3D reconstruction.</p>
-
-                      <section class="result-brief result-brief-wide">
-                        <div class="result-brief-head">
-                          <span class="section-chip">Evaluation Roadmap</span>
-                          <p>Each result corresponds to a different question about what can be derived from pointmaps.</p>
-                        </div>
-                        <div class="result-brief-grid">
-                          <article><strong>Pose</strong><p>Can correspondences and cameras be recovered from pointmaps?</p></article>
-                          <article><strong>Depth</strong><p>Can z-coordinates and confidence aggregation support depth tasks?</p></article>
-                          <article><strong>Reconstruction</strong><p>Can pairwise pointmaps be aligned into a global 3D scene?</p></article>
-                        </div>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">Pose Evidence</span>
-                        <figure class="image">
-                          <img width="1792" height="598" alt="Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks." src="assets/dust3r/media/media_d79d47bc63d0.png" style="width:900px">
-                          <figcaption><span class="caption-main">Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks datasets.</span><span class="caption-note">DUSt3R uses raw pointmaps to obtain correspondences and then applies PnP-RANSAC for visual localization.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="1478" height="664" alt="Table 2 Right. Multi-view pose regression on CO3Dv2 and RealEstate10K." src="assets/dust3r/media/media_a5a0c714ee5e.png" style="width:690px">
-                          <figcaption><span class="caption-main">Table 2. Right: Multi-view pose regression on CO3Dv2 and RealEstate10K with 10 random frames.</span><span class="caption-note">The paper states that global alignment gives the best overall performance on both datasets, while the PnP variant also outperforms learning- and structure-based baselines.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">Depth Evidence</span>
-                        <figure class="image">
-                          <img width="1292" height="486" alt="Table 2 Left. Monocular depth estimation on multiple benchmarks." src="assets/dust3r/media/media_36579ecf058e.png" style="width:690px">
-                          <figcaption><span class="caption-main">Table 2. Left: Monocular depth estimation on multiple benchmarks.</span><span class="caption-note">For monocular depth, the same image is fed as <span class="inline-equation-token">\(\mathcal{F}(I,I)\)</span>, and depth is read from the z-coordinate of the predicted pointmap.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="1834" height="1090" alt="Table 3. Multi-view depth evaluation with different settings." src="assets/dust3r/media/media_9d570bec3d8e.png" style="width:860px">
-                          <figcaption><span class="caption-main">Table 3. Multi-view depth evaluation with different settings.</span><span class="caption-note">Multiple depth predictions are rescaled and confidence-weighted before evaluation on DTU, ETH3D, Tanks and Temples, and ScanNet.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="evidence-cluster">
-                        <span class="subsection-label">Reconstruction Evidence</span>
-                        <figure class="image">
-                          <img width="1258" height="1034" alt="Table 4. MVS results on the DTU dataset." src="assets/dust3r/media/media_9d5e4c942920.png" style="width:640px">
-                          <figcaption><span class="caption-main">Table 4. MVS results on the DTU dataset.</span><span class="caption-note">The paper emphasizes global unconstrained MVS without prior camera knowledge and reports accuracy, completeness, and overall distance on DTU.</span></figcaption>
-                        </figure>
-                        <figure class="image">
-                          <img width="960" height="1398" alt="Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene." src="assets/dust3r/media/media_0aee775df721.png" style="width:620px">
-                          <figcaption><span class="caption-main">Figure 4. Example of 3D reconstruction of an unseen MegaDepth scene from two images.</span><span class="caption-note">A qualitative example of two-image reconstruction on an unseen MegaDepth scene.</span></figcaption>
-                        </figure>
-                      </section>
-
-                      <section class="result-brief result-brief-wide">
-                        <div class="result-brief-head">
-                          <span class="section-chip">Evaluation Brief</span>
-                          <p>The experiments collectively support the claim that pointmaps can serve as one representation for many 3D vision tasks.</p>
-                        </div>
-                        <div class="result-brief-grid">
-                          <article><strong>Pose</strong><p>Correspondence and camera recovery are derived from pointmaps.</p></article>
-                          <article><strong>Depth</strong><p>The z-coordinate and confidence aggregation support mono/multi-view depth.</p></article>
-                          <article><strong>Reconstruction</strong><p>Global alignment turns pairwise predictions into MVS reconstruction.</p></article>
-                        </div>
-                      </section>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Usage / Limits">
-                      <h3 id="en-usage">Usage / Limits: when is it useful?</h3>
-                      <p>DUSt3R is useful when image poses and intrinsics are unavailable, or when many 3D outputs should be derived from one representation. However, global alignment still depends on pairwise prediction quality and graph connectivity.</p>
-
-                      <section class="summary-panel usage-fit-box">
-                        <div class="summary-head">
-                          <span class="section-chip">When to Use / Avoid</span>
-                          <p>The paper's conclusion and experimental scope can be summarized as application conditions.</p>
-                        </div>
-                        <div class="summary-table-wrap">
-                          <table class="summary-table usage-table">
-                            <thead><tr><th>Category</th><th>Summary</th><th>Reason</th></tr></thead>
-                            <tbody>
-                              <tr><td><span class="summary-term">Good fit</span></td><td>Image pairs or small collections without pose/intrinsics</td><td>Camera-free pointmap prediction works directly</td></tr>
-                              <tr><td><span class="summary-term">Useful output</span></td><td>Depth, matching, pose, and reconstruction from one model</td><td>Pointmaps act as a shared representation</td></tr>
-                              <tr><td><span class="summary-term">Check carefully</span></td><td>Low-overlap multi-view scenes or weak connectivity graphs</td><td>Global alignment depends on pairwise predictions and confidence</td></tr>
-                              <tr><td><span class="summary-term">Limitation</span></td><td>Highly precise metric MVS or domain-specific reconstruction</td><td>Generic priors may still need downstream refinement</td></tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Takeaway">
-                      <h3 id="en-takeaway">Takeaway</h3>
-                      <p>(Writing in progress...)</p>
-                    </section>
-
-                    <section class="deep-section" data-section-title="Future Work">
-                      <h3 id="en-future-work">Future Work</h3>
-                      <p>(Writing in progress...)</p>
-                    </section>
-                  </div>
-
-                  <div class="deep-dive-more is-visible" id="deepDiveMore">
-                    <button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-        </section>
-
-        <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
-          <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
-          <script async crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
-        </section>
-      </main>
-    </div>
-  </div>
-
-  <div aria-hidden="true" class="lightbox" id="lightbox">
-    <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
-    <img alt="preview" id="lightboxImg">
-  </div>
-
-  <script src="script.js?v=dust3r-redesign-20260526"></script>
+</div>
+<div class="deep-dive-more is-visible" id="deepDiveMore">
+<button class="deep-dive-more-btn" data-en="Read More" data-ko="더보기" id="deepDiveMoreBtn" type="button">더보기</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</section>
+<section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+<h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+</section>
+</main>
+</div>
+</div>
+<div aria-hidden="true" class="lightbox" id="lightbox">
+<button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
+<img alt="preview" id="lightboxImg"/>
+</div>
+<script src="script.js?v=dust3r-redesign-20260526"></script>
 </body>
 </html>

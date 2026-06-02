@@ -5347,3 +5347,20 @@ body{
     font-size: 15px;
   }
 }
+
+/* Paper body copy guard: 2026-06-02 */
+.post-body,
+.post-body *{
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+.post-body img,
+.post-body figure,
+.post-body svg{
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+.post-body ::selection{
+  background: transparent;
+  color: inherit;
+}

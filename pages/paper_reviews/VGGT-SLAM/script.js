@@ -870,3 +870,34 @@ function rebuildBookmarks() {
     observer.observe(postBody, { childList: true, subtree: true });
   }
 })();
+
+// Paper body copy guard: 2026-06-02
+(() => {
+  const protectedSelector = ".post-body";
+  const insideProtectedBody = (node) => {
+    if (!node) return false;
+    const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+    return Boolean(element?.closest?.(protectedSelector));
+  };
+  const protectedSelectionActive = () => {
+    const selection = window.getSelection?.();
+    if (!selection || selection.isCollapsed) return false;
+    return insideProtectedBody(selection.anchorNode) || insideProtectedBody(selection.focusNode);
+  };
+  const clearSelection = () => window.getSelection?.()?.removeAllRanges?.();
+
+  document.addEventListener("selectstart", (event) => {
+    if (insideProtectedBody(event.target)) event.preventDefault();
+  });
+  document.addEventListener("dragstart", (event) => {
+    if (insideProtectedBody(event.target)) event.preventDefault();
+  });
+  ["copy", "cut"].forEach((eventName) => {
+    document.addEventListener(eventName, (event) => {
+      if (!protectedSelectionActive()) return;
+      event.preventDefault();
+      event.clipboardData?.setData("text/plain", "");
+      clearSelection();
+    });
+  });
+})();

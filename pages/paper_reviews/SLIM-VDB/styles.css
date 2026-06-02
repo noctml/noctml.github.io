@@ -5010,3 +5010,86 @@ body{
     font-size: 15px;
   }
 }
+
+/* Legacy and mixed deep-dive normalization: 2026-06-02 */
+body .post-body .legacy-deep-content,
+body .post-body .sectioned-deep-content,
+body .post-body .mixed-deep-content{
+  --legacy-body-offset: clamp(10px, 1.35vw, 22px);
+}
+
+/* Keep the shared deep-dive h3 theme intact; this block only normalizes legacy body rhythm. */
+body .post-body .legacy-deep-content > div[style*="display:contents"] > :is(p, ul, ol, blockquote),
+body .post-body .sectioned-deep-content > :is(p, ul, ol, blockquote),
+body .post-body .mixed-deep-content .deep-section > div[style*="display:contents"] > :is(p, ul, ol, blockquote){
+  margin-left: var(--legacy-body-offset) !important;
+  max-width: calc(100% - var(--legacy-body-offset));
+}
+
+body .post-body .legacy-deep-content > :is(section, details.supplement-toggle, .summary-panel, .result-brief, .section-note, .visual-summary, .visual-pair, .problem-ladder, .design-choice-box, .method-step-block),
+body .post-body .sectioned-deep-content > :is(section, details.supplement-toggle, .summary-panel, .result-brief, .section-note, .visual-summary, .visual-pair, .problem-ladder, .design-choice-box, .method-step-block){
+  margin-left: var(--legacy-body-offset);
+  max-width: calc(100% - var(--legacy-body-offset));
+}
+
+body .post-body .legacy-deep-content > details.supplement-toggle,
+body .post-body .sectioned-deep-content > details.supplement-toggle,
+body .post-body .mixed-deep-content .deep-section > details.supplement-toggle{
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+
+body .post-body .legacy-deep-content details.supplement-toggle[open] .appendix-details,
+body .post-body .mixed-deep-content details.supplement-toggle[open] .appendix-details,
+body .post-body .sectioned-deep-content details.supplement-toggle[open] .appendix-details{
+  padding-left: clamp(18px, 2vw, 28px);
+  padding-right: clamp(18px, 2vw, 28px);
+}
+
+body .post-body .legacy-deep-content figure.image,
+body .post-body .legacy-deep-content figure.table-figure,
+body .post-body .sectioned-deep-content figure.image,
+body .post-body .sectioned-deep-content figure.table-figure,
+body .post-body .mixed-deep-content figure.image,
+body .post-body .mixed-deep-content figure.table-figure{
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center;
+}
+
+body .post-body .legacy-deep-content .section-chip-row,
+body .post-body .sectioned-deep-content .section-chip-row,
+body .post-body .mixed-deep-content .section-chip-row{
+  margin-left: var(--legacy-body-offset);
+  max-width: calc(100% - var(--legacy-body-offset));
+}
+
+body .post-body .legacy-deep-content > div[style*="display:contents"] > :is(p, ul, ol, blockquote) + div[style*="display:contents"] > :is(p, ul, ol, blockquote),
+body .post-body .sectioned-deep-content > :is(p, ul, ol, blockquote) + :is(p, ul, ol, blockquote){
+  margin-top: .55rem;
+}
+
+@media (max-width: 640px){
+  body .post-body .legacy-deep-content,
+  body .post-body .sectioned-deep-content,
+  body .post-body .mixed-deep-content{
+    --legacy-body-offset: 0px;
+  }
+}
+
+/* Paper body copy guard: 2026-06-02 */
+.post-body,
+.post-body *{
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+.post-body img,
+.post-body figure,
+.post-body svg{
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+.post-body ::selection{
+  background: transparent;
+  color: inherit;
+}
