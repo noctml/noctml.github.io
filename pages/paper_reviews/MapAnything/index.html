@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<script>document.documentElement.removeAttribute("data-theme");try{localStorage.removeItem("theme")}catch(e){}</script>
 <meta content="다양한 기하 입력을 통합하는 universal metric 3D reconstruction" name="description"/>
 <title>[논문 리뷰] MapAnything: Universal Feed-Forward Metric 3D Reconstruction | Insighted</title>
 <link href="../../../assets/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
@@ -11,7 +12,7 @@
 <meta content="다양한 기하 입력을 통합하는 universal metric 3D reconstruction" property="og:description"/>
 <meta content="website" property="og:type"/>
 <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet"/>
-<link href="styles.css?v=mapanything-redesign-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
+<link href="styles.css?v=mapanything-redesign-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601-lightbox-zoom-20260605-trackpad-pinch-20260605-lightbox-page-scale-reset-20260605-paper-meta-masthead-20260606-paper-meta-compact-20260606-scoped-blue-v9-20260607-monst3r-neutral-v1-20260607-sepia-emphasis-20260608-sepia-title-brown-20260608-meta-title-merge-20260608-meta-masthead-parity-20260608-inline-baseline-20260609-inline-sepia-20260609-inline-sepia-soft-20260609-inline-gray-restore-20260609-inline-gray-chip-20260609-toggle-guard-20260609-imgcenter-20260609-toggle-stable-20260609-focus-indent-reset-20260609-toggle-margin-sync-20260609" rel="stylesheet"/>
 <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
 <script defer="" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 </head>
@@ -43,9 +44,6 @@
 <span data-lang-option="ko">KO</span>
 <span data-lang-option="en">EN</span>
 </button>
-<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
-<span aria-hidden="true" id="themeIcon">☀</span>
-</button>
 </div>
 </div>
 </header>
@@ -55,7 +53,7 @@
 <header class="paper-identity">
 <p class="paper-title-meta">MapAnything: Universal Feed-Forward Metric 3D Reconstruction</p>
 <div class="paper-meta-card">
-<div class="paper-meta-top"><span class="paper-meta-venue">3DV 2026</span><span class="paper-meta-date">arXiv: 16 Sep 2025</span></div>
+<div class="paper-meta-top"><span class="paper-meta-venue">3DV 2026</span><span class="paper-meta-date">Published: 3DV 2026 / arXiv v3: 23 Jan 2026</span></div>
 <dl class="paper-meta-grid">
 <div class="paper-meta-item"><dt>Authors</dt><dd>Nikhil Keetha; Norman Muller; Johannes Schonberger; Lorenzo Porzi; Yuchen Zhang; Tobias Fischer; Arno Knapitsch; Duncan Zauss; Ethan Weber; Nelson Antunes; Jonathon Luiten; Manuel Lopez-Antequera; Samuel Rota Bulo; Christian Richardt; Deva Ramanan; Sebastian Scherer; Peter Kontschieder</dd></div>
 <div class="paper-meta-item"><dt>Affiliations</dt><dd>Meta Reality Labs; Carnegie Mellon University</dd></div>
@@ -161,7 +159,7 @@
 <section class="summary-panel">
 <div class="summary-head">
 <span class="section-chip">Problem / Proposal</span>
-<p>Introduction과 Conclusion의 핵심은 task별 model을 여러 개 만드는 대신, 하나의 representation이 여러 입력 조건을 받아들이게 만드는 것이다.</p>
+<p>이 논문의 문제 제기는 task별 model을 여러 개 만드는 대신, 하나의 representation이 여러 입력 조건을 받아들이게 만들 수 있는가에 있다.</p>
 </div>
 <div class="summary-table-wrap">
 <table class="summary-table">
@@ -227,7 +225,7 @@ f_{\mathrm{MapAnything}}(\hat I,[\hat R,\hat Q,\hat T,\hat D])
 =\{m,(R_i,\tilde D_i,\tilde P_i)_{i=1}^{N}\} \tag{1}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">입력 image와 optional geometry에서 global metric scale <span class="inline-equation-token">\(m\)</span>, ray direction <span class="inline-equation-token">\(R_i\)</span>, ray depth <span class="inline-equation-token">\(\tilde D_i\)</span>, pose <span class="inline-equation-token">\(\tilde P_i\)</span>를 예측.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (1). Factored reconstruction output.</span><span class="caption-note">입력 image와 optional geometry에서 global metric scale <span class="inline-equation-token">\(m\)</span>과 view별 ray direction, ray depth, pose factor를 함께 예측한다.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -243,7 +241,7 @@ $$
 X_i^{\mathrm{metric}}=m\cdot\tilde X_i
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">local ray-depth geometry를 pose와 metric scale로 올려 scene-level metric 3D를 구성.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Metric 3D composition.</span><span class="caption-note">local ray-depth geometry에 pose와 metric scale을 적용해 scene-level metric 3D reconstruction을 구성한다.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -257,7 +255,7 @@ $$
 \hat z_p=\frac{1}{|S_t|}\sum_{i\in S_t}\|\hat T_i\|
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">입력 translation이 제공된 view들의 평균 거리로 pose scale을 계산.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Pose scale normalization.</span><span class="caption-note">translation이 제공된 view들의 평균 거리로 pose scale 기준을 만들어 scale-dependent factor를 분리한다.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -274,7 +272,7 @@ $$
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(m\)</span></span></td><td>predicted global metric scale</td><td>local/up-to-scale geometry를 metric 3D로 변환하는 핵심 scalar.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(R_i\)</span>, <span class="inline-equation-token">\(\tilde D_i\)</span>, <span class="inline-equation-token">\(\tilde P_i\)</span></span></td><td>view <span class="inline-equation-token">\(i\)</span>의 ray direction, up-to-scale ray depth, pose-like transform</td><td>factored output의 세 가지 주요 geometry factor.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\tilde L_i\)</span>, <span class="inline-equation-token">\(\tilde X_i\)</span>, <span class="inline-equation-token">\(X_i^{metric}\)</span></span></td><td>local ray-depth point, posed point, final metric point</td><td>ray-depth geometry가 pose와 scale을 거쳐 metric reconstruction이 됨.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-equation-token">\(O_i\)</span>, <span class="inline-equation-token">\(\tilde T_i\)</span></span></td><td>rotation/origin-like term과 translation component</td><td>local point를 view/world coordinate 쪽으로 올리는 transform 요소.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(O_i\)</span>, <span class="inline-equation-token">\(\tilde T_i\)</span></span></td><td>quaternion <span class="inline-equation-token">\(Q_i\)</span>에서 얻은 rotation matrix와 translation component</td><td>local ray-depth point를 posed point로 올리는 transform 요소.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(S_t\)</span>, <span class="inline-equation-token">\(\hat z_p\)</span></span></td><td>translation이 제공된 view 집합과 pose scale</td><td>pose translation이 있을 때 평균 거리로 scale 기준을 만든다.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\operatorname{sg}(\cdot)\)</span>, <span class="inline-equation-token">\(f_{\log}\)</span></span></td><td>stop-gradient와 log-space compression</td><td>scale loss가 geometry factor를 불안정하게 흔들지 않도록 분리.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i\)</span>, <span class="inline-equation-token">\(\mathcal L_{mask}\)</span></span></td><td>confidence/mask terms</td><td>ambiguous pixel과 invalid geometry 영역을 조절.</td></tr>
@@ -310,16 +308,17 @@ $$
 \mathcal L_{\mathrm{rot}}=\sum_{i=1}^{N}\min(\|\hat Q_i-Q_i\|,\|-\hat Q_i-Q_i\|)
 $$
                               </div></div></div>
-<figcaption><span class="caption-main">ray direction과 quaternion rotation은 scale-independent quantity라 직접 regression한다.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Scale-independent factor losses.</span><span class="caption-note">ray direction과 quaternion rotation은 scene scale과 무관하므로 별도 정규화 없이 직접 regression한다.</span></figcaption>
 </figure>
 <figure class="equation training-loss-equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 z_{\mathrm{metric}}=m\cdot\operatorname{sg}(\tilde z),\qquad
+\mathcal L_{\mathrm{scale}}=\left\|f_{\log}(\hat z)-f_{\log}(z_{\mathrm{metric}})\right\|,\qquad
 \mathcal L_{\mathrm{translation}}=\sum_{i=1}^{N}\left\|\frac{\hat T_i}{\hat z}-\frac{\tilde T_i}{\tilde z}\right\|
 $$
                               </div></div></div>
-<figcaption><span class="caption-main">metric scale loss가 geometry를 흔들지 않도록 stop-gradient가 적용된 <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span>을 사용한다.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Factored metric scale loss.</span><span class="caption-note">stop-gradient가 적용된 <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span>을 기준으로 scale을 감독해 geometry factor의 학습을 분리한다.</span></figcaption>
 </figure>
 <figure class="equation training-loss-equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -329,7 +328,7 @@ f_{\log}(x)=\frac{x}{\|x\|}\log(1+\|x\|),\qquad
 \left(C_i\left\|f_{\log}\left(\frac{\hat X_i}{\hat z}\right)-f_{\log}\left(\frac{\tilde X_i}{\tilde z}\right)\right\|-\alpha\log C_i\right)
 $$
                               </div></div></div>
-<figcaption><span class="caption-main">ray depth, pointmap, metric scale은 log-space loss가 중요하며, per-pixel loss 상위 5%는 outlier 완화를 위해 제외한다.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Log-space pointmap loss.</span><span class="caption-note">ray depth, pointmap, metric scale을 log-space에서 비교하고 per-pixel loss 상위 5%를 제외해 scale variation과 outlier를 완화한다.</span></figcaption>
 </figure>
 <figure class="equation training-loss-equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -341,7 +340,7 @@ $$
 +\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}}
 $$
                               </div><div class="equation-tag">(2)</div></div></div>
-<figcaption><span class="caption-main">전체 loss는 pointmap loss를 크게 가중하고 mask loss는 낮게 가중해, geometry 품질을 중심으로 학습한다.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (2). Universal training objective.</span><span class="caption-note">전체 objective는 pointmap loss를 크게 가중하고 mask loss는 낮게 가중해 다양한 supervision을 geometry 품질 중심으로 결합한다.</span></figcaption>
 </figure>
 </div>
 <figure class="image">
@@ -420,7 +419,7 @@ $$
 <span class="subsection-label">Metric Depth Evidence</span>
 <figure class="image">
 <img alt="Table 4. Metric depth estimation on Robust-MVD benchmark." height="1414" src="assets/논문-스터디/media/media_47be1e49615e.png" style="width:432px" width="818"/>
-<figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">single-view와 multi-view metric depth를 함께 비교하며, MapAnything은 benchmark 학습 없이 KITTI에서 강한 성능을 보이고, calibration/pose가 주어지면 specialist MVS/depth model과 경쟁 가능한 결과를 낸다.</span></figcaption>
+<figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">single-view와 multi-view metric depth를 함께 비교한다. 논문은 single-image input에 특화해 학습하지 않았음에도 KITTI에서 강한 결과를 보이고, calibration/pose가 주어지면 specialist MVS/depth model과 경쟁 가능한 결과를 낸다고 정리한다.</span></figcaption>
 </figure>
 </section>
 <section class="evidence-cluster">
@@ -459,11 +458,7 @@ $$
 <p>MapAnything은 “모든 3D task를 완전히 끝낸 모델”이라기보다, <strong>다양한 입력 조건을 하나의 metric 3D reconstruction backbone으로 흡수하는 설계</strong>에 의미가 있다.</p>
 </section>
 </section>
-<section class="deep-section" data-section-title="Conclusion">
-<h3 id="ko-conclusion">Conclusion</h3>
-<p>MapAnything은 images, intrinsics, poses, depth maps, partial reconstructions 같은 flexible input에서 metric 3D geometry와 camera pose를 직접 회귀하는 universal transformer backbone이다. 핵심은 depth map, ray map, pose, global scale factor로 multi-view geometry를 factorization해 local estimate를 global metric frame으로 통합하는 것이다.</p>
-<p>실험적으로는 uncalibrated SfM, calibrated MVS, monocular depth, camera localization, depth completion 등 여러 task에서 specialist model과 맞먹거나 앞서는 결과를 보이며, future extension으로 dynamic scene, uncertainty quantification, scene understanding을 제시한다.</p>
-</section>
+
 <section class="deep-section" data-section-title="Takeaway">
 <h3 id="ko-takeaway">느낀점</h3>
 <p>(진행중...)</p>
@@ -560,7 +555,7 @@ f_{\mathrm{MapAnything}}(\hat I,[\hat R,\hat Q,\hat T,\hat D])
 =\{m,(R_i,\tilde D_i,\tilde P_i)_{i=1}^{N}\} \tag{1}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">The model predicts global metric scale <span class="inline-equation-token">\(m\)</span>, ray direction <span class="inline-equation-token">\(R_i\)</span>, ray depth <span class="inline-equation-token">\(\tilde D_i\)</span>, and pose <span class="inline-equation-token">\(\tilde P_i\)</span>.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (1). Factored reconstruction output.</span><span class="caption-note">The model predicts global metric scale <span class="inline-equation-token">\(m\)</span> together with per-view ray direction, ray depth, and pose factors.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -576,7 +571,7 @@ $$
 X_i^{\mathrm{metric}}=m\cdot\tilde X_i
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Local ray-depth geometry becomes scene-level metric 3D after pose and scale are applied.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Metric 3D composition.</span><span class="caption-note">Pose and metric scale lift local ray-depth geometry into scene-level metric 3D reconstruction.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -590,7 +585,7 @@ $$
 \hat z_p=\frac{1}{|S_t|}\sum_{i\in S_t}\|\hat T_i\|
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Pose scale is computed as the average distance of provided translations from the world frame.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Pose scale normalization.</span><span class="caption-note">The average distance of views with provided translations defines a pose scale reference for scale-dependent factors.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -607,7 +602,7 @@ $$
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(m\)</span></span></td><td>Predicted global metric scale</td><td>The scalar that converts local or up-to-scale geometry into metric 3D.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(R_i\)</span>, <span class="inline-equation-token">\(\tilde D_i\)</span>, <span class="inline-equation-token">\(\tilde P_i\)</span></span></td><td>Ray direction, up-to-scale ray depth, and pose-like transform for view <span class="inline-equation-token">\(i\)</span></td><td>The three main geometry factors predicted per view.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\tilde L_i\)</span>, <span class="inline-equation-token">\(\tilde X_i\)</span>, <span class="inline-equation-token">\(X_i^{metric}\)</span></span></td><td>Local ray-depth point, posed point, and final metric point</td><td>Ray-depth geometry becomes metric reconstruction after pose and scale.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-equation-token">\(O_i\)</span>, <span class="inline-equation-token">\(\tilde T_i\)</span></span></td><td>Rotation/origin-like term and translation component</td><td>Transform elements that lift local points toward the view/world coordinate frame.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(O_i\)</span>, <span class="inline-equation-token">\(\tilde T_i\)</span></span></td><td>Rotation matrix derived from quaternion <span class="inline-equation-token">\(Q_i\)</span> and translation component</td><td>Transform elements that lift local ray-depth points into posed points.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(S_t\)</span>, <span class="inline-equation-token">\(\hat z_p\)</span></span></td><td>Views with provided translation and the derived pose scale</td><td>Translation supervision defines the scale reference through average distance.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\operatorname{sg}(\cdot)\)</span>, <span class="inline-equation-token">\(f_{\log}\)</span></span></td><td>Stop-gradient and log-space compression</td><td>Keeps scale supervision from destabilizing the geometry factors.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(C_i\)</span>, <span class="inline-equation-token">\(\mathcal L_{mask}\)</span></span></td><td>Confidence and mask terms</td><td>Control ambiguous pixels and invalid geometry regions.</td></tr>
@@ -643,16 +638,17 @@ $$
 \mathcal L_{\mathrm{rot}}=\sum_{i=1}^{N}\min(\|\hat Q_i-Q_i\|,\|-\hat Q_i-Q_i\|)
 $$
                               </div></div></div>
-<figcaption><span class="caption-main">Ray directions and quaternion rotations are scale-independent, so the paper regresses them directly.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Scale-independent factor losses.</span><span class="caption-note">Ray directions and quaternion rotations are independent of scene scale, so they are regressed without scale normalization.</span></figcaption>
 </figure>
 <figure class="equation training-loss-equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 z_{\mathrm{metric}}=m\cdot\operatorname{sg}(\tilde z),\qquad
+\mathcal L_{\mathrm{scale}}=\left\|f_{\log}(\hat z)-f_{\log}(z_{\mathrm{metric}})\right\|,\qquad
 \mathcal L_{\mathrm{translation}}=\sum_{i=1}^{N}\left\|\frac{\hat T_i}{\hat z}-\frac{\tilde T_i}{\tilde z}\right\|
 $$
                               </div></div></div>
-<figcaption><span class="caption-main">The metric scale loss uses stop-gradient through <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span> so scale supervision does not distort the geometry.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Factored metric scale loss.</span><span class="caption-note">The loss supervises scale against stop-gradient <span class="inline-equation-token">\(z_{\mathrm{metric}}\)</span> so metric scale learning stays separated from geometry factors.</span></figcaption>
 </figure>
 <figure class="equation training-loss-equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -662,7 +658,7 @@ f_{\log}(x)=\frac{x}{\|x\|}\log(1+\|x\|),\qquad
 \left(C_i\left\|f_{\log}\left(\frac{\hat X_i}{\hat z}\right)-f_{\log}\left(\frac{\tilde X_i}{\tilde z}\right)\right\|-\alpha\log C_i\right)
 $$
                               </div></div></div>
-<figcaption><span class="caption-main">Log-space losses are important for ray depth, pointmaps, and metric scale; the top 5% per-pixel losses are dropped to reduce outlier effects.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Log-space pointmap loss.</span><span class="caption-note">Ray depths, pointmaps, and metric scale are compared in log-space, with the top 5% per-pixel losses dropped to reduce scale variation and outlier effects.</span></figcaption>
 </figure>
 <figure class="equation training-loss-equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -674,7 +670,7 @@ $$
 +\mathcal L_{\mathrm{normal}}+\mathcal L_{\mathrm{GM}}+0.1\mathcal L_{\mathrm{mask}}
 $$
                               </div><div class="equation-tag">(2)</div></div></div>
-<figcaption><span class="caption-main">The full objective upweights pointmap loss and downweights mask loss to emphasize geometry quality.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (2). Universal training objective.</span><span class="caption-note">The full objective combines available supervision while upweighting pointmap loss and downweighting mask loss to emphasize geometry quality.</span></figcaption>
 </figure>
 </div>
 <figure class="image">
@@ -753,7 +749,7 @@ $$
 <span class="subsection-label">Metric Depth Evidence</span>
 <figure class="image">
 <img alt="Table 4. Metric depth estimation on Robust-MVD benchmark." height="1414" src="assets/논문-스터디/media/media_47be1e49615e.png" style="width:432px" width="818"/>
-<figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">The paper compares single-view and multi-view metric depth. MapAnything is not trained on the benchmark, yet reports strong KITTI results and competitive geometry-conditioned depth performance.</span></figcaption>
+<figcaption><span class="caption-main">Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.</span><span class="caption-note">The paper compares single-view and multi-view metric depth. It emphasizes that the model was not specifically trained for single-image inputs, yet reports strong KITTI results and competitive geometry-conditioned depth performance.</span></figcaption>
 </figure>
 </section>
 <section class="evidence-cluster">
@@ -792,11 +788,7 @@ $$
 <p>MapAnything is best read as a representation and training design for absorbing diverse input conditions into one metric 3D reconstruction backbone.</p>
 </section>
 </section>
-<section class="deep-section" data-section-title="Conclusion">
-<h3 id="en-conclusion">Conclusion</h3>
-<p>MapAnything is a universal transformer backbone that directly regresses metric 3D geometry and camera poses from flexible inputs, including images, intrinsics, poses, depth maps, and partial reconstructions. Its main idea is to factor multi-view geometry into depth maps, ray maps, poses, and a global scale factor.</p>
-<p>The experiments show that the model can match or surpass specialist models across uncalibrated SfM, calibrated MVS, monocular depth, camera localization, and depth completion. The paper points to dynamic scenes, uncertainty quantification, and scene understanding as future extensions.</p>
-</section>
+
 <section class="deep-section" data-section-title="Takeaway">
 <h3 id="en-takeaway">Takeaway</h3>
 <p>(Writing in progress...)</p>
@@ -813,7 +805,7 @@ $$
 </section>
 <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
 <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
-<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="light" src="https://giscus.app/client.js"></script>
 </section>
 </main>
 </div>
@@ -822,6 +814,6 @@ $$
 <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
 <img alt="preview" id="lightboxImg"/>
 </div>
-<script src="script.js?v=mapanything-redesign-20260526"></script>
+<script src="script.js?v=mapanything-redesign-20260526-lightbox-zoom-20260605-trackpad-pinch-20260605-lightbox-page-scale-reset-20260605-light-only-bluegray-20260607"></script>
 </body>
 </html>

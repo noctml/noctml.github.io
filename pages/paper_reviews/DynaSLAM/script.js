@@ -1,60 +1,9 @@
 (() => {
   const root = document.documentElement;
-
-  const storageGet = (key) => {
-    try {
-      return window.localStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  };
-
-  const storageSet = (key, value) => {
-    try {
-      window.localStorage.setItem(key, value);
-    } catch {
-      // Storage can be unavailable for local file previews.
-    }
-  };
-
-  const themeBtn = document.getElementById("themeBtn");
-  const themeIcon = document.getElementById("themeIcon");
-  const themes = ["light", "dark-gray", "dark"];
-  const themeLabels = {
-    light: "Light",
-    "dark-gray": "Dark gray",
-    dark: "Dark"
-  };
-  const themeIcons = {
-    light: "☀",
-    "dark-gray": "◐",
-    dark: "☾"
-  };
-
-  let currentTheme = themes.includes(storageGet("theme")) ? storageGet("theme") : "light";
-
-  const applyTheme = (theme, persist = true) => {
-    currentTheme = themes.includes(theme) ? theme : "light";
-    if (currentTheme === "light") {
-      root.removeAttribute("data-theme");
-    } else {
-      root.setAttribute("data-theme", currentTheme);
-    }
-    if (persist) storageSet("theme", currentTheme);
-    if (themeIcon) themeIcon.textContent = themeIcons[currentTheme];
-    if (themeBtn) {
-      const label = `${themeLabels[currentTheme]} theme`;
-      themeBtn.setAttribute("aria-label", label);
-      themeBtn.setAttribute("title", label);
-    }
-  };
-
-  applyTheme(currentTheme, false);
-
-  themeBtn?.addEventListener("click", () => {
-    const nextIndex = (themes.indexOf(currentTheme) + 1) % themes.length;
-    applyTheme(themes[nextIndex]);
-  });
+  root.removeAttribute("data-theme");
+  try { window.localStorage.removeItem("theme"); } catch {
+    // Storage can be unavailable for local file previews.
+  }
 })();
 
 (() => {
@@ -693,22 +642,178 @@ function rebuildBookmarks() {
   const closeBtn = document.getElementById("lightboxClose");
   if (!lightbox || !lightboxImg) return;
 
-  document.querySelectorAll(".post-body img").forEach((img) => {
-    img.addEventListener("click", () => {
-      lightboxImg.src = img.currentSrc || img.src;
-      lightboxImg.alt = img.alt || "preview";
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden", "false");
+  const initialDevicePixelRatio = window.devicePixelRatio || 1;
+
+  let lightboxScrollY = 0;
+  const lockLightboxScroll = () => {
+    if (document.body.classList.contains("lightbox-scroll-locked")) return;
+    lightboxScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.classList.add("lightbox-scroll-locked");
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lightboxScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = scrollbarWidth > 0 ? `${scrollbarWidth}px` : "";
+  };
+  const unlockLightboxScroll = () => {
+    if (!document.body.classList.contains("lightbox-scroll-locked")) return;
+    document.body.classList.remove("lightbox-scroll-locked");
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo({ left: 0, top: lightboxScrollY, behavior: "auto" });
+    window.requestAnimationFrame(() => {
+      root.style.scrollBehavior = previousScrollBehavior;
     });
+  };
+  const stopLightboxScroll = (event) => {
+    if (lightbox.classList.contains("open")) event.preventDefault();
+  };
+
+  const getLightboxPageScale = () => {
+    const currentDevicePixelRatio = window.devicePixelRatio || initialDevicePixelRatio;
+    const dprScale = currentDevicePixelRatio / initialDevicePixelRatio;
+    const viewportScale = window.visualViewport?.scale || 1;
+    const totalScale = Math.max(0.001, dprScale * viewportScale);
+    return 1 / totalScale;
+  };
+  const applyLightboxPageScale = () => {
+    lightbox.style.setProperty("--lightbox-page-scale", String(getLightboxPageScale()));
+  };
+  const resetLightboxPageScale = () => {
+    lightbox.style.setProperty("--lightbox-page-scale", "1");
+  };
+
+  const lightboxZoomState = {
+    scale: 1,
+    x: 0,
+    y: 0,
+    dragging: false,
+    startX: 0,
+    startY: 0,
+    originX: 0,
+    originY: 0,
+    suppressClick: false
+  };
+  const applyLightboxZoom = () => {
+    lightbox.style.setProperty("--lightbox-zoom", String(lightboxZoomState.scale));
+    lightbox.style.setProperty("--lightbox-pan-x", `${lightboxZoomState.x}px`);
+    lightbox.style.setProperty("--lightbox-pan-y", `${lightboxZoomState.y}px`);
+    lightbox.classList.toggle("is-zoomed", lightboxZoomState.scale > 1);
+  };
+  const resetLightboxZoom = () => {
+    lightboxZoomState.scale = 1;
+    lightboxZoomState.x = 0;
+    lightboxZoomState.y = 0;
+    lightboxZoomState.dragging = false;
+    lightboxZoomState.suppressClick = false;
+    applyLightboxZoom();
+  };
+  const setLightboxScale = (scale) => {
+    const nextScale = Math.min(5, Math.max(1, scale));
+    lightboxZoomState.scale = nextScale < 1.015 ? 1 : nextScale;
+    if (lightboxZoomState.scale === 1) {
+      lightboxZoomState.x = 0;
+      lightboxZoomState.y = 0;
+      lightboxZoomState.dragging = false;
+    }
+    applyLightboxZoom();
+  };
+  let gestureStartScale = 1;
+  const handleLightboxWheel = (event) => {
+    if (!lightbox.classList.contains("open")) return;
+    event.preventDefault();
+    if (event.ctrlKey) {
+      const zoomFactor = Math.exp(-event.deltaY * 0.01);
+      setLightboxScale(lightboxZoomState.scale * zoomFactor);
+      return;
+    }
+    if (lightboxZoomState.scale > 1) {
+      lightboxZoomState.x -= event.deltaX;
+      lightboxZoomState.y -= event.deltaY;
+      applyLightboxZoom();
+    }
+  };
+  const handleGestureStart = (event) => {
+    if (!lightbox.classList.contains("open")) return;
+    event.preventDefault();
+    gestureStartScale = lightboxZoomState.scale;
+  };
+  const handleGestureChange = (event) => {
+    if (!lightbox.classList.contains("open")) return;
+    event.preventDefault();
+    setLightboxScale(gestureStartScale * event.scale);
+  };
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".copy-block-button")) return;
+    const img = event.target.closest(".post-body figure.image img");
+    if (!img || img.closest(".deep-dive-content.is-collapsed")) return;
+    event.preventDefault();
+    applyLightboxPageScale();
+    resetLightboxZoom();
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt || "preview";
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+    lockLightboxScroll();
   });
 
   const close = () => {
     lightbox.classList.remove("open");
     lightbox.setAttribute("aria-hidden", "true");
+    resetLightboxZoom();
+    resetLightboxPageScale();
     lightboxImg.removeAttribute("src");
+    unlockLightboxScroll();
   };
 
   closeBtn?.addEventListener("click", close);
+  lightboxImg.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    lightboxZoomState.suppressClick = false;
+  });
+  lightboxImg.addEventListener("pointerdown", (event) => {
+    if (lightboxZoomState.scale <= 1) return;
+    lightboxZoomState.dragging = true;
+    lightboxZoomState.startX = event.clientX;
+    lightboxZoomState.startY = event.clientY;
+    lightboxZoomState.originX = lightboxZoomState.x;
+    lightboxZoomState.originY = lightboxZoomState.y;
+    lightboxZoomState.suppressClick = false;
+    lightboxImg.setPointerCapture?.(event.pointerId);
+  });
+  lightboxImg.addEventListener("pointermove", (event) => {
+    if (!lightboxZoomState.dragging) return;
+    const dx = event.clientX - lightboxZoomState.startX;
+    const dy = event.clientY - lightboxZoomState.startY;
+    if (Math.abs(dx) + Math.abs(dy) > 4) lightboxZoomState.suppressClick = true;
+    lightboxZoomState.x = lightboxZoomState.originX + dx;
+    lightboxZoomState.y = lightboxZoomState.originY + dy;
+    applyLightboxZoom();
+  });
+  const endLightboxDrag = (event) => {
+    if (!lightboxZoomState.dragging) return;
+    lightboxZoomState.dragging = false;
+    lightboxImg.releasePointerCapture?.(event.pointerId);
+  };
+  lightboxImg.addEventListener("pointerup", endLightboxDrag);
+  lightboxImg.addEventListener("pointercancel", endLightboxDrag);
+
+  lightbox.addEventListener("wheel", handleLightboxWheel, { passive: false });
+  lightbox.addEventListener("touchmove", stopLightboxScroll, { passive: false });
+  lightbox.addEventListener("gesturestart", handleGestureStart, { passive: false });
+  lightbox.addEventListener("gesturechange", handleGestureChange, { passive: false });
   lightbox.addEventListener("click", (event) => {
     if (event.target === lightbox) close();
   });
@@ -727,33 +832,321 @@ function rebuildBookmarks() {
   });
 })();
 
-// Paper body copy guard: 2026-06-02
+// Paper asset copy affordance: equations, figures, and tables keep useful clipboard formats.
 (() => {
-  const protectedSelector = ".post-body";
-  const insideProtectedBody = (node) => {
-    if (!node) return false;
-    const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
-    return Boolean(element?.closest?.(protectedSelector));
-  };
-  const protectedSelectionActive = () => {
-    const selection = window.getSelection?.();
-    if (!selection || selection.isCollapsed) return false;
-    return insideProtectedBody(selection.anchorNode) || insideProtectedBody(selection.focusNode);
-  };
-  const clearSelection = () => window.getSelection?.()?.removeAllRanges?.();
+  const postBody = document.querySelector(".post-body");
+  if (!postBody) return;
 
-  document.addEventListener("selectstart", (event) => {
-    if (insideProtectedBody(event.target)) event.preventDefault();
-  });
-  document.addEventListener("dragstart", (event) => {
-    if (insideProtectedBody(event.target)) event.preventDefault();
-  });
-  ["copy", "cut"].forEach((eventName) => {
-    document.addEventListener(eventName, (event) => {
-      if (!protectedSelectionActive()) return;
-      event.preventDefault();
-      event.clipboardData?.setData("text/plain", "");
-      clearSelection();
+  const statusDelay = 1200;
+  const mathSelector = [
+    ".notion-text-equation-token",
+    ".inline-math",
+    ".inline-equation-token",
+    ".math-token",
+    ".model-token",
+    ".state-token",
+    ".equation-token",
+    ".formula-token",
+    ".equation-chip-part",
+    "[data-tex-inline]"
+  ].join(", ");
+
+  const cleanText = (value) => (value || "")
+    .replace(/\uFEFF/g, "")
+    .replace(/\u200b/g, "")
+    .replace(/\u00a0/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+  const escapeHtml = (value) => cleanText(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+  const texFromNode = (node) => {
+    if (!node) return "";
+    if (node.dataset?.texInline) return node.dataset.texInline;
+    if (node.dataset?.texDisplay) return node.dataset.texDisplay;
+    const annotation = node.querySelector?.('annotation[encoding="application/x-tex"]');
+    if (annotation?.textContent) return annotation.textContent;
+    const text = cleanText(node.textContent);
+    const inlineMatch = text.match(/^\\\((.*)\\\)$/s);
+    if (inlineMatch) return inlineMatch[1];
+    const displayMatch = text.match(/^\$\$(.*)\$\$$/s);
+    if (displayMatch) return displayMatch[1];
+    return text;
+  };
+
+  const normalizeInlineTex = (tex) => {
+    const cleaned = cleanText(tex)
+      .replace(/^\\\(\s*/s, "")
+      .replace(/\s*\\\)$/s, "")
+      .replace(/^\$\$\s*/s, "")
+      .replace(/\s*\$\$$/s, "")
+      .replace(/^\$\s*/s, "")
+      .replace(/\s*\$$/s, "")
+      .replace(/\\tag\{[^{}]+\}/g, "")
+      .trim();
+    return cleaned ? `$$${cleaned}$$` : "";
+  };
+
+  const normalizeDisplayTex = (tex) => {
+    const cleaned = cleanText(tex)
+      .replace(/^\$\$\s*/s, "")
+      .replace(/\s*\$\$$/s, "")
+      .replace(/^\\\[\s*/s, "")
+      .replace(/\s*\\\]$/s, "")
+      .replace(/\\tag\{([^{}]+)\}/g, (_, tag) => `\\qquad \\text{(${tag})}`)
+      .trim();
+    return cleaned ? `$$${cleaned}$$` : "";
+  };
+
+  const replaceMathInClone = (clone) => {
+    clone.querySelectorAll?.(mathSelector).forEach((node) => {
+      const tex = texFromNode(node);
+      const replacement = tex ? normalizeInlineTex(tex) : cleanText(node.textContent);
+      node.replaceWith(document.createTextNode(replacement));
     });
+  };
+
+  const textWithMath = (element) => {
+    if (!element) return "";
+    const clone = element.cloneNode(true);
+    clone.querySelectorAll?.(".copy-block-button").forEach((node) => node.remove());
+    replaceMathInClone(clone);
+    return cleanText(clone.textContent);
+  };
+
+  const absoluteImageSources = (clone) => {
+    clone.querySelectorAll?.("img").forEach((img) => {
+      const source = img.getAttribute("src") || img.currentSrc || img.src;
+      if (!source) return;
+      try {
+        img.setAttribute("src", new URL(source, window.location.href).href);
+      } catch (_) {
+        img.setAttribute("src", source);
+      }
+      img.removeAttribute("srcset");
+    });
+  };
+
+  const fallbackCopyText = (text) => {
+    let handled = false;
+    const listener = (event) => {
+      event.clipboardData?.setData("text/plain", text || "");
+      event.preventDefault();
+      handled = true;
+    };
+    document.addEventListener("copy", listener, { once: true });
+    const ok = document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+    if (!ok || !handled) throw new Error("copy command failed");
+  };
+
+  const fallbackCopyHtml = (plain, html) => {
+    let handled = false;
+    const listener = (event) => {
+      if (html) event.clipboardData?.setData("text/html", html);
+      event.clipboardData?.setData("text/plain", plain || "");
+      event.preventDefault();
+      handled = true;
+    };
+    document.addEventListener("copy", listener, { once: true });
+    const ok = document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+    if (!ok || !handled) throw new Error("html copy command failed");
+  };
+
+  const writeClipboard = async ({ plain, html, imageBlob }) => {
+    const safePlain = plain || "";
+    if (navigator.clipboard?.write && window.ClipboardItem && imageBlob) {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": imageBlob })]);
+        return;
+      } catch (_) {}
+    }
+    if (navigator.clipboard?.write && window.ClipboardItem && html) {
+      try {
+        const item = new ClipboardItem({
+          "text/plain": new Blob([safePlain], { type: "text/plain" }),
+          "text/html": new Blob([html], { type: "text/html" })
+        });
+        await navigator.clipboard.write([item]);
+        return;
+      } catch (_) {}
+    }
+    if (html) {
+      try {
+        fallbackCopyHtml(safePlain, html);
+        return;
+      } catch (_) {}
+    }
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(safePlain);
+        return;
+      } catch (_) {}
+    }
+    fallbackCopyText(safePlain);
+  };
+
+  const tableToTsv = (table) => Array.from(table.rows)
+    .map((row) => Array.from(row.cells)
+      .map((cell) => textWithMath(cell).replace(/\t/g, " "))
+      .join("\t"))
+    .join("\n");
+
+  const tableToHtml = (table) => {
+    const clone = table.cloneNode(true);
+    clone.querySelectorAll(".copy-block-button").forEach((node) => node.remove());
+    replaceMathInClone(clone);
+    return clone.outerHTML;
+  };
+
+  const figureCaptionText = (figure) => textWithMath(figure.querySelector("figcaption"));
+
+  const imageSourceForCopy = (figure) => {
+    const img = figure.querySelector("img");
+    if (!img) return "";
+    let src = img.currentSrc || img.getAttribute("src") || img.src || "";
+    try {
+      src = new URL(src, window.location.href).href;
+    } catch (_) {}
+    return src;
+  };
+
+  const figureToHtml = (figure, imageDataUrl) => {
+    const img = figure.querySelector("img");
+    if (!img) return "";
+    const src = imageDataUrl || imageSourceForCopy(figure);
+    const alt = img.getAttribute("alt") || figureCaptionText(figure) || "figure";
+    if (!src) return "";
+    return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" style="max-width:100%;height:auto;display:block;" />`;
+  };
+
+  const imageToPngBlob = async (figure) => {
+    try {
+      const img = figure.querySelector("img");
+      if (!img) return null;
+      if (!img.complete || !img.naturalWidth) {
+        await new Promise((resolve, reject) => {
+          img.addEventListener("load", resolve, { once: true });
+          img.addEventListener("error", reject, { once: true });
+        });
+      }
+      const width = img.naturalWidth || img.width;
+      const height = img.naturalHeight || img.height;
+      if (!width || !height) return null;
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d");
+      if (!context) return null;
+      context.drawImage(img, 0, 0, width, height);
+      return await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+    } catch (_) {
+      return null;
+    }
+  };
+
+  const blobToDataUrl = (blob) => new Promise((resolve) => {
+    if (!blob) {
+      resolve("");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => resolve(typeof reader.result === "string" ? reader.result : "");
+    reader.onerror = () => resolve("");
+    reader.readAsDataURL(blob);
+  });
+
+  const figureToMarkdown = (figure) => imageSourceForCopy(figure);
+
+  const equationPayload = (figure) => {
+    const tex = normalizeDisplayTex(
+      figure.dataset.texDisplay ||
+      texFromNode(figure.querySelector(".equation-main-original")) ||
+      texFromNode(figure.querySelector(".equation-main")) ||
+      texFromNode(figure)
+    );
+    return { plain: tex };
+  };
+
+  const figurePayload = async (figure) => {
+    const imageBlob = await imageToPngBlob(figure);
+    const imageDataUrl = await blobToDataUrl(imageBlob);
+    return {
+      plain: figureToMarkdown(figure),
+      html: figureToHtml(figure, imageDataUrl),
+      imageBlob
+    };
+  };
+
+  const installButton = (target, label, getPayload) => {
+    if (!target || target.querySelector(":scope > .copy-block-button")) return;
+    target.classList.add("copyable-block");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "copy-block-button";
+    button.innerHTML = '<span class="copy-icon" aria-hidden="true"></span><span class="copy-status" aria-live="polite">Copy</span>';
+    button.dataset.copyState = "idle";
+    button.setAttribute("aria-label", `${label} copy`);
+    const status = button.querySelector(".copy-status");
+    const setButtonState = (state, text) => {
+      button.dataset.copyState = state;
+      if (status) status.textContent = text;
+      button.setAttribute("aria-label", `${label} ${text.toLowerCase()}`);
+    };
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      button.disabled = true;
+      try {
+        await writeClipboard(await getPayload());
+        setButtonState("copied", "Copied");
+        button.classList.add("is-copied");
+      } catch (_) {
+        setButtonState("failed", "Failed");
+        button.classList.add("is-failed");
+      } finally {
+        window.setTimeout(() => {
+          button.disabled = false;
+          setButtonState("idle", "Copy");
+          button.classList.remove("is-copied", "is-failed");
+        }, statusDelay);
+      }
+    });
+    target.appendChild(button);
+  };
+
+  const ensureImageCopyFrame = (figure) => {
+    const img = figure.querySelector("img");
+    if (!img) return null;
+    const existing = img.closest(".copy-image-frame");
+    if (existing && figure.contains(existing)) return existing;
+    const frame = document.createElement("span");
+    frame.className = "copy-image-frame";
+    img.parentNode.insertBefore(frame, img);
+    frame.appendChild(img);
+    return frame;
+  };
+
+  postBody.querySelectorAll("figure.image").forEach((figure) => {
+    const imageFrame = ensureImageCopyFrame(figure);
+    if (!imageFrame) return;
+    installButton(imageFrame, "figure", () => figurePayload(figure));
+  });
+
+  const tableTargets = new Set();
+  postBody.querySelectorAll("table").forEach((table) => {
+    const target = table.closest(".summary-table-wrap") || table;
+    if (tableTargets.has(target)) return;
+    tableTargets.add(target);
+    installButton(target, "table", () => ({
+      plain: tableToTsv(table),
+      html: tableToHtml(table)
+    }));
   });
 })();

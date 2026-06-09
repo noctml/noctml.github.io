@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<script>document.documentElement.removeAttribute("data-theme");try{localStorage.removeItem("theme")}catch(e){}</script>
 <meta content="streaming 3D reconstruction을 latent-state filtering 문제로 보고 token별 Kalman-style gain으로 recurrent memory를 업데이트하는 방법" name="description"/>
 <meta content="noindex, nofollow" name="robots"/>
 <title>[논문 리뷰] FILT3R: Latent State Adaptive Kalman Filter for Streaming 3D Reconstruction | Insighted</title>
@@ -12,7 +13,7 @@
 <meta content="streaming 3D reconstruction을 latent-state filtering 문제로 보고 token별 Kalman-style gain으로 recurrent memory를 업데이트하는 방법" property="og:description"/>
 <meta content="website" property="og:type"/>
 <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet"/>
-<link href="styles.css?v=filt3r-redesign-20260530-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
+<link href="styles.css?v=filt3r-redesign-20260530-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601-lightbox-zoom-20260605-trackpad-pinch-20260605-lightbox-page-scale-reset-20260605-paper-meta-masthead-20260606-paper-meta-compact-20260606-scoped-blue-v9-20260607-monst3r-neutral-v1-20260607-sepia-emphasis-20260608-sepia-title-brown-20260608-meta-title-merge-20260608-meta-masthead-parity-20260608-inline-baseline-20260609-inline-sepia-20260609-inline-sepia-soft-20260609-inline-gray-restore-20260609-inline-gray-chip-20260609-toggle-guard-20260609-imgcenter-20260609-toggle-stable-20260609-focus-indent-reset-20260609-toggle-margin-sync-20260609" rel="stylesheet"/>
 <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
 <script defer="" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});" src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"></script>
 </head>
@@ -44,9 +45,6 @@
 <span data-lang-option="ko">KO</span>
 <span data-lang-option="en">EN</span>
 </button>
-<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
-<span aria-hidden="true" id="themeIcon">☀</span>
-</button>
 </div>
 </div>
 </header>
@@ -56,7 +54,7 @@
 <header class="paper-identity">
 <p class="paper-title-meta">FILT3R: Latent State Adaptive Kalman Filter for Streaming 3D Reconstruction</p>
 <div class="paper-meta-card">
-<div class="paper-meta-top"><span class="paper-meta-venue">arXiv preprint</span><span class="paper-meta-date">19 Mar 2026</span></div>
+<div class="paper-meta-top"><span class="paper-meta-venue">arXiv preprint</span><span class="paper-meta-date">arXiv v1: 19 Mar 2026</span></div>
 <dl class="paper-meta-grid">
 <div class="paper-meta-item"><dt>Authors</dt><dd>Seonghyun Jin; Jong Chul Ye</dd></div>
 <div class="paper-meta-item"><dt>Affiliations</dt><dd>KAIST AI</dd></div>
@@ -212,7 +210,7 @@ $$
 s_t = s_{t-1}+w_t,\qquad w_t\sim\mathcal{N}(0,Q_t) \tag{1}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">latent state가 이전 memory에서 process noise를 거쳐 이동한다는 model.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (1). Latent state transition model.</span><span class="caption-note">이전 memory가 process noise를 거쳐 현재 latent state로 이어진다고 두는 token-space dynamics다.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -220,13 +218,13 @@ $$
 \tilde{s}_t = s_t+v_t,\qquad v_t\sim\mathcal{N}(0,R) \tag{2}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span>를 true latent state의 noisy measurement로 해석.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (2). Decoder candidate measurement model.</span><span class="caption-note">decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span>를 현재 latent state에 대한 noisy measurement로 해석한다.</span></figcaption>
 </figure>
 </div>
 </section>
 <section class="method-step-block">
 <span class="subsection-label">2. Variance와 Kalman gain update</span>
-<p>FILT3R은 full covariance를 쓰지 않고 token별 isotropic scalar variance로 근사한다. 따라서 <span class="inline-equation-token">\(Q_t=\operatorname{diag}(q_t)\)</span>, <span class="inline-equation-token">\(P_t=\operatorname{diag}(p_t)\)</span>처럼 다루며, update는 elementwise로 진행된다.</p>
+<p>FILT3R은 full covariance를 쓰지 않고 token별 isotropic scalar variance로 근사한다. 따라서 <span class="inline-equation-token">\(Q_t=\operatorname{diag}(q_t)\)</span>, <span class="inline-equation-token">\(P_t=\operatorname{diag}(p_t)\)</span>처럼 다루며, update는 elementwise로 진행된다. 여기서 <span class="inline-equation-token">\(N\)</span>은 token 수, <span class="inline-equation-token">\(D\)</span>는 token dimension이고, <span class="inline-equation-token">\(s_t,\tilde{s}_t\in\mathbb{R}^{N\times D}\)</span>, <span class="inline-equation-token">\(p_t,q_t,k_t\in\mathbb{R}^{N}\)</span>, <span class="inline-equation-token">\(R=rI\)</span>로 두어 variance와 gain을 token-wise로 계산한다.</p>
 <div class="method-equation-cluster">
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -234,7 +232,7 @@ $$
 p_t^- = p_{t-1}+q_t \tag{3}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">measurement 반영 전 prior variance. process noise가 클수록 현재 candidate를 더 열어둘 근거가 생긴다.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (3). Prior variance prediction.</span><span class="caption-note">measurement 반영 전 uncertainty를 예측하며, process noise가 클수록 현재 candidate를 더 열어둘 근거가 생긴다.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -242,7 +240,7 @@ $$
 k_t = \frac{p_t^-}{p_t^-+r} \tag{4}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">token별 Kalman gain. <span class="inline-equation-token">\(p_t^-\)</span>가 커지면 candidate measurement 반영 비율이 커진다.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (4). Token-wise Kalman gain.</span><span class="caption-note"><span class="inline-equation-token">\(p_t^-\)</span>가 커지면 token별로 candidate measurement를 더 많이 반영한다.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -250,7 +248,7 @@ $$
 s_t = s_{t-1}+k_t\odot(\tilde{s}_t-s_{t-1}) \tag{5}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">persistent memory와 candidate state를 Kalman gain으로 섞는 핵심 update.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (5). Gain-weighted latent state update.</span><span class="caption-note">persistent memory와 candidate state를 Kalman gain으로 보간해 새 latent state를 만든다.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -258,7 +256,7 @@ $$
 p_t = (1-k_t)^2\odot p_t^- + r k_t^2 \tag{6}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">scalar Joseph form posterior variance update. stable regime에서는 posterior confidence가 누적된다.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (6). Joseph-form variance update.</span><span class="caption-note">scalar Joseph form으로 posterior variance를 갱신해 stable regime에서 uncertainty가 줄어들게 한다.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -273,7 +271,7 @@ q_{t,i}=q_{\min}+(q_{\max}-q_{\min})\cdot
 \sigma\!\left(\alpha_q(g_{t,i}-\tau_q)\right) \tag{7}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">normalized drift score <span class="inline-equation-token">\(g_{t,i}\)</span>가 커질수록 token <span class="inline-equation-token">\(i\)</span>의 process noise가 커진다.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (7). Adaptive process-noise mapping.</span><span class="caption-note">normalized drift score <span class="inline-equation-token">\(g_{t,i}\)</span>를 sigmoid gate에 넣어 token <span class="inline-equation-token">\(i\)</span>의 process noise를 정한다.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -281,7 +279,7 @@ $$
 g_{t,i}=\frac{\Delta_{t,i}}{\hat{\Delta}_t} \tag{8}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">현재 token drift를 stream-level running baseline으로 나눈 normalized drift score.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (8). EMA-normalized drift score.</span><span class="caption-note">현재 token drift를 stream-level running baseline으로 나누어 상대적으로 큰 scene change를 포착한다.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -289,7 +287,7 @@ $$
 \hat{\Delta}_t=(1-\lambda_\Delta)\hat{\Delta}_{t-1}+\lambda_\Delta\bar{\Delta}_t \tag{9}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">stream-level mean drift의 EMA baseline.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (9). Running drift baseline.</span><span class="caption-note">stream-level mean drift를 EMA로 누적해 Eq. (8)의 normalization 기준을 만든다.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -298,7 +296,7 @@ $$
 \Delta_{t,i}=\left\lVert\tilde{s}_{t,i}-\tilde{s}_{t-1,i}\right\rVert_2 \tag{10}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">candidate state 사이의 token drift와 그 평균. Eq. (7)-(10)이 FILT3R의 adaptive gain을 만드는 근거다.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (10). Candidate token-drift statistics.</span><span class="caption-note">연속 candidate state 사이의 token drift와 평균을 계산해 adaptive process noise의 입력으로 쓴다.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -358,7 +356,7 @@ $$
 </figure>
 <figure class="image">
 <img alt="Table 3. Long-horizon video depth on Bonn." height="1000" loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_1206dd81f9e0.png" style="width:760px" width="5840"/>
-<figcaption><span class="caption-main">Table 3. Long-horizon video depth on Bonn (metric scale).</span><span class="caption-note">Bonn sequence에서 FILT3R은 truncation length가 길어져도 Abs Rel, log RMSE, <span class="inline-equation-token">\(\delta_{1.25}\)</span>가 안정적으로 유지됨을 보인다.</span></figcaption>
+<figcaption><span class="caption-main">Table 3. Long-horizon video depth on Bonn (metric scale).</span><span class="caption-note">Bonn sequence에서 FILT3R은 truncation length가 길어져도 Abs Rel, log RMSE, <span class="inline-equation-token">\(\delta{<}1.25\)</span>가 안정적으로 유지됨을 보인다.</span></figcaption>
 </figure>
 <figure class="image">
 <img alt="Figure 4. Long-horizon metrics vs. sequence length." height="4340" loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_d779ccfaa623.png" style="width:860px" width="5840"/>
@@ -391,7 +389,7 @@ $$
 </div>
 <div class="result-brief-grid">
 <article><strong>Drift control</strong><p>origin-aligned ATE와 length-wise curve가 long-horizon drift 감소를 직접 보여줌.</p></article>
-<article><strong>No short-horizon penalty</strong><p>short sequence depth 결과에서도 backbone 교체 없이 accuracy가 유지되거나 개선됨.</p></article>
+<article><strong>No short-horizon penalty</strong><p>short sequence depth는 대체로 경쟁적이며, Sintel metric/Bonn과 scale-aligned KITTI는 개선되지만 metric-scale KITTI에서는 TTT3R보다 약간 낮다.</p></article>
 <article><strong>Mechanism isolation</strong><p>variance propagation과 adaptive <span class="inline-equation-token">\(q_t\)</span> 제거 시 성능이 악화되어 update rule의 의미가 분리됨.</p></article>
 </div>
 </section>
@@ -417,11 +415,7 @@ $$
 </div>
 </section>
 </section>
-<section class="deep-section" data-section-title="Conclusion">
-<h3 id="ko-conclusion">Conclusion: FILT3R이 제안하는 관점</h3>
-<p>FILT3R은 streaming 3D reconstruction의 update rule을 단순 interpolation이나 heuristic gate가 아니라 <strong>uncertainty-aware latent filtering</strong>으로 바꾼다. 이 관점에서는 memory를 얼마나 유지할지와 새 candidate를 얼마나 반영할지가 prior variance, process noise, measurement noise의 비율로 결정된다.</p>
-<p>논문의 의미는 긴 sequence에서 drift를 줄이는 성능 개선뿐 아니라, recurrent latent memory를 해석 가능한 state estimation 문제로 바꿨다는 데 있다. 특히 frozen backbone을 유지하면서도 token별 variance propagation만 추가해 long-horizon robustness를 얻는다는 점이 실용적이다.</p>
-</section>
+
 <section class="deep-section" data-section-title="Takeaway">
 <h3 id="ko-takeaway">느낀점</h3>
 <p>(진행중...)</p>
@@ -506,7 +500,7 @@ $$
 s_t = s_{t-1}+w_t,\qquad w_t\sim\mathcal{N}(0,Q_t) \tag{1}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">State transition model for latent memory.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (1). Latent state transition model.</span><span class="caption-note">The previous memory evolves into the current latent state through process noise in token space.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -514,13 +508,13 @@ $$
 \tilde{s}_t = s_t+v_t,\qquad v_t\sim\mathcal{N}(0,R) \tag{2}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">The decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span> is interpreted as a noisy measurement.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (2). Decoder candidate measurement model.</span><span class="caption-note">The decoder candidate <span class="inline-equation-token">\(\tilde{s}_t\)</span> is interpreted as a noisy measurement of the current latent state.</span></figcaption>
 </figure>
 </div>
 </section>
 <section class="method-step-block">
 <span class="subsection-label">2. Variance and Kalman gain update</span>
-<p>FILT3R approximates covariance by token-wise isotropic scalar variance. The update is elementwise with <span class="inline-equation-token">\(Q_t=\operatorname{diag}(q_t)\)</span> and <span class="inline-equation-token">\(P_t=\operatorname{diag}(p_t)\)</span>.</p>
+<p>FILT3R approximates covariance by token-wise isotropic scalar variance. The update is elementwise with <span class="inline-equation-token">\(Q_t=\operatorname{diag}(q_t)\)</span> and <span class="inline-equation-token">\(P_t=\operatorname{diag}(p_t)\)</span>. Here <span class="inline-equation-token">\(N\)</span> is token count, <span class="inline-equation-token">\(D\)</span> is token dimension, <span class="inline-equation-token">\(s_t,\tilde{s}_t\in\mathbb{R}^{N\times D}\)</span>, <span class="inline-equation-token">\(p_t,q_t,k_t\in\mathbb{R}^{N}\)</span>, and <span class="inline-equation-token">\(R=rI\)</span>; variance and gain are computed token-wise.</p>
 <div class="method-equation-cluster">
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -528,7 +522,7 @@ $$
 p_t^- = p_{t-1}+q_t \tag{3}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Prior variance before applying the candidate measurement.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (3). Prior variance prediction.</span><span class="caption-note">This predicts uncertainty before applying the candidate measurement, adding online process noise to the previous variance.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -536,7 +530,7 @@ $$
 k_t = \frac{p_t^-}{p_t^-+r} \tag{4}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Token-wise Kalman gain. Larger prior variance increases reliance on the candidate.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (4). Token-wise Kalman gain.</span><span class="caption-note">Larger prior variance increases each token's reliance on the decoder candidate.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -544,7 +538,7 @@ $$
 s_t = s_{t-1}+k_t\odot(\tilde{s}_t-s_{t-1}) \tag{5}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Core FILT3R state update.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (5). Gain-weighted latent state update.</span><span class="caption-note">The persistent memory and candidate state are interpolated by the Kalman gain to form the new latent state.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -552,7 +546,7 @@ $$
 p_t = (1-k_t)^2\odot p_t^- + r k_t^2 \tag{6}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Scalar Joseph-form posterior variance update.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (6). Joseph-form variance update.</span><span class="caption-note">The scalar Joseph-form update propagates posterior variance so uncertainty can contract in stable regimes.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -567,7 +561,7 @@ q_{t,i}=q_{\min}+(q_{\max}-q_{\min})\cdot
 \sigma\!\left(\alpha_q(g_{t,i}-\tau_q)\right) \tag{7}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Mapping normalized drift to token-wise process noise.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (7). Adaptive process-noise mapping.</span><span class="caption-note">A sigmoid gate maps normalized drift into bounded token-wise process noise.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -575,7 +569,7 @@ $$
 g_{t,i}=\frac{\Delta_{t,i}}{\hat{\Delta}_t} \tag{8}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Normalized token drift.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (8). EMA-normalized drift score.</span><span class="caption-note">Current token drift is divided by the stream-level running baseline to detect unusually large scene change.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -583,7 +577,7 @@ $$
 \hat{\Delta}_t=(1-\lambda_\Delta)\hat{\Delta}_{t-1}+\lambda_\Delta\bar{\Delta}_t \tag{9}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">EMA baseline for stream-level mean drift.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (9). Running drift baseline.</span><span class="caption-note">The stream-level mean drift is accumulated with EMA to provide the normalization baseline for Eq. (8).</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
@@ -592,7 +586,7 @@ $$
 \Delta_{t,i}=\left\lVert\tilde{s}_{t,i}-\tilde{s}_{t-1,i}\right\rVert_2 \tag{10}
 $$
                             </div></div></div>
-<figcaption><span class="caption-main">Candidate-state token drift and its average.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (10). Candidate token-drift statistics.</span><span class="caption-note">Consecutive candidate states provide the token drift and stream average used by the adaptive process-noise estimator.</span></figcaption>
 </figure>
 </div>
 </section>
@@ -652,7 +646,7 @@ $$
 </figure>
 <figure class="image">
 <img alt="Table 3. Long-horizon video depth on Bonn." height="1000" loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_1206dd81f9e0.png" style="width:760px" width="5840"/>
-<figcaption><span class="caption-main">Table 3. Long-horizon video depth on Bonn (metric scale).</span><span class="caption-note">FILT3R keeps depth metrics stable across truncation lengths, including Abs Rel, log RMSE, and <span class="inline-equation-token">\(\delta_{1.25}\)</span>.</span></figcaption>
+<figcaption><span class="caption-main">Table 3. Long-horizon video depth on Bonn (metric scale).</span><span class="caption-note">FILT3R keeps depth metrics stable across truncation lengths, including Abs Rel, log RMSE, and <span class="inline-equation-token">\(\delta{<}1.25\)</span>.</span></figcaption>
 </figure>
 <figure class="image">
 <img alt="Figure 4. Long-horizon metrics vs. sequence length." height="4340" loading="lazy" src="assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_d779ccfaa623.png" style="width:860px" width="5840"/>
@@ -685,7 +679,7 @@ $$
 </div>
 <div class="result-brief-grid">
 <article><strong>Drift control</strong><p>Origin-aligned ATE and length-wise curves directly probe long-horizon drift.</p></article>
-<article><strong>No short-horizon penalty</strong><p>Short-sequence depth remains competitive or improves.</p></article>
+<article><strong>No short-horizon penalty</strong><p>Short-sequence depth is mostly competitive; FILT3R improves Sintel metric/Bonn and scale-aligned KITTI, while metric-scale KITTI slightly trails TTT3R.</p></article>
 <article><strong>Mechanism isolation</strong><p>Removing adaptive <span class="inline-equation-token">\(q_t\)</span> or variance propagation hurts performance.</p></article>
 </div>
 </section>
@@ -711,11 +705,7 @@ $$
 </div>
 </section>
 </section>
-<section class="deep-section" data-section-title="Conclusion">
-<h3 id="en-conclusion">Conclusion: what viewpoint does FILT3R add?</h3>
-<p>FILT3R changes the state update in streaming 3D reconstruction from simple interpolation or heuristic gating into <strong>uncertainty-aware latent filtering</strong>. The balance between retaining memory and accepting a new candidate is determined by prior variance, process noise, and measurement noise.</p>
-<p>The paper is important not only because it reduces long-horizon drift, but also because it gives recurrent latent memory a state-estimation interpretation. A frozen backbone can gain robustness by propagating token-wise variance across time.</p>
-</section>
+
 <section class="deep-section" data-section-title="Takeaway">
 <h3 id="en-takeaway">Takeaway</h3>
 <p>(Writing in progress...)</p>
@@ -732,7 +722,7 @@ $$
 </section>
 <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
 <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
-<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="light" src="https://giscus.app/client.js"></script>
 </section>
 </main>
 </div>
@@ -741,6 +731,6 @@ $$
 <button aria-label="Close" class="lb-close" id="lightboxClose" type="button">×</button>
 <img alt="preview" id="lightboxImg"/>
 </div>
-<script src="script.js?v=filt3r-redesign-20260530"></script>
+<script src="script.js?v=filt3r-redesign-20260530-lightbox-zoom-20260605-trackpad-pinch-20260605-lightbox-page-scale-reset-20260605-light-only-bluegray-20260607"></script>
 </body>
 </html>

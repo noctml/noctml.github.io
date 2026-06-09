@@ -1,45 +1,9 @@
 (() => {
   const root = document.documentElement;
-  const themeBtn = document.getElementById("themeBtn");
-  const themeIcon = document.getElementById("themeIcon");
-  const themes = ["light", "dark-gray", "dark"];
-  const themeLabels = {
-    light: "Light",
-    "dark-gray": "Dark gray",
-    dark: "Dark"
-  };
-  const themeIcons = {
-    light: "☀",
-    "dark-gray": "◐",
-    dark: "☾"
-  };
-
-  const saved = localStorage.getItem("theme");
-  let currentTheme = themes.includes(saved) ? saved : "light";
-
-  function applyTheme(theme, persist = true) {
-    currentTheme = themes.includes(theme) ? theme : "light";
-    if (currentTheme === "light") {
-      root.removeAttribute("data-theme");
-    } else {
-      root.setAttribute("data-theme", currentTheme);
-    }
-
-    if (persist) localStorage.setItem("theme", currentTheme);
-    if (themeIcon) themeIcon.textContent = themeIcons[currentTheme];
-    if (themeBtn) {
-      const label = `${themeLabels[currentTheme]} theme`;
-      themeBtn.setAttribute("aria-label", label);
-      themeBtn.setAttribute("title", label);
-    }
+  root.removeAttribute("data-theme");
+  try { window.localStorage.removeItem("theme"); } catch {
+    // Storage can be unavailable for local previews.
   }
-
-  applyTheme(currentTheme, false);
-
-  themeBtn?.addEventListener("click", () => {
-    const nextIndex = (themes.indexOf(currentTheme) + 1) % themes.length;
-    applyTheme(themes[nextIndex]);
-  });
 })();
 
 (() => {

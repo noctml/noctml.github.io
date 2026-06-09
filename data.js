@@ -11,6 +11,25 @@ window.SITE_DATA = {
         paperReviews: [
 
             {
+                title: "RoDyn-SLAM: Robust Dynamic Dense RGB-D SLAM with Neural Radiance Fields",
+                desc: "동적 RGB-D 장면에서 motion mask와 edge reprojection으로 neural dense SLAM을 안정화",
+                href: "pages/paper_reviews/RoDyn-SLAM/",
+                thumb: "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_64afa20cc5e5.png",
+                published: true,
+                date: "2026-06-09",
+                group: "Dynamic SLAM",
+                tags: ["Dynamic SLAM", "RGB-D SLAM", "Neural Field", "Motion Mask"]
+            },{
+                title: "VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator",
+                desc: "monocular camera와 IMU를 결합해 initialization, sliding-window VIO, relocalization을 하나로 묶은 state estimator",
+                href: "pages/paper_reviews/VINS-Mono/",
+                thumb: "pages/paper_reviews/VINS-Mono/assets/vins-mono-a-robust-and-versatile-monocular-visual-inertial-state-estimator/media/media_9e222b96c7bd.png",
+                published: true,
+                date: "2026-06-08",
+                group: "Visual SLAM",
+                tags: ["Visual SLAM", "VIO", "IMU Preintegration", "Loop Closure"]
+            },
+            {
                 title: "TTT3R: 3D Reconstruction as Test-Time Training",
                 desc: "test-time state update로 long-context 3D reconstruction의 forgetting을 완화",
                 href: "pages/paper_reviews/TTT3R/",
@@ -107,7 +126,7 @@ window.SITE_DATA = {
             },
             {
                 title: "DROID-SLAM in the Wild",
-                desc: "uncertainty + differentiable BA",
+                desc: "dynamic uncertainty를 DBA에 넣어 in-the-wild RGB SLAM을 안정화",
                 href: "pages/paper_reviews/DROID-W/",
                 thumb: "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_93795521defc.jpg",
                 published: true,
@@ -142,8 +161,8 @@ window.SITE_DATA = {
                 thumb: "pages/paper_reviews/VGGT-SLAM/assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_1f425cdcdbf8.png",
                 published: true,
                 date: "2026-03-25",
-                group: "3D Reconstruction",
-                tags: ["Dense SLAM", "VGGT", "SL(4)", "Projective Geometry"]
+                group: "Visual SLAM",
+                tags: ["Visual SLAM", "Dense SLAM", "VGGT", "SL(4)", "Projective Geometry"]
             },
             {
                 title: "VGGT: Visual Geometry Grounded Transformer",
@@ -232,6 +251,7 @@ window.SITE_DATA = {
                 desc: "MacBook에서 ORB-SLAM2를 실행하고 평가한 기록",
                 href: "pages/projects/ORB-SLAM2-macOS/",
                 published: true,
+                date: "2026-06-01",
                 tags: ["ORB-SLAM2", "macOS", "Visual SLAM", "Pangolin", "evo"],
                 thumb: "pages/projects/ORB-SLAM2-macOS/assets/demo/orb_slam2_macos_thumb.jpg"
             },
@@ -240,6 +260,7 @@ window.SITE_DATA = {
             desc: "오픈소스 실습",
             href: "pages/projects/ORB-SLAM2_tut/",
             published: true,
+            date: "2026-05-09",
             tags: ["ORB-SLAM2", "Visual SLAM", "GitHub"],
             thumb: "pages/projects/ORB-SLAM2_tut/assets/thumb/media_6e1be0e7619d.jpg"
         },
@@ -248,7 +269,8 @@ window.SITE_DATA = {
                 desc: "오픈소스 실습 진행 (with office, custom dataset)",
                 href: "pages/projects/VGGT-SLAM/",
                 thumb: "pages/projects/VGGT-SLAM/assets/실습-진행/media/media_f58800e22a2b.png",
-                published: true
+                published: true,
+                date: "2026-05-09"
             },
     ]
 };

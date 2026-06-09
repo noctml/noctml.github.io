@@ -1,0 +1,80 @@
+:root{
+  --site-bg: #ffffff;
+  --site-panel: #f6f7f9;
+  --site-panel2: #fbfbfc;
+  --site-text: #0f172a;
+  --site-muted: #6b7280;
+  --site-line: rgba(15, 23, 42, .10);
+  --site-accent: #111827;
+
+  --site-code-bg: #f3f5f9;
+  --site-code-text: #182033;
+  --site-code-muted: #64748b;
+  --site-code-line: rgba(15, 23, 42, .12);
+  --site-inline-code-bg: #eef2f7;
+  --site-inline-code-text: #182033;
+
+  --site-syntax-comment: #64748b;
+  --site-syntax-punctuation: #475569;
+  --site-syntax-property: #0f766e;
+  --site-syntax-string: #047857;
+  --site-syntax-function: #2563eb;
+  --site-syntax-keyword: #7c3aed;
+  --site-syntax-number: #c2410c;
+  --site-syntax-operator: #334155;
+
+  --site-radius: 6px;
+  --site-shadow: none;
+}
+
+:root[data-theme="dark-gray"]{
+  --site-bg: #202124;
+  --site-panel: #2a2c30;
+  --site-panel2: #24262a;
+  --site-text: #f1f3f5;
+  --site-muted: #c1c7d0;
+  --site-line: rgba(255,255,255,.13);
+  --site-accent: #ffffff;
+
+  --site-code-bg: #181a1e;
+  --site-code-text: #eef2f8;
+  --site-code-muted: #a8b0bd;
+  --site-code-line: rgba(255,255,255,.14);
+  --site-inline-code-bg: #30343a;
+  --site-inline-code-text: #f3f6fb;
+
+  --site-syntax-comment: #9aa4b2;
+  --site-syntax-punctuation: #d4d9e1;
+  --site-syntax-property: #5eead4;
+  --site-syntax-string: #86efac;
+  --site-syntax-function: #93c5fd;
+  --site-syntax-keyword: #c4b5fd;
+  --site-syntax-number: #fdba74;
+  --site-syntax-operator: #e5e7eb;
+}
+
+:root[data-theme="dark"]{
+  --site-bg: #0b0c0f;
+  --site-panel: #12141a;
+  --site-panel2: #0f1116;
+  --site-text: #e8eaf0;
+  --site-muted: #a8afc0;
+  --site-line: rgba(255,255,255,.10);
+  --site-accent: #ffffff;
+
+  --site-code-bg: #10131a;
+  --site-code-text: #edf2ff;
+  --site-code-muted: #98a2b3;
+  --site-code-line: rgba(255,255,255,.13);
+  --site-inline-code-bg: #1b2029;
+  --site-inline-code-text: #f4f7ff;
+
+  --site-syntax-comment: #98a2b3;
+  --site-syntax-punctuation: #d7dce5;
+  --site-syntax-property: #5eead4;
+  --site-syntax-string: #86efac;
+  --site-syntax-function: #93c5fd;
+  --site-syntax-keyword: #c4b5fd;
+  --site-syntax-number: #fdba74;
+  --site-syntax-operator: #e5e7eb;
+}

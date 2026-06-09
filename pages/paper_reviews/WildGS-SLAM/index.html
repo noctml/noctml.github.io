@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<script>document.documentElement.removeAttribute("data-theme");try{localStorage.removeItem("theme")}catch(e){}</script>
 <meta content="동적 환경에서 3D Gaussian map을 안정적으로 구성하는 monocular SLAM" name="description"/>
 <title>[논문 리뷰] WildGS-SLAM: Monocular Gaussian Splatting SLAM in Dynamic Environments | Insighted</title>
 <link href="../../../assets/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
@@ -11,7 +12,7 @@
 <meta content="동적 환경에서 3D Gaussian map을 안정적으로 구성하는 monocular SLAM" property="og:description"/>
 <meta content="website" property="og:type"/>
 <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet"/>
-<link href="styles.css?v=wildgs-eval-setup-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601" rel="stylesheet"/>
+<link href="styles.css?v=wildgs-eval-setup-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601-lightbox-zoom-20260605-trackpad-pinch-20260605-lightbox-page-scale-reset-20260605-paper-meta-masthead-20260606-paper-meta-compact-20260606-scoped-blue-v9-20260607-monst3r-neutral-v1-20260607-sepia-emphasis-20260608-sepia-title-brown-20260608-meta-title-merge-20260608-meta-masthead-parity-20260608-inline-baseline-20260609-inline-sepia-20260609-inline-sepia-soft-20260609-inline-gray-restore-20260609-inline-gray-chip-20260609-toggle-guard-20260609-imgcenter-20260609-toggle-stable-20260609-focus-indent-reset-20260609-toggle-margin-sync-20260609" rel="stylesheet"/>
 </head>
 <body>
 <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
@@ -40,9 +41,6 @@
 <button aria-label="Switch language" class="lang-toggle" id="langBtn" title="Switch language" type="button">
 <span data-lang-option="ko">KO</span>
 <span data-lang-option="en">EN</span>
-</button>
-<button aria-label="Toggle theme" class="icon-btn" id="themeBtn" title="Toggle theme" type="button">
-<span aria-hidden="true" id="themeIcon">☀</span>
 </button>
 </div>
 </div>
@@ -219,11 +217,11 @@
 <p>Static scene은 Gaussian set <span class="inline-math">\( \mathcal{G}=\{g_i\}_{i=1}^{K} \)</span>로 표현된다. 각 Gaussian은 color, opacity, mean, covariance를 가지며, camera plane으로 projection된 뒤 color와 depth가 alpha blending으로 렌더링된다.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\alpha_i = o_i \exp\left(-\frac{1}{2}(x' - \mu'_i)^T {\Sigma'_i}^{-1}(x' - \mu'_i)\right)\tag{1}$$</div></div></div>
-<figcaption><span class="caption-main">projected Gaussian이 pixel <span class="inline-math">\(x'\)</span>에 주는 opacity contribution.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (1). Gaussian opacity contribution.</span><span class="caption-note">projected Gaussian이 pixel <span class="inline-math">\(x'\)</span>에 주는 opacity contribution.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{I}=\sum_{i\in\mathcal{G}'} c_i\alpha_i\prod_{j=1}^{i-1}(1-\alpha_j),\qquad \hat{D}=\sum_{i\in\mathcal{G}'} \hat{d}_i\alpha_i\prod_{j=1}^{i-1}(1-\alpha_j)\tag{2}$$</div></div></div>
-<figcaption><span class="caption-main">overlapping Gaussian을 depth 순서로 blending해 rendered color와 depth를 계산.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (2). Color-depth alpha blending.</span><span class="caption-note">overlapping Gaussian을 depth 순서로 blending해 rendered color와 depth를 계산.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -231,11 +229,11 @@
 <p>입력 image <span class="inline-math">\(I_i\)</span>에서 3D-aware DINOv2 feature <span class="inline-math">\( \mathcal{F}_i=F(I_i) \)</span>를 추출하고, shallow MLP <span class="inline-math">\(P\)</span>가 uncertainty map <span class="inline-math">\( \beta_i=P(\mathcal{F}_i) \)</span>를 예측한다. MLP는 streamed frame으로 online 학습되어 sequence별 distractor와 occlusion에 적응한다.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{depth}=\lvert \hat{D}_i-\tilde{D}_i\rvert_1\tag{3}$$</div></div></div>
-<figcaption><span class="caption-main">rendered depth와 Metric3D V2 metric depth 사이의 L1 depth signal.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (3). Metric-depth L1 supervision.</span><span class="caption-note">rendered depth와 Metric3D V2 metric depth 사이의 L1 depth signal.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{uncer}=\mathcal{L}'_{SSIM}+\lambda_1\frac{\mathcal{L}_{uncer\_D}}{\beta_i^2}+\lambda_2\mathcal{L}_{reg\_V}+\lambda_3\mathcal{L}_{reg\_U}\tag{4}$$</div></div></div>
-<figcaption><span class="caption-main">modified SSIM, depth uncertainty term, feature-similarity regularization, uncertainty growth regularization을 결합한 uncertainty objective. 원문은 <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span>를 별도로 정의하지 않지만, 직전 Eq. (3)의 depth L1 term을 uncertainty-weighted 형태로 넣은 항으로 읽는 것이 자연스럽다.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (4). Uncertainty learning objective.</span><span class="caption-note">modified SSIM, depth uncertainty term, feature-similarity regularization, uncertainty growth regularization을 결합한 uncertainty objective. 원문 표기는 <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span>이며, 본문 설명상 Eq. (3)의 L1 depth signal을 uncertainty loss에 넣은 custom depth term으로 보면 된다.</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
 <summary>NeRF On-the-go 기반 loss term 보기</summary>
@@ -243,25 +241,25 @@
 <section class="summary-panel summary-panel-soft supplement-guide">
 <div class="summary-head"><span class="subsection-label">NeRF On-the-go에서 가져온 부분</span><p>WildGS-SLAM의 Eq. (4)는 NeRF On-the-go의 uncertainty 학습 아이디어를 SLAM/3DGS setting에 맞게 재사용한다. 그대로 복사한 loss라기보다는, <strong>modified SSIM과 regularization 항을 따르고 depth term을 추가</strong>한 형태로 읽는 것이 정확하다.</p></div>
 <div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>항</th><th>NeRF On-the-go의 의미</th><th>WildGS-SLAM에서의 역할</th></tr></thead><tbody>
-<tr><td><span class="summary-term">\( \mathcal{L}'_{SSIM} \)</span></td><td>patch의 luminance, contrast, structure 차이를 곱해 dynamic/static 차이를 더 강하게 드러냄</td><td>RGB 차이만으로는 비슷해 보이는 distractor도 구조 차이로 높은 uncertainty를 받게 함</td></tr>
-<tr><td><span class="summary-term">\( \mathcal{L}_{uncer\_D}/\beta_i^2 \)</span></td><td>NeRF On-the-go에는 없는 WildGS-SLAM 추가 항. 원문은 \( \mathcal{L}_{uncer\_D} \)를 별도 정의하지 않지만, 직전 Eq. (3)의 \( \mathcal{L}_{depth} \)를 uncertainty 학습에 넣은 notation으로 해석됨</td><td>rendered depth와 Metric3D depth가 맞지 않는 영역의 영향력을 uncertainty로 조절</td></tr>
-<tr><td><span class="summary-term">\( \mathcal{L}_{reg\_V} \)</span></td><td>DINO feature가 비슷한 ray/pixel끼리는 uncertainty도 비슷해야 한다는 consistency regularization</td><td>비슷한 appearance/semantic region에서 uncertainty가 들쭉날쭉해지는 것을 완화</td></tr>
-<tr><td><span class="summary-term">\( \mathcal{L}_{reg\_U} \)</span></td><td>\( \log \beta \) 형태의 growth regularizer</td><td>모든 pixel의 \( \beta \)를 무한히 키워 loss를 회피하는 trivial solution 방지</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}'_{SSIM} \)</span></span></td><td>patch의 luminance, contrast, structure 차이를 곱해 dynamic/static 차이를 더 강하게 드러냄</td><td>RGB 차이만으로는 비슷해 보이는 distractor도 구조 차이로 높은 uncertainty를 받게 함</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{uncer\_D}/\beta_i^2 \)</span></span></td><td>NeRF On-the-go에는 없는 WildGS-SLAM 추가 항. 원문 표기상 <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span>는 L1 depth signal과 연결된 custom depth uncertainty term</td><td>rendered depth와 Metric3D depth가 맞지 않는 영역의 영향력을 uncertainty로 조절</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_V} \)</span></span></td><td>DINO feature가 비슷한 ray/pixel끼리는 uncertainty도 비슷해야 한다는 consistency regularization</td><td>비슷한 appearance/semantic region에서 uncertainty가 들쭉날쭉해지는 것을 완화</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_U} \)</span></span></td><td><span class="inline-math">\( \log \beta \)</span> 형태의 growth regularizer</td><td>모든 pixel의 <span class="inline-math">\( \beta \)</span>를 무한히 키워 loss를 회피하는 trivial solution 방지</td></tr>
 </tbody></table></div>
 </section>
 <section class="summary-panel">
 <div class="summary-head"><span class="subsection-label">핵심 수식만 보면</span><p>NeRF On-the-go는 RGB error만 쓰면 배경과 색이 비슷한 distractor를 놓칠 수 있다고 보고, SSIM의 세 구성요소를 분리해 uncertainty를 학습한다.</p></div>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}'_{SSIM}=(1-L(P,\hat{P}))(1-C(P,\hat{P}))(1-S(P,\hat{P}))$$</div></div></div>
-<figcaption><span class="caption-main">patch <span class="inline-math">\(P\)</span>와 rendered patch <span class="inline-math">\(\hat{P}\)</span> 사이의 luminance, contrast, structure 차이를 모두 반영.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Modified SSIM uncertainty cue.</span><span class="caption-note">patch <span class="inline-math">\(P\)</span>와 rendered patch <span class="inline-math">\(\hat{P}\)</span> 사이의 luminance, contrast, structure 차이를 모두 반영.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{N}(r)=\{r'\mid \cos(f,f')&gt;\eta\},\qquad \bar{\beta}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}\beta(r')$$</div></div></div>
-<figcaption><span class="caption-main">DINO feature가 비슷한 ray 집합을 만들고, 그 안에서 평균 uncertainty를 계산.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Feature-neighbor uncertainty average.</span><span class="caption-note">DINO feature가 비슷한 ray 집합을 만들고, 그 안에서 평균 uncertainty를 계산.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{reg\_V}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{reg\_U}\approx\log\beta$$</div></div></div>
-<figcaption><span class="caption-main">feature-wise uncertainty consistency와 uncertainty growth 억제를 위한 보조 항.</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{reg\_V}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{reg\_U}=\log\beta_i$$</div></div></div>
+<figcaption><span class="caption-main">Auxiliary. Uncertainty regularization terms.</span><span class="caption-note">feature-wise uncertainty consistency와 uncertainty growth 억제를 위한 보조 항.</span></figcaption>
 </figure>
 </section>
 </div>
@@ -295,24 +293,24 @@
 <p>Tracking은 DROID-SLAM의 recurrent optical-flow update와 DBA를 기반으로 한다. WildGS-SLAM은 여기에 uncertainty와 metric depth를 넣어, moving distractor가 flow residual에 주는 영향력을 줄이고 초기 tracking을 안정화한다.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\arg\min_{\omega,d}\sum_{(i,j)\in\mathcal{E}}\left\|\tilde{p}_{ij}-\Pi_c\left(\omega_j^{-1}\omega_i\Pi_c^{-1}(p_i,d_i)\right)\right\|_{\Sigma_{ij}/\beta_i^2}^{2}+\lambda_4\sum_{i\in\mathcal{V}}\left\|M_i\left(d_i-1/\tilde{D}_i\right)\right\|^2\tag{5}$$</div></div></div>
-<figcaption><span class="caption-main">첫 항은 uncertainty-aware DBA, 두 번째 항은 monocular metric depth 기반 disparity regularization.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (5). Uncertainty-aware DBA objective.</span><span class="caption-note">첫 항은 uncertainty-aware DBA, 두 번째 항은 monocular metric depth 기반 disparity regularization.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
 <span class="subsection-label">4. Uncertainty-guided mapping</span>
 <p>새 keyframe이 들어오면 pose, RGB, metric depth를 사용해 3D Gaussian map을 확장한다. 이후 local window keyframe을 샘플링해 rendered color/depth를 계산하고, uncertainty-weighted rendering loss로 map을 업데이트한다.</p>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{render}=\lambda_5\mathcal{L}_{color}+\lambda_6\frac{\mathcal{L}_{depth}}{\beta^2}+\lambda_7\mathcal{L}_{iso}\tag{6}$$</div></div></div>
-<figcaption><span class="caption-main">color, depth, isotropic regularization을 결합한 Gaussian map rendering loss.</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{render}=\frac{\lambda_5\mathcal{L}_{color}+\lambda_6\mathcal{L}_{depth}}{\beta^2}+\lambda_7\mathcal{L}_{iso}\tag{6}$$</div></div></div>
+<figcaption><span class="caption-main">Eq. (6). Uncertainty-weighted rendering loss.</span><span class="caption-note">uncertainty map으로 color/depth rendering loss를 함께 조절하고 isotropic regularization을 더한 Gaussian map rendering loss.</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
-<summary>Gaussian Splatting SLAM의 \( \mathcal{L}_{iso} \) 보기</summary>
+<summary>Gaussian Splatting SLAM의 <span class="inline-math">\( \mathcal{L}_{iso} \)</span> 보기</summary>
 <div class="appendix-details supplement-details">
 <section class="summary-panel summary-panel-soft supplement-guide">
 <div class="summary-head"><span class="subsection-label">Isotropic regularization</span><p>WildGS-SLAM의 <span class="inline-math">\( \mathcal{L}_{iso} \)</span>는 Gaussian Splatting SLAM [30]의 isotropic shape regularization을 따르는 항이다. 핵심 목적은 관측이 부족한 방향으로 Gaussian ellipsoid가 과도하게 길어져 rendering artifact와 tracking 불안정을 만드는 것을 막는 것이다.</p></div>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$E_{iso}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
-<figcaption><span class="caption-main">Gaussian scale vector <span class="inline-math">\(s_i\)</span>가 평균 scale <span class="inline-math">\(\tilde{s}_i\)</span>를 모든 축에 복제한 isotropic shape에 가까워지도록 유도.</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{iso}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
+<figcaption><span class="caption-main">Auxiliary. Isotropic scale regularization.</span><span class="caption-note">Gaussian scale vector <span class="inline-math">\(s_i\)</span>가 평균 scale <span class="inline-math">\(\tilde{s}_i\)</span>를 모든 축에 복제한 isotropic shape에 가까워지도록 유도.</span></figcaption>
 </figure>
 </section>
 </div>
@@ -322,7 +320,7 @@
 <div class="appendix-details supplement-details">
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{color}=(1-\lambda_{ssim})\|\hat{I}-I\|_1+\lambda_{ssim}\mathcal{L}_{ssim}\tag{7}$$</div></div></div>
-<figcaption><span class="caption-main">L1 color error와 SSIM loss를 결합한 color rendering term.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (7). Color rendering loss.</span><span class="caption-note">L1 color error와 SSIM loss를 결합한 color rendering term.</span></figcaption>
 </figure>
 </div>
 </details>
@@ -452,7 +450,7 @@
 <h3 id="ko-usage">Usage / Limits: 언제 유용하고 어디서 약한가</h3>
 <p>WildGS-SLAM은 monocular RGB만 있는 dynamic scene에서 tracking과 rendering을 동시에 얻고 싶을 때 특히 유용하다. semantic class가 정해지지 않은 distractor나 shadow처럼 hard mask로 처리하기 애매한 요소를 uncertainty로 downweight할 수 있기 때문이다.</p>
 <section class="summary-panel usage-fit-box">
-<div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>Conclusion의 핵심은 3D-aware feature 기반 uncertainty가 dynamic monocular SLAM을 안정화하지만, view coverage가 부족하면 uncertainty predictor도 distractor를 놓칠 수 있다는 점이다.</p></div>
+<div class="summary-head"><span class="section-chip">When to Use / Avoid</span></div>
 <div class="summary-table-wrap">
 <table class="summary-table usage-table">
 <thead><tr><th>구분</th><th>정리</th><th>이유</th></tr></thead>
@@ -462,14 +460,6 @@
 <tr><td><span class="summary-term">약한 조건</span></td><td>같은 region을 본 view가 적거나, motion prior가 필요한 복잡한 dynamic scene</td><td>uncertainty predictor가 input frame 기반 online 학습에 의존</td></tr>
 </tbody>
 </table>
-</div>
-</section>
-<section class="result-brief result-brief-wide">
-<div class="result-brief-head"><span class="section-chip">Paper conclusion</span><p>WildGS-SLAM은 uncertainty-aware geometric mapping을 통해 dynamic monocular SLAM에서 tracking과 novel view synthesis를 함께 개선한다.</p></div>
-<div class="result-brief-grid">
-<article><strong>핵심 주장</strong><p>dynamic distractor는 semantic 제거보다 uncertainty-weighting으로 다루는 것이 일반화에 유리.</p></article>
-<article><strong>실용적 장점</strong><p>monocular RGB input만으로 3D Gaussian static map과 camera trajectory를 얻음.</p></article>
-<article><strong>남은 한계</strong><p>관측 view가 부족하면 distractor 인지가 어렵고, motion prior 추가가 후속 개선 방향.</p></article>
 </div>
 </section>
 </section>
@@ -563,11 +553,11 @@
 <p>The static scene is represented as a Gaussian set <span class="inline-math">\( \mathcal{G}=\{g_i\}_{i=1}^{K} \)</span>. Each Gaussian has color, opacity, mean, and covariance, and rendered color/depth are obtained through alpha blending.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\alpha_i = o_i \exp\left(-\frac{1}{2}(x' - \mu'_i)^T {\Sigma'_i}^{-1}(x' - \mu'_i)\right)\tag{1}$$</div></div></div>
-<figcaption><span class="caption-main">Opacity contribution of a projected Gaussian at pixel <span class="inline-math">\(x'\)</span>.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (1). Gaussian opacity contribution.</span><span class="caption-note">Opacity contribution of a projected Gaussian at pixel <span class="inline-math">\(x'\)</span>.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\hat{I}=\sum_{i\in\mathcal{G}'} c_i\alpha_i\prod_{j=1}^{i-1}(1-\alpha_j),\qquad \hat{D}=\sum_{i\in\mathcal{G}'} \hat{d}_i\alpha_i\prod_{j=1}^{i-1}(1-\alpha_j)\tag{2}$$</div></div></div>
-<figcaption><span class="caption-main">Rendered color and depth from depth-ordered Gaussian blending.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (2). Color-depth alpha blending.</span><span class="caption-note">Rendered color and depth from depth-ordered Gaussian blending.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
@@ -575,11 +565,11 @@
 <p>For an input image <span class="inline-math">\(I_i\)</span>, a 3D-aware DINOv2 feature <span class="inline-math">\( \mathcal{F}_i=F(I_i) \)</span> is extracted, and a shallow MLP <span class="inline-math">\(P\)</span> predicts the uncertainty map <span class="inline-math">\( \beta_i=P(\mathcal{F}_i) \)</span>. The MLP is trained online on streamed frames, so it can adapt to sequence-specific distractors and occlusion patterns.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{depth}=\lvert \hat{D}_i-\tilde{D}_i\rvert_1\tag{3}$$</div></div></div>
-<figcaption><span class="caption-main">L1 depth signal between rendered depth and Metric3D V2 metric depth.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (3). Metric-depth L1 supervision.</span><span class="caption-note">L1 depth signal between rendered depth and Metric3D V2 metric depth.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{uncer}=\mathcal{L}'_{SSIM}+\lambda_1\frac{\mathcal{L}_{uncer\_D}}{\beta_i^2}+\lambda_2\mathcal{L}_{reg\_V}+\lambda_3\mathcal{L}_{reg\_U}\tag{4}$$</div></div></div>
-<figcaption><span class="caption-main">Uncertainty objective combining modified SSIM, depth uncertainty, feature-similarity regularization, and uncertainty growth regularization. The paper does not separately define <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span>; from context, it is best read as the depth L1 term from Eq. (3) inserted into the uncertainty-weighted objective.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (4). Uncertainty learning objective.</span><span class="caption-note">Uncertainty objective combining modified SSIM, depth uncertainty, feature-similarity regularization, and uncertainty growth regularization. The paper denotes <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span> as a custom depth uncertainty term tied to the L1 depth signal in Eq. (3).</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
 <summary>NeRF On-the-go loss terms</summary>
@@ -587,25 +577,25 @@
 <section class="summary-panel summary-panel-soft supplement-guide">
 <div class="summary-head"><span class="subsection-label">What comes from NeRF On-the-go?</span><p>Eq. (4) reuses the uncertainty-learning idea from NeRF On-the-go in a SLAM/3DGS setting. It should be read as <strong>modified SSIM and regularization terms from NeRF On-the-go plus a WildGS-SLAM depth term</strong>, not as a direct copy of the entire loss.</p></div>
 <div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Term</th><th>Meaning in NeRF On-the-go</th><th>Role in WildGS-SLAM</th></tr></thead><tbody>
-<tr><td><span class="summary-term">\( \mathcal{L}'_{SSIM} \)</span></td><td>Combines luminance, contrast, and structure differences to separate dynamic distractors from static background.</td><td>Gives high uncertainty to distractors even when RGB color alone is ambiguous.</td></tr>
-<tr><td><span class="summary-term">\( \mathcal{L}_{uncer\_D}/\beta_i^2 \)</span></td><td>WildGS-SLAM-specific addition, not from NeRF On-the-go. The paper does not separately define \( \mathcal{L}_{uncer\_D} \), but context points to the \( \mathcal{L}_{depth} \) term from Eq. (3) inside the uncertainty-learning objective.</td><td>Uses uncertainty to control regions where rendered depth and Metric3D depth disagree.</td></tr>
-<tr><td><span class="summary-term">\( \mathcal{L}_{reg\_V} \)</span></td><td>Feature-neighbor consistency: rays/pixels with similar DINO features should have similar uncertainty.</td><td>Prevents noisy uncertainty variation inside similar appearance or semantic regions.</td></tr>
-<tr><td><span class="summary-term">\( \mathcal{L}_{reg\_U} \)</span></td><td>A \( \log \beta \)-style growth regularizer.</td><td>Prevents the trivial solution where every pixel receives infinitely large uncertainty.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}'_{SSIM} \)</span></span></td><td>Combines luminance, contrast, and structure differences to separate dynamic distractors from static background.</td><td>Gives high uncertainty to distractors even when RGB color alone is ambiguous.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{uncer\_D}/\beta_i^2 \)</span></span></td><td>WildGS-SLAM-specific addition, not from NeRF On-the-go. In the paper notation, <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span> is a custom depth uncertainty term tied to the L1 depth signal.</td><td>Uses uncertainty to control regions where rendered depth and Metric3D depth disagree.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_V} \)</span></span></td><td>Feature-neighbor consistency: rays/pixels with similar DINO features should have similar uncertainty.</td><td>Prevents noisy uncertainty variation inside similar appearance or semantic regions.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_U} \)</span></span></td><td>A <span class="inline-math">\( \log \beta \)</span>-style growth regularizer.</td><td>Prevents the trivial solution where every pixel receives infinitely large uncertainty.</td></tr>
 </tbody></table></div>
 </section>
 <section class="summary-panel">
 <div class="summary-head"><span class="subsection-label">Core formulas</span><p>NeRF On-the-go argues that pure RGB error can miss distractors with similar colors, so uncertainty is learned from a modified SSIM signal and feature-based consistency.</p></div>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}'_{SSIM}=(1-L(P,\hat{P}))(1-C(P,\hat{P}))(1-S(P,\hat{P}))$$</div></div></div>
-<figcaption><span class="caption-main">Uses luminance, contrast, and structure differences between patch <span class="inline-math">\(P\)</span> and rendered patch <span class="inline-math">\(\hat{P}\)</span>.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Modified SSIM uncertainty cue.</span><span class="caption-note">Uses luminance, contrast, and structure differences between patch <span class="inline-math">\(P\)</span> and rendered patch <span class="inline-math">\(\hat{P}\)</span>.</span></figcaption>
 </figure>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{N}(r)=\{r'\mid \cos(f,f')&gt;\eta\},\qquad \bar{\beta}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}\beta(r')$$</div></div></div>
-<figcaption><span class="caption-main">Builds a DINO-feature-neighbor set and averages uncertainty within it.</span></figcaption>
+<figcaption><span class="caption-main">Auxiliary. Feature-neighbor uncertainty average.</span><span class="caption-note">Builds a DINO-feature-neighbor set and averages uncertainty within it.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{reg\_V}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{reg\_U}\approx\log\beta$$</div></div></div>
-<figcaption><span class="caption-main">Feature-wise uncertainty consistency and uncertainty-growth regularization.</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{reg\_V}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{reg\_U}=\log\beta_i$$</div></div></div>
+<figcaption><span class="caption-main">Auxiliary. Uncertainty regularization terms.</span><span class="caption-note">Feature-wise uncertainty consistency and uncertainty-growth regularization.</span></figcaption>
 </figure>
 </section>
 </div>
@@ -639,24 +629,24 @@
 <p>The tracking module is based on DROID-SLAM's recurrent optical-flow update and DBA. WildGS-SLAM adds uncertainty and metric depth, reducing the influence of moving distractors on flow residuals and stabilizing early tracking.</p>
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\arg\min_{\omega,d}\sum_{(i,j)\in\mathcal{E}}\left\|\tilde{p}_{ij}-\Pi_c\left(\omega_j^{-1}\omega_i\Pi_c^{-1}(p_i,d_i)\right)\right\|_{\Sigma_{ij}/\beta_i^2}^{2}+\lambda_4\sum_{i\in\mathcal{V}}\left\|M_i\left(d_i-1/\tilde{D}_i\right)\right\|^2\tag{5}$$</div></div></div>
-<figcaption><span class="caption-main">The first term is uncertainty-aware DBA; the second term is monocular metric-depth-based disparity regularization.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (5). Uncertainty-aware DBA objective.</span><span class="caption-note">The first term is uncertainty-aware DBA; the second term is monocular metric-depth-based disparity regularization.</span></figcaption>
 </figure>
 </section>
 <section class="method-step-block">
 <span class="subsection-label">4. Uncertainty-guided mapping</span>
 <p>When a keyframe is inserted, its pose, RGB image, and metric depth expand the 3D Gaussian map. The map is then updated with uncertainty-weighted rendering loss over sampled local-window keyframes.</p>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{render}=\lambda_5\mathcal{L}_{color}+\lambda_6\frac{\mathcal{L}_{depth}}{\beta^2}+\lambda_7\mathcal{L}_{iso}\tag{6}$$</div></div></div>
-<figcaption><span class="caption-main">Gaussian-map rendering loss combining color, depth, and isotropic regularization.</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{render}=\frac{\lambda_5\mathcal{L}_{color}+\lambda_6\mathcal{L}_{depth}}{\beta^2}+\lambda_7\mathcal{L}_{iso}\tag{6}$$</div></div></div>
+<figcaption><span class="caption-main">Eq. (6). Uncertainty-weighted rendering loss.</span><span class="caption-note">Gaussian-map rendering loss where the uncertainty map weights both color and depth terms before isotropic regularization is added.</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
-<summary>\( \mathcal{L}_{iso} \) from Gaussian Splatting SLAM</summary>
+<summary><span class="inline-math">\( \mathcal{L}_{iso} \)</span> from Gaussian Splatting SLAM</summary>
 <div class="appendix-details supplement-details">
 <section class="summary-panel summary-panel-soft supplement-guide">
 <div class="summary-head"><span class="subsection-label">Isotropic regularization</span><p>WildGS-SLAM's <span class="inline-math">\( \mathcal{L}_{iso} \)</span> follows the isotropic shape regularization from Gaussian Splatting SLAM [30]. Its role is to prevent Gaussian ellipsoids from becoming excessively elongated in weakly observed directions, which can create rendering artifacts and destabilize tracking.</p></div>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$E_{iso}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
-<figcaption><span class="caption-main">Encourages the Gaussian scale vector <span class="inline-math">\(s_i\)</span> to stay close to an isotropic shape formed by copying the mean scale <span class="inline-math">\(\tilde{s}_i\)</span> to every axis.</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{iso}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
+<figcaption><span class="caption-main">Auxiliary. Isotropic scale regularization.</span><span class="caption-note">Encourages the Gaussian scale vector <span class="inline-math">\(s_i\)</span> to stay close to an isotropic shape formed by copying the mean scale <span class="inline-math">\(\tilde{s}_i\)</span> to every axis.</span></figcaption>
 </figure>
 </section>
 </div>
@@ -666,7 +656,7 @@
 <div class="appendix-details supplement-details">
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{color}=(1-\lambda_{ssim})\|\hat{I}-I\|_1+\lambda_{ssim}\mathcal{L}_{ssim}\tag{7}$$</div></div></div>
-<figcaption><span class="caption-main">Color rendering term combining L1 color error and SSIM loss.</span></figcaption>
+<figcaption><span class="caption-main">Eq. (7). Color rendering loss.</span><span class="caption-note">Color rendering term combining L1 color error and SSIM loss.</span></figcaption>
 </figure>
 </div>
 </details>
@@ -796,7 +786,7 @@
 <h3 id="en-usage">Usage / Limits: when is it useful?</h3>
 <p>WildGS-SLAM is useful when monocular RGB dynamic videos need both camera tracking and a static 3D Gaussian map. It is especially relevant when semantic categories are unknown or when shadows and ambiguous distractors make hard masks brittle.</p>
 <section class="summary-panel usage-fit-box">
-<div class="summary-head"><span class="section-chip">When to Use / Avoid</span><p>The conclusion is that 3D-aware-feature-based uncertainty stabilizes dynamic monocular SLAM, but the uncertainty predictor can miss distractors when few views observe the same region.</p></div>
+<div class="summary-head"><span class="section-chip">When to Use / Avoid</span></div>
 <div class="summary-table-wrap">
 <table class="summary-table usage-table">
 <thead><tr><th>Category</th><th>Summary</th><th>Reason</th></tr></thead>
@@ -806,14 +796,6 @@
 <tr><td><span class="summary-term">Weak condition</span></td><td>Limited repeated views of the same region or scenes requiring explicit motion priors</td><td>The uncertainty predictor depends on online learning from input frames</td></tr>
 </tbody>
 </table>
-</div>
-</section>
-<section class="result-brief result-brief-wide">
-<div class="result-brief-head"><span class="section-chip">Paper conclusion</span><p>WildGS-SLAM improves tracking and novel view synthesis in dynamic monocular SLAM by integrating uncertainty-aware geometric mapping.</p></div>
-<div class="result-brief-grid">
-<article><strong>Core claim</strong><p>Dynamic distractors generalize better as uncertainty weights than only as semantic masks.</p></article>
-<article><strong>Practical value</strong><p>Gets camera trajectory and a 3D Gaussian static map from monocular RGB input.</p></article>
-<article><strong>Remaining limit</strong><p>Insufficient view coverage can make distractor detection difficult; motion priors are a natural next step.</p></article>
 </div>
 </section>
 </section>
@@ -833,7 +815,7 @@
 </section>
 <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
 <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
-<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js"></script>
+<script async="" crossorigin="anonymous" data-category="General" data-category-id="DIC_kwDOQthLvc4C1ZaY" data-emit-metadata="0" data-input-position="bottom" data-lang="ko" data-mapping="pathname" data-reactions-enabled="1" data-repo="noctml/noctml.github.io" data-repo-id="R_kgDOQthLvQ" data-strict="0" data-theme="light" src="https://giscus.app/client.js"></script>
 </section>
 </main>
 </div>
@@ -857,6 +839,6 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-<script defer="" src="script.js?v=wildgs-redesign-20260525"></script>
+<script defer="" src="script.js?v=wildgs-redesign-20260525-lightbox-zoom-20260605-trackpad-pinch-20260605-lightbox-page-scale-reset-20260605-light-only-bluegray-20260607"></script>
 </body>
 </html>

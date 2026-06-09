@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>document.documentElement.removeAttribute("data-theme");try{localStorage.removeItem("theme")}catch(e){}</script>
   <meta name="description" content="Insighted · Paper Reviews & Work" />
   <meta name="author" content="Wooseok Song" />
   <title>Insighted</title>
@@ -32,7 +33,7 @@
   </script>
 
   <link rel="stylesheet" href="assets/site-theme.css?v=quiet-archive-20260601c" />
-  <link rel="stylesheet" href="styles.css?v=quiet-flat-20260601" />
+  <link rel="stylesheet" href="styles.css?v=home-single-divider-20260609" />
 
   <style>
     /* Sidebar */
@@ -118,7 +119,6 @@
       margin-bottom:14px;
       padding:0 0 12px;
       border:0;
-      border-bottom:1px solid var(--line);
       border-radius:0;
       background:transparent;
       box-shadow:none;
@@ -299,15 +299,6 @@
       white-space:nowrap;
       font-variant-numeric:tabular-nums;
     }
-    .paper-card .arrow{
-      color:color-mix(in srgb, var(--muted) 70%, transparent);
-      opacity:.46;
-      transition:opacity .15s ease, color .15s ease;
-    }
-    .paper-card:hover .arrow{
-      color:var(--muted);
-      opacity:.78;
-    }
     .paper-card:hover .paper-thumb img{
       opacity:.98;
       filter:saturate(.96) contrast(1);
@@ -478,18 +469,22 @@
         grid-template-columns: 104px minmax(0, 1fr);
       }
       .paper-thumb{ width:104px; }
-      .paper-card .arrow{ display:none; }
     }
 
     /* Quiet archive: flatten cards into rows and reduce wrapper weight. */
     .paper-frame{
       gap:0;
-      min-height: calc(5 * 105px);
-      border-bottom:1px solid var(--line);
+      min-height: calc(5 * 148px);
+      border-bottom:0;
+      align-content:start;
+      grid-auto-rows:148px;
     }
     .paper-card{
-      min-height:105px;
-      padding:13px 2px;
+      height:148px;
+      min-height:148px;
+      grid-template-columns:174px minmax(0, 1fr);
+      align-items:start;
+      padding:18px 2px;
       border:0;
       border-top:1px solid var(--line);
       border-radius:0;
@@ -502,13 +497,77 @@
       border-color:var(--line);
     }
     .paper-thumb{
-      width:126px;
+      width:174px;
       border-radius:4px;
       border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
       background:transparent;
     }
     .paper-card .row-title{
+      font-size:16.5px;
       font-weight:760;
+      line-height:1.28;
+    }
+    .paper-card .row-sub{
+      font-size:13.5px;
+      line-height:1.5;
+    }
+    .paper-date{
+      font-size:11px;
+      margin-top:auto;
+    }
+    .paper-body{
+      height:100%;
+      gap:7px;
+      padding:1px 0 2px;
+    }
+    .paper-bottom-pager,
+    .project-bottom-pager{
+      justify-content:center;
+      width:100%;
+      margin-top:18px;
+      padding-top:4px;
+    }
+    .pager-pages{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+    }
+    .pager-page-btn{
+      width:30px;
+      height:30px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:0;
+      border-radius:7px;
+      background:transparent;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:720;
+      line-height:1;
+      cursor:pointer;
+      transition:background .15s ease, color .15s ease;
+    }
+    .pager-page-btn:hover{
+      color:var(--text);
+      background:color-mix(in srgb, var(--panel) 60%, transparent);
+    }
+    .pager-page-btn.is-active{
+      color:var(--text);
+      background:color-mix(in srgb, var(--panel) 78%, transparent);
+      box-shadow:inset 0 -1px 0 color-mix(in srgb, var(--text) 32%, transparent);
+    }
+    .paper-bottom-pager .pager-btn,
+    .project-bottom-pager .pager-btn{
+      border-color:transparent;
+      color:color-mix(in srgb, var(--muted) 78%, transparent);
+      background:transparent;
+    }
+    .paper-bottom-pager .pager-btn:not([disabled]):hover,
+    .project-bottom-pager .pager-btn:not([disabled]):hover{
+      color:var(--text);
+      background:color-mix(in srgb, var(--panel) 54%, transparent);
     }
     .paper-card.placeholder .paper-thumb,
     .paper-card.placeholder .row-title,
@@ -516,10 +575,20 @@
       border-radius:4px;
     }
     .grid.fixed-rows{
+      grid-template-columns:1fr;
       column-gap:18px;
       row-gap:0;
-      grid-auto-rows:172px;
-      border-bottom:1px solid var(--line);
+      grid-auto-rows:auto;
+      border-bottom:0;
+    }
+    #workGrid[data-work-list]{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:0;
+      min-height:calc(5 * 148px);
+      align-content:start;
+      grid-auto-rows:148px;
+      border-bottom:0;
     }
     #workGrid .card{
       height:172px;
@@ -551,16 +620,105 @@
     .card.placeholder .work-date{
       border-radius:4px;
     }
+    .project-card{
+      height:148px;
+      min-height:148px;
+      display:grid;
+      grid-template-columns:174px minmax(0, 1fr);
+      align-items:start;
+      gap:14px;
+      padding:18px 2px;
+      border-top:1px solid var(--line);
+      color:inherit;
+      text-decoration:none;
+      transition:background .15s ease;
+    }
+    .project-card:hover{
+      background:color-mix(in srgb, var(--panel) 35%, transparent);
+      opacity:1;
+    }
+    .project-thumb{
+      width:174px;
+      aspect-ratio:16 / 10;
+      border-radius:4px;
+      border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
+      background:transparent;
+      overflow:hidden;
+    }
+    .project-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:.9;
+      filter:saturate(.82) contrast(.98);
+      transition:opacity .15s ease, filter .15s ease;
+    }
+    .project-body{
+      height:100%;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+      padding:1px 0 2px;
+    }
+    .project-card .row-title{
+      color:var(--text);
+      font-size:16.5px;
+      font-weight:760;
+      line-height:1.28;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .project-card .row-sub{
+      color:color-mix(in srgb, var(--muted) 88%, var(--text));
+      font-size:13.5px;
+      line-height:1.5;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .project-date{
+      margin-top:auto;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.15;
+      letter-spacing:.01em;
+      opacity:.56;
+      white-space:nowrap;
+      font-variant-numeric:tabular-nums;
+    }
+    .project-card:hover .project-thumb img{
+      opacity:.98;
+      filter:saturate(.96) contrast(1);
+    }
 
     @media (max-width: 620px){
       .paper-frame{
-        min-height: calc(5 * 142px);
+        min-height: calc(5 * 172px);
+        grid-auto-rows:172px;
+      }
+      #workGrid[data-work-list]{
+        min-height:calc(5 * 172px);
+        grid-auto-rows:172px;
       }
       .paper-card{
-        min-height:142px;
-        padding:13px 0;
+        height:172px;
+        min-height:172px;
+        grid-template-columns:128px minmax(0, 1fr);
+        padding:18px 0;
       }
-      .paper-thumb{ width:104px; }
+      .paper-thumb{ width:128px; }
+      .project-card{
+        height:172px;
+        min-height:172px;
+        grid-template-columns:128px minmax(0, 1fr);
+        padding:18px 0;
+      }
+      .project-thumb{ width:128px; }
     }
   </style>
 </head>
@@ -578,6 +736,7 @@
 
           <div class="who">
             <div class="name">Wooseok Song</div>
+            <p class="profile-line">Visual SLAM · 3D Perception</p>
           </div>
 
           <div class="info">
@@ -651,44 +810,43 @@
             </span>
             <span class="brandtext">Insighted</span>
           </div>
-
-          <button id="themeBtn" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">
-            <span id="themeIcon" aria-hidden="true">☀</span>
-          </button>
+          <nav class="topnav" aria-label="Primary">
+            <button class="topnav-btn is-active" type="button" data-home-view="papers">Paper Reviews</button>
+            <button class="topnav-btn" type="button" data-home-view="projects">Projects</button>
+          </nav>
         </div>
       </header>
 
       <main id="main" class="container">
-        <section id="paper-reviews" class="section">
+        <section id="paper-reviews" class="section" data-home-section="papers">
           <div class="section-head row">
             <div>
               <h2>Paper Reviews</h2>
             </div>
-            <div class="pager" aria-label="Paper reviews pagination">
-              <button class="pager-btn" id="paperPrev" aria-label="Previous paper review page">←</button>
-              <span class="page-indicator" id="paperPageInfo">1 / 1</span>
-              <button class="pager-btn" id="paperNext" aria-label="Next paper review page">→</button>
-            </div>
           </div>
 
-          <div class="paper-groups" id="paperGroupList" aria-label="Paper review groups"></div>
-          <div class="paper-frame" id="paperList"></div>
+          <div class="paper-frame" id="paperList" data-paper-list data-mode="archive" data-page-size="5"></div>
+          <div class="pager paper-bottom-pager" aria-label="Paper reviews pagination">
+            <button class="pager-btn" id="paperPrev" aria-label="Previous paper review page">←</button>
+            <div class="pager-pages" id="paperPageList" aria-label="Paper review pages"></div>
+            <button class="pager-btn" id="paperNext" aria-label="Next paper review page">→</button>
+          </div>
         </section>
 
-        <section id="work" class="section">
+        <section id="work" class="section" data-home-section="projects" hidden>
           <div class="section-head row">
             <div>
-              <h2>Side Projects</h2>
-            </div>
-            <div class="pager" aria-label="Work pagination">
-              <button class="pager-btn" id="workPrev" aria-label="Previous work page">←</button>
-              <span class="page-indicator" id="workPageInfo">1 / 1</span>
-              <button class="pager-btn" id="workNext" aria-label="Next work page">→</button>
+              <h2>Projects</h2>
             </div>
           </div>
 
           <div class="work-frame">
-            <div class="grid fixed-rows" id="workGrid"></div>
+            <div class="grid fixed-rows" id="workGrid" data-work-list data-mode="archive" data-page-size="5"></div>
+          </div>
+          <div class="pager project-bottom-pager" aria-label="Projects pagination">
+            <button class="pager-btn" id="projectPrev" aria-label="Previous project page">←</button>
+            <div class="pager-pages" id="projectPageList" aria-label="Project pages"></div>
+            <button class="pager-btn" id="projectNext" aria-label="Next project page">→</button>
           </div>
         </section>
 
@@ -697,250 +855,7 @@
   </div>
 
   <script src="data.js?v=paper-dates-20260601"></script>
-  <script src="script.js?v=main-cleanup-20260525"></script>
-
-  <script>
-    const paperReviews = window.SITE_DATA.paperReviews || [];
-    const configuredPaperGroups = window.SITE_DATA.paperGroups || [];
-    const workItems    = window.SITE_DATA.projects || [];
-
-    function chunk(arr, size) {
-      const out = [];
-      for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
-      return out;
-    }
-
-    function padToSize(arr, size, fillerFactory) {
-      const out = arr.slice();
-      while (out.length < size) out.push(fillerFactory(out.length));
-      return out;
-    }
-
-    function pageCount(pages) {
-      return Math.max(1, pages.length);
-    }
-
-    const PAPER_PAGE_SIZE = 5;
-    let activePaperGroup = "All";
-    let filteredPaperReviews = paperReviews.slice();
-    let paperPages = chunk(filteredPaperReviews, PAPER_PAGE_SIZE);
-    let paperPage = 0;
-
-    const paperListEl = document.getElementById("paperList");
-    const paperGroupListEl = document.getElementById("paperGroupList");
-    const paperPrevEl = document.getElementById("paperPrev");
-    const paperNextEl = document.getElementById("paperNext");
-    const paperInfoEl = document.getElementById("paperPageInfo");
-
-    function uniquePaperGroups() {
-      const discovered = Array.from(new Set(paperReviews.map(item => item.group).filter(Boolean)));
-      if (!configuredPaperGroups.length) return discovered;
-      const configured = configuredPaperGroups.filter(group => discovered.includes(group));
-      const extras = discovered.filter(group => !configured.includes(group));
-      return [...configured, ...extras];
-    }
-
-    function paperGroupCount(group) {
-      if (group === "All") return paperReviews.length;
-      return paperReviews.filter(item => item.group === group).length;
-    }
-
-    function updatePaperPages() {
-      filteredPaperReviews = activePaperGroup === "All"
-        ? paperReviews.slice()
-        : paperReviews.filter(item => item.group === activePaperGroup);
-      paperPages = chunk(filteredPaperReviews, PAPER_PAGE_SIZE);
-      if (paperPage >= pageCount(paperPages)) paperPage = 0;
-    }
-
-    function renderPaperGroups() {
-      const groups = ["All", ...uniquePaperGroups()];
-      paperGroupListEl.innerHTML = groups.map(group => {
-        const active = group === activePaperGroup ? " is-active" : "";
-        const label = safeText(group);
-        const count = paperGroupCount(group);
-        return `
-          <button class="paper-group-btn${active}" type="button" data-paper-group="${safeAttr(group)}" aria-pressed="${group === activePaperGroup}">
-            <span>${label}</span>
-            <span class="paper-group-count">${count}</span>
-          </button>
-        `;
-      }).join("");
-    }
-
-    // for Paper Review
-    function renderPaper() {
-      updatePaperPages();
-      renderPaperGroups();
-      const total = pageCount(paperPages);
-      const realPage = paperPages[paperPage] || [];
-
-      const page = padToSize(realPage, PAPER_PAGE_SIZE, () => ({
-        title: "준비중",
-        desc: "준비중",
-        href: "#",
-        thumb: "",
-        published: false,
-        __placeholder: true
-      }));
-
-      paperListEl.innerHTML = page.map(item => {
-        if (item.__placeholder) {
-          return `
-            <div class="paper-card placeholder" aria-hidden="true">
-              <div class="paper-thumb"></div>
-              <div class="paper-body">
-                <div class="row-title">placeholder</div>
-                <div class="row-sub muted">placeholder</div>
-              </div>
-              <span class="arrow">→</span>
-            </div>
-          `;
-        }
-
-        const disabled = (!item.published);
-        const cls = disabled ? "paper-card is-disabled" : "paper-card";
-        const title = safeText(item.title);
-        const titleAttr = safeAttr(item.title);
-        const desc = safeText(item.desc);
-        const date = safeText(formatPaperDate(item.date));
-        const thumb = safeAttr(item.thumb || "");
-        const href = disabled ? "#" : item.href;
-        return `
-          <a class="${cls}" href="${href}">
-            <div class="paper-thumb">
-              ${thumb ? `<img src="${thumb}" alt="${titleAttr} thumbnail" loading="lazy" />` : ``}
-            </div>
-            <div class="paper-body">
-              <div class="row-title">${title}</div>
-              <div class="row-sub muted">${desc}</div>
-              ${date ? `<div class="paper-date">${date}</div>` : ``}
-              ${disabled ? `<div class="coming-text">준비중...</div>` : ``}
-            </div>
-            <span class="arrow">→</span>
-          </a>
-        `;
-      }).join("");
-
-      paperInfoEl.textContent = `${paperPage + 1} / ${total}`;
-      paperPrevEl.disabled = (paperPage === 0);
-      paperNextEl.disabled = (paperPage === total - 1);
-    }
-
-    paperGroupListEl.addEventListener("click", (event) => {
-      const btn = event.target.closest("[data-paper-group]");
-      if (!btn) return;
-      activePaperGroup = btn.dataset.paperGroup || "All";
-      paperPage = 0;
-      renderPaper();
-    });
-
-    paperPrevEl.addEventListener("click", () => {
-      if (paperPage === 0) return;
-      paperPage -= 1;
-      renderPaper();
-    });
-
-    paperNextEl.addEventListener("click", () => {
-      const total = pageCount(paperPages);
-      if (paperPage === total - 1) return;
-      paperPage += 1;
-      renderPaper();
-    });
-
-    const WORK_PAGE_SIZE = 6;
-    const workPages = chunk(workItems, WORK_PAGE_SIZE);
-    let workPage = 0;
-
-    const workGridEl = document.getElementById("workGrid");
-    const workPrevEl = document.getElementById("workPrev");
-    const workNextEl = document.getElementById("workNext");
-    const workInfoEl = document.getElementById("workPageInfo");
-
-    function safeText(s) {
-      return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    function safeAttr(s) {
-      return safeText(s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-    }
-
-    function formatPaperDate(value) {
-      if (!value) return "";
-      return String(value).trim().replace(/-/g, ".");
-    }
-
-    function renderWork() {
-      const total = Math.max(1, workPages.length);
-      const realPage = workPages[workPage] || [];
-      const page = realPage;
-
-      workGridEl.innerHTML = page.map(item => {
-        const published = !!item.published && item.href && item.href !== "#";
-        const title = safeText(item.title);
-        const desc = safeText(item.desc);
-        const date = safeText(item.date);
-        const thumb = safeText(item.thumb || "");
-
-        if (!published) {
-          return `
-            <div class="card is-disabled" aria-disabled="true">
-              <div class="work-unpub">
-                <div class="work-thumb">
-                  ${thumb ? `<img src="${thumb}" alt="${title} thumbnail" loading="lazy" />` : ``}
-                </div>
-                <div class="work-body">
-                  <div class="work-title">${title || "준비중"}</div>
-                  <div class="work-desc">준비중...</div>
-                  <div class="work-meta">
-                    <span class="work-date">${date || ""}</span>
-                    <span></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        return `
-          <a class="card" href="${item.href}" style="text-decoration:none;">
-            <div class="work-card">
-              <div class="work-thumb">
-                ${thumb ? `<img src="${thumb}" alt="${title} thumbnail" loading="lazy" />` : ``}
-              </div>
-              <div class="work-body">
-                <div class="work-title">${title}</div>
-                <div class="work-desc">${desc}</div>
-                <div class="work-meta">
-                  <span class="work-date">${date}</span>
-                  <span></span>
-                </div>
-              </div>
-            </div>
-          </a>
-        `;
-      }).join("");
-
-      workInfoEl.textContent = `${workPage + 1} / ${total}`;
-      workPrevEl.disabled = (workPage === 0);
-      workNextEl.disabled = (workPage === total - 1);
-    }
-
-    workPrevEl.addEventListener("click", () => {
-      if (workPage === 0) return;
-      workPage -= 1;
-      renderWork();
-    });
-
-    workNextEl.addEventListener("click", () => {
-      const total = Math.max(1, workPages.length);
-      if (workPage >= total - 1) return;
-      workPage += 1;
-      renderWork();
-    });
-
-    renderPaper();
-    renderWork();
-  </script>
+  <script src="script.js?v=main-cleanup-20260525-light-only-bluegray-20260607"></script>
+  <script src="archive.js?v=project-pagination-20260609"></script>
 </body>
 </html>

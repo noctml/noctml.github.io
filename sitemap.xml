@@ -2,9 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://noctml.github.io/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/VINS-Mono/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/paper_reviews/TTT3R/</loc>
@@ -13,14 +19,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/WildPose/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <loc>https://noctml.github.io/pages/paper_reviews/GRS-SLAM3R/</loc>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/WildGS-SLAM/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <loc>https://noctml.github.io/pages/paper_reviews/MinkowskiCNN/</loc>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -43,98 +49,116 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/WildPose/</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/WildGS-SLAM/</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://noctml.github.io/pages/paper_reviews/CUT3R/</loc>
-    <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/VGGT-SLAM/</loc>
-    <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/VGGT/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/paper_reviews/3D-Prior/</loc>
-    <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/NeRF/</loc>
-    <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/Khronos/</loc>
-    <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/SLIM-VDB/</loc>
-    <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/3D_DSG/</loc>
-    <lastmod>2026-05-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://noctml.github.io/pages/paper_reviews/3D_SG/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/paper_reviews/DROID-W/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/paper_reviews/DynaSLAM/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/paper_reviews/Chamelion/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/VGGT-SLAM/</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/VGGT/</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/NeRF/</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/Khronos/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/SLIM-VDB/</loc>
+    <lastmod>2026-01-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/3D_DSG/</loc>
+    <lastmod>2026-01-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/paper_reviews/3D_SG/</loc>
+    <lastmod>2026-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/paper_reviews/DROID-SLAM/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/paper_reviews/ORB-SLAM2/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-01-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://noctml.github.io/pages/projects/VGGT-SLAM/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <loc>https://noctml.github.io/pages/projects/ORB-SLAM2-macOS/</loc>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://noctml.github.io/pages/projects/ORB-SLAM2_tut/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/projects/VGGT-SLAM/</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
