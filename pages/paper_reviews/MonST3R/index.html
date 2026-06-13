@@ -258,7 +258,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-F^{t\rightarrow t'}_{cam}=
+F^{t\rightarrow t'}_{\mathrm{cam}}=
 \pi\left(D^{tt'}_tK_{t'}R_{t\rightarrow t'}K_t^{-1}\hat{x}+K_{t'}T_{t\rightarrow t'}\right)-x \tag{2}
 $$
                             </div></div></div>
@@ -267,7 +267,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-S^{t\rightarrow t'}=\left[\alpha&gt;\left\|F_{cam}^{t\rightarrow t'}-F_{est}^{t\rightarrow t'}\right\|_{\mathrm{L1}}\right] \tag{3}
+S^{t\rightarrow t'}=\left[\alpha&gt;\left\|F_{\mathrm{cam}}^{t\rightarrow t'}-F_{\mathrm{est}}^{t\rightarrow t'}\right\|_{\mathrm{L1}}\right] \tag{3}
 $$
                             </div></div></div>
 <figcaption><span class="caption-main">Eq. (3). Confident static mask test.</span><span class="caption-note">camera-induced flow와 estimated optical flow가 threshold <span class="inline-equation-token">\(\alpha\)</span> 안에서 일치하는 pixel을 static anchor로 선택한다.</span></figcaption>
@@ -286,8 +286,8 @@ $$
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{I}\)</span>, <span class="inline-equation-token">\(x_i\)</span></span></td><td>confidence가 높은 correspondence pixel 집합과 reference frame의 2D pixel</td><td>PnP는 신뢰도 높은 pixel만 pose anchor로 사용.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(X_i^{t';tt'}\)</span></span></td><td>pair <span class="inline-equation-token">\((t,t')\)</span>에서 frame <span class="inline-equation-token">\(t'\)</span>에 해당하는 3D point</td><td>relative pose 추정에 쓰이는 pairwise pointmap 값.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(K_t\)</span>, <span class="inline-equation-token">\(D_t^{tt'}\)</span>, <span class="inline-equation-token">\(\hat x\)</span></span></td><td>intrinsics, pairwise depth, homogeneous pixel</td><td>camera motion만으로 예상되는 optical flow를 계산.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-equation-token">\(F_{cam}^{t\to t'}\)</span>, <span class="inline-equation-token">\(F_{est}^{t\to t'}\)</span></span></td><td>camera-induced flow와 estimated optical flow</td><td>둘이 크게 다르면 moving/object deformation 가능성이 큼.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-equation-token">\(S^{t\to t'}\)</span>, <span class="inline-equation-token">\(S^{global;t\to t'}\)</span></span></td><td>pairwise static mask와 global static mask</td><td>정렬을 지탱할 static anchor pixel 선택.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(F_{\mathrm{cam}}^{t\to t'}\)</span>, <span class="inline-equation-token">\(F_{\mathrm{est}}^{t\to t'}\)</span></span></td><td>camera-induced flow와 estimated optical flow</td><td>둘이 크게 다르면 moving/object deformation 가능성이 큼.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(S^{t\to t'}\)</span>, <span class="inline-equation-token">\(S^{\mathrm{global};t\to t'}\)</span></span></td><td>pairwise static mask와 global static mask</td><td>정렬을 지탱할 static anchor pixel 선택.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(W_i\)</span>, <span class="inline-equation-token">\(e\)</span>, <span class="inline-equation-token">\(t\in e\)</span></span></td><td>temporal window, pair edge, edge 안의 frame</td><td>모든 pair를 쓰지 않고 local window로 최적화 비용을 제한.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(X^t\)</span>, <span class="inline-equation-token">\(X^{t;e}\)</span>, <span class="inline-equation-token">\(C^{t;e}\)</span></span></td><td>global pointmap, pairwise pointmap, confidence</td><td>pairwise geometry를 time-indexed global geometry에 맞춤.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_{t;e}\)</span>, <span class="inline-equation-token">\(P_W\)</span></span></td><td>pair scale, global transform, window pose parameter</td><td>scale/pose를 함께 최적화해 dynamic video를 하나의 trajectory로 묶음.</td></tr>
@@ -307,7 +307,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-\mathcal{L}_{align}(X,\sigma,P_W)=
+\mathcal{L}_{\mathrm{align}}(X,\sigma,P_W)=
 \sum_{W_i\in W}\sum_{e\in W_i}\sum_{t\in e}
 \left\|C^{t;e}\cdot\left(X^t-\sigma_eP_{t;e}X^{t;e}\right)\right\|_1 \tag{4}
 $$
@@ -317,8 +317,8 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-\mathcal{L}_{smooth}(X)=
-\sum_{t=0}^{N-1}\left(\left\|R_t^TR_{t+1}-I\right\|_F+
+\mathcal{L}_{\mathrm{smooth}}(X)=
+\sum_{t=0}^{N-1}\left(\left\|R_t^\top R_{t+1}-I\right\|_F+
 \left\|T_{t+1}-T_t\right\|_2\right) \tag{5}
 $$
                             </div></div></div>
@@ -327,10 +327,10 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-\mathcal{L}_{flow}(X)=
+\mathcal{L}_{\mathrm{flow}}(X)=
 \sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}
-\left\|S^{global;t\rightarrow t'}\cdot
-\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{6}
+\left\|S^{\mathrm{global};t\rightarrow t'}\cdot
+\left(F^{\mathrm{global};t\rightarrow t'}_{\mathrm{cam}}-F^{t\rightarrow t'}_{\mathrm{est}}\right)\right\|_1 \tag{6}
 $$
                             </div></div></div>
 <figcaption><span class="caption-main">Eq. (6). Static-region flow consistency loss.</span><span class="caption-note">confident static region에서 global parameter 기반 camera-induced flow가 estimated flow와 일치하도록 만든다.</span></figcaption>
@@ -339,7 +339,7 @@ $$
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \hat{X}=\arg\min_{X,P_W,\sigma}
-\mathcal{L}_{align}(X,\sigma,P_W)+w_{smooth}\mathcal{L}_{smooth}(X)+w_{flow}\mathcal{L}_{flow}(X) \tag{7}
+\mathcal{L}_{\mathrm{align}}(X,\sigma,P_W)+w_{\mathrm{smooth}}\mathcal{L}_{\mathrm{smooth}}(X)+w_{\mathrm{flow}}\mathcal{L}_{\mathrm{flow}}(X) \tag{7}
 $$
                             </div></div></div>
 <figcaption><span class="caption-main">Eq. (7). Global video optimization objective.</span><span class="caption-note">alignment, trajectory smoothness, flow consistency를 함께 최소화해 video-level pose와 depth를 안정화한다.</span></figcaption>
@@ -369,7 +369,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-F^{global;t\rightarrow t'}_{cam}=\pi\left(D^tK_{t'}R_{t'}R_t^TK_t^{-1}\hat{x}+K_{t'}(T_{t'}-T_t)\right)-x \tag{10}
+F^{\mathrm{global};t\rightarrow t'}_{\mathrm{cam}}=\pi\left(D^tK_{t'}R_{t'}R_t^\top K_t^{-1}\hat{x}+K_{t'}(T_{t'}-T_t)\right)-x \tag{10}
 $$
                                 </div></div></div>
 <figcaption><span class="caption-main">Eq. (10). Global camera-induced flow.</span><span class="caption-note">global camera pose, intrinsics, depth로 계산한 flow를 Eq. (6)의 consistency 항에 사용한다.</span></figcaption>
@@ -385,7 +385,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-S^{global;t\rightarrow t'}=S^t\vee\left[\alpha&gt;\left\|F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right\|_{L1}\right] \tag{12}
+S^{\mathrm{global};t\rightarrow t'}=S^t\vee\left[\alpha&gt;\left\|F^{\mathrm{global};t\rightarrow t'}_{\mathrm{cam}}-F^{t\rightarrow t'}_{\mathrm{est}}\right\|_{\mathrm{L1}}\right] \tag{12}
 $$
                                 </div></div></div>
 <figcaption><span class="caption-main">Eq. (12). Global static-mask refinement.</span><span class="caption-note">초기 static mask와 global flow agreement를 결합해 최종 confident static mask를 갱신한다.</span></figcaption>
@@ -594,7 +594,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-F^{t\rightarrow t'}_{cam}=
+F^{t\rightarrow t'}_{\mathrm{cam}}=
 \pi\left(D^{tt'}_tK_{t'}R_{t\rightarrow t'}K_t^{-1}\hat{x}+K_{t'}T_{t\rightarrow t'}\right)-x \tag{2}
 $$
                             </div></div></div>
@@ -603,7 +603,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-S^{t\rightarrow t'}=\left[\alpha&gt;\left\|F_{cam}^{t\rightarrow t'}-F_{est}^{t\rightarrow t'}\right\|_{\mathrm{L1}}\right] \tag{3}
+S^{t\rightarrow t'}=\left[\alpha&gt;\left\|F_{\mathrm{cam}}^{t\rightarrow t'}-F_{\mathrm{est}}^{t\rightarrow t'}\right\|_{\mathrm{L1}}\right] \tag{3}
 $$
                             </div></div></div>
 <figcaption><span class="caption-main">Eq. (3). Confident static mask test.</span><span class="caption-note">Pixels whose camera-induced and estimated flows agree within threshold <span class="inline-equation-token">\(\alpha\)</span> are selected as static anchors.</span></figcaption>
@@ -622,8 +622,8 @@ $$
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\mathcal{I}\)</span>, <span class="inline-equation-token">\(x_i\)</span></span></td><td>Confident correspondence pixels and 2D pixel in the reference frame</td><td>PnP uses only reliable pixels as pose anchors.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(X_i^{t';tt'}\)</span></span></td><td>3D point for frame <span class="inline-equation-token">\(t'\)</span> in pair <span class="inline-equation-token">\((t,t')\)</span></td><td>Pairwise pointmap value used for relative pose estimation.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(K_t\)</span>, <span class="inline-equation-token">\(D_t^{tt'}\)</span>, <span class="inline-equation-token">\(\hat x\)</span></span></td><td>Intrinsics, pairwise depth, and homogeneous pixel</td><td>Used to compute optical flow induced by camera motion alone.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-equation-token">\(F_{cam}^{t\to t'}\)</span>, <span class="inline-equation-token">\(F_{est}^{t\to t'}\)</span></span></td><td>Camera-induced flow and estimated optical flow</td><td>A large discrepancy indicates likely moving objects or deformation.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-equation-token">\(S^{t\to t'}\)</span>, <span class="inline-equation-token">\(S^{global;t\to t'}\)</span></span></td><td>Pairwise static mask and global static mask</td><td>Selects static anchor pixels for alignment.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(F_{\mathrm{cam}}^{t\to t'}\)</span>, <span class="inline-equation-token">\(F_{\mathrm{est}}^{t\to t'}\)</span></span></td><td>Camera-induced flow and estimated optical flow</td><td>A large discrepancy indicates likely moving objects or deformation.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-equation-token">\(S^{t\to t'}\)</span>, <span class="inline-equation-token">\(S^{\mathrm{global};t\to t'}\)</span></span></td><td>Pairwise static mask and global static mask</td><td>Selects static anchor pixels for alignment.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(W_i\)</span>, <span class="inline-equation-token">\(e\)</span>, <span class="inline-equation-token">\(t\in e\)</span></span></td><td>Temporal window, pair edge, and frame inside the edge</td><td>Limits optimization cost by using local temporal windows.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(X^t\)</span>, <span class="inline-equation-token">\(X^{t;e}\)</span>, <span class="inline-equation-token">\(C^{t;e}\)</span></span></td><td>Global pointmap, pairwise pointmap, and confidence</td><td>Fits pairwise geometry to time-indexed global geometry.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-equation-token">\(\sigma_e\)</span>, <span class="inline-equation-token">\(P_{t;e}\)</span>, <span class="inline-equation-token">\(P_W\)</span></span></td><td>Pair scale, transform into the global frame, and window pose parameters</td><td>Jointly optimizes scale and pose to connect a dynamic video into one trajectory.</td></tr>
@@ -642,30 +642,30 @@ $$
 <div class="method-equation-cluster">
 <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-\mathcal{L}_{align}(X,\sigma,P_W)=
+\mathcal{L}_{\mathrm{align}}(X,\sigma,P_W)=
 \sum_{W_i\in W}\sum_{e\in W_i}\sum_{t\in e}
 \left\|C^{t;e}\cdot\left(X^t-\sigma_eP_{t;e}X^{t;e}\right)\right\|_1 \tag{4}
 $$
                           </div></div></div><figcaption><span class="caption-main">Eq. (4). Pairwise-to-global alignment loss.</span><span class="caption-note">The loss maps pairwise pointmaps through scale and pose so they fit the global pointmap <span class="inline-equation-token">\(X^t\)</span>.</span></figcaption></figure>
 <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-\mathcal{L}_{smooth}(X)=
-\sum_{t=0}^{N-1}\left(\left\|R_t^TR_{t+1}-I\right\|_F+
+\mathcal{L}_{\mathrm{smooth}}(X)=
+\sum_{t=0}^{N-1}\left(\left\|R_t^\top R_{t+1}-I\right\|_F+
 \left\|T_{t+1}-T_t\right\|_2\right) \tag{5}
 $$
                           </div></div></div><figcaption><span class="caption-main">Eq. (5). Camera trajectory smoothness loss.</span><span class="caption-note">The term penalizes frame-to-frame rotation and translation jumps to keep the camera trajectory stable.</span></figcaption></figure>
 <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-\mathcal{L}_{flow}(X)=
+\mathcal{L}_{\mathrm{flow}}(X)=
 \sum_{W_i\in W}\sum_{t\rightarrow t'\in W_i}
-\left\|S^{global;t\rightarrow t'}\cdot
-\left(F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right)\right\|_1 \tag{6}
+\left\|S^{\mathrm{global};t\rightarrow t'}\cdot
+\left(F^{\mathrm{global};t\rightarrow t'}_{\mathrm{cam}}-F^{t\rightarrow t'}_{\mathrm{est}}\right)\right\|_1 \tag{6}
 $$
                           </div></div></div><figcaption><span class="caption-main">Eq. (6). Static-region flow consistency loss.</span><span class="caption-note">On confident static regions, global camera-induced flow is constrained to match estimated optical flow.</span></figcaption></figure>
 <figure class="equation"><div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
 \hat{X}=\arg\min_{X,P_W,\sigma}
-\mathcal{L}_{align}(X,\sigma,P_W)+w_{smooth}\mathcal{L}_{smooth}(X)+w_{flow}\mathcal{L}_{flow}(X) \tag{7}
+\mathcal{L}_{\mathrm{align}}(X,\sigma,P_W)+w_{\mathrm{smooth}}\mathcal{L}_{\mathrm{smooth}}(X)+w_{\mathrm{flow}}\mathcal{L}_{\mathrm{flow}}(X) \tag{7}
 $$
                           </div></div></div><figcaption><span class="caption-main">Eq. (7). Global video optimization objective.</span><span class="caption-note">The objective jointly minimizes alignment, trajectory smoothness, and flow consistency to stabilize video-level pose and depth.</span></figcaption></figure>
 </div>
@@ -693,7 +693,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-F^{global;t\rightarrow t'}_{cam}=\pi\left(D^tK_{t'}R_{t'}R_t^TK_t^{-1}\hat{x}+K_{t'}(T_{t'}-T_t)\right)-x \tag{10}
+F^{\mathrm{global};t\rightarrow t'}_{\mathrm{cam}}=\pi\left(D^tK_{t'}R_{t'}R_t^\top K_t^{-1}\hat{x}+K_{t'}(T_{t'}-T_t)\right)-x \tag{10}
 $$
                                 </div></div></div>
 <figcaption><span class="caption-main">Eq. (10). Global camera-induced flow.</span><span class="caption-note">Global camera pose, intrinsics, and depth define the flow used by the consistency loss.</span></figcaption>
@@ -709,7 +709,7 @@ $$
 <figure class="equation">
 <div class="equation-container"><div class="equation-render"><div class="equation-main">
 $$
-S^{global;t\rightarrow t'}=S^t\vee\left[\alpha&gt;\left\|F^{global;t\rightarrow t'}_{cam}-F^{t\rightarrow t'}_{est}\right\|_{L1}\right] \tag{12}
+S^{\mathrm{global};t\rightarrow t'}=S^t\vee\left[\alpha&gt;\left\|F^{\mathrm{global};t\rightarrow t'}_{\mathrm{cam}}-F^{t\rightarrow t'}_{\mathrm{est}}\right\|_{\mathrm{L1}}\right] \tag{12}
 $$
                                 </div></div></div>
 <figcaption><span class="caption-main">Eq. (12). Global static-mask refinement.</span><span class="caption-note">The final confident static mask combines the initialized mask with agreement under global camera-induced flow.</span></figcaption>

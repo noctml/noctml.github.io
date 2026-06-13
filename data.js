@@ -11,6 +11,15 @@ window.SITE_DATA = {
         paperReviews: [
 
             {
+                title: "Flash-Mono: Feed-Forward Accelerated Gaussian Splatting Monocular SLAM",
+                desc: "feed-forward prediction과 hidden-state loop closure로 monocular GS-SLAM을 실시간화",
+                href: "pages/paper_reviews/FLASH-MONO/",
+                thumb: "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_6d217a34da2d.png",
+                published: true,
+                date: "2026-06-13",
+                group: "Visual SLAM",
+                tags: ["Visual SLAM", "Gaussian Splatting", "Monocular SLAM", "Feed-forward"]
+            },{
                 title: "RoDyn-SLAM: Robust Dynamic Dense RGB-D SLAM with Neural Radiance Fields",
                 desc: "동적 RGB-D 장면에서 motion mask와 edge reprojection으로 neural dense SLAM을 안정화",
                 href: "pages/paper_reviews/RoDyn-SLAM/",

@@ -228,12 +228,12 @@
 <span class="subsection-label">2. Uncertainty prediction</span>
 <p>입력 image <span class="inline-math">\(I_i\)</span>에서 3D-aware DINOv2 feature <span class="inline-math">\( \mathcal{F}_i=F(I_i) \)</span>를 추출하고, shallow MLP <span class="inline-math">\(P\)</span>가 uncertainty map <span class="inline-math">\( \beta_i=P(\mathcal{F}_i) \)</span>를 예측한다. MLP는 streamed frame으로 online 학습되어 sequence별 distractor와 occlusion에 적응한다.</p>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{depth}=\lvert \hat{D}_i-\tilde{D}_i\rvert_1\tag{3}$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{depth}}=\lvert \hat{D}_i-\tilde{D}_i\rvert_1\tag{3}$$</div></div></div>
 <figcaption><span class="caption-main">Eq. (3). Metric-depth L1 supervision.</span><span class="caption-note">rendered depth와 Metric3D V2 metric depth 사이의 L1 depth signal.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{uncer}=\mathcal{L}'_{SSIM}+\lambda_1\frac{\mathcal{L}_{uncer\_D}}{\beta_i^2}+\lambda_2\mathcal{L}_{reg\_V}+\lambda_3\mathcal{L}_{reg\_U}\tag{4}$$</div></div></div>
-<figcaption><span class="caption-main">Eq. (4). Uncertainty learning objective.</span><span class="caption-note">modified SSIM, depth uncertainty term, feature-similarity regularization, uncertainty growth regularization을 결합한 uncertainty objective. 원문 표기는 <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span>이며, 본문 설명상 Eq. (3)의 L1 depth signal을 uncertainty loss에 넣은 custom depth term으로 보면 된다.</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{uncer}}=\mathcal{L}'_{\mathrm{SSIM}}+\lambda_1\frac{\mathcal{L}_{\mathrm{uncer\_D}}}{\beta_i^2}+\lambda_2\mathcal{L}_{\mathrm{reg\_V}}+\lambda_3\mathcal{L}_{\mathrm{reg\_U}}\tag{4}$$</div></div></div>
+<figcaption><span class="caption-main">Eq. (4). Uncertainty learning objective.</span><span class="caption-note">modified SSIM, depth uncertainty term, feature-similarity regularization, uncertainty growth regularization을 결합한 uncertainty objective. 원문 표기는 <span class="inline-math">\( \mathcal{L}_{\mathrm{uncer\_D}} \)</span>이며, 본문 설명상 Eq. (3)의 L1 depth signal을 uncertainty loss에 넣은 custom depth term으로 보면 된다.</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
 <summary>NeRF On-the-go 기반 loss term 보기</summary>
@@ -241,16 +241,16 @@
 <section class="summary-panel summary-panel-soft supplement-guide">
 <div class="summary-head"><span class="subsection-label">NeRF On-the-go에서 가져온 부분</span><p>WildGS-SLAM의 Eq. (4)는 NeRF On-the-go의 uncertainty 학습 아이디어를 SLAM/3DGS setting에 맞게 재사용한다. 그대로 복사한 loss라기보다는, <strong>modified SSIM과 regularization 항을 따르고 depth term을 추가</strong>한 형태로 읽는 것이 정확하다.</p></div>
 <div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>항</th><th>NeRF On-the-go의 의미</th><th>WildGS-SLAM에서의 역할</th></tr></thead><tbody>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}'_{SSIM} \)</span></span></td><td>patch의 luminance, contrast, structure 차이를 곱해 dynamic/static 차이를 더 강하게 드러냄</td><td>RGB 차이만으로는 비슷해 보이는 distractor도 구조 차이로 높은 uncertainty를 받게 함</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{uncer\_D}/\beta_i^2 \)</span></span></td><td>NeRF On-the-go에는 없는 WildGS-SLAM 추가 항. 원문 표기상 <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span>는 L1 depth signal과 연결된 custom depth uncertainty term</td><td>rendered depth와 Metric3D depth가 맞지 않는 영역의 영향력을 uncertainty로 조절</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_V} \)</span></span></td><td>DINO feature가 비슷한 ray/pixel끼리는 uncertainty도 비슷해야 한다는 consistency regularization</td><td>비슷한 appearance/semantic region에서 uncertainty가 들쭉날쭉해지는 것을 완화</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_U} \)</span></span></td><td><span class="inline-math">\( \log \beta \)</span> 형태의 growth regularizer</td><td>모든 pixel의 <span class="inline-math">\( \beta \)</span>를 무한히 키워 loss를 회피하는 trivial solution 방지</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}'_{\mathrm{SSIM}} \)</span></span></td><td>patch의 luminance, contrast, structure 차이를 곱해 dynamic/static 차이를 더 강하게 드러냄</td><td>RGB 차이만으로는 비슷해 보이는 distractor도 구조 차이로 높은 uncertainty를 받게 함</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{\mathrm{uncer\_D}}/\beta_i^2 \)</span></span></td><td>NeRF On-the-go에는 없는 WildGS-SLAM 추가 항. 원문 표기상 <span class="inline-math">\( \mathcal{L}_{\mathrm{uncer\_D}} \)</span>는 L1 depth signal과 연결된 custom depth uncertainty term</td><td>rendered depth와 Metric3D depth가 맞지 않는 영역의 영향력을 uncertainty로 조절</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{\mathrm{reg\_V}} \)</span></span></td><td>DINO feature가 비슷한 ray/pixel끼리는 uncertainty도 비슷해야 한다는 consistency regularization</td><td>비슷한 appearance/semantic region에서 uncertainty가 들쭉날쭉해지는 것을 완화</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{\mathrm{reg\_U}} \)</span></span></td><td><span class="inline-math">\( \log \beta \)</span> 형태의 growth regularizer</td><td>모든 pixel의 <span class="inline-math">\( \beta \)</span>를 무한히 키워 loss를 회피하는 trivial solution 방지</td></tr>
 </tbody></table></div>
 </section>
 <section class="summary-panel">
 <div class="summary-head"><span class="subsection-label">핵심 수식만 보면</span><p>NeRF On-the-go는 RGB error만 쓰면 배경과 색이 비슷한 distractor를 놓칠 수 있다고 보고, SSIM의 세 구성요소를 분리해 uncertainty를 학습한다.</p></div>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}'_{SSIM}=(1-L(P,\hat{P}))(1-C(P,\hat{P}))(1-S(P,\hat{P}))$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}'_{\mathrm{SSIM}}=(1-L(P,\hat{P}))(1-C(P,\hat{P}))(1-S(P,\hat{P}))$$</div></div></div>
 <figcaption><span class="caption-main">Auxiliary. Modified SSIM uncertainty cue.</span><span class="caption-note">patch <span class="inline-math">\(P\)</span>와 rendered patch <span class="inline-math">\(\hat{P}\)</span> 사이의 luminance, contrast, structure 차이를 모두 반영.</span></figcaption>
 </figure>
 <figure class="equation">
@@ -258,7 +258,7 @@
 <figcaption><span class="caption-main">Auxiliary. Feature-neighbor uncertainty average.</span><span class="caption-note">DINO feature가 비슷한 ray 집합을 만들고, 그 안에서 평균 uncertainty를 계산.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{reg\_V}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{reg\_U}=\log\beta_i$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{reg\_V}}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{\mathrm{reg\_U}}=\log\beta_i$$</div></div></div>
 <figcaption><span class="caption-main">Auxiliary. Uncertainty regularization terms.</span><span class="caption-note">feature-wise uncertainty consistency와 uncertainty growth 억제를 위한 보조 항.</span></figcaption>
 </figure>
 </section>
@@ -278,7 +278,7 @@
 <tr><td><span class="summary-term"><span class="inline-math">\(\alpha_i\)</span>, <span class="inline-math">\(c_i\)</span>, <span class="inline-math">\(\hat d_i\)</span></span></td><td>per-Gaussian alpha, color, depth contribution</td><td>Eq. (2)의 color/depth rendering에 들어가는 기본 단위.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\hat I\)</span>, <span class="inline-math">\(\hat D\)</span>, <span class="inline-math">\(\tilde D\)</span></span></td><td>rendered image/depth와 Metric3D depth</td><td>metric depth는 monocular tracking과 mapping depth regularization에 사용.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\mathcal F_i\)</span>, <span class="inline-math">\(P\)</span>, <span class="inline-math">\(\beta_i\)</span></span></td><td>DINOv2 feature, shallow MLP, predicted uncertainty map</td><td>sequence별 distractor와 occlusion에 online으로 적응하는 부분.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\(\mathcal L'_{SSIM}\)</span>, <span class="inline-math">\(\mathcal L_{uncer\_D}\)</span></span></td><td>modified SSIM term과 depth uncertainty term</td><td>RGB 구조 차이와 depth mismatch를 uncertainty objective에 반영.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(\mathcal{L}'_{\mathrm{SSIM}}\)</span>, <span class="inline-math">\(\mathcal{L}_{\mathrm{uncer\_D}}\)</span></span></td><td>modified SSIM term과 depth uncertainty term</td><td>RGB 구조 차이와 depth mismatch를 uncertainty objective에 반영.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\mathcal N(r)\)</span>, <span class="inline-math">\(f\)</span>, <span class="inline-math">\(\eta\)</span>, <span class="inline-math">\(\bar\beta(r)\)</span></span></td><td>feature-neighbor set, DINO feature, similarity threshold, average uncertainty</td><td>비슷한 feature를 가진 ray/pixel의 uncertainty가 일관되도록 regularization.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\Sigma_{ij}/\beta_i^2\)</span>, <span class="inline-math">\(M_i\)</span></span></td><td>uncertainty-scaled covariance와 metric-depth mask</td><td>tracking에서 dynamic distractor와 unreliable depth의 영향을 낮춤.</td></tr>
 </tbody>
@@ -300,16 +300,16 @@
 <span class="subsection-label">4. Uncertainty-guided mapping</span>
 <p>새 keyframe이 들어오면 pose, RGB, metric depth를 사용해 3D Gaussian map을 확장한다. 이후 local window keyframe을 샘플링해 rendered color/depth를 계산하고, uncertainty-weighted rendering loss로 map을 업데이트한다.</p>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{render}=\frac{\lambda_5\mathcal{L}_{color}+\lambda_6\mathcal{L}_{depth}}{\beta^2}+\lambda_7\mathcal{L}_{iso}\tag{6}$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{render}}=\frac{\lambda_5\mathcal{L}_{\mathrm{color}}+\lambda_6\mathcal{L}_{\mathrm{depth}}}{\beta^2}+\lambda_7\mathcal{L}_{\mathrm{iso}}\tag{6}$$</div></div></div>
 <figcaption><span class="caption-main">Eq. (6). Uncertainty-weighted rendering loss.</span><span class="caption-note">uncertainty map으로 color/depth rendering loss를 함께 조절하고 isotropic regularization을 더한 Gaussian map rendering loss.</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
-<summary>Gaussian Splatting SLAM의 <span class="inline-math">\( \mathcal{L}_{iso} \)</span> 보기</summary>
+<summary>Gaussian Splatting SLAM의 <span class="inline-math">\( \mathcal{L}_{\mathrm{iso}} \)</span> 보기</summary>
 <div class="appendix-details supplement-details">
 <section class="summary-panel summary-panel-soft supplement-guide">
-<div class="summary-head"><span class="subsection-label">Isotropic regularization</span><p>WildGS-SLAM의 <span class="inline-math">\( \mathcal{L}_{iso} \)</span>는 Gaussian Splatting SLAM [30]의 isotropic shape regularization을 따르는 항이다. 핵심 목적은 관측이 부족한 방향으로 Gaussian ellipsoid가 과도하게 길어져 rendering artifact와 tracking 불안정을 만드는 것을 막는 것이다.</p></div>
+<div class="summary-head"><span class="subsection-label">Isotropic regularization</span><p>WildGS-SLAM의 <span class="inline-math">\( \mathcal{L}_{\mathrm{iso}} \)</span>는 Gaussian Splatting SLAM [30]의 isotropic shape regularization을 따르는 항이다. 핵심 목적은 관측이 부족한 방향으로 Gaussian ellipsoid가 과도하게 길어져 rendering artifact와 tracking 불안정을 만드는 것을 막는 것이다.</p></div>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{iso}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{iso}}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
 <figcaption><span class="caption-main">Auxiliary. Isotropic scale regularization.</span><span class="caption-note">Gaussian scale vector <span class="inline-math">\(s_i\)</span>가 평균 scale <span class="inline-math">\(\tilde{s}_i\)</span>를 모든 축에 복제한 isotropic shape에 가까워지도록 유도.</span></figcaption>
 </figure>
 </section>
@@ -319,7 +319,7 @@
 <summary>Color rendering loss 세부 보기</summary>
 <div class="appendix-details supplement-details">
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{color}=(1-\lambda_{ssim})\|\hat{I}-I\|_1+\lambda_{ssim}\mathcal{L}_{ssim}\tag{7}$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{color}}=(1-\lambda_{\mathrm{ssim}})\|\hat{I}-I\|_1+\lambda_{\mathrm{ssim}}\mathcal{L}_{\mathrm{ssim}}\tag{7}$$</div></div></div>
 <figcaption><span class="caption-main">Eq. (7). Color rendering loss.</span><span class="caption-note">L1 color error와 SSIM loss를 결합한 color rendering term.</span></figcaption>
 </figure>
 </div>
@@ -564,12 +564,12 @@
 <span class="subsection-label">2. Uncertainty prediction</span>
 <p>For an input image <span class="inline-math">\(I_i\)</span>, a 3D-aware DINOv2 feature <span class="inline-math">\( \mathcal{F}_i=F(I_i) \)</span> is extracted, and a shallow MLP <span class="inline-math">\(P\)</span> predicts the uncertainty map <span class="inline-math">\( \beta_i=P(\mathcal{F}_i) \)</span>. The MLP is trained online on streamed frames, so it can adapt to sequence-specific distractors and occlusion patterns.</p>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{depth}=\lvert \hat{D}_i-\tilde{D}_i\rvert_1\tag{3}$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{depth}}=\lvert \hat{D}_i-\tilde{D}_i\rvert_1\tag{3}$$</div></div></div>
 <figcaption><span class="caption-main">Eq. (3). Metric-depth L1 supervision.</span><span class="caption-note">L1 depth signal between rendered depth and Metric3D V2 metric depth.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{uncer}=\mathcal{L}'_{SSIM}+\lambda_1\frac{\mathcal{L}_{uncer\_D}}{\beta_i^2}+\lambda_2\mathcal{L}_{reg\_V}+\lambda_3\mathcal{L}_{reg\_U}\tag{4}$$</div></div></div>
-<figcaption><span class="caption-main">Eq. (4). Uncertainty learning objective.</span><span class="caption-note">Uncertainty objective combining modified SSIM, depth uncertainty, feature-similarity regularization, and uncertainty growth regularization. The paper denotes <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span> as a custom depth uncertainty term tied to the L1 depth signal in Eq. (3).</span></figcaption>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{uncer}}=\mathcal{L}'_{\mathrm{SSIM}}+\lambda_1\frac{\mathcal{L}_{\mathrm{uncer\_D}}}{\beta_i^2}+\lambda_2\mathcal{L}_{\mathrm{reg\_V}}+\lambda_3\mathcal{L}_{\mathrm{reg\_U}}\tag{4}$$</div></div></div>
+<figcaption><span class="caption-main">Eq. (4). Uncertainty learning objective.</span><span class="caption-note">Uncertainty objective combining modified SSIM, depth uncertainty, feature-similarity regularization, and uncertainty growth regularization. The paper denotes <span class="inline-math">\( \mathcal{L}_{\mathrm{uncer\_D}} \)</span> as a custom depth uncertainty term tied to the L1 depth signal in Eq. (3).</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
 <summary>NeRF On-the-go loss terms</summary>
@@ -577,16 +577,16 @@
 <section class="summary-panel summary-panel-soft supplement-guide">
 <div class="summary-head"><span class="subsection-label">What comes from NeRF On-the-go?</span><p>Eq. (4) reuses the uncertainty-learning idea from NeRF On-the-go in a SLAM/3DGS setting. It should be read as <strong>modified SSIM and regularization terms from NeRF On-the-go plus a WildGS-SLAM depth term</strong>, not as a direct copy of the entire loss.</p></div>
 <div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Term</th><th>Meaning in NeRF On-the-go</th><th>Role in WildGS-SLAM</th></tr></thead><tbody>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}'_{SSIM} \)</span></span></td><td>Combines luminance, contrast, and structure differences to separate dynamic distractors from static background.</td><td>Gives high uncertainty to distractors even when RGB color alone is ambiguous.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{uncer\_D}/\beta_i^2 \)</span></span></td><td>WildGS-SLAM-specific addition, not from NeRF On-the-go. In the paper notation, <span class="inline-math">\( \mathcal{L}_{uncer\_D} \)</span> is a custom depth uncertainty term tied to the L1 depth signal.</td><td>Uses uncertainty to control regions where rendered depth and Metric3D depth disagree.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_V} \)</span></span></td><td>Feature-neighbor consistency: rays/pixels with similar DINO features should have similar uncertainty.</td><td>Prevents noisy uncertainty variation inside similar appearance or semantic regions.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{reg\_U} \)</span></span></td><td>A <span class="inline-math">\( \log \beta \)</span>-style growth regularizer.</td><td>Prevents the trivial solution where every pixel receives infinitely large uncertainty.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}'_{\mathrm{SSIM}} \)</span></span></td><td>Combines luminance, contrast, and structure differences to separate dynamic distractors from static background.</td><td>Gives high uncertainty to distractors even when RGB color alone is ambiguous.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{\mathrm{uncer\_D}}/\beta_i^2 \)</span></span></td><td>WildGS-SLAM-specific addition, not from NeRF On-the-go. In the paper notation, <span class="inline-math">\( \mathcal{L}_{\mathrm{uncer\_D}} \)</span> is a custom depth uncertainty term tied to the L1 depth signal.</td><td>Uses uncertainty to control regions where rendered depth and Metric3D depth disagree.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{\mathrm{reg\_V}} \)</span></span></td><td>Feature-neighbor consistency: rays/pixels with similar DINO features should have similar uncertainty.</td><td>Prevents noisy uncertainty variation inside similar appearance or semantic regions.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\( \mathcal{L}_{\mathrm{reg\_U}} \)</span></span></td><td>A <span class="inline-math">\( \log \beta \)</span>-style growth regularizer.</td><td>Prevents the trivial solution where every pixel receives infinitely large uncertainty.</td></tr>
 </tbody></table></div>
 </section>
 <section class="summary-panel">
 <div class="summary-head"><span class="subsection-label">Core formulas</span><p>NeRF On-the-go argues that pure RGB error can miss distractors with similar colors, so uncertainty is learned from a modified SSIM signal and feature-based consistency.</p></div>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}'_{SSIM}=(1-L(P,\hat{P}))(1-C(P,\hat{P}))(1-S(P,\hat{P}))$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}'_{\mathrm{SSIM}}=(1-L(P,\hat{P}))(1-C(P,\hat{P}))(1-S(P,\hat{P}))$$</div></div></div>
 <figcaption><span class="caption-main">Auxiliary. Modified SSIM uncertainty cue.</span><span class="caption-note">Uses luminance, contrast, and structure differences between patch <span class="inline-math">\(P\)</span> and rendered patch <span class="inline-math">\(\hat{P}\)</span>.</span></figcaption>
 </figure>
 <figure class="equation">
@@ -594,7 +594,7 @@
 <figcaption><span class="caption-main">Auxiliary. Feature-neighbor uncertainty average.</span><span class="caption-note">Builds a DINO-feature-neighbor set and averages uncertainty within it.</span></figcaption>
 </figure>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{reg\_V}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{reg\_U}=\log\beta_i$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{reg\_V}}(r)=\frac{1}{|\mathcal{N}(r)|}\sum_{r'\in\mathcal{N}(r)}(\bar{\beta}(r)-\beta(r'))^2,\qquad \mathcal{L}_{\mathrm{reg\_U}}=\log\beta_i$$</div></div></div>
 <figcaption><span class="caption-main">Auxiliary. Uncertainty regularization terms.</span><span class="caption-note">Feature-wise uncertainty consistency and uncertainty-growth regularization.</span></figcaption>
 </figure>
 </section>
@@ -614,7 +614,7 @@
 <tr><td><span class="summary-term"><span class="inline-math">\(\alpha_i\)</span>, <span class="inline-math">\(c_i\)</span>, <span class="inline-math">\(\hat d_i\)</span></span></td><td>Per-Gaussian alpha, color, and depth contribution</td><td>The basic units used by the color/depth rendering equation.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\hat I\)</span>, <span class="inline-math">\(\hat D\)</span>, <span class="inline-math">\(\tilde D\)</span></span></td><td>Rendered image/depth and Metric3D depth</td><td>Metric depth regularizes monocular tracking and mapping.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\mathcal F_i\)</span>, <span class="inline-math">\(P\)</span>, <span class="inline-math">\(\beta_i\)</span></span></td><td>DINOv2 feature, shallow MLP, and predicted uncertainty map</td><td>The part that adapts online to sequence-specific distractors and occlusions.</td></tr>
-<tr><td><span class="summary-term"><span class="inline-math">\(\mathcal L'_{SSIM}\)</span>, <span class="inline-math">\(\mathcal L_{uncer\_D}\)</span></span></td><td>Modified SSIM term and depth uncertainty term</td><td>Bring RGB structure differences and depth mismatch into the uncertainty objective.</td></tr>
+<tr><td><span class="summary-term"><span class="inline-math">\(\mathcal{L}'_{\mathrm{SSIM}}\)</span>, <span class="inline-math">\(\mathcal{L}_{\mathrm{uncer\_D}}\)</span></span></td><td>Modified SSIM term and depth uncertainty term</td><td>Bring RGB structure differences and depth mismatch into the uncertainty objective.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\mathcal N(r)\)</span>, <span class="inline-math">\(f\)</span>, <span class="inline-math">\(\eta\)</span>, <span class="inline-math">\(\bar\beta(r)\)</span></span></td><td>Feature-neighbor set, DINO feature, similarity threshold, and average uncertainty</td><td>Regularizes uncertainty to be consistent among visually/semantically similar rays.</td></tr>
 <tr><td><span class="summary-term"><span class="inline-math">\(\Sigma_{ij}/\beta_i^2\)</span>, <span class="inline-math">\(M_i\)</span></span></td><td>Uncertainty-scaled covariance and metric-depth mask</td><td>Reduces the influence of dynamic distractors and unreliable depth in tracking.</td></tr>
 </tbody>
@@ -636,16 +636,16 @@
 <span class="subsection-label">4. Uncertainty-guided mapping</span>
 <p>When a keyframe is inserted, its pose, RGB image, and metric depth expand the 3D Gaussian map. The map is then updated with uncertainty-weighted rendering loss over sampled local-window keyframes.</p>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{render}=\frac{\lambda_5\mathcal{L}_{color}+\lambda_6\mathcal{L}_{depth}}{\beta^2}+\lambda_7\mathcal{L}_{iso}\tag{6}$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{render}}=\frac{\lambda_5\mathcal{L}_{\mathrm{color}}+\lambda_6\mathcal{L}_{\mathrm{depth}}}{\beta^2}+\lambda_7\mathcal{L}_{\mathrm{iso}}\tag{6}$$</div></div></div>
 <figcaption><span class="caption-main">Eq. (6). Uncertainty-weighted rendering loss.</span><span class="caption-note">Gaussian-map rendering loss where the uncertainty map weights both color and depth terms before isotropic regularization is added.</span></figcaption>
 </figure>
 <details class="supplement-toggle supplement-structured">
-<summary><span class="inline-math">\( \mathcal{L}_{iso} \)</span> from Gaussian Splatting SLAM</summary>
+<summary><span class="inline-math">\( \mathcal{L}_{\mathrm{iso}} \)</span> from Gaussian Splatting SLAM</summary>
 <div class="appendix-details supplement-details">
 <section class="summary-panel summary-panel-soft supplement-guide">
-<div class="summary-head"><span class="subsection-label">Isotropic regularization</span><p>WildGS-SLAM's <span class="inline-math">\( \mathcal{L}_{iso} \)</span> follows the isotropic shape regularization from Gaussian Splatting SLAM [30]. Its role is to prevent Gaussian ellipsoids from becoming excessively elongated in weakly observed directions, which can create rendering artifacts and destabilize tracking.</p></div>
+<div class="summary-head"><span class="subsection-label">Isotropic regularization</span><p>WildGS-SLAM's <span class="inline-math">\( \mathcal{L}_{\mathrm{iso}} \)</span> follows the isotropic shape regularization from Gaussian Splatting SLAM [30]. Its role is to prevent Gaussian ellipsoids from becoming excessively elongated in weakly observed directions, which can create rendering artifacts and destabilize tracking.</p></div>
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{iso}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{iso}}=\sum_{i=1}^{|\mathcal{G}|}\left\|s_i-\tilde{s}_i\mathbf{1}\right\|_1$$</div></div></div>
 <figcaption><span class="caption-main">Auxiliary. Isotropic scale regularization.</span><span class="caption-note">Encourages the Gaussian scale vector <span class="inline-math">\(s_i\)</span> to stay close to an isotropic shape formed by copying the mean scale <span class="inline-math">\(\tilde{s}_i\)</span> to every axis.</span></figcaption>
 </figure>
 </section>
@@ -655,7 +655,7 @@
 <summary>Color rendering loss details</summary>
 <div class="appendix-details supplement-details">
 <figure class="equation">
-<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{color}=(1-\lambda_{ssim})\|\hat{I}-I\|_1+\lambda_{ssim}\mathcal{L}_{ssim}\tag{7}$$</div></div></div>
+<div class="equation-container"><div class="equation-render"><div class="equation-main">$$\mathcal{L}_{\mathrm{color}}=(1-\lambda_{\mathrm{ssim}})\|\hat{I}-I\|_1+\lambda_{\mathrm{ssim}}\mathcal{L}_{\mathrm{ssim}}\tag{7}$$</div></div></div>
 <figcaption><span class="caption-main">Eq. (7). Color rendering loss.</span><span class="caption-note">Color rendering term combining L1 color error and SSIM loss.</span></figcaption>
 </figure>
 </div>
