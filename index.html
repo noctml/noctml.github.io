@@ -521,7 +521,8 @@
       padding:1px 0 2px;
     }
     .paper-bottom-pager,
-    .project-bottom-pager{
+    .project-bottom-pager,
+    .study-bottom-pager{
       justify-content:center;
       width:100%;
       margin-top:18px;
@@ -559,13 +560,15 @@
       box-shadow:inset 0 -1px 0 color-mix(in srgb, var(--text) 32%, transparent);
     }
     .paper-bottom-pager .pager-btn,
-    .project-bottom-pager .pager-btn{
+    .project-bottom-pager .pager-btn,
+    .study-bottom-pager .pager-btn{
       border-color:transparent;
       color:color-mix(in srgb, var(--muted) 78%, transparent);
       background:transparent;
     }
     .paper-bottom-pager .pager-btn:not([disabled]):hover,
-    .project-bottom-pager .pager-btn:not([disabled]):hover{
+    .project-bottom-pager .pager-btn:not([disabled]):hover,
+    .study-bottom-pager .pager-btn:not([disabled]):hover{
       color:var(--text);
       background:color-mix(in srgb, var(--panel) 54%, transparent);
     }
@@ -812,6 +815,7 @@
           </div>
           <nav class="topnav" aria-label="Primary">
             <button class="topnav-btn is-active" type="button" data-home-view="papers">Paper Reviews</button>
+            <button class="topnav-btn" type="button" data-home-view="study">Study</button>
             <button class="topnav-btn" type="button" data-home-view="projects">Projects</button>
           </nav>
         </div>
@@ -830,6 +834,21 @@
             <button class="pager-btn" id="paperPrev" aria-label="Previous paper review page">←</button>
             <div class="pager-pages" id="paperPageList" aria-label="Paper review pages"></div>
             <button class="pager-btn" id="paperNext" aria-label="Next paper review page">→</button>
+          </div>
+        </section>
+
+        <section id="study" class="section" data-home-section="study" hidden>
+          <div class="section-head row">
+            <div>
+              <h2>Study</h2>
+            </div>
+          </div>
+
+          <div class="paper-frame" id="studyList" data-study-list data-mode="archive" data-page-size="5"></div>
+          <div class="pager study-bottom-pager" aria-label="Study pagination">
+            <button class="pager-btn" id="studyPrev" aria-label="Previous study page">←</button>
+            <div class="pager-pages" id="studyPageList" aria-label="Study pages"></div>
+            <button class="pager-btn" id="studyNext" aria-label="Next study page">→</button>
           </div>
         </section>
 
@@ -854,8 +873,8 @@
     </div>
   </div>
 
-  <script src="data.js?v=paper-dates-20260601"></script>
+  <script src="data.js?v=project-limo-date-20260708"></script>
   <script src="script.js?v=main-cleanup-20260525-light-only-bluegray-20260607"></script>
-  <script src="archive.js?v=project-pagination-20260609"></script>
+  <script src="archive.js?v=project-limo-date-20260708"></script>
 </body>
 </html>

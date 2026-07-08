@@ -145,6 +145,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://noctml.github.io/pages/study/SLAM-Former/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/study/Easi3R/</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://noctml.github.io/pages/projects/LiMO/</loc>
+    <lastmod>2025-08-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://noctml.github.io/pages/projects/ORB-SLAM2-macOS/</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>

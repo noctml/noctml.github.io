@@ -10,7 +10,17 @@ window.SITE_DATA = {
         ],
         paperReviews: [
 
+
             {
+                title: "SLAM-Former: Putting SLAM into One Transformer",
+                desc: "하나의 transformer로 dense SLAM의 frontend와 backend global refinement를 묶는 시스템.",
+                href: "pages/paper_reviews/SLAM-Former/",
+                thumb: "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_97253105ec63.png",
+                published: true,
+                date: "2026-06-24",
+                group: "Visual SLAM",
+                tags: ["Visual SLAM", "Dense SLAM", "Transformer", "Global Refinement"]
+            },{
                 title: "Flash-Mono: Feed-Forward Accelerated Gaussian Splatting Monocular SLAM",
                 desc: "feed-forward prediction과 hidden-state loop closure로 monocular GS-SLAM을 실시간화",
                 href: "pages/paper_reviews/FLASH-MONO/",
@@ -254,7 +264,36 @@ window.SITE_DATA = {
                 tags: ["Visual SLAM", "ORB-SLAM2", "Classical SLAM", "Bundle Adjustment"]
             },
         ],
+        study: [
+            {
+                title: "Easi3R: Estimating Disentangled Motion from DUSt3R Without Training",
+                desc: "RAISE LAB Study",
+                href: "pages/study/Easi3R/",
+                thumb: "pages/study/Easi3R/assets/thumbnail.png",
+                published: true,
+                date: "2026-07-01",
+                tags: ["Study", "3D Reconstruction", "DUSt3R", "Dynamic Scene"]
+            },
+            {
+                title: "SLAM-Former: Putting SLAM into One Transformer",
+                desc: "RAISE LAB Study",
+                href: "pages/study/SLAM-Former/",
+                thumb: "pages/study/SLAM-Former/assets/thumbnail.png",
+                published: true,
+                date: "2026-06-26",
+                tags: ["Study", "Visual SLAM", "Transformer", "Dense SLAM"]
+            }
+        ],
         projects: [
+            {
+                title: "LIMO 자율주행 프로젝트",
+                desc: "RGB 카메라, 2D LiDAR, Depth 카메라를 활용한 트랙 주행과 장애물 회피 구현 기록",
+                href: "pages/projects/LiMO/",
+                published: true,
+                date: "2025-08-21",
+                tags: ["LIMO", "ROS2", "OpenCV", "LiDAR", "Autonomous Driving"],
+                thumb: "pages/projects/LiMO/실험 정리/image 4.png"
+            },
             {
                 title: "ORB-SLAM2 in macOS",
                 desc: "MacBook에서 ORB-SLAM2를 실행하고 평가한 기록",

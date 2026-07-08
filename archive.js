@@ -1,6 +1,7 @@
 (() => {
   const data = window.SITE_DATA || {};
   const papers = sortByDate(data.paperReviews || []);
+  const studies = sortByDate(data.study || data.studies || []);
   const projects = sortByDate(data.projects || []);
   const configuredPaperGroups = data.paperGroups || [];
 
@@ -10,6 +11,7 @@
   });
 
   renderPapers();
+  renderStudy();
   renderProjects();
   setupHomeViewSwitch();
 
@@ -200,6 +202,107 @@
     `;
   }
 
+  function renderStudy() {
+    const listEl = document.querySelector("[data-study-list]");
+    if (!listEl) return;
+
+    const prevEl = document.getElementById("studyPrev");
+    const nextEl = document.getElementById("studyNext");
+    const pageListEl = document.getElementById("studyPageList");
+    const mode = listEl.dataset.mode || "archive";
+    const isPreview = mode === "preview";
+    const published = studies.filter((item) => item.published !== false);
+    const pageSize = parseNumber(listEl.dataset.pageSize, isPreview ? parseNumber(listEl.dataset.limit, 5) : 5);
+    const limit = isPreview ? parseNumber(listEl.dataset.limit, pageSize) : Infinity;
+
+    let pageIndex = 0;
+
+    const render = (shouldAlignList = false) => {
+      const scoped = published.slice(0, limit);
+      const pages = chunk(scoped, pageSize);
+      const total = Math.max(1, pages.length);
+      if (pageIndex >= total) pageIndex = 0;
+      const pageItems = isPreview ? scoped : (pages[pageIndex] || []);
+
+      listEl.innerHTML = pageItems.map(renderStudyCard).join("");
+      if (pageListEl) renderPageNumbers(total);
+      if (prevEl) prevEl.disabled = pageIndex === 0;
+      if (nextEl) nextEl.disabled = pageIndex >= total - 1;
+      if (shouldAlignList) alignStudyListToTop();
+    };
+
+    const renderPageNumbers = (total) => {
+      pageListEl.innerHTML = Array.from({ length: total }, (_, index) => {
+        const active = index === pageIndex ? " is-active" : "";
+        return `
+          <button class="pager-page-btn${active}" type="button" data-study-page="${index}" aria-label="Go to study page ${index + 1}" aria-current="${index === pageIndex ? "page" : "false"}">
+            ${index + 1}
+          </button>
+        `;
+      }).join("");
+    };
+
+    const alignStudyListToTop = () => {
+      requestAnimationFrame(() => {
+        const topbarHeight = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+        const nextTop = listEl.getBoundingClientRect().top + window.scrollY - topbarHeight - 12;
+        window.scrollTo({ top: Math.max(0, nextTop), behavior: "auto" });
+      });
+    };
+
+    if (prevEl) {
+      prevEl.addEventListener("click", () => {
+        if (pageIndex === 0) return;
+        pageIndex -= 1;
+        render(true);
+      });
+    }
+
+    if (nextEl) {
+      nextEl.addEventListener("click", () => {
+        const total = Math.max(1, chunk(published, pageSize).length);
+        if (pageIndex >= total - 1) return;
+        pageIndex += 1;
+        render(true);
+      });
+    }
+
+    if (pageListEl) {
+      pageListEl.addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-study-page]");
+        if (!btn) return;
+        const nextPage = Number(btn.dataset.studyPage);
+        if (!Number.isFinite(nextPage) || nextPage === pageIndex) return;
+        pageIndex = nextPage;
+        render(true);
+      });
+    }
+
+    render();
+  }
+
+  function renderStudyCard(item) {
+    const title = safeText(item.title);
+    const titleAttr = safeAttr(item.title);
+    const desc = safeText(item.desc);
+    const date = safeText(formatDate(item.date));
+    const thumb = safeAttr(item.thumb || "");
+    const href = safeAttr(item.href || "#");
+
+    return `
+      <a class="paper-card" href="${href}">
+        <div class="paper-thumb">
+          ${thumb ? `<img src="${thumb}" alt="${titleAttr} thumbnail" loading="lazy" />` : ``}
+        </div>
+        <div class="paper-body">
+          <div class="row-title">${title}</div>
+          <div class="row-sub muted">${desc}</div>
+          ${date ? `<div class="paper-date">${date}</div>` : ``}
+        </div>
+      </a>
+    `;
+  }
+
   function renderProjects() {
     const gridEl = document.querySelector("[data-work-list]");
     if (!gridEl) return;
@@ -329,7 +432,7 @@
       });
     });
 
-    const initial = window.location.hash === "#projects" ? "projects" : "papers";
+    const initial = window.location.hash === "#projects" ? "projects" : (window.location.hash === "#study" ? "study" : "papers");
     setView(initial);
   }
 })();

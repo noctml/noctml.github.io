@@ -21,7 +21,7 @@
         <nav aria-label="Project section bookmark" class="section-bookmark">
           <div class="bookmark-status">
             <span class="bookmark-eyebrow">Now Reading</span>
-            <strong id="currentSectionLabel">시작한 이유</strong>
+            <strong id="currentSectionLabel">작업 개요</strong>
           </div>
           <div class="bookmark-list" id="sectionBookmarkList"></div>
         </nav>
@@ -32,10 +32,10 @@
       <header class="topbar">
         <div class="topbar-inner">
           <div class="brandline">
-            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html">
+            <a aria-label="홈으로 이동" class="home-profile" href="../../../index.html#projects">
               <img alt="Wooseok Song profile photo" src="../../../assets/avatar.jpg" />
             </a>
-            <span class="brandtext">Side Projects</span>
+            <span class="brandtext">Projects</span>
           </div>
         </div>
       </header>
@@ -55,40 +55,38 @@
           </section>
 
           <section class="section">
-            <h2>시작한 이유</h2>
+            <h2>작업 개요</h2>
             <p>
-              Codex에 익숙해질 겸 뭘 해보면 좋을지 생각하다가 문득
-              “맥에서도 SLAM을 제대로 돌릴 수 있을까?”라는 의문이 들었다. ORB-SLAM2는 오래된 코드지만
-              Visual SLAM을 공부할 때 여전히 기준점처럼 언급되는 프로젝트라, 단순히 빌드만 성공시키는 것이 아니라
-              MacBook에서 실제 RGB-D 시퀀스를 실행하고, Pangolin Viewer로 결과를 확인하고, evo를 통해 정량 평가까지 진행해보기로 했다.
+              ORB-SLAM2는 Linux 중심으로 작성된 고전적 Visual SLAM 코드베이스다. 이 프로젝트에서는 해당 코드를
+              macOS에서 빌드하고, RGB-D 예제를 실행하며, Pangolin Viewer와 evo 평가까지 확인 가능한 형태로 정리했다.
             </p>
             <p>
-              목표는 명확했다. macOS에서 ORB-SLAM2를 실행 가능한 상태로 만들고, TUM RGB-D dataset의
-              <code>fr1_room</code> 시퀀스를 끝까지 돌린 뒤, 결과 trajectory가 어느 정도 정확한지 수치로 확인하는 것.
-              “화면이 뜬다”에서 멈추지 않고, 빌드 스크립트와 문서까지 정리해서 다시 재현 가능한 형태로 남기는 것도 포함했다.
+              작업 범위는 macOS 의존성 정리, Pangolin main-thread 문제 수정, TUM RGB-D
+              <code>fr1_room</code> 실행, trajectory 저장, APE/RPE 정량 평가까지 포함한다.
+              단순 실행 확인이 아니라 재현 가능한 빌드 스크립트와 실행 절차를 함께 남기는 것을 기준으로 구성했다.
             </p>
           </section>
 
           <section class="section">
             <div class="section-head">
-              <h2>프로젝트 목표</h2>
+              <h2>구현 범위</h2>
             </div>
             <div class="goal-grid">
               <div class="goal-item">
                 <strong>macOS 빌드</strong>
-                <p>Homebrew 기반 의존성과 CMake preset을 정리해 ORB-SLAM2를 MacBook에서 빌드한다.</p>
+                <p>Homebrew 기반 의존성과 CMake preset을 정리해 ORB-SLAM2를 MacBook에서 빌드 가능하게 구성했다.</p>
               </div>
               <div class="goal-item">
                 <strong>Viewer 실행</strong>
-                <p>Pangolin Viewer가 macOS AppKit 제약을 만족하도록 thread 구조를 조정한다.</p>
+                <p>Pangolin Viewer가 macOS AppKit 제약을 만족하도록 thread 구조를 조정했다.</p>
               </div>
               <div class="goal-item">
                 <strong>RGB-D 시퀀스 실행</strong>
-                <p>TUM RGB-D <code>fr1_room</code> 시퀀스로 map 생성과 trajectory 저장까지 확인한다.</p>
+                <p>TUM RGB-D <code>fr1_room</code> 시퀀스에서 map 생성과 trajectory 저장을 확인했다.</p>
               </div>
               <div class="goal-item">
                 <strong>정량 평가</strong>
-                <p>evo로 APE와 RPE를 계산해 macOS 실행 결과를 수치로 점검한다.</p>
+                <p>evo로 APE와 RPE를 계산해 macOS 실행 결과를 수치로 점검했다.</p>
               </div>
             </div>
           </section>
@@ -122,11 +120,11 @@
           </section>
 
           <section class="section">
-            <h2>어려웠던 지점</h2>
+            <h2>주요 문제</h2>
             <p>
-              처음에는 일반적인 포팅 작업처럼 CMake와 dependency 문제를 하나씩 맞추면 끝날 것이라고 생각했다.
-              실제로 OpenCV4 API 변경, Eigen allocator 타입, macOS dynamic library suffix, g2o의 오래된 C++ 코드 등
-              컴파일 레벨에서 손봐야 할 부분이 많았다. 하지만 가장 결정적인 문제는 빌드가 아니라 실행 구조에서 나왔다.
+              macOS 포팅 과정에서는 OpenCV4 API 변경, Eigen allocator 타입, macOS dynamic library suffix,
+              g2o의 오래된 C++ 코드 등 컴파일 레벨의 수정이 필요했다. 다만 가장 결정적인 문제는 빌드가 아니라
+              Pangolin Viewer의 실행 thread 구조에서 발생했다.
             </p>
             <div class="note">
               <strong>실행 중 발생한 핵심 에러</strong>
@@ -141,11 +139,11 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
           </section>
 
           <section class="section">
-            <h2>수정 방향</h2>
+            <h2>수정 결과</h2>
             <p>
-              해결 방향은 Viewer를 억지로 background thread에서 살리는 것이 아니라, macOS에서는 Viewer를 main thread에서 실행하도록
-              ORB-SLAM2 example의 실행 흐름을 바꾸는 것이었다. 따라서 tracking sequence는 worker thread로 옮기고,
-              Pangolin Viewer는 main thread에서 도는 구조로 정리했다.
+              macOS에서는 Viewer를 background thread에 유지하지 않고 main thread에서 실행하도록
+              ORB-SLAM2 example의 실행 흐름을 변경했다. Tracking sequence는 worker thread로 분리하고,
+              Pangolin Viewer는 main thread에서 동작하도록 정리했다.
             </p>
             <div class="flow">
               <div>
@@ -158,8 +156,8 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
               </div>
             </div>
             <p>
-              이 과정에서 macOS용 build script와 dependency 설치 스크립트도 함께 추가했다.
-              결과적으로 Linux 중심이던 원본 프로젝트를 macOS에서 바로 따라 실행할 수 있는 구조로 정리할 수 있었다.
+              macOS용 build script와 dependency 설치 스크립트도 함께 추가했다.
+              결과적으로 Linux 중심이던 원본 프로젝트를 macOS에서 재현 가능한 절차로 실행할 수 있게 정리했다.
             </p>
           </section>
 
@@ -182,8 +180,8 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
           <section class="section">
             <h2>성능 실험</h2>
             <p>
-              macOS에서 실행이 가능해진 뒤에는 CPU 사용량과 화면 반응성이 신경 쓰였다. 그래서 OpenCV thread 수 제한과
-              macOS QoS 설정을 실험했는데, 결과적으로는 체감과 수치 모두 기본 설정이 더 나았다.
+              macOS 실행 가능 여부를 확인한 뒤 OpenCV thread 수 제한과 macOS QoS 설정을 비교했다.
+              측정 결과, 별도 thread/QoS tuning을 적용한 경우보다 기본 동작이 더 안정적이었다.
             </p>
             <table class="metric-table">
               <thead>
@@ -208,8 +206,8 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
             </table>
             <p>
               특히 mean tracking time이 크게 증가했기 때문에, 강제 thread tuning은 기본값에서 제외하고
-              필요할 때만 환경 변수로 켤 수 있게 남겼다. 이번 작업에서 꽤 인상적이었던 부분은 “더 직접적으로 제어하면 더 빨라질 것”이라는
-              직관이 실제 측정에서는 틀릴 수 있다는 점이었다.
+              필요할 때만 환경 변수로 켤 수 있게 분리했다. 이 결과는 macOS에서 thread 제어를 추가하는 것이
+              항상 tracking 성능 개선으로 이어지지는 않음을 보여준다.
             </p>
           </section>
 
@@ -219,8 +217,8 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
               <a class="text-link" href="https://github.com/MichaelGrupp/evo" rel="noreferrer" target="_blank">evo repository</a>
             </div>
             <p>
-              실행 결과가 눈으로 보기에는 정상이어도, trajectory가 ground truth와 얼마나 가까운지는 별도로 확인해야 한다.
-              그래서 <code>CameraTrajectory.txt</code>와 TUM RGB-D ground truth를 evo에 넣어 APE와 RPE를 계산했다.
+              Viewer에서 map point와 camera frame이 정상적으로 표시되더라도, trajectory 정확도는 별도 평가가 필요하다.
+              <code>CameraTrajectory.txt</code>와 TUM RGB-D ground truth를 evo에 입력해 APE와 RPE를 계산했다.
             </p>
             <table class="metric-table">
               <thead>
@@ -299,21 +297,19 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
           </section>
 
           <section class="section">
-            <h2>정리</h2>
+            <h2>결과 요약</h2>
             <p>
-              이번 프로젝트는 오래된 오픈소스를 macOS에 맞게 고치는 작업이 단순한 컴파일 에러 해결만은 아니라는 것을 보여줬다.
-              실제로 가장 중요한 문제는 dependency보다 GUI thread model이었다. Pangolin Viewer가 어떤 thread에서 실행되는지,
-              ORB-SLAM2의 tracking과 local mapping, loop closing이 어떻게 분리되어 있는지를 이해해야 제대로 해결할 수 있었다.
+              ORB-SLAM2 macOS 포팅의 핵심 문제는 단순 dependency 수정이 아니라 GUI thread model이었다.
+              Pangolin Viewer를 main thread에서 실행하고 tracking sequence를 worker thread로 분리함으로써
+              macOS AppKit 제약을 만족하는 실행 구조를 만들었다.
             </p>
             <p>
-              또 하나의 수확은 측정의 중요성이었다. CPU thread를 직접 제어하면 더 부드러워질 것 같았지만,
-              tracking time은 오히려 나빠졌다. 그래서 기본 설정은 원래 동작에 가깝게 유지하고,
-              실험적인 thread 옵션은 필요할 때만 켤 수 있게 분리했다.
+              성능 측정에서는 기본 동작이 thread/QoS tuning보다 더 낮은 mean tracking time을 보였다.
+              따라서 기본 실행 경로는 원본 동작에 가깝게 유지하고, 실험적 thread 옵션은 필요할 때만 켤 수 있도록 분리했다.
             </p>
             <p>
-              Codex와 함께 로그를 읽고, 원인을 가정하고, 코드를 수정하고, 다시 빌드해서 확인하는 흐름을 반복하면서
-              “AI를 옆에 둔 디버깅”이 어떤 식으로 생산성을 높일 수 있는지도 체감할 수 있었다. 결과적으로 MacBook에서
-              ORB-SLAM2 RGB-D example을 실행하고, trajectory 평가까지 마친 하나의 재현 가능한 프로젝트로 정리할 수 있었다.
+              최종적으로 MacBook에서 ORB-SLAM2 RGB-D example을 실행하고, Pangolin Viewer 출력과
+              evo 기반 trajectory 평가까지 확인한 재현 가능한 프로젝트로 정리했다.
             </p>
             <a class="repo-card" href="https://github.com/noctml/ORB-SLAM2-for-macOS" rel="noreferrer" target="_blank">
               <img src="assets/demo/orb_slam2_macos_thumb.jpg" alt="" />
@@ -323,6 +319,24 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
                 <small>github.com/noctml/ORB-SLAM2-for-macOS</small>
               </span>
             </a>
+          </section>
+
+          <section class="comments" id="comments" style="margin-top:36px; padding-top:18px; border-top:1px solid rgba(148,163,184,0.25);">
+            <h2 style="margin:0 0 14px; font-size:18px;">Comments</h2>
+            <script async crossorigin="anonymous"
+              src="https://giscus.app/client.js"
+              data-repo="noctml/noctml.github.io"
+              data-repo-id="R_kgDOQthLvQ"
+              data-category="General"
+              data-category-id="DIC_kwDOQthLvc4C1ZaY"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="light"
+              data-lang="ko">
+            </script>
           </section>
         </article>
       </main>
