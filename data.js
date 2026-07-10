@@ -266,10 +266,19 @@ window.SITE_DATA = {
         ],
         study: [
             {
+                title: "VGGT4D: Mining Motion Cues in Visual Geometry Transformers for 4D Scene Reconstruction",
+                desc: "RAISE LAB Study",
+                href: "pages/study/VGGT4D/",
+                thumb: "pages/study/VGGT4D/assets/thumbnail.png?v=20260710",
+                published: true,
+                date: "2026-07-10",
+                tags: ["Study", "4D Reconstruction", "VGGT", "Dynamic Scene"]
+            },
+            {
                 title: "Easi3R: Estimating Disentangled Motion from DUSt3R Without Training",
                 desc: "RAISE LAB Study",
                 href: "pages/study/Easi3R/",
-                thumb: "pages/study/Easi3R/assets/thumbnail.png",
+                thumb: "pages/study/Easi3R/assets/thumbnail.png?v=20260710",
                 published: true,
                 date: "2026-07-01",
                 tags: ["Study", "3D Reconstruction", "DUSt3R", "Dynamic Scene"]
@@ -278,7 +287,7 @@ window.SITE_DATA = {
                 title: "SLAM-Former: Putting SLAM into One Transformer",
                 desc: "RAISE LAB Study",
                 href: "pages/study/SLAM-Former/",
-                thumb: "pages/study/SLAM-Former/assets/thumbnail.png",
+                thumb: "pages/study/SLAM-Former/assets/thumbnail.png?v=20260710",
                 published: true,
                 date: "2026-06-26",
                 tags: ["Study", "Visual SLAM", "Transformer", "Dense SLAM"]
