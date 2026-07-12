@@ -157,6 +157,9 @@ Gate 통과 조건:
 - 하나의 crop 안에 table과 figure가 함께 들어 있지 않은가? 함께 들어 있다면 caption을 합치지 말고, 가능한 경우 별도 asset으로 분리해 각 번호와 설명을 맞춘다.
 - Fig. 1a/Fig. 1b처럼 나란히 읽는 paired figure가 의도와 다르게 분리되거나 높이가 크게 어긋나지 않았는가?
 - figure가 너무 커지거나 작아져 reference page 대비 균형이 깨지지 않았는가?
+- PDF의 vector 글자와 가는 선이 낮은 해상도의 raster crop으로 뭉개지거나 글자처럼 보이지 않게 변형되지 않았는가?
+- diagram/table은 실제 desktop 표시 폭 대비 최소 3x, 사진 중심 qualitative figure는 최소 2x의 source pixel width를 확보했는가?
+- 여러 정량 평가표의 외곽 폭만 같게 맞춘 결과 내부 글자 크기가 서로 크게 달라지지 않았는가?
 - result table을 이미지로 넣은 경우, 주변 설명이 어떤 claim을 검증하는지 말해 주는가?
 - 영어 전환 후 이미지 크기가 변하지 않는가?
 - 한글 panel의 caption이 영어 설명문 그대로 남아 있지 않은가? technical term은 허용하지만 문장 구조는 한글이어야 한다.
@@ -168,7 +171,8 @@ Gate 통과 조건:
 3. `node scripts/verify-paper-review.mjs <PAGE>`의 `Figure/table inventory preview`를 확인한다.
 4. 각 row에 대해 `PDF item -> page filename -> caption -> visual match`를 report에 기록한다.
 5. PDF crop으로 새 asset을 만들 때는 기존 asset에 같은 figure가 이미 있는지 먼저 확인한다. 기존 페이지에 없던 supplementary figure/table crop은 만들지 않는 것을 기본값으로 한다.
-6. crop을 추가했다면 browser에서 실제 크기와 lightbox를 확인하고, 불필요한 임시/중복 asset은 제거한다.
+6. preview는 `120DPI`, 최종 crop은 `1200DPI` 원본 page render에서 만든다. 최종 PNG를 레이아웃에 맞추려고 다시 축소 저장하지 않고 CSS 표시 폭으로 조절한다.
+7. crop을 추가했다면 browser의 실제 표시 크기와 lightbox에서 작은 글자, 얇은 선, 표의 마지막 row, crop 여백을 직접 확인하고, 불필요한 임시/중복 asset은 제거한다.
 
 Gate 통과 조건:
 
@@ -180,6 +184,9 @@ Gate 통과 조건:
 - [ ] `visual match`가 확인되지 않은 figure/table이 없다.
 - [ ] paired figure/table 묶음은 의도된 row 구성과 비슷한 높이감으로 보인다.
 - [ ] 이미지 크기, lightbox, alt text가 desktop/mobile에서 안정적이다.
+- [ ] text-heavy figure/table은 표시 폭 대비 3x 이상의 source pixel density를 가지며 글자가 잘리거나 뭉개지지 않는다.
+- [ ] 사진 중심 qualitative figure도 표시 폭 대비 2x 이상의 source pixel density를 가진다.
+- [ ] 표마다 내부 글자 크기가 비슷하게 읽히며, 외곽 폭 통일 때문에 특정 표만 지나치게 작거나 크게 보이지 않는다.
 
 ## 7. Gate 5: Section Flow / Prose
 

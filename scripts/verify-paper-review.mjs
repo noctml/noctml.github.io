@@ -48,6 +48,43 @@ function getAttr(tag, name) {
   return match ? match[1] : '';
 }
 
+function readRasterDimensions(filePath) {
+  try {
+    const buffer = fs.readFileSync(filePath);
+    const isPng = buffer.length >= 24
+      && buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+    if (isPng) {
+      return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+    }
+
+    const isJpeg = buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8;
+    if (isJpeg) {
+      let offset = 2;
+      while (offset + 9 < buffer.length) {
+        if (buffer[offset] !== 0xff) {
+          offset += 1;
+          continue;
+        }
+        while (buffer[offset] === 0xff) offset += 1;
+        const marker = buffer[offset];
+        offset += 1;
+        if (marker === 0xd8 || marker === 0xd9) continue;
+        if (offset + 2 > buffer.length) break;
+        const length = buffer.readUInt16BE(offset);
+        const isStartOfFrame = [0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker);
+        if (isStartOfFrame && offset + 7 < buffer.length) {
+          return { width: buffer.readUInt16BE(offset + 5), height: buffer.readUInt16BE(offset + 3) };
+        }
+        if (length < 2) break;
+        offset += length;
+      }
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 const pageDir = pageArg.includes('/')
   ? path.resolve(repoRoot, pageArg.replace(/\/index\.html$/, ''))
   : path.resolve(repoRoot, 'pages/paper_reviews', pageArg);
@@ -71,19 +108,34 @@ const images = imageTags.map((tag) => {
   const localPath = src && !/^https?:\/\//.test(src)
     ? path.join(pageDir, decodeSrc(src).split('#')[0].split('?')[0])
     : null;
+  const exists = localPath ? fs.existsSync(localPath) : true;
+  const dimensions = exists && localPath ? readRasterDimensions(localPath) : null;
+  const styleWidth = Number(tag.match(/style=["'][^"']*width\s*:\s*([0-9.]+)px/i)?.[1] || 0);
+  const attrWidth = Number(getAttr(tag, 'width') || 0);
+  const intendedWidth = styleWidth || attrWidth || dimensions?.width || 0;
+  const estimatedDesktopWidth = intendedWidth ? Math.min(intendedWidth, 780) : 0;
+  const sourceDensity = dimensions && estimatedDesktopWidth
+    ? dimensions.width / estimatedDesktopWidth
+    : null;
   return {
     src,
     alt: getAttr(tag, 'alt'),
     width: tag.match(/style=["'][^"']*width\s*:\s*([^;"']+)/i)?.[1] || '',
-    exists: localPath ? fs.existsSync(localPath) : true,
+    exists,
+    dimensions,
+    estimatedDesktopWidth,
+    sourceDensity,
   };
 });
 
 const missingImages = images.filter((img) => !img.exists);
 const missingAlt = images.filter((img) => !img.alt);
+const uniqueLocalImages = [...new Map(images.filter((img) => img.dimensions).map((img) => [img.src, img])).values()];
+const lowDensityImages = uniqueLocalImages.filter((img) => img.sourceDensity !== null && img.sourceDensity < 2);
 
 if (missingImages.length) errors.push(`${missingImages.length} image src path(s) missing`);
 if (missingAlt.length) warnings.push(`${missingAlt.length} image(s) missing alt text`);
+if (lowDensityImages.length) warnings.push(`${lowDensityImages.length} raster image(s) have less than 2x source pixels for their estimated desktop width; inspect text/line sharpness and re-extract text-heavy assets from the PDF`);
 
 function panelLangAt(index) {
   const before = html.slice(0, index);
@@ -304,6 +356,13 @@ if (thinRelated.length) {
 if (topKoreanInEnglishHints.length) {
   console.log('Korean text candidates inside EN sections:');
   for (const text of topKoreanInEnglishHints.slice(0, 6)) console.log(`- ${text}`);
+}
+if (lowDensityImages.length) {
+  console.log('Low source-density image candidates:');
+  for (const img of lowDensityImages.slice(0, 12)) {
+    console.log(`- ${img.src} :: ${img.dimensions.width}x${img.dimensions.height} :: ${img.sourceDensity.toFixed(2)}x estimated desktop density`);
+  }
+  if (lowDensityImages.length > 12) console.log(`- ... ${lowDensityImages.length - 12} more`);
 }
 if (labeledFigures.length) {
   console.log('Figure/table inventory preview:');

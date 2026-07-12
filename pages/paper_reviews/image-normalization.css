@@ -1,0 +1,226 @@
+/* Shared display-size normalization for rasterized paper tables.
+ * Source assets stay at their original resolution; only rendered width changes.
+ */
+.post-body figure.image img[src*="media_e24e22d3a70d"],
+.post-body figure.image img[src*="media_9774958f8844"],
+.post-body figure.image img[src*="media_9ee9c68de437"],
+.post-body figure.image img[src*="media_b42f2af311f9"],
+.post-body figure.image img[src*="media_8432c9cb3359"],
+.post-body figure.image img[src*="media_ca957c2ec567"] {
+  width: 752px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_61882ff2a483"],
+.post-body figure.image img[src*="media_9d5e4c942920"] {
+  width: 584px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_c34ef16ec091"],
+.post-body figure.image img[src*="media_8a3a52d2084d"] {
+  width: 576px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_08c67a7a48e6"],
+.post-body figure.image img[src*="media_2c8e88d91288"] {
+  width: 520px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_fe80dbc42a50"] {
+  width: 440px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_9e80a9cd5a31"] {
+  width: 656px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_b2338a3c1cbd"] {
+  width: 536px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_efb57ffc6931"],
+.post-body figure.image img[src*="media_38523149ca73"],
+.post-body figure.image img[src*="media_ee2d85dd4d5a"] {
+  width: 408px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_f2dcab1e4d4a"],
+.post-body figure.image img[src*="media_4571d419d054"] {
+  width: 624px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_b6d48221b20d"] {
+  width: 640px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_13904e631038"],
+.post-body figure.image img[src*="media_a413125f6b47"] {
+  width: 608px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_f000d693a60b"] {
+  width: 464px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_621e5a21cddf"] {
+  width: 472px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_62acd48ceca0"] {
+  width: 480px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_6a88a3567000"] {
+  width: 296px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_c90d394f2ebd"] {
+  width: 544px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_2a7741406d9c"],
+.post-body figure.image img[src*="media_4f226091291e"] {
+  width: 528px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_5dd38fccd02f"] {
+  width: 288px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_448869816d9e"] {
+  width: 688px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_4e76c7883b9e"],
+.post-body figure.image img[src*="media_e53b905df989"] {
+  width: 568px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_d29593b2edfa"] {
+  width: 280px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_19d4d4aed078"] {
+  width: 304px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_c7c414113ac5"],
+.post-body figure.image img[src*="media_6bc1773a3cb6"] {
+  width: 600px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_3d1ccbaa9680"] {
+  width: 680px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_f14e5541b2d5"] {
+  width: 616px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_904b6b5a3e75"] {
+  width: 560px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_20687b2b4b60"] {
+  width: 552px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_9650c45a4773"] {
+  width: 584px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_15e467ab6ed4"] {
+  width: 400px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_5736b9b31ca7"] {
+  width: 384px !important;
+  max-width: 100% !important;
+}
+
+.post-body figure.image img[src*="media_38523149ca73"],
+.post-body figure.image img[src*="media_fe80dbc42a50"],
+.post-body figure.image img[src*="media_08c67a7a48e6"],
+.post-body figure.image img[src*="media_6a88a3567000"],
+.post-body figure.image img[src*="media_19d4d4aed078"],
+.post-body figure.image img[src*="media_5736b9b31ca7"],
+.post-body figure.image img[src*="media_2c8e88d91288"],
+.post-body figure.image img[src*="media_c7c414113ac5"] {
+  height: auto !important;
+  object-fit: contain;
+}
+
+.post-body figure.image img[src*="media_e24e22d3a70d"],
+.post-body figure.image img[src*="media_9774958f8844"],
+.post-body figure.image img[src*="media_9ee9c68de437"],
+.post-body figure.image img[src*="media_b42f2af311f9"],
+.post-body figure.image img[src*="media_8432c9cb3359"],
+.post-body figure.image img[src*="media_ca957c2ec567"],
+.post-body figure.image img[src*="media_61882ff2a483"],
+.post-body figure.image img[src*="media_9d5e4c942920"],
+.post-body figure.image img[src*="media_c34ef16ec091"],
+.post-body figure.image img[src*="media_8a3a52d2084d"],
+.post-body figure.image img[src*="media_08c67a7a48e6"],
+.post-body figure.image img[src*="media_2c8e88d91288"],
+.post-body figure.image img[src*="media_fe80dbc42a50"],
+.post-body figure.image img[src*="media_9e80a9cd5a31"],
+.post-body figure.image img[src*="media_b2338a3c1cbd"],
+.post-body figure.image img[src*="media_efb57ffc6931"],
+.post-body figure.image img[src*="media_38523149ca73"],
+.post-body figure.image img[src*="media_ee2d85dd4d5a"],
+.post-body figure.image img[src*="media_f2dcab1e4d4a"],
+.post-body figure.image img[src*="media_4571d419d054"],
+.post-body figure.image img[src*="media_b6d48221b20d"],
+.post-body figure.image img[src*="media_13904e631038"],
+.post-body figure.image img[src*="media_a413125f6b47"],
+.post-body figure.image img[src*="media_f000d693a60b"],
+.post-body figure.image img[src*="media_621e5a21cddf"],
+.post-body figure.image img[src*="media_62acd48ceca0"],
+.post-body figure.image img[src*="media_6a88a3567000"],
+.post-body figure.image img[src*="media_c90d394f2ebd"],
+.post-body figure.image img[src*="media_2a7741406d9c"],
+.post-body figure.image img[src*="media_4f226091291e"],
+.post-body figure.image img[src*="media_5dd38fccd02f"],
+.post-body figure.image img[src*="media_448869816d9e"],
+.post-body figure.image img[src*="media_d29593b2edfa"],
+.post-body figure.image img[src*="media_4e76c7883b9e"],
+.post-body figure.image img[src*="media_e53b905df989"],
+.post-body figure.image img[src*="media_5736b9b31ca7"],
+.post-body figure.image img[src*="media_19d4d4aed078"],
+.post-body figure.image img[src*="media_c7c414113ac5"],
+.post-body figure.image img[src*="media_6bc1773a3cb6"],
+.post-body figure.image img[src*="media_3d1ccbaa9680"],
+.post-body figure.image img[src*="media_f14e5541b2d5"],
+.post-body figure.image img[src*="media_904b6b5a3e75"],
+.post-body figure.image img[src*="media_20687b2b4b60"] {
+  display: block;
+  margin-inline: auto !important;
+}

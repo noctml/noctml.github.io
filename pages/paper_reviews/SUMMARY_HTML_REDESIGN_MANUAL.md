@@ -363,6 +363,18 @@ caption 규칙:
 - paired figure는 의도적으로 나란히 붙이고 세로 높이감을 맞춘다.
 - image size는 기존 첨부 크기를 존중한다. 영어 전환 후 이미지가 커지면 CSS max-width 동기화가 실패한 것이다.
 
+원본 추출과 화질 규칙:
+
+- PDF의 vector figure/table을 브라우저 screenshot이나 기존 저해상도 PNG 확대본으로 대체하지 않는다.
+- 위치 확인용 preview만 `120DPI`로 만들고, 최종 asset은 원본 PDF 페이지에서 `1200DPI`로 다시 render한 뒤 crop한다. 파일 크기 제약이 명확한 예외만 `600DPI`를 허용하고 이유를 기록한다.
+- 최종 crop은 caption, 본문, page number를 제외한 `figure_only` 또는 `table_only` 범위로 만들며, 글자·선·표의 마지막 row가 crop 경계에 닿지 않도록 작은 safety margin을 둔다.
+- 투명 PDF render는 흰 배경으로 flatten한 뒤 RGB PNG로 저장한다. JPEG 재압축은 사진 중심 qualitative figure에만 허용한다.
+- **추출 크기와 표시 크기를 분리한다.** 고해상도 PNG 자체는 줄이지 않고, HTML/CSS의 `width`, `max-width`, figure size class로 화면 폭만 조절한다.
+- 글자와 가는 선이 있는 diagram/table은 source pixel width가 실제 desktop 표시 폭의 최소 `3배`가 되게 한다. 사진 중심 qualitative figure도 최소 `2배`를 유지한다.
+- 여러 평가표의 외곽 폭을 기계적으로 같게 맞추지 않는다. 내부 글자 크기가 비슷하게 보이도록 text density가 높은 표는 표시 폭을 넓히고, sparse한 표는 좁힌다.
+- 기존 asset의 글자가 이미 뭉개졌다면 CSS sharpening이나 확대를 시도하지 않고 원본 PDF에서 다시 추출한다.
+- 교체 파일은 `<Paper>_Figure2_figure_only_1200dpi.png`처럼 source와 DPI가 드러나는 새 이름을 쓰고 HTML 참조를 갱신한다. 같은 파일명 덮어쓰기로 브라우저 cache가 남지 않게 한다.
+
 Gate:
 
 - [ ] 이미지 자체가 PDF의 해당 figure/table과 맞다.
@@ -370,6 +382,9 @@ Gate:
 - [ ] 사용자가 넣지 않은 supplementary figure/table이 임의로 추가되지 않았다.
 - [ ] caption note는 PDF 근거가 있을 때만 있다.
 - [ ] table/figure 크기가 reference page 대비 과하거나 작지 않다.
+- [ ] diagram/table의 작은 글자와 가는 선이 실제 표시 폭 및 lightbox에서 선명하다.
+- [ ] text-heavy asset은 표시 폭 대비 최소 3x, 사진 중심 asset은 최소 2x source pixel density를 가진다.
+- [ ] 저해상도 crop을 단순 확대하거나 브라우저 screenshot으로 대체한 asset이 없다.
 
 ### Step 10. Toggles / Supplement Panels
 

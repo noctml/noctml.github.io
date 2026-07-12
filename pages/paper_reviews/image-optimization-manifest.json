@@ -1,0 +1,801 @@
+[
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_64afa20cc5e5.png",
+    "display_width": 752,
+    "before_size": [
+      7420,
+      4460
+    ],
+    "after_size": [
+      2256,
+      1356
+    ],
+    "before_bytes": 2903375,
+    "after_bytes": 989132,
+    "before_sha256": "beabb3952fd906a81251d531024d5cb12ccff4369d50e826faaffcbc5364bbd8",
+    "after_sha256": "381e4a0306eebd27ce0acb7c41930bc3cfef29bf722ed4fd7b264e06453855dc"
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_114924482e36.png",
+    "display_width": 752,
+    "before_size": [
+      8360,
+      2650
+    ],
+    "after_size": [
+      2256,
+      715
+    ],
+    "before_bytes": 1403532,
+    "after_bytes": 622721,
+    "before_sha256": "a3b2c3a94212dd6f7be68a17d7c96c7556e87742c2417daa6d10ca98e9f88c4d",
+    "after_sha256": "3e87cfe5e6644a81ea42a58d5e0ccd72ee3629b8c696979701adc27698bed519"
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_8e35092e0213.png",
+    "display_width": 752,
+    "before_size": [
+      7040,
+      4160
+    ],
+    "after_size": [
+      2256,
+      1333
+    ],
+    "before_bytes": 670414,
+    "after_bytes": 630062,
+    "before_sha256": "23842470cc07320eef3e0abd33ea09b7c124a1f9299316eb688cab749d1519e9",
+    "after_sha256": "5e52acc799e377fdad35c9e23e8e9f72bfa9f6a949be79c51356d43449f697a8"
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_f3fe775feaa2.png",
+    "display_width": 752,
+    "before_size": [
+      7600,
+      2650
+    ],
+    "after_size": [
+      2256,
+      787
+    ],
+    "before_bytes": 447766,
+    "after_bytes": 425525,
+    "before_sha256": "3c05cc35e69c0e27c1a2b20d055141d272a2fb2bb3dd39a99d2abbb83c7609cd",
+    "after_sha256": "a608595b9734c1e1c7bb82a631c27c594261d1ae5cc5e8155c3b483e534540bc"
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_0c1ceb0fca4a.png",
+    "display_width": 752,
+    "before_size": [
+      7670,
+      2280
+    ],
+    "after_size": [
+      2256,
+      671
+    ],
+    "before_bytes": 435234,
+    "after_bytes": 439486,
+    "before_sha256": "bcc3748db8fdcf2261f5a36db2766fea0f281559ee099cae7a49114d6364c76f",
+    "after_sha256": "b9f1d20a69ab11f79fd20eefce45735b4a421dba419ff89a9f2cec38789b3f20"
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_7a9279bbf3ca.png",
+    "display_width": 752,
+    "before_size": [
+      6180,
+      1690
+    ],
+    "after_size": [
+      2256,
+      617
+    ],
+    "before_bytes": 311728,
+    "after_bytes": 319578,
+    "before_sha256": "58876eebb1475b32b79da85f4460d541fa72c634fe73fe131ccd5b0608fc8eb6",
+    "after_sha256": "ff9d5483cadf7d8215f3f08ca94fb09a2b6226bdad493c69365aa62354262813"
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8397ca90ca71.png",
+    "display_width": 752,
+    "before_size": [
+      8300,
+      1000
+    ],
+    "after_size": [
+      2256,
+      272
+    ],
+    "before_bytes": 197488,
+    "after_bytes": 189981,
+    "before_sha256": "e8c4d030ce6ce9bf5e0ae35fb78b412245de4e95e52a7cac0058f09287b67d86",
+    "after_sha256": "4b471b6ef07842e77cda8cdee305f0e2d0bd8bfe727ea069db766400aa19724f"
+  },
+  {
+    "page": "VINS-Mono",
+    "file": "pages/paper_reviews/VINS-Mono/assets/vins-mono-a-robust-and-versatile-monocular-visual-inertial-state-estimator/media/media_03aa4b336151.png",
+    "display_width": 752,
+    "before_size": [
+      8580,
+      3590
+    ],
+    "after_size": [
+      2256,
+      944
+    ],
+    "before_bytes": 567057,
+    "after_bytes": 390522,
+    "before_sha256": "35d3f5a0828b653f54abb334db02a9d403ba6141f97ac3a0df83185d5c72f54e",
+    "after_sha256": "14f75c8fdb75422ffd4b812dded6f4f9deadeee6f5b3f0258a36018d628eeebc"
+  },
+  {
+    "page": "VINS-Mono",
+    "file": "pages/paper_reviews/VINS-Mono/assets/vins-mono-a-robust-and-versatile-monocular-visual-inertial-state-estimator/media/media_88f4c2e11ca2.png",
+    "display_width": 752,
+    "before_size": [
+      8500,
+      2160
+    ],
+    "after_size": [
+      2256,
+      573
+    ],
+    "before_bytes": 473440,
+    "after_bytes": 251547,
+    "before_sha256": "3c0ff4a2babb0466a9178f96aef48bd47e2d2d157eb08aa3e408309ab6499300",
+    "after_sha256": "d87f0f1ee117591b42b904a4b1ae7efc2b7fc859b905757e9ca3dafb13723c99"
+  },
+  {
+    "page": "VINS-Mono",
+    "file": "pages/paper_reviews/VINS-Mono/assets/vins-mono-a-robust-and-versatile-monocular-visual-inertial-state-estimator/media/media_3a69bbb2b186.png",
+    "display_width": 752,
+    "before_size": [
+      7040,
+      4020
+    ],
+    "after_size": [
+      2256,
+      1288
+    ],
+    "before_bytes": 1902510,
+    "after_bytes": 2702969,
+    "before_sha256": "006610f6a3989ea0f2b7a73f6152039f3af3da3c5b7e78f8509636ba8e16f413",
+    "after_sha256": "f0291a4341f2578f2fb0b385b7cf702f05d86ef8ef077209354895c6bc564f4c"
+  },
+  {
+    "page": "VINS-Mono",
+    "file": "pages/paper_reviews/VINS-Mono/assets/vins-mono-a-robust-and-versatile-monocular-visual-inertial-state-estimator/media/media_8319c445ce95.png",
+    "display_width": 430.0,
+    "before_size": [
+      7940,
+      4440
+    ],
+    "after_size": [
+      1296,
+      725
+    ],
+    "before_bytes": 876995,
+    "after_bytes": 231196,
+    "before_sha256": "0367ee8c0e61bc5f14f168df1fb4147adb160822d98213263aee0b0fe8a2d3c8",
+    "after_sha256": "849e5f55ebd864808580e64fcf6ae78719b420149f6036928a82cd2893be1b32"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cff3911ca59c.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      4340
+    ],
+    "after_size": [
+      2256,
+      1677
+    ],
+    "before_bytes": 12603639,
+    "after_bytes": 2626451,
+    "before_sha256": "6db0964da6969e1cc1c7dea3eba55b9f7fb7c53a9d5c36ad165e71c702f01552",
+    "after_sha256": "56cc1806f8d4fbc89d24c6dea3854da34dea8cb662da8f45cf4181e2a2e6ca1d"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_29514e0ed263.png",
+    "display_width": 752,
+    "before_size": [
+      5860,
+      2280
+    ],
+    "after_size": [
+      2256,
+      878
+    ],
+    "before_bytes": 2110996,
+    "after_bytes": 621226,
+    "before_sha256": "7d3d0011a6faf57e88fe2176d28869d0ae29d15bc22ad98c3a16c5b0c67e885a",
+    "after_sha256": "98c5110805db054c19334340a52e6771a84ebf8b05d0647a4b6e604cb8c9dffc"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_cbec9884cb46.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      6840
+    ],
+    "after_size": [
+      2256,
+      2642
+    ],
+    "before_bytes": 23348708,
+    "after_bytes": 4966650,
+    "before_sha256": "67a131e8944d9e62bfbd3390d2e690c3c2e56ff959df9b2bd718383f5bdb58c5",
+    "after_sha256": "f662cda95aa309480e30985523cea542307e21078aaef0e92f2d58a5154b8c5a"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_2e8a43205e33.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      2640
+    ],
+    "after_size": [
+      2256,
+      1020
+    ],
+    "before_bytes": 371199,
+    "after_bytes": 622112,
+    "before_sha256": "eb0d77d3dc3f5bb41f34879faf23a169f91dc8643329ce787f55f9d465b40620",
+    "after_sha256": "6b5302e784738f75acf1d83543dc9e6ed8ce8007c60329c9eff5de8733cf9e98"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_dc6ffa3d67c0.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      920
+    ],
+    "after_size": [
+      2256,
+      355
+    ],
+    "before_bytes": 124371,
+    "after_bytes": 213124,
+    "before_sha256": "93f3b447701f77933ceaa3ec42a164648f2d7965ecaf12ebed79ebe928c23894",
+    "after_sha256": "20dade0bec965fff0a9ceeac41f51dd74fce90892c6dcbfc7651420f7760b3a8"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_1206dd81f9e0.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      1000
+    ],
+    "after_size": [
+      2256,
+      386
+    ],
+    "before_bytes": 122949,
+    "after_bytes": 191091,
+    "before_sha256": "25341eaf4a88df42f5d1b92290c8097891341c7794401b19fffc6f02aea69c23",
+    "after_sha256": "44438a213be986334354a5be0493adb5c08b39a1fb12cd908c51e4454844b6c3"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_d779ccfaa623.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      4340
+    ],
+    "after_size": [
+      2256,
+      1677
+    ],
+    "before_bytes": 2052006,
+    "after_bytes": 930957,
+    "before_sha256": "bc81a5f4924022b4c0959b2d6f2ad1fc20e3741788647d0faee25a69bfb442f8",
+    "after_sha256": "2069369167b5f6c0c96f28f246b83b8850348c8aedd173101a702ac47d872311"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_82c798248efe.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      1860
+    ],
+    "after_size": [
+      2256,
+      719
+    ],
+    "before_bytes": 219836,
+    "after_bytes": 290520,
+    "before_sha256": "d5c50a4a20842ebf92647da8e6d070e7dd17d803d1851b74ad3654b70e2d8696",
+    "after_sha256": "1821ddea183bf5161032acb7e8fb24e19a75d8f9f3b097f22aead17225a629be"
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_a8d6b786f0fd.png",
+    "display_width": 752,
+    "before_size": [
+      5840,
+      1480
+    ],
+    "after_size": [
+      2256,
+      572
+    ],
+    "before_bytes": 230574,
+    "after_bytes": 296723,
+    "before_sha256": "beb6717ebeda0d889180555e4482d189bd3372c398409f76cc65936b77b4d5b0",
+    "after_sha256": "f498bff05321a2a1c7ed84cf4b8ea7b9f3b8e79b978720b63db5ce9239576a7d"
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_6d217a34da2d.png",
+    "display_width": 752,
+    "before_size": [
+      6620,
+      4040
+    ],
+    "after_size": [
+      2256,
+      1377
+    ],
+    "before_bytes": 3098930,
+    "after_bytes": 2608968,
+    "before_sha256": "2623b901b7cdfb10076c982a0d8a74ee5e53dc8092eddd6e25d37547fcb079b2",
+    "after_sha256": "bc8a1e9e81ef2af1bf8411ef8fdafbded71c3421cacde4063ec70269e8ce7142"
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_3eacd572e4e2.png",
+    "display_width": 752,
+    "before_size": [
+      6650,
+      2960
+    ],
+    "after_size": [
+      2256,
+      1004
+    ],
+    "before_bytes": 1300867,
+    "after_bytes": 1143096,
+    "before_sha256": "2d5ab8a75888a37610c526f2f0abfbc6654eae5245388499735d039ac80c2d48",
+    "after_sha256": "1099b8d460e244280d6b98616c3e06834257993068dee0aadd71a8abb59b3104"
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_228f772c5f90.png",
+    "display_width": 752,
+    "before_size": [
+      6720,
+      1760
+    ],
+    "after_size": [
+      2256,
+      591
+    ],
+    "before_bytes": 141939,
+    "after_bytes": 331581,
+    "before_sha256": "2837cf5614e2c8d8e9ab94f9647797d12d99023f7a4163f8d129df90c7c6fae3",
+    "after_sha256": "476f5447360bd98179e5d9a40cde113291f358bd1f3c8254906dfe6e339dd306"
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_7fc2e0ca5efc.png",
+    "display_width": 752,
+    "before_size": [
+      6420,
+      3780
+    ],
+    "after_size": [
+      2256,
+      1328
+    ],
+    "before_bytes": 10986385,
+    "after_bytes": 3747326,
+    "before_sha256": "49a978bc454d00af66fd5ec31db20c2dffe9c8cc1089f8453c4d0129b94e9991",
+    "after_sha256": "b7ea1cd41e6e0d0f994b485f5798baa81821444148a64492dfc4984d0e1db05d"
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_3a6361ee3c4e.png",
+    "display_width": 752,
+    "before_size": [
+      6700,
+      2700
+    ],
+    "after_size": [
+      2256,
+      909
+    ],
+    "before_bytes": 208254,
+    "after_bytes": 470999,
+    "before_sha256": "aba3d6cd8d0c882ddc0970d3f6e65ad6b067e8b1b2d0cca9cc7d85f90089f98e",
+    "after_sha256": "8c845e266beaa27fda0135891becc7d2ef82b3e8fe30ad415d34a21aae72ccbc"
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_afa6f89285dd.png",
+    "display_width": 752,
+    "before_size": [
+      6640,
+      3140
+    ],
+    "after_size": [
+      2256,
+      1067
+    ],
+    "before_bytes": 5585867,
+    "after_bytes": 1866034,
+    "before_sha256": "f99b248a7de160742e100a1844e45f594233f94aec3d1dc27f8c7c353152450d",
+    "after_sha256": "f03cf9784e911d33f5ac7a45874c6353a77eb0ef5ed325a1f5c9289b8bfa7ab0"
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_ca9430b6fee1.png",
+    "display_width": 752,
+    "before_size": [
+      8300,
+      1760
+    ],
+    "after_size": [
+      2256,
+      478
+    ],
+    "before_bytes": 883828,
+    "after_bytes": 664712,
+    "before_sha256": "1735ea48c5202193f7e26d459c57c2334151d3808f4f3e3ad074e00557ecfa8c",
+    "after_sha256": "7d7843f2fa756cd449a4c3d5f73fdf3cb7a0e2bb06d444a1663258cae6f3c847"
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_059c944f8bab.png",
+    "display_width": 752,
+    "before_size": [
+      8500,
+      2680
+    ],
+    "after_size": [
+      2256,
+      711
+    ],
+    "before_bytes": 1251479,
+    "after_bytes": 752249,
+    "before_sha256": "fb36e11f843ef74036334d10b74b85527743978780a5775bf317e74794592415",
+    "after_sha256": "f6d716150b206453e9cd776903fb964ecca2fd91dfbc85abd7fc3b27606d9b3b"
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png",
+    "display_width": 752,
+    "before_size": [
+      8440,
+      1420
+    ],
+    "after_size": [
+      2256,
+      380
+    ],
+    "before_bytes": 330000,
+    "after_bytes": 301409,
+    "before_sha256": "ae414a05a11450c7b9e014656cb7f52306a05d014a8a29fd8e2a2745895ebf4c",
+    "after_sha256": "a77ec744fd3047fad85c534dffa2edd71b20cacdce7209cdf8a71eb2f8ecade1"
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d2a2c52f6331.png",
+    "display_width": 752,
+    "before_size": [
+      8460,
+      1370
+    ],
+    "after_size": [
+      2256,
+      365
+    ],
+    "before_bytes": 801907,
+    "after_bytes": 841010,
+    "before_sha256": "e428c6a5660986b15434bd615b7e899ed8aaf9c831cffa02eaa80b8412330031",
+    "after_sha256": "f491dc10e8d0a7a50b5afd79ff2c2d5100110122b46a3905b574bf32009df462"
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_d7ad9def0549.png",
+    "display_width": 752,
+    "before_size": [
+      8460,
+      3100
+    ],
+    "after_size": [
+      2256,
+      827
+    ],
+    "before_bytes": 1766392,
+    "after_bytes": 1279289,
+    "before_sha256": "07429ca740e142020ef58fd5965cbecfbfb6fbe091c6ac3f1810907e94dc8297",
+    "after_sha256": "778fc0d918c0b5ec69ee61f9d620c174fa60ed8e2f4a7db1a729f177a876cfc0"
+  },
+  {
+    "page": "TTT3R",
+    "file": "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure1_figure_only_safe_1200dpi.png",
+    "display_width": 752,
+    "before_size": [
+      6700,
+      2880
+    ],
+    "after_size": [
+      2256,
+      970
+    ],
+    "before_bytes": 5180173,
+    "after_bytes": 1653570,
+    "before_sha256": "43bae6494e1ccbd5bf77a6f4a8e823bf3d461ee836dd9ef82a865ec034422c86",
+    "after_sha256": "44d83b5628536d1918735d2f5a23fe5d2644291c9322948f2882cab1ed710be7"
+  },
+  {
+    "page": "TTT3R",
+    "file": "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure3_figure_only_safe_1200dpi.png",
+    "display_width": 752,
+    "before_size": [
+      6600,
+      1030
+    ],
+    "after_size": [
+      2256,
+      352
+    ],
+    "before_bytes": 54903,
+    "after_bytes": 122799,
+    "before_sha256": "5f5e47bac3448bdb5d6d702546fae7a2aaf21f13706f127dae81e72dbf19ad19",
+    "after_sha256": "67e99601109d8f9d092819c170d6c1591ee9408c774bb2c67e493ee4d8adb626"
+  },
+  {
+    "page": "TTT3R",
+    "file": "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure4_figure_only_safe_1200dpi.png",
+    "display_width": 752,
+    "before_size": [
+      6640,
+      1690
+    ],
+    "after_size": [
+      2256,
+      574
+    ],
+    "before_bytes": 101215,
+    "after_bytes": 218898,
+    "before_sha256": "1391d9e561269bb3d83b8c0f73246748f44b68370fb703c056417a75ddc2879d",
+    "after_sha256": "76d8aca53f92f814e6d8bd49ad41fc587ba1f9ec360e7860730d677e5d6d3441"
+  },
+  {
+    "page": "TTT3R",
+    "file": "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure7_figure_only_safe_1200dpi.png",
+    "display_width": 752,
+    "before_size": [
+      6620,
+      2030
+    ],
+    "after_size": [
+      2256,
+      692
+    ],
+    "before_bytes": 132837,
+    "after_bytes": 261150,
+    "before_sha256": "e019884be2b9ea0c4874da05d294b4541e6dffe1399b0a27e632b34c7516bbb9",
+    "after_sha256": "68556022be6a11d7f7a026393c2fcd7679285ac69c3bc84305626b7b4fa5fe1f"
+  },
+  {
+    "page": "TTT3R",
+    "file": "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure8_figure_only_safe_1200dpi.png",
+    "display_width": 752,
+    "before_size": [
+      6640,
+      4370
+    ],
+    "after_size": [
+      2256,
+      1485
+    ],
+    "before_bytes": 280926,
+    "after_bytes": 524882,
+    "before_sha256": "40de2064b0ed2808c78e017fea5ff62250c1e58a5505302abf77864155be8123",
+    "after_sha256": "4f2a442a5a725e40fed10840d284051a0ffd8815e3e6085fd75069a65ea4dbd8"
+  },
+  {
+    "page": "TTT3R",
+    "file": "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure9_figure_only_safe_1200dpi_v3.png",
+    "display_width": 752,
+    "before_size": [
+      6640,
+      2100
+    ],
+    "after_size": [
+      2256,
+      713
+    ],
+    "before_bytes": 303074,
+    "after_bytes": 262405,
+    "before_sha256": "ef29c6173fb1f6742aef37ca17fe3b6d46d5fe19126fa005084ad8cc8d9ea4a1",
+    "after_sha256": "4d07066c8585f92f3674dc0251629353193a74cbdbdf7e656d3f8b3d11ab5ed4"
+  },
+  {
+    "page": "TTT3R",
+    "file": "pages/paper_reviews/TTT3R/assets/ttt3r-3d-reconstruction-as-test-time-training/media/TTT3R_Figure10_figure_only_safe_1200dpi.png",
+    "display_width": 752,
+    "before_size": [
+      6620,
+      5190
+    ],
+    "after_size": [
+      2256,
+      1769
+    ],
+    "before_bytes": 24621063,
+    "after_bytes": 5090413,
+    "before_sha256": "3765dae6c1b03802609d8ad2005d545b215cf44b1dfa081f1b7a1d1035c68099",
+    "after_sha256": "f8a1784c71fe228d35eaca2b4fddea44e7d41a7b91d4c4dc750c2115b5715204"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_97253105ec63.png",
+    "display_width": 752,
+    "before_size": [
+      8460,
+      2650
+    ],
+    "after_size": [
+      2256,
+      707
+    ],
+    "before_bytes": 4374556,
+    "after_bytes": 744126,
+    "before_sha256": "60c3547a0c3163c709a334860807ba31e9ec830ba0c9af61266bc2fcaee6dd02",
+    "after_sha256": "27bf61bac07b08fae2de2025c2ba85c10556ad0ef953a31e2057d3a0ab6b683e"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_01a94ca90162.png",
+    "display_width": 752,
+    "before_size": [
+      8380,
+      4300
+    ],
+    "after_size": [
+      2256,
+      1158
+    ],
+    "before_bytes": 2799268,
+    "after_bytes": 749160,
+    "before_sha256": "c3ff3942408c9ba9698d92cf266608f70198cd8513101b3c9fead4c58d4d794f",
+    "after_sha256": "4a901efe84e9c586ea5bf50583824fb27fe7af92799b1726fc2b70370bf74cf0"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_6a840ff9893f.png",
+    "display_width": 752,
+    "before_size": [
+      7640,
+      3720
+    ],
+    "after_size": [
+      2256,
+      1098
+    ],
+    "before_bytes": 237464,
+    "after_bytes": 408478,
+    "before_sha256": "48ddff4ee534df95ed54e5a9eaac0ccf6150eff2d8399e867fd644bb248d6793",
+    "after_sha256": "494273ca43d6101e02f90cb01320e6e9ba481c8323afdc2c684f5c2ba3dd8d02"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_6e965f0472a6.png",
+    "display_width": 752,
+    "before_size": [
+      6660,
+      2200
+    ],
+    "after_size": [
+      2256,
+      745
+    ],
+    "before_bytes": 203138,
+    "after_bytes": 529674,
+    "before_sha256": "08953142f88871ec91ffcb9c57f0be4e4d4ca310e4f305d3eb1eca7d53fee3ec",
+    "after_sha256": "a2de6e6381e6ccdbd408171a42c31503f22a5b89f9a20f0b2ef2ec136ffc716e"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_bd82339c2191.png",
+    "display_width": 752,
+    "before_size": [
+      6220,
+      1700
+    ],
+    "after_size": [
+      2256,
+      617
+    ],
+    "before_bytes": 135163,
+    "after_bytes": 367229,
+    "before_sha256": "5e28b3570dccce4fe5ae3fe85a82b2b8654be136714081f4c51ac21346b1f906",
+    "after_sha256": "e0e09c610b9e4d621b1b72048725ba55df4110217aeb577c5722e6a9c5aa60db"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_6dd36e8cd4e1.png",
+    "display_width": 752,
+    "before_size": [
+      8400,
+      4680
+    ],
+    "after_size": [
+      2256,
+      1257
+    ],
+    "before_bytes": 9000414,
+    "after_bytes": 3089429,
+    "before_sha256": "da39a523ed5238a57adcd890594bcc9e033ad602c0302cce448670029a261b49",
+    "after_sha256": "bf07f4d720319ee0abc98f8597a7413f0ee4c86c0e3168d23756ed658d7cc1f5"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_af8fe54ba46e.png",
+    "display_width": 752,
+    "before_size": [
+      8240,
+      1620
+    ],
+    "after_size": [
+      2256,
+      444
+    ],
+    "before_bytes": 222198,
+    "after_bytes": 448983,
+    "before_sha256": "dee3afc7f1f7b51f500cedfa829ffcaf7b2490ebde8effec36392adb2dd254be",
+    "after_sha256": "65b20178d8adb5b503ceb788bb67d9c06f10aae2e799a3c33625338b23b883ce"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_4c6c06d79028.png",
+    "display_width": 752,
+    "before_size": [
+      8340,
+      2900
+    ],
+    "after_size": [
+      2256,
+      784
+    ],
+    "before_bytes": 6269260,
+    "after_bytes": 1399759,
+    "before_sha256": "b336fba5764144ccb6937e3bf9c5d64513ffa0e672a89ceb39de0b8103db75b7",
+    "after_sha256": "97d93e93460d7ceb3cb207cfae52cc993e64a8f08367e50fc186835b68ae085f"
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_84dbcc541ab7.png",
+    "display_width": 752,
+    "before_size": [
+      7220,
+      2080
+    ],
+    "after_size": [
+      2256,
+      650
+    ],
+    "before_bytes": 915670,
+    "after_bytes": 842585,
+    "before_sha256": "12038f7df24398565b700d4937ecf41ebd839eadfeb1a80c085e69e30f3c768d",
+    "after_sha256": "be7bd1d0dc2a180a50e6144ce5f98bebacc006548b2cb8f1a1d267a3979b35d7"
+  }
+]

@@ -150,6 +150,7 @@
     "Contribution 세부 수치 보기": "View Contribution Evidence Details",
     "DeepV2D / BA-Net 비교 메모 보기": "View DeepV2D / BA-Net Comparison Notes",
     "Related Work 자세히 보기": "View Related Work Details",
+    "원문 표현 확인": "Check the Original Wording",
     "TartanAir 세부 결과 보기": "View TartanAir Detailed Results",
     "EuRoC 세부 결과 보기": "View EuRoC Detailed Results",
     "TUM-RGBD 세부 결과 보기": "View TUM-RGBD Detailed Results",

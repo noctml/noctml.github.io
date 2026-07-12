@@ -13,7 +13,7 @@
 <meta content="website" property="og:type"/>
 <link href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" rel="stylesheet"/>
 <link href="styles.css?v=wildgs-eval-setup-20260526-flatshape-20260601c-eq-polish-20260601-eq-tagfix-20260601-eq-mainwidth-20260601-divider-polish-20260601-bookmark-gray-20260601-lightbox-zoom-20260605-trackpad-pinch-20260605-lightbox-page-scale-reset-20260605-paper-meta-masthead-20260606-paper-meta-compact-20260606-scoped-blue-v9-20260607-monst3r-neutral-v1-20260607-sepia-emphasis-20260608-sepia-title-brown-20260608-meta-title-merge-20260608-meta-masthead-parity-20260608-inline-baseline-20260609-inline-sepia-20260609-inline-sepia-soft-20260609-inline-gray-restore-20260609-inline-gray-chip-20260609-toggle-guard-20260609-imgcenter-20260609-toggle-stable-20260609-focus-indent-reset-20260609-toggle-margin-sync-20260609" rel="stylesheet"/>
-</head>
+<link href="../image-normalization.css?v=20260712" rel="stylesheet"/></head>
 <body>
 <a class="skip" data-en="Skip to content" data-ko="본문으로 바로가기" href="#main">본문으로 바로가기</a>
 <div class="layout" id="top">
@@ -138,7 +138,7 @@
 <h3 id="ko-problem">Problem: dynamic distractor가 tracking과 rendering을 동시에 흔든다</h3>
 <p>WildGS-SLAM의 문제 제기는 static-world assumption에 있다. 기존 monocular SLAM과 3DGS SLAM은 camera와 static scene이 일관되게 관측된다고 가정하지만, 실제 video에는 사람, 그림자, occlusion, 조명 변화처럼 <strong>pose update와 map optimization을 동시에 오염시키는 dynamic distractor</strong>가 들어온다.</p>
 <figure class="image">
-<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121.png" style="width:2150px"/>
+<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121_visual_only.png" style="width:2150px"/>
 <figcaption><span class="caption-main">Figure 1. WildGS-SLAM.</span><span class="caption-note">dynamic distractor가 있는 monocular video에서 camera trajectory를 추적하고, static element만 3D Gaussian map으로 재구성하는 목표를 보여준다.</span></figcaption>
 </figure>
 <section class="problem-ladder">
@@ -417,7 +417,7 @@
 <figcaption><span class="caption-main">Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">distractor 종류와 관계없이 distractor를 제거하고 static scene을 더 realistic하게 rendering한다고 설명한다.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23.png" style="width:2122px"/>
+<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23_visual_only.png" style="width:2122px"/>
 <figcaption><span class="caption-main">Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">static scene subset에서 novel view synthesis를 평가하며, 이미지 안에 PSNR metric이 함께 표시된다.</span></figcaption>
 </figure>
 <figure class="image">
@@ -474,7 +474,7 @@
 <h3 id="en-problem">Problem: dynamic distractors destabilize both tracking and rendering</h3>
 <p>WildGS-SLAM starts from the static-world assumption. Monocular SLAM and 3DGS SLAM often assume that cameras observe a consistent static scene, but real videos contain people, shadows, occlusions, and lighting changes that <strong>contaminate both pose update and map optimization</strong>.</p>
 <figure class="image">
-<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121.png" style="width:2150px"/>
+<img alt="Figure 1. WildGS-SLAM overview." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_e1c5b9eba121_visual_only.png" style="width:2150px"/>
 <figcaption><span class="caption-main">Figure 1. WildGS-SLAM.</span><span class="caption-note">The figure shows the goal: track the camera trajectory from dynamic monocular video and reconstruct only static elements as a 3D Gaussian map.</span></figcaption>
 </figure>
 <section class="problem-ladder">
@@ -753,7 +753,7 @@
 <figcaption><span class="caption-main">Figure 3. Input View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">The paper states that WildGS-SLAM removes distractors and renders realistic static scenes regardless of distractor type.</span></figcaption>
 </figure>
 <figure class="image">
-<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23.png" style="width:2122px"/>
+<img alt="Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset." src="assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d3445c632f23_visual_only.png" style="width:2122px"/>
 <figcaption><span class="caption-main">Figure 4. Novel View Synthesis Results on Wild-SLAM MoCap Dataset.</span><span class="caption-note">Novel-view rendering is evaluated on static-scene subsets, with PSNR metrics shown inside the images.</span></figcaption>
 </figure>
 <figure class="image">

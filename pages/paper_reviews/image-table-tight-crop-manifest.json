@@ -1,0 +1,34 @@
+[
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_fbc09393b32e_visual_only.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_fbc09393b32e_visual_only_tight.png",
+    "crop_box": [
+      101,
+      23,
+      2080,
+      633
+    ],
+    "output_size": [
+      1979,
+      610
+    ],
+    "html_references_updated": 1
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_538bb944924c_visual_only.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_538bb944924c_visual_only_tight.png",
+    "crop_box": [
+      364,
+      28,
+      1940,
+      468
+    ],
+    "output_size": [
+      1576,
+      440
+    ],
+    "html_references_updated": 1
+  }
+]

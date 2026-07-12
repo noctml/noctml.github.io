@@ -14,6 +14,72 @@
   const htmlTranslatable = Array.from(document.querySelectorAll("[data-ko-html][data-en-html]"));
   const moreBtn = document.getElementById("deepDiveMoreBtn");
 
+  const sharedSummaryTranslations = [
+    {
+      selector: ".map-card-wide > p",
+      ko: "Co-SLAM 계열 neural implicit RGB-D SLAM에 <strong>동적 관측 제거</strong>와 <strong>edge reprojection 기반 빠른 tracking</strong>을 붙여 dynamic scene에서 static dense map을 안정화한다.",
+      en: "RoDyn-SLAM augments Co-SLAM-style neural implicit RGB-D SLAM with <strong>dynamic-observation filtering</strong> and <strong>fast edge-reprojection tracking</strong> to stabilize a static dense map in dynamic scenes."
+    },
+    {
+      selector: ".map-grid > .map-card:nth-child(2) > p",
+      ko: "optical-flow epipolar inconsistency와 semantic mask를 결합해 dynamic ray 제거.",
+      en: "Combines optical-flow epipolar inconsistency with semantic masks to remove dynamic rays."
+    },
+    {
+      selector: ".map-grid > .map-card:nth-child(3) > p",
+      ko: "RGB/depth/SDF loss에 mask를 적용해 moving object가 static implicit map을 오염시키지 않게 함.",
+      en: "Applies masks to RGB, depth, and SDF losses so moving objects do not contaminate the static implicit map."
+    },
+    {
+      selector: ".map-grid > .map-card:nth-child(4) > p",
+      ko: "keyframe은 rendering loss, non-keyframe은 edge reprojection으로 pose update 분리.",
+      en: "Splits pose updates into rendering losses for keyframes and edge reprojection for non-keyframes."
+    },
+    {
+      selector: ".map-grid > .map-card:nth-child(5) > p",
+      ko: "BONN/TUM dynamic sequence에서 neural RGB-D SLAM 계열 대비 tracking/mapping 개선.",
+      en: "Improves tracking and mapping over neural RGB-D SLAM baselines on dynamic BONN and TUM sequences."
+    },
+    {
+      selector: ".insight-box > p",
+      ko: "이 논문의 강점은 새로운 representation 자체보다, dynamic scene에서 <strong>어떤 observation을 static neural map 업데이트에 쓸지</strong>를 시스템적으로 잘 설계한 점이다.",
+      en: "The paper's strength is not a new representation itself, but a systematic design for <strong>which observations should update the static neural map</strong> in dynamic scenes."
+    },
+    {
+      selector: ".compare-grid > article:nth-child(1) > h3",
+      ko: "static residual 가정",
+      en: "Assumes static residuals"
+    },
+    {
+      selector: ".compare-grid > article:nth-child(1) > p",
+      ko: "moving object의 color/depth residual이 pose와 map을 동시에 잘못 업데이트할 수 있음.",
+      en: "Color and depth residuals from moving objects can corrupt both pose and map updates."
+    },
+    {
+      selector: ".compare-grid > article:nth-child(2) > h3",
+      ko: "tracking 중심",
+      en: "Tracking centered"
+    },
+    {
+      selector: ".compare-grid > article:nth-child(2) > p",
+      ko: "dynamic filtering은 강하지만 dense neural implicit map이 핵심 output은 아님.",
+      en: "Dynamic filtering is strong, but a dense neural implicit map is not the primary output."
+    },
+    {
+      selector: ".compare-grid > article:nth-child(3) > p",
+      ko: "neural dense mapping은 유지하면서 dynamic observation 제거와 pose update 안정화를 함께 수행.",
+      en: "Preserves neural dense mapping while filtering dynamic observations and stabilizing pose updates."
+    }
+  ];
+
+  sharedSummaryTranslations.forEach(({ selector, ko, en }) => {
+    const node = document.querySelector(selector);
+    if (!node) return;
+    node.dataset.koHtml = ko;
+    node.dataset.enHtml = en;
+    htmlTranslatable.push(node);
+  });
+
   const storageGet = (key) => {
     try {
       return window.localStorage.getItem(key);

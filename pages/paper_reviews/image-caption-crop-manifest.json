@@ -1,0 +1,844 @@
+[
+  {
+    "page": "3D_DSG",
+    "source": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_275d2cf844ae.png",
+    "output": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_275d2cf844ae_visual_only.png",
+    "source_size": [
+      1828,
+      1466
+    ],
+    "crop_box": [
+      0,
+      0,
+      1828,
+      1171
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 1: We propose 3D Dynamic Scene Graphs (DSGs) as a unified representation for actionable spatial perception. (a) A"
+  },
+  {
+    "page": "3D_DSG",
+    "source": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_3891d36ac5c5.png",
+    "output": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_3891d36ac5c5_visual_only.png",
+    "source_size": [
+      2142,
+      930
+    ],
+    "crop_box": [
+      0,
+      0,
+      2142,
+      804
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 3: Structures: exploded view of walls and floor."
+  },
+  {
+    "page": "3D_DSG",
+    "source": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_3d9c64aa0b7e.png",
+    "output": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_3d9c64aa0b7e_visual_only.png",
+    "source_size": [
+      1134,
+      1344
+    ],
+    "crop_box": [
+      0,
+      0,
+      1134,
+      1134
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 2: Places and their connectivity shown as a graph. (a)"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_527fc720dfd5.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_527fc720dfd5_visual_only.png",
+    "source_size": [
+      2236,
+      872
+    ],
+    "crop_box": [
+      0,
+      0,
+      2236,
+      679
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 2. Constructing the 3D Scene Graph. (a) Input to the method is a 3D mesh model with registered panoramic images. (b) Each"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_660797d2eefb.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_660797d2eefb_visual_only.png",
+    "source_size": [
+      1312,
+      1030
+    ],
+    "crop_box": [
+      0,
+      0,
+      1312,
+      720
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 4. Multi-view consistency: Semantic labels from different"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_83a359c6ef3a.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_83a359c6ef3a_visual_only.png",
+    "source_size": [
+      984,
+      1320
+    ],
+    "crop_box": [
+      0,
+      0,
+      984,
+      1093
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 6. Detection results on panoramas: (a) Image, (b) Mask"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_b3a37df50e9c.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_b3a37df50e9c_visual_only.png",
+    "source_size": [
+      1460,
+      1132
+    ],
+    "crop_box": [
+      0,
+      0,
+      1460,
+      735
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 8. Classification results of scene graph relationships"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_c1d5e19f9746.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_c1d5e19f9746_visual_only.png",
+    "source_size": [
+      2402,
+      888
+    ],
+    "crop_box": [
+      0,
+      0,
+      2402,
+      709
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 3. Framing: Examples of sampled rectilinear images using the framing robustification mechanism are shown in the dashed colored"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_c8716b985a32.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_c8716b985a32_visual_only.png",
+    "source_size": [
+      1192,
+      1484
+    ],
+    "crop_box": [
+      0,
+      0,
+      1192,
+      1204
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 7. 3D detection results on mesh: (a) Mask R-CNN [18] +"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_cfe9eff0dd31.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_cfe9eff0dd31_visual_only.png",
+    "source_size": [
+      2408,
+      662
+    ],
+    "crop_box": [
+      0,
+      0,
+      2408,
+      556
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 5. Semantic statistics for bed: (a) Number of object instances in buildings. (b) Distribution of its surface coverage. (c) Nearest"
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_d0af04c84813.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_d0af04c84813_visual_only.png",
+    "source_size": [
+      1640,
+      1434
+    ],
+    "crop_box": [
+      0,
+      0,
+      1640,
+      1141
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 9. Results of amodal mask segmentation with Ours. We"
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_074b672aa074.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_074b672aa074_visual_only.png",
+    "source_size": [
+      1826,
+      458
+    ],
+    "crop_box": [
+      0,
+      0,
+      1826,
+      368
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Table 1: Results on the TartanAir monocular benchmark."
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_0bb1c0b14f6c.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_0bb1c0b14f6c_visual_only.png",
+    "source_size": [
+      2216,
+      540
+    ],
+    "crop_box": [
+      0,
+      0,
+      2216,
+      348
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Table 2: Results on the TartanAir test set, compared with the top 3 submission to the ECCV 2020"
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_538bb944924c.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_538bb944924c_visual_only.png",
+    "source_size": [
+      2314,
+      660
+    ],
+    "crop_box": [
+      0,
+      0,
+      2314,
+      509
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Table 4: ATE on the TUM-RGBD benchmark. All methods are provided mono. video, ‘except"
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_612223b03e26.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_612223b03e26_visual_only.png",
+    "source_size": [
+      2256,
+      1140
+    ],
+    "crop_box": [
+      0,
+      0,
+      2256,
+      980
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Figure 3: DROID-SLAM can generalize to new datasets. In order, we show results from Tanks &"
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_ccc1b13c414d.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_ccc1b13c414d_visual_only.png",
+    "source_size": [
+      2164,
+      752
+    ],
+    "crop_box": [
+      0,
+      0,
+      2164,
+      513
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Figure 4: Generalization results on the RGB-D ETH3D-SLAM benchmark. (Left) Our method,"
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_ccc922409c76.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_ccc922409c76_visual_only.png",
+    "source_size": [
+      2086,
+      876
+    ],
+    "crop_box": [
+      0,
+      0,
+      2086,
+      747
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Figure 2: Illustration of the update operator. The operator acts on edges in the frame graph, predicting"
+  },
+  {
+    "page": "DROID-SLAM",
+    "source": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_fbc09393b32e.png",
+    "output": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_fbc09393b32e_visual_only.png",
+    "source_size": [
+      2178,
+      754
+    ],
+    "crop_box": [
+      0,
+      0,
+      2178,
+      673
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Table 3: Monocular SLAM on the EuRoC datasets, ATE[m]. | denotes visual odometry methods."
+  },
+  {
+    "page": "DynaSLAM",
+    "source": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_table_vi_monocular_kitti.png",
+    "output": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_table_vi_monocular_kitti_visual_only.png",
+    "source_size": [
+      790,
+      418
+    ],
+    "crop_box": [
+      0,
+      0,
+      790,
+      353
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "TABLE VI: Absolute trajectory RMSE [m] for ORB-SLAM"
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_009f16d8e077.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_009f16d8e077_visual_only.png",
+    "source_size": [
+      1736,
+      1428
+    ],
+    "crop_box": [
+      0,
+      0,
+      1736,
+      1303
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 4. Estimated trajectory (black) and ground-truth (red) in KITTI 00, 01,"
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_73477dcf341f.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_73477dcf341f_visual_only.png",
+    "source_size": [
+      1584,
+      1286
+    ],
+    "crop_box": [
+      0,
+      0,
+      1584,
+      1166
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 6. Estimated trajectory (black) and groundtruth (red) in EuRoC"
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_73c2b08e972f.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_73c2b08e972f_visual_only.png",
+    "source_size": [
+      1504,
+      832
+    ],
+    "crop_box": [
+      0,
+      0,
+      1504,
+      564
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 5. Estimated trajectory (black) and ground-truth (red) in KITTI 08. Left:"
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_f09800510a62.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_f09800510a62_visual_only.png",
+    "source_size": [
+      2106,
+      956
+    ],
+    "crop_box": [
+      0,
+      0,
+      2106,
+      819
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 2. ORB-SLAM2 is composed of three main parallel threads: tracking, local mapping and loop closing, which can create a fourth thread to perform"
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_f1fc05044cfe.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_f1fc05044cfe_visual_only.png",
+    "source_size": [
+      1874,
+      1374
+    ],
+    "crop_box": [
+      0,
+      0,
+      1874,
+      1314
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 7. Dense pointcloud reconstructions from estimated keyframe poses and sensor depth maps in TUM RGB-D /fr3_office, frl_room, fr2_desk and fr3_nst."
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_13f4d5b40d2b.png",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_13f4d5b40d2b_visual_only.png",
+    "source_size": [
+      1740,
+      1446
+    ],
+    "crop_box": [
+      0,
+      0,
+      1740,
+      1365
+    ],
+    "html_references_updated": 3,
+    "detected_caption": "Fig. 4. Qualitative comparison on SceneNet 0/2 and SemanticKITTI 06 between the ground truth, the network output on a single frame, SLIM-VDB,"
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_c530c0da14c7.png",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_c530c0da14c7_visual_only.png",
+    "source_size": [
+      1668,
+      1340
+    ],
+    "crop_box": [
+      0,
+      0,
+      1668,
+      1021
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 1. An example of the real-time semantic mapping method proposed"
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_c54a7f08a39f.png",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_c54a7f08a39f_visual_only.png",
+    "source_size": [
+      1732,
+      1098
+    ],
+    "crop_box": [
+      0,
+      0,
+      1732,
+      841
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Fig. 5. Ground truth SceneNet 0/2 RGB image with overlayed red voxels"
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_e5426f5f9b5e.png",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_e5426f5f9b5e_visual_only.png",
+    "source_size": [
+      2434,
+      1148
+    ],
+    "crop_box": [
+      0,
+      0,
+      2434,
+      961
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Fig. 2. Overview of the SLIM-VDB mapping system. The input dataset can be either a pointcloud or RGB-D images. Semantic segmentation can be"
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_efd551d33fad.jpg",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_efd551d33fad_visual_only.png",
+    "source_size": [
+      1916,
+      724
+    ],
+    "crop_box": [
+      0,
+      0,
+      1916,
+      673
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Fig. 3. Visual runtime comparison on SceneNet and KITTI scenes for both Bayesian and non-Bayesian semantic mapping frameworks."
+  },
+  {
+    "page": "WildGS-SLAM",
+    "source": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_d3445c632f23.png",
+    "output": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_d3445c632f23_visual_only.png",
+    "source_size": [
+      2122,
+      548
+    ],
+    "crop_box": [
+      0,
+      0,
+      2122,
+      495
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 4. Novel View Synthesis Results on our Wild-SLAM MoCap Dataset. PSNR metrics () are included in images."
+  },
+  {
+    "page": "WildGS-SLAM",
+    "source": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_e1c5b9eba121.png",
+    "output": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_e1c5b9eba121_visual_only.png",
+    "source_size": [
+      2150,
+      796
+    ],
+    "crop_box": [
+      0,
+      0,
+      2150,
+      593
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Figure 1. WildGS-SLAM. Given a monocular video sequence captured in the wild with dynamic distractors, our method accurately tracks"
+  },
+  {
+    "page": "3D_DSG",
+    "source": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_b2338a3c1cbd.png",
+    "output": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_b2338a3c1cbd_table_only.png",
+    "source_size": [
+      1642,
+      588
+    ],
+    "crop_box": [
+      13,
+      168,
+      1602,
+      587
+    ],
+    "output_size": [
+      1589,
+      419
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "3D_DSG",
+    "source": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_9e80a9cd5a31.png",
+    "output": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_9e80a9cd5a31_table_only.png",
+    "source_size": [
+      1856,
+      598
+    ],
+    "crop_box": [
+      1,
+      186,
+      1843,
+      586
+    ],
+    "output_size": [
+      1842,
+      400
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_74b5dcb00081.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_74b5dcb00081_table_only.png",
+    "source_size": [
+      2342,
+      1384
+    ],
+    "crop_box": [
+      35,
+      297,
+      2308,
+      1360
+    ],
+    "output_size": [
+      2273,
+      1063
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_67c823eeff5e.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_67c823eeff5e_table_only.png",
+    "source_size": [
+      2436,
+      564
+    ],
+    "crop_box": [
+      12,
+      164,
+      2429,
+      564
+    ],
+    "output_size": [
+      2417,
+      400
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_9650c45a4773.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_9650c45a4773_table_only.png",
+    "source_size": [
+      1750,
+      546
+    ],
+    "crop_box": [
+      13,
+      180,
+      1737,
+      545
+    ],
+    "output_size": [
+      1724,
+      365
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_3df081fded1c.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_3df081fded1c_table_only.png",
+    "source_size": [
+      2454,
+      358
+    ],
+    "crop_box": [
+      16,
+      117,
+      2443,
+      358
+    ],
+    "output_size": [
+      2427,
+      241
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_15e467ab6ed4.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_15e467ab6ed4_table_only.png",
+    "source_size": [
+      1576,
+      406
+    ],
+    "crop_box": [
+      121,
+      94,
+      1427,
+      406
+    ],
+    "output_size": [
+      1306,
+      312
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "3D_SG",
+    "source": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_f2dcab1e4d4a.png",
+    "output": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_f2dcab1e4d4a_table_only.png",
+    "source_size": [
+      1592,
+      608
+    ],
+    "crop_box": [
+      11,
+      85,
+      1592,
+      606
+    ],
+    "output_size": [
+      1581,
+      521
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_a471f3a71807.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_a471f3a71807_table_only.png",
+    "source_size": [
+      1284,
+      846
+    ],
+    "crop_box": [
+      1,
+      157,
+      1281,
+      841
+    ],
+    "output_size": [
+      1280,
+      684
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_d29593b2edfa.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_d29593b2edfa_table_only.png",
+    "source_size": [
+      1716,
+      1076
+    ],
+    "crop_box": [
+      46,
+      237,
+      1669,
+      1056
+    ],
+    "output_size": [
+      1623,
+      819
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_19d4d4aed078.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_19d4d4aed078_table_only.png",
+    "source_size": [
+      1642,
+      854
+    ],
+    "crop_box": [
+      22,
+      286,
+      1624,
+      836
+    ],
+    "output_size": [
+      1602,
+      550
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "ORB-SLAM2",
+    "source": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_5736b9b31ca7.png",
+    "output": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_5736b9b31ca7_table_only.png",
+    "source_size": [
+      1488,
+      1398
+    ],
+    "crop_box": [
+      0,
+      151,
+      1484,
+      1389
+    ],
+    "output_size": [
+      1484,
+      1238
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_9774958f8844.jpg",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_9774958f8844_table_only.png",
+    "source_size": [
+      2018,
+      654
+    ],
+    "crop_box": [
+      196,
+      175,
+      1818,
+      652
+    ],
+    "output_size": [
+      1622,
+      477
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_ee2d85dd4d5a.png",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_ee2d85dd4d5a_table_only.png",
+    "source_size": [
+      1928,
+      958
+    ],
+    "crop_box": [
+      31,
+      247,
+      1888,
+      937
+    ],
+    "output_size": [
+      1857,
+      690
+    ],
+    "html_references_updated": 1,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  },
+  {
+    "page": "SLIM-VDB",
+    "source": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_53174ad2ae5b.png",
+    "output": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_53174ad2ae5b_table_only.png",
+    "source_size": [
+      1614,
+      546
+    ],
+    "crop_box": [
+      0,
+      182,
+      1614,
+      540
+    ],
+    "output_size": [
+      1614,
+      358
+    ],
+    "html_references_updated": 2,
+    "detected_caption": "Original PDF table caption removed from the raster asset."
+  }
+]

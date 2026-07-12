@@ -1,0 +1,1937 @@
+[
+  {
+    "page": "3D_DSG",
+    "file": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_b2338a3c1cbd_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_b2338a3c1cbd_table_only.png",
+    "caption": "Table I. EuRoC와 uHumans에서 VIO error 비교.",
+    "intrinsic": [
+      1589,
+      419
+    ],
+    "display": 480,
+    "ocr_words": 56,
+    "retina_q50": 22.35,
+    "retina_q75": 22.35,
+    "retina_q90": 38.97
+  },
+  {
+    "page": "3D_DSG",
+    "file": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_9e80a9cd5a31_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_9e80a9cd5a31_table_only.png",
+    "caption": "Table II. Dynamic masking 적용 여부에 따른 mesh error.",
+    "intrinsic": [
+      1842,
+      400
+    ],
+    "display": 576,
+    "ocr_words": 32,
+    "retina_q50": 25.64,
+    "retina_q75": 25.64,
+    "retina_q90": 28.46
+  },
+  {
+    "page": "3D_DSG",
+    "file": "pages/paper_reviews/3D_DSG/assets/논문-스터디/media/media_efb57ffc6931.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_efb57ffc6931.png",
+    "caption": "Table III. Human and object localization errors.",
+    "intrinsic": [
+      1169,
+      504
+    ],
+    "display": 408,
+    "ocr_words": 21,
+    "retina_q50": 28.62,
+    "retina_q75": 36.3,
+    "retina_q90": 36.3
+  },
+  {
+    "page": "3D_SG",
+    "file": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_74b5dcb00081_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_74b5dcb00081_table_only.png",
+    "caption": "Table 1. 속성 및 관계 정의.",
+    "intrinsic": [
+      2273,
+      1063
+    ],
+    "display": 762.31,
+    "ocr_words": 129,
+    "retina_q50": 27.5,
+    "retina_q75": 28.84,
+    "retina_q90": 30.85
+  },
+  {
+    "page": "3D_SG",
+    "file": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_67c823eeff5e_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_67c823eeff5e_table_only.png",
+    "caption": "Table 2. Automated pipeline 정량 평가.",
+    "intrinsic": [
+      2417,
+      400
+    ],
+    "display": 739.31,
+    "ocr_words": 87,
+    "retina_q50": 17.74,
+    "retina_q75": 19.58,
+    "retina_q90": 26.92
+  },
+  {
+    "page": "3D_SG",
+    "file": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_9650c45a4773_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_9650c45a4773_table_only.png",
+    "caption": "Table 3. Annotation effort 비교.",
+    "intrinsic": [
+      1724,
+      365
+    ],
+    "display": 584,
+    "ocr_words": 35,
+    "retina_q50": 27.78,
+    "retina_q75": 30.83,
+    "retina_q90": 35.77
+  },
+  {
+    "page": "3D_SG",
+    "file": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_3df081fded1c_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_3df081fded1c_table_only.png",
+    "caption": "Table 4. Detector별 robustification 효과.",
+    "intrinsic": [
+      2427,
+      241
+    ],
+    "display": 739.31,
+    "ocr_words": 58,
+    "retina_q50": 17.67,
+    "retina_q75": 22.54,
+    "retina_q90": 24.37
+  },
+  {
+    "page": "3D_SG",
+    "file": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_15e467ab6ed4_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_15e467ab6ed4_table_only.png",
+    "caption": "Table 5. Scene graph predicate classification.",
+    "intrinsic": [
+      1306,
+      312
+    ],
+    "display": 400,
+    "ocr_words": 13,
+    "retina_q50": 34.3,
+    "retina_q75": 34.92,
+    "retina_q90": 42.27
+  },
+  {
+    "page": "3D_SG",
+    "file": "pages/paper_reviews/3D_SG/assets/논문-스터디/media/media_f2dcab1e4d4a_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_f2dcab1e4d4a_table_only.png",
+    "caption": "Table 6. Amodal mask segmentation 정량 결과.",
+    "intrinsic": [
+      1581,
+      521
+    ],
+    "display": 624,
+    "ocr_words": 65,
+    "retina_q50": 28.42,
+    "retina_q75": 28.42,
+    "retina_q90": 36.31
+  },
+  {
+    "page": "3D-Prior",
+    "file": "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_ca957c2ec567.png",
+    "src": "assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_ca957c2ec567.png",
+    "caption": "Table 1. Bonn RGB-D Dynamic tracking result.",
+    "intrinsic": [
+      1675,
+      478
+    ],
+    "display": 752,
+    "ocr_words": 101,
+    "retina_q50": 18.86,
+    "retina_q75": 18.86,
+    "retina_q90": 24.24
+  },
+  {
+    "page": "3D-Prior",
+    "file": "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_08c67a7a48e6.png",
+    "src": "assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_08c67a7a48e6.png",
+    "caption": "Table 2. Wild-SLAM MoCap tracking result.",
+    "intrinsic": [
+      925,
+      376
+    ],
+    "display": 520,
+    "ocr_words": 60,
+    "retina_q50": 20.24,
+    "retina_q75": 21.36,
+    "retina_q90": 35.98
+  },
+  {
+    "page": "3D-Prior",
+    "file": "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_fe80dbc42a50.png",
+    "src": "assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_fe80dbc42a50.png",
+    "caption": "Table 3. DAVIS-16/17 moving object segmentation result.",
+    "intrinsic": [
+      1814,
+      974
+    ],
+    "display": 440,
+    "ocr_words": 49,
+    "retina_q50": 28.62,
+    "retina_q75": 36.38,
+    "retina_q90": 46.09
+  },
+  {
+    "page": "3D-Prior",
+    "file": "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_c34ef16ec091.png",
+    "src": "assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_c34ef16ec091.png",
+    "caption": "Table 4. Sintel tracking result.",
+    "intrinsic": [
+      940,
+      472
+    ],
+    "display": 576,
+    "ocr_words": 46,
+    "retina_q50": 29.41,
+    "retina_q75": 34.31,
+    "retina_q90": 36.15
+  },
+  {
+    "page": "3D-Prior",
+    "file": "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_61882ff2a483.png",
+    "src": "assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_61882ff2a483.png",
+    "caption": "Table 5. Video depth estimation result.",
+    "intrinsic": [
+      847,
+      688
+    ],
+    "display": 584,
+    "ocr_words": 78,
+    "retina_q50": 28.96,
+    "retina_q75": 34.47,
+    "retina_q90": 56.54
+  },
+  {
+    "page": "3D-Prior",
+    "file": "pages/paper_reviews/3D-Prior/assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_376fdf592806.png",
+    "src": "assets/dynamic-visual-slam-using-a-general-3d-prior/media/media_376fdf592806.png",
+    "caption": "Table 6. Ablation study for moving mask, depth prior, and uncertainty-aware BA.",
+    "intrinsic": [
+      915,
+      259
+    ],
+    "display": 752.05,
+    "ocr_words": 39,
+    "retina_q50": 34.52,
+    "retina_q75": 39.45,
+    "retina_q90": 42.74
+  },
+  {
+    "page": "Chamelion",
+    "file": "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_1b79d7f77e84.jpg",
+    "src": "assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_1b79d7f77e84.jpg",
+    "caption": "Table I. Custom dataset에서 scan-wise IoU와 map-wise PR/RR/F1 비교.",
+    "intrinsic": [
+      1136,
+      772
+    ],
+    "display": 480,
+    "ocr_words": 100,
+    "retina_q50": 19.44,
+    "retina_q75": 23.66,
+    "retina_q90": 24.51
+  },
+  {
+    "page": "Chamelion",
+    "file": "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_b3ca193cee51.png",
+    "src": "assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_b3ca193cee51.png",
+    "caption": "Table II. LiSTA dataset 정량 비교.",
+    "intrinsic": [
+      1111,
+      779
+    ],
+    "display": 456.38,
+    "ocr_words": 103,
+    "retina_q50": 18.9,
+    "retina_q75": 22.18,
+    "retina_q90": 23.83
+  },
+  {
+    "page": "Chamelion",
+    "file": "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_table3_hd_removal.png",
+    "src": "assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_table3_hd_removal.png",
+    "caption": "Table III. HD object 제거 여부에 따른 LD change detection 성능.",
+    "intrinsic": [
+      1350,
+      450
+    ],
+    "display": 620,
+    "ocr_words": 40,
+    "retina_q50": 29.39,
+    "retina_q75": 33.99,
+    "retina_q90": 36.74
+  },
+  {
+    "page": "Chamelion",
+    "file": "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_b0ffdf562de8.png",
+    "src": "assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_b0ffdf562de8.png",
+    "caption": "Table IV. 데스크톱 GPU와 embedded platform의 runtime / 성능 비교.",
+    "intrinsic": [
+      1774,
+      298
+    ],
+    "display": 624,
+    "ocr_words": 17,
+    "retina_q50": 26.73,
+    "retina_q75": 31.66,
+    "retina_q90": 33.2
+  },
+  {
+    "page": "Chamelion",
+    "file": "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_74f2bd057772.png",
+    "src": "assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_74f2bd057772.png",
+    "caption": "Table V. Training/test domain을 바꿔 manual supervision과 pseudo supervision의 일반화 성능 비교.",
+    "intrinsic": [
+      1512,
+      452
+    ],
+    "display": 528,
+    "ocr_words": 34,
+    "retina_q50": 26.54,
+    "retina_q75": 29.86,
+    "retina_q90": 33.1
+  },
+  {
+    "page": "Chamelion",
+    "file": "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_3b7798220004.png",
+    "src": "assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_3b7798220004.png",
+    "caption": "Table VI. LiSTA dataset에서 manual supervision과 pseudo supervision을 비교한 결과.",
+    "intrinsic": [
+      1816,
+      366
+    ],
+    "display": 560,
+    "ocr_words": 12,
+    "retina_q50": 36.39,
+    "retina_q75": 37,
+    "retina_q90": 37.56
+  },
+  {
+    "page": "Chamelion",
+    "file": "pages/paper_reviews/Chamelion/assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_0a77832219d6.png",
+    "src": "assets/chamelion-reliable-change-detection-for-long-term-lidar-mapping-in-transient-environments/media/media_0a77832219d6.png",
+    "caption": "Table VII. Dual-head 구조와 low-level feature division ablation.",
+    "intrinsic": [
+      1694,
+      468
+    ],
+    "display": 672,
+    "ocr_words": 30,
+    "retina_q50": 30.94,
+    "retina_q75": 35.5,
+    "retina_q90": 38.56
+  },
+  {
+    "page": "CUT3R",
+    "file": "pages/paper_reviews/CUT3R/assets/1차-수정본/media/media_971c727f943e.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_971c727f943e.png",
+    "caption": "Table 1. Single-frame Depth Evaluation.",
+    "intrinsic": [
+      1936,
+      588
+    ],
+    "display": 628.98,
+    "ocr_words": 72,
+    "retina_q50": 26.64,
+    "retina_q75": 26.64,
+    "retina_q90": 37.04
+  },
+  {
+    "page": "CUT3R",
+    "file": "pages/paper_reviews/CUT3R/assets/1차-수정본/media/media_011d48002542.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_011d48002542.png",
+    "caption": "Table 2. Video Depth Evaluation.",
+    "intrinsic": [
+      2158,
+      550
+    ],
+    "display": 752.06,
+    "ocr_words": 81,
+    "retina_q50": 20.21,
+    "retina_q75": 24.39,
+    "retina_q90": 36.24
+  },
+  {
+    "page": "CUT3R",
+    "file": "pages/paper_reviews/CUT3R/assets/1차-수정본/media/media_8432c9cb3359.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_8432c9cb3359.png",
+    "caption": "Table 3. Camera Pose Estimation on Sintel, TUM-dynamic, and ScanNet.",
+    "intrinsic": [
+      2016,
+      596
+    ],
+    "display": 752,
+    "ocr_words": 146,
+    "retina_q50": 19.4,
+    "retina_q75": 23.13,
+    "retina_q90": 31.33
+  },
+  {
+    "page": "CUT3R",
+    "file": "pages/paper_reviews/CUT3R/assets/1차-수정본/media/media_89b0b08b5dc9.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_89b0b08b5dc9.png",
+    "caption": "Table 4. 3D Reconstruction on 7-Scenes and NRGBD.",
+    "intrinsic": [
+      2054,
+      480
+    ],
+    "display": 720,
+    "ocr_words": 105,
+    "retina_q50": 18.23,
+    "retina_q75": 18.23,
+    "retina_q90": 21.73
+  },
+  {
+    "page": "CUT3R",
+    "file": "pages/paper_reviews/CUT3R/assets/1차-수정본/media/media_d53f249e01ad.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_d53f249e01ad.png",
+    "caption": "Table 5. State Update Analysis on 7-Scenes and NRGBD.",
+    "intrinsic": [
+      1404,
+      396
+    ],
+    "display": 576,
+    "ocr_words": 31,
+    "retina_q50": 27.9,
+    "retina_q75": 27.9,
+    "retina_q90": 34.46
+  },
+  {
+    "page": "DROID-SLAM",
+    "file": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_074b672aa074_visual_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_074b672aa074_visual_only.png",
+    "caption": "Table 1. TartanAir monocular benchmark 결과.",
+    "intrinsic": [
+      1826,
+      368
+    ],
+    "display": 709.97,
+    "ocr_words": 53,
+    "retina_q50": 21,
+    "retina_q75": 21,
+    "retina_q90": 24.88
+  },
+  {
+    "page": "DROID-SLAM",
+    "file": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_0bb1c0b14f6c_visual_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_0bb1c0b14f6c_visual_only.png",
+    "caption": "Table 2. TartanAir test set competition 비교.",
+    "intrinsic": [
+      2216,
+      348
+    ],
+    "display": 759.31,
+    "ocr_words": 25,
+    "retina_q50": 17.82,
+    "retina_q75": 21.24,
+    "retina_q90": 22.07
+  },
+  {
+    "page": "DROID-SLAM",
+    "file": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_fbc09393b32e_visual_only_tight.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_fbc09393b32e_visual_only_tight.png",
+    "caption": "Table 3. EuRoC monocular SLAM 결과.",
+    "intrinsic": [
+      1979,
+      610
+    ],
+    "display": 759.31,
+    "ocr_words": 208,
+    "retina_q50": 19.18,
+    "retina_q75": 19.95,
+    "retina_q90": 31.46
+  },
+  {
+    "page": "DROID-SLAM",
+    "file": "pages/paper_reviews/DROID-SLAM/assets/논문-스터디/media/media_538bb944924c_visual_only_tight.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_538bb944924c_visual_only_tight.png",
+    "caption": "Table 4. TUM-RGBD benchmark 결과.",
+    "intrinsic": [
+      1576,
+      440
+    ],
+    "display": 759.31,
+    "ocr_words": 112,
+    "retina_q50": 24.09,
+    "retina_q75": 24.09,
+    "retina_q90": 30.74
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_65d4f779d86c.png",
+    "src": "assets/droid-slam-in-the-wild/media/media_65d4f779d86c.png",
+    "caption": "Table 1. Bonn RGB-D Dynamic Dataset tracking performance (ATE RMSE ↓, cm).",
+    "intrinsic": [
+      2052,
+      1124
+    ],
+    "display": 672,
+    "ocr_words": 214,
+    "retina_q50": 18.99,
+    "retina_q75": 19.65,
+    "retina_q90": 22.27
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_4d14e8f8665f.png",
+    "src": "assets/droid-slam-in-the-wild/media/media_4d14e8f8665f.png",
+    "caption": "Table 2. TUM RGB-D Dataset tracking performance (ATE RMSE ↓, cm).",
+    "intrinsic": [
+      2064,
+      1160
+    ],
+    "display": 720,
+    "ocr_words": 247,
+    "retina_q50": 20.23,
+    "retina_q75": 20.93,
+    "retina_q90": 23.72
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_9039f209edab.png",
+    "src": "assets/droid-slam-in-the-wild/media/media_9039f209edab.png",
+    "caption": "Table 3. DyCheck Dataset tracking performance (ATE RMSE ↓).",
+    "intrinsic": [
+      2550,
+      626
+    ],
+    "display": 752.06,
+    "ocr_words": 140,
+    "retina_q50": 17.11,
+    "retina_q75": 17.7,
+    "retina_q90": 20.7
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_34230500c2e5.png",
+    "src": "assets/droid-slam-in-the-wild/media/media_34230500c2e5.png",
+    "caption": "Table 4. DROID-W Dataset tracking performance (ATE RMSE ↓, m).",
+    "intrinsic": [
+      2546,
+      386
+    ],
+    "display": 752.06,
+    "ocr_words": 66,
+    "retina_q50": 17.13,
+    "retina_q75": 17.72,
+    "retina_q90": 20.09
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_13904e631038.jpg",
+    "src": "assets/droid-slam-in-the-wild/media/media_13904e631038.jpg",
+    "caption": "Table 5. Runtime comparisons (average FPS ↑).",
+    "intrinsic": [
+      2496,
+      548
+    ],
+    "display": 608,
+    "ocr_words": 26,
+    "retina_q50": 28.74,
+    "retina_q75": 33.62,
+    "retina_q90": 35.81
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_f000d693a60b.jpg",
+    "src": "assets/droid-slam-in-the-wild/media/media_f000d693a60b.jpg",
+    "caption": "Table 6. Ablation studies on Bonn RGB-D Dataset.",
+    "intrinsic": [
+      1818,
+      846
+    ],
+    "display": 464,
+    "ocr_words": 31,
+    "retina_q50": 28.07,
+    "retina_q75": 36.24,
+    "retina_q90": 36.24
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_e6524153f7e0.png",
+    "src": "assets/droid-slam-in-the-wild/media/media_e6524153f7e0.png",
+    "caption": "Table 7. DROID-W dataset overview.",
+    "intrinsic": [
+      1432,
+      584
+    ],
+    "display": 693.06,
+    "ocr_words": 36,
+    "retina_q50": 34.85,
+    "retina_q75": 34.85,
+    "retina_q90": 37.75
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_e24e22d3a70d.png",
+    "src": "assets/droid-slam-in-the-wild/media/media_e24e22d3a70d.png",
+    "caption": "Table 8. FAST-LIVO2 ground-truth quality check.",
+    "intrinsic": [
+      2046,
+      196
+    ],
+    "display": 693.06,
+    "ocr_words": 34,
+    "retina_q50": 16.94,
+    "retina_q75": 16.94,
+    "retina_q90": 20.12
+  },
+  {
+    "page": "DROID-W",
+    "file": "pages/paper_reviews/DROID-W/assets/droid-slam-in-the-wild/media/media_b6d48221b20d.png",
+    "src": "assets/droid-slam-in-the-wild/media/media_b6d48221b20d.png",
+    "caption": "Table 9. Downloaded YouTube video overview.",
+    "intrinsic": [
+      2018,
+      1024
+    ],
+    "display": 640,
+    "ocr_words": 68,
+    "retina_q50": 32.98,
+    "retina_q75": 33.14,
+    "retina_q90": 36.15
+  },
+  {
+    "page": "DUSt3R",
+    "file": "pages/paper_reviews/DUSt3R/assets/dust3r/media/media_d79d47bc63d0.png",
+    "src": "assets/dust3r/media/media_d79d47bc63d0.png",
+    "caption": "Table 1. Absolute camera pose on 7Scenes and Cambridge-Landmarks datasets.",
+    "intrinsic": [
+      1792,
+      598
+    ],
+    "display": 752.06,
+    "ocr_words": 139,
+    "retina_q50": 17.63,
+    "retina_q75": 19.31,
+    "retina_q90": 21.82
+  },
+  {
+    "page": "DUSt3R",
+    "file": "pages/paper_reviews/DUSt3R/assets/dust3r/media/media_a5a0c714ee5e.png",
+    "src": "assets/dust3r/media/media_a5a0c714ee5e.png",
+    "caption": "Table 2. Right: Multi-view pose regression on CO3Dv2 and RealEstate10K with 10 random frames.",
+    "intrinsic": [
+      1478,
+      664
+    ],
+    "display": 690,
+    "ocr_words": 54,
+    "retina_q50": 30.81,
+    "retina_q75": 36.41,
+    "retina_q90": 38.28
+  },
+  {
+    "page": "DUSt3R",
+    "file": "pages/paper_reviews/DUSt3R/assets/dust3r/media/media_36579ecf058e.png",
+    "src": "assets/dust3r/media/media_36579ecf058e.png",
+    "caption": "Table 2. Left: Monocular depth estimation on multiple benchmarks.",
+    "intrinsic": [
+      1292,
+      486
+    ],
+    "display": 690,
+    "ocr_words": 141,
+    "retina_q50": 18.16,
+    "retina_q75": 19.23,
+    "retina_q90": 22.43
+  },
+  {
+    "page": "DUSt3R",
+    "file": "pages/paper_reviews/DUSt3R/assets/dust3r/media/media_9d570bec3d8e.png",
+    "src": "assets/dust3r/media/media_9d570bec3d8e.png",
+    "caption": "Table 3. Multi-view depth evaluation with different settings.",
+    "intrinsic": [
+      1834,
+      1090
+    ],
+    "display": 752.06,
+    "ocr_words": 424,
+    "retina_q50": 17.22,
+    "retina_q75": 18.04,
+    "retina_q90": 21.32
+  },
+  {
+    "page": "DUSt3R",
+    "file": "pages/paper_reviews/DUSt3R/assets/dust3r/media/media_9d5e4c942920.png",
+    "src": "assets/dust3r/media/media_9d5e4c942920.png",
+    "caption": "Table 4. MVS results on the DTU dataset.",
+    "intrinsic": [
+      1258,
+      1034
+    ],
+    "display": 584,
+    "ocr_words": 81,
+    "retina_q50": 31.57,
+    "retina_q75": 31.57,
+    "retina_q90": 37.14
+  },
+  {
+    "page": "DynaSLAM",
+    "file": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_1ed610d7b1d8.png",
+    "src": "assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_1ed610d7b1d8.png",
+    "caption": "Table I. DynaSLAM RGB-D variants on TUM RGB-D.",
+    "intrinsic": [
+      1215,
+      456
+    ],
+    "display": 666.02,
+    "ocr_words": 38,
+    "retina_q50": 30.7,
+    "retina_q75": 36.18,
+    "retina_q90": 38.37
+  },
+  {
+    "page": "DynaSLAM",
+    "file": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_62acd48ceca0.png",
+    "src": "assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_62acd48ceca0.png",
+    "caption": "Table II. DynaSLAM versus ORB-SLAM2 on TUM RGB-D.",
+    "intrinsic": [
+      1012,
+      410
+    ],
+    "display": 480,
+    "ocr_words": 45,
+    "retina_q50": 21.82,
+    "retina_q75": 26.56,
+    "retina_q90": 36.05
+  },
+  {
+    "page": "DynaSLAM",
+    "file": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_86b0705eb5b7.png",
+    "src": "assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_86b0705eb5b7.png",
+    "caption": "Table III. Dynamic-scene RGB-D SLAM comparison.",
+    "intrinsic": [
+      2047,
+      473
+    ],
+    "display": 693.06,
+    "ocr_words": 116,
+    "retina_q50": 15.57,
+    "retina_q75": 18.28,
+    "retina_q90": 22.35
+  },
+  {
+    "page": "DynaSLAM",
+    "file": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_97ba88e86df1.png",
+    "src": "assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_97ba88e86df1.png",
+    "caption": "Table IV. TUM RGB-D monocular ATE and tracking coverage.",
+    "intrinsic": [
+      932,
+      325
+    ],
+    "display": 628.03,
+    "ocr_words": 29,
+    "retina_q50": 28.3,
+    "retina_q75": 33.69,
+    "retina_q90": 37.74
+  },
+  {
+    "page": "DynaSLAM",
+    "file": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_d8b0f183179e.png",
+    "src": "assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_d8b0f183179e.png",
+    "caption": "Table V. KITTI stereo RPE, RRE, and ATE comparison.",
+    "intrinsic": [
+      936,
+      555
+    ],
+    "display": 480,
+    "ocr_words": 105,
+    "retina_q50": 20.51,
+    "retina_q75": 21.54,
+    "retina_q90": 25.64
+  },
+  {
+    "page": "DynaSLAM",
+    "file": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_table_vi_monocular_kitti_visual_only.png",
+    "src": "assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_table_vi_monocular_kitti_visual_only.png",
+    "caption": "Table VI. KITTI monocular ATE RMSE comparison.",
+    "intrinsic": [
+      790,
+      353
+    ],
+    "display": 560,
+    "ocr_words": 45,
+    "retina_q50": 24.1,
+    "retina_q75": 24.1,
+    "retina_q90": 24.1
+  },
+  {
+    "page": "DynaSLAM",
+    "file": "pages/paper_reviews/DynaSLAM/assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_621e5a21cddf.png",
+    "src": "assets/dynaslam-tracking-mapping-and-inpainting-in-dynamic-scenes/media/media_621e5a21cddf.png",
+    "caption": "Table VII. Average computational time.",
+    "intrinsic": [
+      947,
+      196
+    ],
+    "display": 472,
+    "ocr_words": 20,
+    "retina_q50": 25.92,
+    "retina_q75": 27.16,
+    "retina_q90": 35.89
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_2e8a43205e33.png",
+    "src": "assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_2e8a43205e33.png",
+    "caption": "Table 1. 3D reconstruction on 7-Scenes and NRGBD.",
+    "intrinsic": [
+      2256,
+      1020
+    ],
+    "display": 752.06,
+    "ocr_words": 212,
+    "retina_q50": 16.67,
+    "retina_q75": 16.67,
+    "retina_q90": 29.27
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_dc6ffa3d67c0.png",
+    "src": "assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_dc6ffa3d67c0.png",
+    "caption": "Table 2. Long-horizon camera pose on TUM-RGBD.",
+    "intrinsic": [
+      2256,
+      355
+    ],
+    "display": 752.06,
+    "ocr_words": 52,
+    "retina_q50": 19.33,
+    "retina_q75": 19.5,
+    "retina_q90": 34
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_1206dd81f9e0.png",
+    "src": "assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_1206dd81f9e0.png",
+    "caption": "Table 3. Long-horizon video depth on Bonn (metric scale).",
+    "intrinsic": [
+      2256,
+      386
+    ],
+    "display": 752.06,
+    "ocr_words": 52,
+    "retina_q50": 20.67,
+    "retina_q75": 25.5,
+    "retina_q90": 35.34
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_82c798248efe.png",
+    "src": "assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_82c798248efe.png",
+    "caption": "Table 4. Short-horizon depth (controlled streaming comparison).",
+    "intrinsic": [
+      2256,
+      719
+    ],
+    "display": 752.06,
+    "ocr_words": 66,
+    "retina_q50": 24.67,
+    "retina_q75": 27.34,
+    "retina_q90": 41
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_38523149ca73.png",
+    "src": "assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_38523149ca73.png",
+    "caption": "Table 5. Runtime and GPU memory (500 frames).",
+    "intrinsic": [
+      2860,
+      1060
+    ],
+    "display": 408,
+    "ocr_words": 17,
+    "retina_q50": 25.11,
+    "retina_q75": 25.39,
+    "retina_q90": 33.55
+  },
+  {
+    "page": "FILT3R",
+    "file": "pages/paper_reviews/FILT3R/assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_a8d6b786f0fd.png",
+    "src": "assets/filt3r-latent-state-adaptive-kalman-filter-for-streaming-3d-reconstruction/media/media_a8d6b786f0fd.png",
+    "caption": "Table 6. Ablation study of FILT3R components.",
+    "intrinsic": [
+      2256,
+      572
+    ],
+    "display": 752.06,
+    "ocr_words": 79,
+    "retina_q50": 20.67,
+    "retina_q75": 27.34,
+    "retina_q90": 30
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_228f772c5f90.png",
+    "src": "assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_228f772c5f90.png",
+    "caption": "Table 1. ATE RMSE (cm) on ScanNetV1 and BundleFusion datasets.",
+    "intrinsic": [
+      2256,
+      591
+    ],
+    "display": 752.06,
+    "ocr_words": 103,
+    "retina_q50": 20.67,
+    "retina_q75": 24.67,
+    "retina_q90": 32.67
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_3a6361ee3c4e.png",
+    "src": "assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_3a6361ee3c4e.png",
+    "caption": "Table 2. Mapping quality on ScanNetV1 and BundleFusion.",
+    "intrinsic": [
+      2256,
+      909
+    ],
+    "display": 752.06,
+    "ocr_words": 187,
+    "retina_q50": 19.33,
+    "retina_q75": 24,
+    "retina_q90": 31.34
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_6a88a3567000.png",
+    "src": "assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_6a88a3567000.png",
+    "caption": "Table 5. Mean Depth L1 Error (m) on ScanNet and BundleFusion.",
+    "intrinsic": [
+      2100,
+      1190
+    ],
+    "display": 296,
+    "ocr_words": 16,
+    "retina_q50": 29.6,
+    "retina_q75": 31.5,
+    "retina_q90": 36.93
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_9dc85444c987.png",
+    "src": "assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_9dc85444c987.png",
+    "caption": "Table 3. ATE RMSE (m) on KITTI Odometry.",
+    "intrinsic": [
+      4420,
+      900
+    ],
+    "display": 640,
+    "ocr_words": 21,
+    "retina_q50": 30.41,
+    "retina_q75": 30.41,
+    "retina_q90": 30.7
+  },
+  {
+    "page": "FLASH-MONO",
+    "file": "pages/paper_reviews/FLASH-MONO/assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_69570a6204e5.png",
+    "src": "assets/flash-mono-feed-forward-accelerated-gaussian-splatting-monocular-slam/media/media_69570a6204e5.png",
+    "caption": "Table 4. Rendering quality on KITTI Odometry.",
+    "intrinsic": [
+      4780,
+      1660
+    ],
+    "display": 640,
+    "ocr_words": 57,
+    "retina_q50": 28.12,
+    "retina_q75": 28.38,
+    "retina_q90": 39.47
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png",
+    "src": "assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_fd4fab5a03b4.png",
+    "caption": "Table I. Pose estimation on 7Scenes dataset.",
+    "intrinsic": [
+      4140,
+      660
+    ],
+    "display": 640,
+    "ocr_words": 37,
+    "retina_q50": 20.71,
+    "retina_q75": 21.02,
+    "retina_q90": 25.35
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png",
+    "src": "assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_c90d394f2ebd.png",
+    "caption": "Table II. Reconstruction results on the NRGBD dataset.",
+    "intrinsic": [
+      3400,
+      1280
+    ],
+    "display": 544,
+    "ocr_words": 36,
+    "retina_q50": 29.76,
+    "retina_q75": 29.76,
+    "retina_q90": 36
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png",
+    "src": "assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_e8abad5bc86d.png",
+    "caption": "Table III. Reconstruction results and runtime (FPS) on 7Scenes.",
+    "intrinsic": [
+      2256,
+      380
+    ],
+    "display": 752.06,
+    "ocr_words": 202,
+    "retina_q50": 15.33,
+    "retina_q75": 15.33,
+    "retina_q90": 18.67
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png",
+    "src": "assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_17c963b2e213.png",
+    "caption": "Table IV. Quantitative results on the Apartment dataset.",
+    "intrinsic": [
+      4140,
+      1040
+    ],
+    "display": 640,
+    "ocr_words": 26,
+    "retina_q50": 34.32,
+    "retina_q75": 36.48,
+    "retina_q90": 38.18
+  },
+  {
+    "page": "GRS-SLAM3R",
+    "file": "pages/paper_reviews/GRS-SLAM3R/assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png",
+    "src": "assets/grs-slam3r-real-time-dense-slam-with-gated-recurrent-state/media/media_2a7741406d9c.png",
+    "caption": "Table V. Ablation of Gate, Local Align, and Submap.",
+    "intrinsic": [
+      3920,
+      1360
+    ],
+    "display": 528,
+    "ocr_words": 41,
+    "retina_q50": 25.86,
+    "retina_q75": 32.33,
+    "retina_q90": 35.83
+  },
+  {
+    "page": "MapAnything",
+    "file": "pages/paper_reviews/MapAnything/assets/논문-스터디/media/media_d954458175c2.png",
+    "src": "assets/논문-스터디/media/media_d954458175c2.png",
+    "caption": "Table 1. Datasets used for training and testing MapAnything.",
+    "intrinsic": [
+      1388,
+      1040
+    ],
+    "display": 576,
+    "ocr_words": 121,
+    "retina_q50": 24.9,
+    "retina_q75": 28.22,
+    "retina_q90": 30.71
+  },
+  {
+    "page": "MapAnything",
+    "file": "pages/paper_reviews/MapAnything/assets/논문-스터디/media/media_83298a00c42d.png",
+    "src": "assets/논문-스터디/media/media_83298a00c42d.png",
+    "caption": "Table 2. MapAnything showcases state-of-the-art two-view reconstruction under different input configurations.",
+    "intrinsic": [
+      1378,
+      1250
+    ],
+    "display": 528,
+    "ocr_words": 167,
+    "retina_q50": 22.99,
+    "retina_q75": 25.67,
+    "retina_q90": 29.12
+  },
+  {
+    "page": "MapAnything",
+    "file": "pages/paper_reviews/MapAnything/assets/논문-스터디/media/media_1164b0aa03de.png",
+    "src": "assets/논문-스터디/media/media_1164b0aa03de.png",
+    "caption": "Table 3. MapAnything shows state-of-the-art single-image calibration.",
+    "intrinsic": [
+      1452,
+      432
+    ],
+    "display": 528,
+    "ocr_words": 26,
+    "retina_q50": 29.09,
+    "retina_q75": 32.91,
+    "retina_q90": 37.09
+  },
+  {
+    "page": "MapAnything",
+    "file": "pages/paper_reviews/MapAnything/assets/논문-스터디/media/media_47be1e49615e.png",
+    "src": "assets/논문-스터디/media/media_47be1e49615e.png",
+    "caption": "Table 4. MapAnything shows versatile metric depth estimation under different input configurations on the Robust-MVD Benchmark.",
+    "intrinsic": [
+      818,
+      1414
+    ],
+    "display": 432,
+    "ocr_words": 238,
+    "retina_q50": 19.01,
+    "retina_q75": 20.07,
+    "retina_q90": 24.29
+  },
+  {
+    "page": "MapAnything",
+    "file": "pages/paper_reviews/MapAnything/assets/논문-스터디/media/media_a95e74921341.png",
+    "src": "assets/논문-스터디/media/media_a95e74921341.png",
+    "caption": "Table 5. Ablations providing insight into the key design choices.",
+    "intrinsic": [
+      1546,
+      642
+    ],
+    "display": 528,
+    "ocr_words": 121,
+    "retina_q50": 16.39,
+    "retina_q75": 21.17,
+    "retina_q90": 26.64
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_5dd38fccd02f.png",
+    "src": "assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_5dd38fccd02f.png",
+    "caption": "Table 1. 3D Semantic Label Benchmark on ScanNet.",
+    "intrinsic": [
+      2060,
+      2720
+    ],
+    "display": 288,
+    "ocr_words": 40,
+    "retina_q50": 28.24,
+    "retina_q75": 35.86,
+    "retina_q90": 41.58
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8988832a766e.png",
+    "src": "assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8988832a766e.png",
+    "caption": "Table 2. Segmentation results on the 4D Synthia dataset.",
+    "intrinsic": [
+      2590,
+      1520
+    ],
+    "display": 360,
+    "ocr_words": 32,
+    "retina_q50": 28.22,
+    "retina_q75": 28.36,
+    "retina_q90": 28.36
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8397ca90ca71.png",
+    "src": "assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_8397ca90ca71.png",
+    "caption": "Table 3. Segmentation results on the noisy Synthia 4D dataset.",
+    "intrinsic": [
+      2256,
+      272
+    ],
+    "display": 752.06,
+    "ocr_words": 74,
+    "retina_q50": 15.33,
+    "retina_q75": 15.33,
+    "retina_q90": 16
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_1947e5fc5006.png",
+    "src": "assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_1947e5fc5006.png",
+    "caption": "Table 4. Stanford Area 5 Test (Fold #1) on S3DIS.",
+    "intrinsic": [
+      2350,
+      2050
+    ],
+    "display": 360,
+    "ocr_words": 34,
+    "retina_q50": 30.33,
+    "retina_q75": 34.77,
+    "retina_q90": 39.13
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3a2962dbfdd2.png",
+    "src": "assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_3a2962dbfdd2.png",
+    "caption": "Table 5. RueMonge 2014 dataset (Varcity) TASK3.",
+    "intrinsic": [
+      2230,
+      1900
+    ],
+    "display": 340,
+    "ocr_words": 35,
+    "retina_q50": 31.71,
+    "retina_q75": 36.9,
+    "retina_q90": 38.48
+  },
+  {
+    "page": "MinkowskiCNN",
+    "file": "pages/paper_reviews/MinkowskiCNN/assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_d201419823e8.png",
+    "src": "assets/4d-spatio-temporal-convnets-minkowski-convolutional-neural-networks/media/media_d201419823e8.png",
+    "caption": "Table 6. Time to process 3D videos with 3D and 4D MinkNet.",
+    "intrinsic": [
+      3780,
+      920
+    ],
+    "display": 752.06,
+    "ocr_words": 47,
+    "retina_q50": 31.04,
+    "retina_q75": 31.44,
+    "retina_q90": 33.35
+  },
+  {
+    "page": "MonST3R",
+    "file": "pages/paper_reviews/MonST3R/assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png",
+    "src": "assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_4d31b51e2c5c.png",
+    "caption": "Table 1. Training datasets used for fine-tuning on dynamic scenes.",
+    "intrinsic": [
+      2054,
+      302
+    ],
+    "display": 735.36,
+    "ocr_words": 58,
+    "retina_q50": 21.84,
+    "retina_q75": 26.31,
+    "retina_q90": 32.94
+  },
+  {
+    "page": "MonST3R",
+    "file": "pages/paper_reviews/MonST3R/assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png",
+    "src": "assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_66e262718ad3.png",
+    "caption": "Table 2. Video depth evaluation on Sintel, Bonn, and KITTI datasets.",
+    "intrinsic": [
+      2046,
+      802
+    ],
+    "display": 720,
+    "ocr_words": 117,
+    "retina_q50": 20.41,
+    "retina_q75": 25.34,
+    "retina_q90": 38.57
+  },
+  {
+    "page": "MonST3R",
+    "file": "pages/paper_reviews/MonST3R/assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png",
+    "src": "assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_d7bb64b947ca.png",
+    "caption": "Table 3. Single-frame depth evaluation.",
+    "intrinsic": [
+      1732,
+      282
+    ],
+    "display": 660,
+    "ocr_words": 39,
+    "retina_q50": 23.63,
+    "retina_q75": 28.96,
+    "retina_q90": 34.3
+  },
+  {
+    "page": "MonST3R",
+    "file": "pages/paper_reviews/MonST3R/assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png",
+    "src": "assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_05ddb8a6bde8.png",
+    "caption": "Table 4. Evaluation on camera pose estimation on Sintel, TUM-dynamic, and ScanNet.",
+    "intrinsic": [
+      2044,
+      736
+    ],
+    "display": 720,
+    "ocr_words": 143,
+    "retina_q50": 19.73,
+    "retina_q75": 22.19,
+    "retina_q90": 31.7
+  },
+  {
+    "page": "MonST3R",
+    "file": "pages/paper_reviews/MonST3R/assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png",
+    "src": "assets/monst3r-a-simple-approach-for-estimating-geometry-in-the-presence-of-motion/media/media_576159d8f2f5.png",
+    "caption": "Table 5. Ablation study on Sintel dataset.",
+    "intrinsic": [
+      2094,
+      1006
+    ],
+    "display": 752.06,
+    "ocr_words": 116,
+    "retina_q50": 23.7,
+    "retina_q75": 24.42,
+    "retina_q90": 29.45
+  },
+  {
+    "page": "NeRF",
+    "file": "pages/paper_reviews/NeRF/assets/논문-스터디/media/media_40bc2576d03f.jpg",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_40bc2576d03f.jpg",
+    "caption": "Table 1. Diffuse Synthetic 360°, Realistic Synthetic 360°, Real Forward-Facing dataset의 PSNR/SSIM/LPIPS aggregate 비교.",
+    "intrinsic": [
+      2142,
+      386
+    ],
+    "display": 779.59,
+    "ocr_words": 63,
+    "retina_q50": 24.75,
+    "retina_q75": 32.03,
+    "retina_q90": 35.67
+  },
+  {
+    "page": "NeRF",
+    "file": "pages/paper_reviews/NeRF/assets/논문-스터디/media/media_448869816d9e.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_448869816d9e.png",
+    "caption": "Table 2. positional encoding, view dependence, hierarchical sampling, image count/frequency ablation.",
+    "intrinsic": [
+      2148,
+      726
+    ],
+    "display": 688,
+    "ocr_words": 95,
+    "retina_q50": 24.98,
+    "retina_q75": 35.87,
+    "retina_q90": 35.87
+  },
+  {
+    "page": "ORB-SLAM2",
+    "file": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_a471f3a71807_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_a471f3a71807_table_only.png",
+    "caption": "Table I. KITTI dataset 정확도 비교.",
+    "intrinsic": [
+      1280,
+      684
+    ],
+    "display": 709.98,
+    "ocr_words": 89,
+    "retina_q50": 33.28,
+    "retina_q75": 33.28,
+    "retina_q90": 39.05
+  },
+  {
+    "page": "ORB-SLAM2",
+    "file": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_d29593b2edfa_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_d29593b2edfa_table_only.png",
+    "caption": "Table II. EuRoC dataset translation RMSE 비교 (m).",
+    "intrinsic": [
+      1623,
+      819
+    ],
+    "display": 280,
+    "ocr_words": 2,
+    "retina_q50": 40.2,
+    "retina_q75": 40.97,
+    "retina_q90": 41.44
+  },
+  {
+    "page": "ORB-SLAM2",
+    "file": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_19d4d4aed078_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_19d4d4aed078_table_only.png",
+    "caption": "Table III. TUM RGB-D dataset translation RMSE 비교 (m).",
+    "intrinsic": [
+      1602,
+      550
+    ],
+    "display": 304,
+    "ocr_words": 14,
+    "retina_q50": 38.71,
+    "retina_q75": 40.42,
+    "retina_q90": 41.37
+  },
+  {
+    "page": "ORB-SLAM2",
+    "file": "pages/paper_reviews/ORB-SLAM2/assets/논문-스터디/media/media_5736b9b31ca7_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_5736b9b31ca7_table_only.png",
+    "caption": "Table IV. 각 thread의 수행 시간 (ms).",
+    "intrinsic": [
+      1484,
+      1238
+    ],
+    "display": 384,
+    "ocr_words": 10,
+    "retina_q50": 41.4,
+    "retina_q75": 41.4,
+    "retina_q90": 41.4
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_8e35092e0213.png",
+    "src": "assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_8e35092e0213.png",
+    "caption": "Table I. Quantitative mapping results on BONN-RGBD dynamic sequences.",
+    "intrinsic": [
+      2256,
+      1333
+    ],
+    "display": 752.05,
+    "ocr_words": 166,
+    "retina_q50": 20,
+    "retina_q75": 20,
+    "retina_q90": 25.34
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_f3fe775feaa2.png",
+    "src": "assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_f3fe775feaa2.png",
+    "caption": "Table II. Camera tracking results on TUM RGB-D.",
+    "intrinsic": [
+      2256,
+      787
+    ],
+    "display": 752.05,
+    "ocr_words": 223,
+    "retina_q50": 18,
+    "retina_q75": 18.67,
+    "retina_q90": 28.67
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_0c1ceb0fca4a.png",
+    "src": "assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_0c1ceb0fca4a.png",
+    "caption": "Table III. Camera tracking results on BONN RGB-D Dynamic.",
+    "intrinsic": [
+      2256,
+      671
+    ],
+    "display": 752.02,
+    "ocr_words": 222,
+    "retina_q50": 18,
+    "retina_q75": 18.67,
+    "retina_q90": 28.67
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_a413125f6b47.png",
+    "src": "assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_a413125f6b47.png",
+    "caption": "Table IV. Ablation study.",
+    "intrinsic": [
+      4000,
+      680
+    ],
+    "display": 608,
+    "ocr_words": 25,
+    "retina_q50": 28.27,
+    "retina_q75": 36.18,
+    "retina_q90": 39.52
+  },
+  {
+    "page": "RoDyn-SLAM",
+    "file": "pages/paper_reviews/RoDyn-SLAM/assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_c7c414113ac5.png",
+    "src": "assets/rodyn-slam-robust-dynamic-dense-rgb-d-slam-with-neural-radiance-fields/media/media_c7c414113ac5.png",
+    "caption": "Table V. Runtime comparison.",
+    "intrinsic": [
+      4000,
+      720
+    ],
+    "display": 600,
+    "ocr_words": 20,
+    "retina_q50": 28.05,
+    "retina_q75": 35.77,
+    "retina_q90": 39
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_6e965f0472a6.png",
+    "src": "assets/slam-former-putting-slam-into-one-transformer/media/media_6e965f0472a6.png",
+    "caption": "Table 1. RMSE of ATE on TUM RGB-D.",
+    "intrinsic": [
+      2256,
+      745
+    ],
+    "display": 752.06,
+    "ocr_words": 200,
+    "retina_q50": 18.67,
+    "retina_q75": 18.67,
+    "retina_q90": 22
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_bd82339c2191.png",
+    "src": "assets/slam-former-putting-slam-into-one-transformer/media/media_bd82339c2191.png",
+    "caption": "Table 2. RMSE of ATE on 7-Scenes.",
+    "intrinsic": [
+      2256,
+      617
+    ],
+    "display": 752.06,
+    "ocr_words": 116,
+    "retina_q50": 19.33,
+    "retina_q75": 20,
+    "retina_q90": 25.34
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_6e5ce476ca9c.png",
+    "src": "assets/slam-former-putting-slam-into-one-transformer/media/media_6e5ce476ca9c.png",
+    "caption": "Table 3. RMSE of ATE on Replica.",
+    "intrinsic": [
+      4140,
+      1520
+    ],
+    "display": 560,
+    "ocr_words": 92,
+    "retina_q50": 19.48,
+    "retina_q75": 19.75,
+    "retina_q90": 24.56
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_af8fe54ba46e.png",
+    "src": "assets/slam-former-putting-slam-into-one-transformer/media/media_af8fe54ba46e.png",
+    "caption": "Table 4. Reconstruction results on Replica.",
+    "intrinsic": [
+      2256,
+      444
+    ],
+    "display": 752.06,
+    "ocr_words": 290,
+    "retina_q50": 14.67,
+    "retina_q75": 14.67,
+    "retina_q90": 15.33
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_e53b905df989.png",
+    "src": "assets/slam-former-putting-slam-into-one-transformer/media/media_e53b905df989.png",
+    "caption": "Table 5. Reconstruction evaluation on 7-Scenes.",
+    "intrinsic": [
+      3260,
+      2080
+    ],
+    "display": 568,
+    "ocr_words": 72,
+    "retina_q50": 28.23,
+    "retina_q75": 33.8,
+    "retina_q90": 37.29
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_71c08fb3659d.png",
+    "src": "assets/slam-former-putting-slam-into-one-transformer/media/media_71c08fb3659d.png",
+    "caption": "Table 6. Evaluation of module cooperation with RMSE of ATE on TUM RGB-D.",
+    "intrinsic": [
+      4180,
+      1380
+    ],
+    "display": 620,
+    "ocr_words": 64,
+    "retina_q50": 23.14,
+    "retina_q75": 23.44,
+    "retina_q90": 23.73
+  },
+  {
+    "page": "SLAM-Former",
+    "file": "pages/paper_reviews/SLAM-Former/assets/slam-former-putting-slam-into-one-transformer/media/media_6d0fc4c58bad.png",
+    "src": "assets/slam-former-putting-slam-into-one-transformer/media/media_6d0fc4c58bad.png",
+    "caption": "Table 7. Time cost on Datasets.",
+    "intrinsic": [
+      3380,
+      1120
+    ],
+    "display": 520,
+    "ocr_words": 23,
+    "retina_q50": 28,
+    "retina_q75": 28.31,
+    "retina_q90": 34.46
+  },
+  {
+    "page": "SLIM-VDB",
+    "file": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_9774958f8844_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_9774958f8844_table_only.png",
+    "caption": "Table I. Runtime and memory comparison on KITTI and SceneNet.",
+    "intrinsic": [
+      1622,
+      477
+    ],
+    "display": 752,
+    "ocr_words": 113,
+    "retina_q50": 20.4,
+    "retina_q75": 21.33,
+    "retina_q90": 25.96
+  },
+  {
+    "page": "SLIM-VDB",
+    "file": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_ee2d85dd4d5a_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_ee2d85dd4d5a_table_only.png",
+    "caption": "Table II. Semantic prediction accuracy in the closed-set evaluation.",
+    "intrinsic": [
+      1857,
+      690
+    ],
+    "display": 408,
+    "ocr_words": 20,
+    "retina_q50": 19.77,
+    "retina_q75": 28.45,
+    "retina_q90": 39.11
+  },
+  {
+    "page": "SLIM-VDB",
+    "file": "pages/paper_reviews/SLIM-VDB/assets/논문-스터디/media/media_53174ad2ae5b_table_only.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_53174ad2ae5b_table_only.png",
+    "caption": "Table III. Geometric accuracy of resulting maps using average Chamfer distance.",
+    "intrinsic": [
+      1614,
+      358
+    ],
+    "display": 480,
+    "ocr_words": 20,
+    "retina_q50": 22.01,
+    "retina_q75": 22.01,
+    "retina_q90": 22.01
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_6bc1773a3cb6.png",
+    "src": "assets/논문-스터디/media/media_6bc1773a3cb6.png",
+    "caption": "Table 1. Camera pose estimation on RealEstate10K and CO3Dv2.",
+    "intrinsic": [
+      1436,
+      990
+    ],
+    "display": 600,
+    "ocr_words": 84,
+    "retina_q50": 29.25,
+    "retina_q75": 34.47,
+    "retina_q90": 35.93
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_4571d419d054.png",
+    "src": "assets/논문-스터디/media/media_4571d419d054.png",
+    "caption": "Table 2. Dense MVS estimation on DTU.",
+    "intrinsic": [
+      1628,
+      778
+    ],
+    "display": 624,
+    "ocr_words": 48,
+    "retina_q50": 29.9,
+    "retina_q75": 31.62,
+    "retina_q90": 36.49
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_904b6b5a3e75.png",
+    "src": "assets/논문-스터디/media/media_904b6b5a3e75.png",
+    "caption": "Table 3. Point map estimation on ETH3D.",
+    "intrinsic": [
+      2110,
+      574
+    ],
+    "display": 560,
+    "ocr_words": 31,
+    "retina_q50": 28.13,
+    "retina_q75": 28.66,
+    "retina_q90": 36.09
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_4f226091291e.png",
+    "src": "assets/논문-스터디/media/media_4f226091291e.png",
+    "caption": "Table 4. Two-view matching comparison on ScanNet-1500.",
+    "intrinsic": [
+      2200,
+      894
+    ],
+    "display": 528,
+    "ocr_words": 31,
+    "retina_q50": 28.32,
+    "retina_q75": 33.6,
+    "retina_q90": 36
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_2c8e88d91288.png",
+    "src": "assets/논문-스터디/media/media_2c8e88d91288.png",
+    "caption": "Table 5. Transformer backbone ablation.",
+    "intrinsic": [
+      1928,
+      470
+    ],
+    "display": 520,
+    "ocr_words": 19,
+    "retina_q50": 27.51,
+    "retina_q75": 31.56,
+    "retina_q90": 40.46
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_f14e5541b2d5.png",
+    "src": "assets/논문-스터디/media/media_f14e5541b2d5.png",
+    "caption": "Table 6. Multi-task learning ablation.",
+    "intrinsic": [
+      1670,
+      438
+    ],
+    "display": 616,
+    "ocr_words": 23,
+    "retina_q50": 29.51,
+    "retina_q75": 30.25,
+    "retina_q90": 36.44
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_3d1ccbaa9680.png",
+    "src": "assets/논문-스터디/media/media_3d1ccbaa9680.png",
+    "caption": "Table 7. Feed-forward novel view synthesis quantitative comparison.",
+    "intrinsic": [
+      2108,
+      526
+    ],
+    "display": 680,
+    "ocr_words": 35,
+    "retina_q50": 29.03,
+    "retina_q75": 33.23,
+    "retina_q90": 42.71
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_4e76c7883b9e.png",
+    "src": "assets/논문-스터디/media/media_4e76c7883b9e.png",
+    "caption": "Table 8. TAP-Vid dynamic point tracking result.",
+    "intrinsic": [
+      2160,
+      870
+    ],
+    "display": 568,
+    "ocr_words": 67,
+    "retina_q50": 28.4,
+    "retina_q75": 33.66,
+    "retina_q90": 35.76
+  },
+  {
+    "page": "VGGT",
+    "file": "pages/paper_reviews/VGGT/assets/논문-스터디/media/media_5dfe8c14a469.jpg",
+    "src": "assets/논문-스터디/media/media_5dfe8c14a469.jpg",
+    "caption": "Table 9. Runtime and memory usage across input-frame counts.",
+    "intrinsic": [
+      2302,
+      250
+    ],
+    "display": 748.98,
+    "ocr_words": 32,
+    "retina_q50": 27.33,
+    "retina_q75": 27.98,
+    "retina_q90": 27.98
+  },
+  {
+    "page": "VGGT-SLAM",
+    "file": "pages/paper_reviews/VGGT-SLAM/assets/논문-스터디/media/media_cfcb5fe1af8a.jpg",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_cfcb5fe1af8a.jpg",
+    "caption": "Table 1. 7-Scenes ATE RMSE. 회색 행은 calibrated 기준선, *는 uncalibrated 평가, 녹색은 best/light-green은 second-best.",
+    "intrinsic": [
+      2178,
+      558
+    ],
+    "display": 752.06,
+    "ocr_words": 63,
+    "retina_q50": 20.03,
+    "retina_q75": 21.06,
+    "retina_q90": 27.62
+  },
+  {
+    "page": "VGGT-SLAM",
+    "file": "pages/paper_reviews/VGGT-SLAM/assets/논문-스터디/media/media_0e189d24d0d4.jpg",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_0e189d24d0d4.jpg",
+    "caption": "Table 2. TUM RGB-D ATE RMSE. SL(4), w=32가 uncalibrated 평균 error에서 가장 낮은 값을 보임.",
+    "intrinsic": [
+      2208,
+      754
+    ],
+    "display": 752.06,
+    "ocr_words": 70,
+    "retina_q50": 18.39,
+    "retina_q75": 19.07,
+    "retina_q90": 23.3
+  },
+  {
+    "page": "VGGT-SLAM",
+    "file": "pages/paper_reviews/VGGT-SLAM/assets/논문-스터디/media/media_20687b2b4b60.png",
+    "src": "assets/%EB%85%BC%EB%AC%B8-%EC%8A%A4%ED%84%B0%EB%94%94/media/media_20687b2b4b60.png",
+    "caption": "Table 3. 7-Scenes dense reconstruction 평가. VGGT-SLAM은 accuracy와 Chamfer에서 강한 결과를 보임.",
+    "intrinsic": [
+      1652,
+      788
+    ],
+    "display": 552,
+    "ocr_words": 38,
+    "retina_q50": 27.4,
+    "retina_q75": 37.26,
+    "retina_q90": 44.51
+  },
+  {
+    "page": "VINS-Mono",
+    "file": "pages/paper_reviews/VINS-Mono/assets/vins-mono-a-robust-and-versatile-monocular-visual-inertial-state-estimator/media/media_5a7514aa2e69.png",
+    "src": "assets/vins-mono-a-robust-and-versatile-monocular-visual-inertial-state-estimator/media/media_5a7514aa2e69.png",
+    "caption": "Table I. Timing Statistics.",
+    "intrinsic": [
+      3800,
+      1440
+    ],
+    "display": 560,
+    "ocr_words": 27,
+    "retina_q50": 27.41,
+    "retina_q75": 30.65,
+    "retina_q90": 35.19
+  },
+  {
+    "page": "WildGS-SLAM",
+    "file": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_9ee9c68de437.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9ee9c68de437.png",
+    "caption": "Table 1. Tracking Performance on Wild-SLAM MoCap Dataset.",
+    "intrinsic": [
+      2008,
+      602
+    ],
+    "display": 752,
+    "ocr_words": 157,
+    "retina_q50": 16.48,
+    "retina_q75": 17.23,
+    "retina_q90": 20.22
+  },
+  {
+    "page": "WildGS-SLAM",
+    "file": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_b42f2af311f9.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b42f2af311f9.png",
+    "caption": "Table 3. Tracking Performance on Bonn RGB-D Dynamic Dataset.",
+    "intrinsic": [
+      1930,
+      850
+    ],
+    "display": 752,
+    "ocr_words": 192,
+    "retina_q50": 18.7,
+    "retina_q75": 19.48,
+    "retina_q90": 22.6
+  },
+  {
+    "page": "WildGS-SLAM",
+    "file": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_b0d920c62800.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b0d920c62800.png",
+    "caption": "Table 4. Tracking Performance on TUM RGB-D Dataset.",
+    "intrinsic": [
+      1362,
+      988
+    ],
+    "display": 703.98,
+    "ocr_words": 131,
+    "retina_q50": 27.91,
+    "retina_q75": 29.46,
+    "retina_q90": 33.08
+  },
+  {
+    "page": "WildGS-SLAM",
+    "file": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_854068e6f0ca.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_854068e6f0ca.png",
+    "caption": "Table 2. Novel View Synthesis Evaluation on Wild-SLAM MoCap Dataset.",
+    "intrinsic": [
+      2106,
+      440
+    ],
+    "display": 752.06,
+    "ocr_words": 87,
+    "retina_q50": 18.57,
+    "retina_q75": 18.57,
+    "retina_q90": 20
+  },
+  {
+    "page": "WildGS-SLAM",
+    "file": "pages/paper_reviews/WildGS-SLAM/assets/1차-수정본/media/media_1077b3e2e2b3.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_1077b3e2e2b3.png",
+    "caption": "Table 5. WildGS-SLAM Ablation Study.",
+    "intrinsic": [
+      1544,
+      530
+    ],
+    "display": 528,
+    "ocr_words": 45,
+    "retina_q50": 28.04,
+    "retina_q75": 33.51,
+    "retina_q90": 35.56
+  },
+  {
+    "page": "WildPose",
+    "file": "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_aa5d2f7daeff.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_aa5d2f7daeff.png",
+    "caption": "Table 1. Tracking Performance on Wild-SLAM MoCap Dataset [60] (ATE RMSE ↓ [cm]).",
+    "intrinsic": [
+      2166,
+      538
+    ],
+    "display": 752.06,
+    "ocr_words": 117,
+    "retina_q50": 17.36,
+    "retina_q75": 18.05,
+    "retina_q90": 20.83
+  },
+  {
+    "page": "WildPose",
+    "file": "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_bcb1348e5211.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_bcb1348e5211.png",
+    "caption": "Table 2. Tracking Performance on Bonn RGB-D Dynamic Dataset [34] (ATE RMSE ↓ [cm]).",
+    "intrinsic": [
+      2052,
+      582
+    ],
+    "display": 752.06,
+    "ocr_words": 99,
+    "retina_q50": 20.52,
+    "retina_q75": 20.52,
+    "retina_q90": 23.46
+  },
+  {
+    "page": "WildPose",
+    "file": "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_b66ff581e401.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_b66ff581e401.png",
+    "caption": "Table 3. Tracking Performance on TUM RGB-D (dynamic) Dataset [42] (ATE RMSE ↓ [cm]).",
+    "intrinsic": [
+      1546,
+      720
+    ],
+    "display": 672,
+    "ocr_words": 63,
+    "retina_q50": 29.56,
+    "retina_q75": 30.43,
+    "retina_q90": 34.77
+  },
+  {
+    "page": "WildPose",
+    "file": "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_752f0162a955.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_752f0162a955.png",
+    "caption": "Table 4. Tracking Performance on Low-motion and Static benchmarks.",
+    "intrinsic": [
+      1980,
+      1038
+    ],
+    "display": 528,
+    "ocr_words": 54,
+    "retina_q50": 23.47,
+    "retina_q75": 28.27,
+    "retina_q90": 30.77
+  },
+  {
+    "page": "WildPose",
+    "file": "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_8a3a52d2084d.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_8a3a52d2084d.png",
+    "caption": "Table 5. Comparison on Long-video Depth Estimation on Bonn RGB-D Dynamic [34] Dataset.",
+    "intrinsic": [
+      1964,
+      736
+    ],
+    "display": 576,
+    "ocr_words": 34,
+    "retina_q50": 28.15,
+    "retina_q75": 34.02,
+    "retina_q90": 35.78
+  },
+  {
+    "page": "WildPose",
+    "file": "pages/paper_reviews/WildPose/assets/1차-수정본/media/media_9cd90804d909.png",
+    "src": "assets/1%EC%B0%A8-%EC%88%98%EC%A0%95%EB%B3%B8/media/media_9cd90804d909.png",
+    "caption": "Table 6. WildPose Ablation Study (ATE RMSE ↓ [cm]).",
+    "intrinsic": [
+      2064,
+      504
+    ],
+    "display": 752.06,
+    "ocr_words": 37,
+    "retina_q50": 28.42,
+    "retina_q75": 28.42,
+    "retina_q90": 30.9
+  }
+]

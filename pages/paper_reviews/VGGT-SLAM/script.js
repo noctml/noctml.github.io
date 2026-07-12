@@ -926,10 +926,15 @@ function rebuildBookmarks() {
 
   const renderDisplayTokens = (root = document) => {
     if (!window.katex) return;
-    root.querySelectorAll("figure.equation[data-tex-display]").forEach((figure) => {
+    root.querySelectorAll("figure.equation").forEach((figure) => {
       if (figure.dataset.katexRendered === "true") return;
-      const tex = figure.dataset.texDisplay;
       const target = figure.querySelector(".equation-main") || figure.querySelector(".equation-render");
+      const raw = target?.textContent?.trim() || "";
+      const tex = figure.dataset.texDisplay || (
+        raw.startsWith("$$") && raw.endsWith("$$")
+          ? raw.slice(2, -2).trim()
+          : ""
+      );
       if (!tex || !target) return;
       try {
         window.katex.render(tex, target, {
@@ -965,8 +970,8 @@ function rebuildBookmarks() {
       const shouldRender = mutations.some((mutation) =>
         [...mutation.addedNodes].some((node) =>
           node.nodeType === Node.ELEMENT_NODE && (
-            node.matches?.("[data-tex-inline], figure.equation[data-tex-display]") ||
-            node.querySelector?.("[data-tex-inline], figure.equation[data-tex-display]")
+            node.matches?.("[data-tex-inline], figure.equation") ||
+            node.querySelector?.("[data-tex-inline], figure.equation")
           )
         )
       );
