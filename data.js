@@ -266,6 +266,15 @@ window.SITE_DATA = {
         ],
         study: [
             {
+                title: "VGGT-SLAM 2.0: Real-time Dense Feed-forward Scene Reconstruction",
+                desc: "RAISE LAB Study",
+                href: "pages/study/VGGT-SLAM2.0/",
+                thumb: "pages/study/VGGT-SLAM2.0/assets/thumbnail.png?v=20260716",
+                published: true,
+                date: "2026-07-16",
+                tags: ["Study", "Visual SLAM", "VGGT", "Dense Reconstruction"]
+            },
+            {
                 title: "VGGT4D: Mining Motion Cues in Visual Geometry Transformers for 4D Scene Reconstruction",
                 desc: "RAISE LAB Study",
                 href: "pages/study/VGGT4D/",
@@ -291,6 +300,15 @@ window.SITE_DATA = {
                 published: true,
                 date: "2026-06-26",
                 tags: ["Study", "Visual SLAM", "Transformer", "Dense SLAM"]
+            },
+            {
+                title: "Take Out 5주차 OpenCV Study",
+                desc: "TAKE OUT Study",
+                href: "pages/study/Take-Out-OpenCV/",
+                thumb: "pages/study/Take-Out-OpenCV/assets/thumbnail.png?v=20260717",
+                published: true,
+                date: "2025-11-11",
+                tags: ["Study", "OpenCV", "Image Processing", "Computer Vision"]
             }
         ],
         projects: [
