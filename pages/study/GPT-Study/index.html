@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Andrej Karpathy 유튜브 강의를 따라 character-level GPT를 구현한 학습 기록." />
+  <meta name="author" content="Wooseok Song" />
+  <title>[Study] GPT Study | Insighted</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="../../../assets/favicon.png" />
+  <link rel="stylesheet" href="../../../assets/site-theme.css?v=study-20260705" />
+  <link rel="stylesheet" href="../../../styles.css?v=study-20260705" />
+  <link rel="stylesheet" href="../../../assets/content-lightbox.css?v=20260722" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+  <style>
+    body{min-height:100vh;background:var(--bg);color:var(--text)}
+    .study-shell{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:22px 0 42px}
+    .study-topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 16px;background:var(--bg);backdrop-filter:none}
+    .study-brand{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-size:14px;font-weight:760;letter-spacing:-.01em}
+    .study-brand img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+    .study-hero{padding:28px 0 20px;border-bottom:1px solid var(--line)}
+    .study-kicker{margin:0 0 9px;color:var(--muted);font-size:11px;font-weight:760;letter-spacing:.08em;text-transform:uppercase}
+    .study-hero h1{margin:0;max-width:900px;font-size:clamp(18px,2.6vw,28px);line-height:1.18;letter-spacing:-.025em}
+    .study-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
+    .study-meta-item{min-height:72px;padding:13px 14px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--panel) 34%,transparent)}
+    .study-meta-item span{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:760;letter-spacing:.06em;text-transform:uppercase}
+    .study-meta-item strong{display:block;color:var(--text);font-size:13px;line-height:1.35}
+    .study-source-link{display:inline;color:inherit;text-decoration:none}
+    .study-article{width:min(900px,100%);margin:0 auto}
+    .study-section{padding:38px 0 10px}
+    .study-section + .study-section{margin-top:4px}
+    .study-section h2{margin:0;font-size:22px;line-height:1.35;letter-spacing:-.02em}
+    .study-section h3{margin:28px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.015em}
+    .study-section p{margin:14px 0 0;font-size:16px;line-height:1.8;word-break:keep-all}
+    .flow-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:24px}
+    .flow-step{min-height:92px;padding:12px;border-top:2px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent)}
+    .flow-step span{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.06em}
+    .flow-step strong{display:block;font-size:13px;line-height:1.45}
+    .table-wrap{margin-top:20px;overflow-x:auto}
+    .study-table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.6}
+    .study-table th,.study-table td{padding:11px 12px;border:0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    .study-table th{color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+    .study-note{margin-top:22px;padding:14px 16px;border-left:3px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent);font-size:14px;line-height:1.7}
+    .study-note strong{display:block;margin-bottom:4px}
+    .study-figure{width:min(760px,100%);margin:24px auto 0}
+    .study-figure.is-narrow{width:min(520px,100%)}
+    .study-figure img{display:block;max-width:100%;max-height:560px;width:auto;height:auto;margin:0 auto;object-fit:contain}
+    .study-figure figcaption,.study-equation figcaption{width:fit-content;max-width:min(100%,680px);margin:9px auto 0;color:var(--muted);font-size:12px;line-height:1.5;text-align:left}
+    .study-equation{width:min(760px,100%);margin:24px auto 0}
+    .math-block{padding:18px 20px;background:color-mix(in srgb,var(--panel) 28%,transparent);font-size:17px;text-align:center}
+    .math-block .katex-display{margin:0}
+    .study-section .katex{line-height:1.2}
+    .figure-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;margin-top:24px}
+    .figure-pair .study-figure{display:grid;grid-template-rows:280px auto;width:100%;margin:0}
+    .figure-pair .study-figure img{align-self:center;width:100%;height:280px;max-height:none;object-fit:contain}
+    .code-details{margin-top:20px;border:1px solid var(--line);border-radius:6px;background:color-mix(in srgb,var(--panel) 18%,transparent)}
+    .code-details summary{padding:13px 14px;cursor:pointer;color:var(--text);font-size:13px;font-weight:760;list-style-position:inside}
+    .code-details pre{max-width:100%;margin:0 0 14px;padding:16px;overflow:auto;border-radius:5px;background:var(--code-bg);color:var(--code-text);font-size:12px;line-height:1.65;tab-size:2}
+    .model-path{display:flex;align-items:stretch;gap:8px;margin-top:24px}
+    .model-path span{display:flex;flex:1 1 0;align-items:center;justify-content:center;min-height:58px;padding:10px;border:1px solid var(--line);font-size:12px;font-weight:720;line-height:1.4;text-align:center}
+    .model-path i{display:flex;align-items:center;color:var(--muted);font-style:normal}
+    .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+    .stage-item{padding:17px 18px;border-top:2px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent)}
+    .stage-item h3{margin:0;font-size:16px}
+    .stage-item p{margin-top:8px;font-size:14px;line-height:1.7}
+    .comments{margin-top:12px;padding-top:18px;border-top:1px solid var(--line)}
+    .comments h2{margin:0 0 14px;font-size:18px;line-height:1.3;letter-spacing:-.01em}
+    @media(max-width:760px){
+      .study-shell{width:min(100% - 24px,1120px);padding-top:10px}
+      .study-topbar{align-items:flex-start;flex-direction:column}
+      .study-hero h1{font-size:24px}
+      .study-meta{grid-template-columns:1fr 1fr}
+      .flow-grid{grid-template-columns:1fr 1fr}
+      .flow-step:last-child{grid-column:1/-1}
+      .figure-pair,.stage-grid{grid-template-columns:1fr}
+      .figure-pair .study-figure{display:block}
+      .figure-pair .study-figure img{width:auto;height:auto;max-height:420px}
+      .model-path{display:grid;grid-template-columns:1fr}
+      .model-path i{justify-content:center;transform:rotate(90deg)}
+      .study-section p{font-size:15px}
+    }
+  </style>
+</head>
+<body>
+  <div class="study-shell">
+    <header class="study-topbar">
+      <a class="study-brand" href="../../../index.html#study" aria-label="Study 목록으로 이동">
+        <img src="../../../assets/avatar.jpg" alt="Wooseok Song" />
+        <span>Study</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="study-hero">
+        <p class="study-kicker">Study Notes</p>
+        <h1>GPT Study</h1>
+        <div class="study-meta" aria-label="Study metadata">
+          <div class="study-meta-item"><span>Period</span><strong>2025.12.23 - 12.26</strong></div>
+          <div class="study-meta-item"><span>Format</span><strong>Lecture Notes · Code</strong></div>
+          <div class="study-meta-item"><span>Source</span><strong><a class="study-source-link" href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener noreferrer">Andrej Karpathy - Let's build GPT: from scratch, in code, spelled out.</a></strong></div>
+          <div class="study-meta-item"><span>Topic</span><strong>Decoder-only Transformer</strong></div>
+        </div>
+      </section>
+
+      <article class="study-article">
+        <section class="study-section" aria-labelledby="goal-title">
+          <h2 id="goal-title">강의 목표</h2>
+          <p>Andrej Karpathy의 강의는 Tiny Shakespeare 데이터와 character-level tokenizer에서 출발해, next-token prediction을 수행하는 작은 GPT를 PyTorch로 직접 구현한다. Bigram language model을 기준선으로 만든 뒤 causal self-attention과 Transformer block을 차례로 추가하면서 각 구성 요소가 필요한 이유를 확인한다.</p>
+          <div class="flow-grid" aria-label="GPT 구현 흐름">
+            <div class="flow-step"><span>01</span><strong>Text corpus</strong></div>
+            <div class="flow-step"><span>02</span><strong>Character tokens</strong></div>
+            <div class="flow-step"><span>03</span><strong>Context batches</strong></div>
+            <div class="flow-step"><span>04</span><strong>Causal Transformer</strong></div>
+            <div class="flow-step"><span>05</span><strong>Next-token sampling</strong></div>
+          </div>
+        </section>
+
+        <section class="study-section" aria-labelledby="concept-title">
+          <h2 id="concept-title">GPT와 확률적 생성</h2>
+          <p>GPT는 <strong>Generative Pre-trained Transformer</strong>의 약자이며, Transformer를 기반으로 다음 token의 확률분포를 예측한다. 이 강의에서 구현하는 작은 언어 모델도 같은 next-token prediction 원리를 따른다.</p>
+          <div class="study-note"><strong>같은 prompt에서도 출력이 달라지는 이유</strong>모델은 예측한 확률분포에서 다음 token을 sampling한다. 따라서 입력이 같더라도 선택된 token sequence가 달라질 수 있다.</div>
+        </section>
+
+        <section class="study-section" aria-labelledby="data-title">
+          <h2 id="data-title">1. 텍스트를 학습 데이터로 바꾸기</h2>
+          <p>강의에서는 데이터에 등장하는 고유 문자를 vocabulary로 만들고, 각 문자를 정수 ID와 양방향으로 매핑한다. 전체 텍스트를 token ID tensor로 변환한 뒤 train/validation split을 구성한다.</p>
+          <h3>Character-level tokenization</h3>
+          <div class="table-wrap"><table class="study-table">
+            <thead><tr><th>요소</th><th>역할</th></tr></thead>
+            <tbody>
+              <tr><td><code>stoi</code></td><td>문자를 정수 token ID로 변환한다.</td></tr>
+              <tr><td><code>itos</code></td><td>token ID를 다시 문자로 복원한다.</td></tr>
+              <tr><td><code>vocab_size</code></td><td>데이터에 등장한 고유 문자의 개수다.</td></tr>
+            </tbody>
+          </table></div>
+          <h3>Context와 batch</h3>
+          <p><code>block_size</code>는 모델이 한 번에 볼 수 있는 최대 context 길이다. 입력 \(x\)와 정답 \(y\)는 한 token만큼 어긋나 있으며, 각 위치에서 지금까지의 context로 바로 다음 token을 예측하도록 학습한다. <code>batch_size</code>는 이런 독립적인 sequence를 병렬로 몇 개 처리할지 정한다.</p>
+          <div class="table-wrap"><table class="study-table">
+            <thead><tr><th>Tensor</th><th>Shape</th><th>의미</th></tr></thead>
+            <tbody>
+              <tr><td>\(x, y\)</td><td>\((B, T)\)</td><td>Token ID로 이루어진 입력과 다음-token 정답</td></tr>
+              <tr><td>Embedding</td><td>\((B, T, C)\)</td><td>각 token을 \(C\)차원 벡터로 표현한 결과</td></tr>
+            </tbody>
+          </table></div>
+          <details class="code-details"><summary>데이터 준비 핵심 코드 보기</summary><pre><code>stoi = {ch: i for i, ch in enumerate(chars)}
+itos = {i: ch for i, ch in enumerate(chars)}
+encode = lambda s: [stoi[c] for c in s]
+decode = lambda ids: ''.join(itos[i] for i in ids)
+
+def get_batch(split):
+    source = train_data if split == 'train' else val_data
+    ix = torch.randint(len(source) - block_size, (batch_size,))
+    x = torch.stack([source[i:i + block_size] for i in ix])
+    y = torch.stack([source[i + 1:i + block_size + 1] for i in ix])
+    return x, y</code></pre></details>
+        </section>
+
+        <section class="study-section" aria-labelledby="bigram-title">
+          <h2 id="bigram-title">2. Bigram model로 기준선 만들기</h2>
+          <p>가장 단순한 모델은 현재 token 하나만 보고 다음 token을 예측한다. <code>nn.Embedding(vocab_size, vocab_size)</code>의 각 행은 현재 token에 대응하며, 각 열의 값은 다음 token 후보에 대한 logits다. Softmax를 적용하기 전이므로 이 값 자체가 확률은 아니다.</p>
+          <p>학습할 때는 logits의 \((B, T, C)\)를 \((B \times T, C)\)로, target의 \((B, T)\)를 \((B \times T)\)로 펼친 뒤 cross-entropy loss를 계산한다. 생성 단계에서는 마지막 timestep의 logits를 확률로 바꾸고 다음 token을 sampling해 기존 sequence 뒤에 붙인다.</p>
+          <div class="study-note"><strong>한계</strong>Bigram model은 현재 token 외의 문맥을 사용하지 않는다. 이후 Self-Attention을 추가하는 이유는 이전 context 전체에서 다음 token에 필요한 정보를 선택하기 위해서다.</div>
+          <details class="code-details"><summary>Bigram 기준선 코드 보기</summary><pre><code>class BigramLanguageModel(nn.Module):
+    def __init__(self, vocab_size):
+        super().__init__()
+        self.token_embedding_table = nn.Embedding(vocab_size, vocab_size)
+
+    def forward(self, idx, targets=None):
+        logits = self.token_embedding_table(idx)  # (B, T, C)
+        if targets is None:
+            return logits, None
+        B, T, C = logits.shape
+        loss = F.cross_entropy(logits.view(B * T, C), targets.view(B * T))
+        return logits, loss</code></pre></details>
+        </section>
+
+        <section class="study-section" aria-labelledby="attention-title">
+          <h2 id="attention-title">3. Self-Attention으로 context를 읽기</h2>
+          <p>Self-Attention은 각 token이 같은 sequence 안의 다른 token을 얼마나 참고할지 계산한다. <strong>Query와 Key의 내적</strong>으로 관계 점수를 만들고, causal mask로 미래 token을 가린 뒤 softmax weight로 Value를 가중 합산한다.</p>
+          <figure class="study-equation">
+            <div class="math-block">$$
+              \operatorname{Attention}(Q,K,V)
+              = \operatorname{softmax}\!\left(\frac{QK^{\mathsf T}}{\sqrt{d_k}}\right)V
+            $$</div>
+            <figcaption><strong>Scaled Dot-Product Attention.</strong> 출처: Attention Is All You Need.</figcaption>
+          </figure>
+          <div class="table-wrap"><table class="study-table">
+            <thead><tr><th>요소</th><th>질문</th><th>기능</th></tr></thead>
+            <tbody>
+              <tr><td>Query</td><td>현재 token이 무엇을 찾는가?</td><td>참고할 context의 조건을 표현한다.</td></tr>
+              <tr><td>Key</td><td>각 token이 무엇을 제공할 수 있는가?</td><td>Query와 비교되어 attention score를 만든다.</td></tr>
+              <tr><td>Value</td><td>선택된 token에서 어떤 정보를 가져오는가?</td><td>Attention weight에 따라 합산되는 실제 내용이다.</td></tr>
+            </tbody>
+          </table></div>
+          <h3>왜 \(\sqrt{d_k}\)로 나누는가?</h3>
+          <p>Query와 Key의 차원이 커질수록 내적의 분산도 커진다. 큰 score를 그대로 softmax에 넣으면 분포가 한 위치에 지나치게 몰려 gradient가 불안정해질 수 있으므로, \(\sqrt{d_k}\)로 나눠 scale을 맞춘다.</p>
+          <figure class="study-figure">
+            <img src="assets/softmax-scale.png?v=20260722" width="2750" height="1038" alt="Attention score scale에 따른 softmax 분포 비교" loading="lazy" />
+            <figcaption><strong>Softmax scale experiment.</strong> Score의 크기가 커질수록 분포가 더 뾰족해지는 현상을 확인한다.</figcaption>
+          </figure>
+          <details class="code-details"><summary>Causal Self-Attention 핵심 코드 보기</summary><pre><code>k = self.key(x)
+q = self.query(x)
+v = self.value(x)
+
+wei = q @ k.transpose(-2, -1) * (k.size(-1) ** -0.5)
+wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf'))
+wei = F.softmax(wei, dim=-1)
+wei = self.dropout(wei)
+out = wei @ v</code></pre></details>
+        </section>
+
+        <section class="study-section" aria-labelledby="block-title">
+          <h2 id="block-title">4. Transformer Block 조립하기</h2>
+          <p>Karpathy는 Transformer block을 token 사이의 <strong>communication</strong>을 담당하는 Multi-Head Self-Attention과, 각 token이 얻은 정보를 개별적으로 처리하는 <strong>computation</strong> 단계인 Feed-Forward Network의 조합으로 설명한다.</p>
+          <div class="figure-pair">
+            <figure class="study-figure">
+              <img src="assets/transformer-block.png?v=20260722" width="1038" height="856" alt="Transformer encoder와 decoder block 구조" loading="lazy" />
+              <figcaption><strong>Transformer blocks.</strong> Attention과 Feed-Forward가 residual path 및 normalization과 결합된다.</figcaption>
+            </figure>
+            <figure class="study-figure">
+              <img src="assets/residual-learning.png?v=20260722" width="1206" height="680" alt="Residual connection 구조" loading="lazy" />
+              <figcaption><strong>Residual connection.</strong> 입력을 변환 경로의 출력에 직접 더해 gradient의 통로를 보존한다.</figcaption>
+            </figure>
+          </div>
+          <div class="table-wrap"><table class="study-table">
+            <thead><tr><th>구성 요소</th><th>핵심 역할</th></tr></thead>
+            <tbody>
+              <tr><td>Multi-Head Attention</td><td>여러 attention subspace에서 서로 다른 관계를 병렬로 학습하고 결과를 이어 붙인다.</td></tr>
+              <tr><td>Feed-Forward Network</td><td>각 token 벡터를 독립적으로 변환한다. 내부 차원을 보통 4배 확장한 뒤 다시 줄인다.</td></tr>
+              <tr><td>Residual Connection</td><td>\(x + F(x)\) 경로로 원본 정보를 보존하고 깊은 network의 gradient 흐름을 안정화한다.</td></tr>
+              <tr><td>Pre-Norm</td><td>Attention과 Feed-Forward 전에 LayerNorm을 적용해 학습 안정성을 높인다.</td></tr>
+              <tr><td>Dropout</td><td>Attention weight와 projection 경로 일부를 무작위로 끄며 과적합을 완화한다.</td></tr>
+            </tbody>
+          </table></div>
+          <figure class="study-equation">
+            <div class="math-block">$$
+              y = \frac{x-\operatorname{E}[x]}
+              {\sqrt{\operatorname{Var}[x]+\epsilon}} \odot \gamma + \beta
+            $$</div>
+            <figcaption><strong>Layer Normalization.</strong> Feature dimension의 평균과 분산으로 정규화한 뒤 학습 가능한 scale과 bias를 적용한다.</figcaption>
+          </figure>
+          <details class="code-details"><summary>Pre-Norm Transformer Block 코드 보기</summary><pre><code>class Block(nn.Module):
+    def __init__(self, n_embd, n_head):
+        super().__init__()
+        head_size = n_embd // n_head
+        self.sa = MultiHeadAttention(n_head, head_size)
+        self.ffwd = FeedForward(n_embd)
+        self.ln1 = nn.LayerNorm(n_embd)
+        self.ln2 = nn.LayerNorm(n_embd)
+
+    def forward(self, x):
+        x = x + self.sa(self.ln1(x))
+        x = x + self.ffwd(self.ln2(x))
+        return x</code></pre></details>
+        </section>
+
+        <section class="study-section" aria-labelledby="decoder-title">
+          <h2 id="decoder-title">5. 구현 결과는 Decoder-only Transformer</h2>
+          <p>원 논문의 Transformer는 encoder와 decoder로 구성된다. Encoder는 입력 전체를 양방향으로 읽고, decoder는 causal mask를 사용하며 encoder output을 cross-attention으로 참고한다. 반면 이 강의에서 만든 언어 모델은 encoder와 cross-attention 없이 masked self-attention만 쌓은 decoder-only 구조다.</p>
+          <figure class="study-figure is-narrow">
+            <img src="assets/transformer-architecture.png?v=20260722" width="848" height="1304" alt="Attention Is All You Need의 전체 Transformer 구조" loading="lazy" />
+            <figcaption><strong>Original Transformer architecture.</strong> 강의 구현은 그림의 decoder를 단순히 복제한 것이 아니라, cross-attention을 제거한 causal decoder-only 변형이다.</figcaption>
+          </figure>
+          <div class="model-path" aria-label="Decoder-only GPT data flow">
+            <span>Token + Position Embedding</span><i>→</i><span>N × Transformer Block</span><i>→</i><span>Final LayerNorm</span><i>→</i><span>Language Model Head</span><i>→</i><span>Next-token Sampling</span>
+          </div>
+        </section>
+
+        <section class="study-section" aria-labelledby="gpt-title">
+          <h2 id="gpt-title">6. GPT 학습 단계와 연결하기</h2>
+          <p>여기서 구현한 next-token predictor는 대규모 corpus로 base language model을 만드는 <strong>pretraining</strong>의 축소판으로 볼 수 있다.</p>
+          <div class="stage-grid">
+            <div class="stage-item"><h3>Pretraining</h3><p>대량의 text corpus에서 다음 token을 예측하며 언어의 통계적 구조를 학습한다. Karpathy의 nanoGPT는 이 단계의 학습을 재현하는 데 초점을 둔다.</p></div>
+            <div class="stage-item"><h3>Post-training</h3><p>Instruction data와 선호도 데이터를 사용해 사용자 의도에 더 잘 맞도록 모델을 조정한다. 원문 노트의 labeling → reward model → PPO 흐름은 일반적인 fine-tuning 전체라기보다 RLHF 기반 post-training을 설명한 것이다.</p></div>
+          </div>
+        </section>
+      </article>
+
+      <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <script async crossorigin="anonymous"
+          src="https://giscus.app/client.js"
+          data-repo="noctml/noctml.github.io"
+          data-repo-id="R_kgDOQthLvQ"
+          data-category="General"
+          data-category-id="DIC_kwDOQthLvc4C1ZaY"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="light"
+          data-lang="ko">
+        </script>
+      </section>
+    </main>
+  </div>
+  <script defer src="../../../assets/content-lightbox.js?v=20260722"></script>
+</body>
+</html>

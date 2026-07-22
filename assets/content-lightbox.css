@@ -1,0 +1,109 @@
+.content-lightbox {
+  --content-lightbox-page-scale: 1;
+  --content-lightbox-zoom: 1;
+  --content-lightbox-pan-x: 0px;
+  --content-lightbox-pan-y: 0px;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 28px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.84);
+}
+
+.content-lightbox.is-open {
+  display: flex;
+}
+
+.content-lightbox__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.48);
+  color: rgba(255, 255, 255, 0.94);
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.content-lightbox__close:hover {
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.content-lightbox__close:active {
+  transform: translateY(1px);
+}
+
+.content-lightbox__image {
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  cursor: default;
+  object-fit: contain;
+  user-select: none;
+  touch-action: none;
+  transform: translate3d(var(--content-lightbox-pan-x), var(--content-lightbox-pan-y), 0)
+    scale(var(--content-lightbox-page-scale)) scale(var(--content-lightbox-zoom));
+  transform-origin: center;
+  transition: transform 0.18s ease;
+  will-change: transform;
+}
+
+.content-lightbox.is-zoomed .content-lightbox__image {
+  cursor: grab;
+  transition: transform 0.04s linear;
+}
+
+.content-lightbox.is-zoomed .content-lightbox__image:active {
+  cursor: grabbing;
+}
+
+main img.content-lightbox-trigger,
+main img.content-lightbox-trigger:hover {
+  cursor: default;
+  filter: none;
+  opacity: 1;
+}
+
+main a:has(> img.content-lightbox-trigger),
+main a:has(> img.content-lightbox-trigger):hover {
+  opacity: 1;
+}
+
+body.content-lightbox-scroll-locked {
+  overscroll-behavior: none;
+}
+
+@media (max-width: 760px) {
+  .content-lightbox {
+    padding: 18px;
+  }
+
+  .content-lightbox__image {
+    max-width: 96%;
+    max-height: 88%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-lightbox__image {
+    transition: none;
+  }
+}

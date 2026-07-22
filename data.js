@@ -302,16 +302,43 @@ window.SITE_DATA = {
                 tags: ["Study", "Visual SLAM", "Transformer", "Dense SLAM"]
             },
             {
-                title: "Take Out 5주차 OpenCV Study",
-                desc: "TAKE OUT Study",
+                title: "GPT Study",
+                desc: "Andrej Karpathy 유튜브 강의 정리",
+                href: "pages/study/GPT-Study/",
+                thumb: "pages/study/GPT-Study/assets/transformer-block.png?v=20260722",
+                published: true,
+                date: "2025-12-26",
+                tags: ["Study", "GPT", "Transformer", "Language Model", "PyTorch"]
+            },
+            {
+                title: "OpenCV Study",
+                desc: "Take-Out 동아리 신입부원 5주차 스터디 멘토링",
                 href: "pages/study/Take-Out-OpenCV/",
                 thumb: "pages/study/Take-Out-OpenCV/assets/thumbnail.png?v=20260717",
                 published: true,
                 date: "2025-11-11",
                 tags: ["Study", "OpenCV", "Image Processing", "Computer Vision"]
+            },
+            {
+                title: "RANSAC",
+                desc: "ML Active Learning",
+                href: "pages/study/RANSAC/",
+                thumb: "pages/study/RANSAC/assets/thumbnail.png?v=20260722",
+                published: true,
+                date: "2025-11-03",
+                tags: ["Study", "Machine Learning", "RANSAC", "Robust Estimation"]
             }
         ],
         projects: [
+            {
+                title: "2D SLAM & Navigation in Gazebo",
+                desc: "Gazebo custom world에서 map을 생성하고 Nav2 자율주행 안정성을 비교한 실험 기록",
+                href: "pages/projects/TurtleBot3-SLAM/",
+                published: true,
+                date: "2025-12-11",
+                tags: ["TurtleBot3", "Gazebo", "2D LiDAR", "SLAM", "Nav2"],
+                thumb: "pages/projects/TurtleBot3-SLAM/assets/world-indoor.png?v=20260722"
+            },
             {
                 title: "LIMO 자율주행 프로젝트",
                 desc: "RGB 카메라, 2D LiDAR, Depth 카메라를 활용한 트랙 주행과 장애물 회피 구현 기록",

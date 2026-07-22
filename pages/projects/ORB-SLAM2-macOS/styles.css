@@ -610,7 +610,12 @@ figcaption {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  cursor: zoom-in;
+  cursor: default;
+}
+
+.plot-grid img:hover {
+  filter: none;
+  opacity: 1;
 }
 
 .btn {
