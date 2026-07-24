@@ -302,6 +302,33 @@ window.SITE_DATA = {
                 tags: ["Study", "Visual SLAM", "Transformer", "Dense SLAM"]
             },
             {
+                title: "ORB-SLAM2 in macOS",
+                desc: "MacBook에서 ORB-SLAM2를 실행하고 평가한 기록",
+                href: "pages/projects/ORB-SLAM2-macOS/",
+                published: true,
+                date: "2026-06-01",
+                tags: ["Study", "ORB-SLAM2", "macOS", "Visual SLAM", "Pangolin", "evo"],
+                thumb: "pages/projects/ORB-SLAM2-macOS/assets/demo/orb_slam2_macos_thumb.jpg"
+            },
+            {
+                title: "ORB-SLAM2",
+                desc: "오픈소스 실습",
+                href: "pages/projects/ORB-SLAM2_tut/",
+                published: true,
+                date: "2026-05-09",
+                tags: ["Study", "ORB-SLAM2", "Visual SLAM", "GitHub"],
+                thumb: "pages/projects/ORB-SLAM2_tut/assets/thumb/media_6e1be0e7619d.jpg"
+            },
+            {
+                title: "VGGT-SLAM 실습",
+                desc: "오픈소스 실습 진행 (with office, custom dataset)",
+                href: "pages/projects/VGGT-SLAM/",
+                thumb: "pages/projects/VGGT-SLAM/assets/실습-진행/media/media_f58800e22a2b.png",
+                published: true,
+                date: "2026-05-09",
+                tags: ["Study", "VGGT-SLAM", "Visual SLAM", "Open Source"]
+            },
+            {
                 title: "GPT Study",
                 desc: "Andrej Karpathy 유튜브 강의 정리",
                 href: "pages/study/GPT-Study/",
@@ -331,6 +358,15 @@ window.SITE_DATA = {
         ],
         projects: [
             {
+                title: "OpenHouse",
+                desc: "스마트폰 이미지 기반 부동산 매물 3차원 복원 서비스",
+                href: "pages/projects/OpenHouse/",
+                published: true,
+                date: "2026-06-30",
+                tags: ["3D Reconstruction", "MapAnything", "Open3D", "SwiftUI", "PropTech"],
+                thumb: "pages/projects/OpenHouse/assets/image1.png?v=20260724"
+            },
+            {
                 title: "2D SLAM & Navigation in Gazebo",
                 desc: "Gazebo custom world에서 map을 생성하고 Nav2 자율주행 안정성을 비교한 실험 기록",
                 href: "pages/projects/TurtleBot3-SLAM/",
@@ -347,32 +383,6 @@ window.SITE_DATA = {
                 date: "2025-08-21",
                 tags: ["LIMO", "ROS2", "OpenCV", "LiDAR", "Autonomous Driving"],
                 thumb: "pages/projects/LiMO/실험 정리/image 4.png"
-            },
-            {
-                title: "ORB-SLAM2 in macOS",
-                desc: "MacBook에서 ORB-SLAM2를 실행하고 평가한 기록",
-                href: "pages/projects/ORB-SLAM2-macOS/",
-                published: true,
-                date: "2026-06-01",
-                tags: ["ORB-SLAM2", "macOS", "Visual SLAM", "Pangolin", "evo"],
-                thumb: "pages/projects/ORB-SLAM2-macOS/assets/demo/orb_slam2_macos_thumb.jpg"
-            },
-        {
-            title: "ORB-SLAM2",
-            desc: "오픈소스 실습",
-            href: "pages/projects/ORB-SLAM2_tut/",
-            published: true,
-            date: "2026-05-09",
-            tags: ["ORB-SLAM2", "Visual SLAM", "GitHub"],
-            thumb: "pages/projects/ORB-SLAM2_tut/assets/thumb/media_6e1be0e7619d.jpg"
-        },
-            {
-                title: "VGGT-SLAM 실습",
-                desc: "오픈소스 실습 진행 (with office, custom dataset)",
-                href: "pages/projects/VGGT-SLAM/",
-                thumb: "pages/projects/VGGT-SLAM/assets/실습-진행/media/media_f58800e22a2b.png",
-                published: true,
-                date: "2026-05-09"
-            },
+            }
     ]
 };

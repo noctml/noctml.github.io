@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="스마트폰 이미지 기반 부동산 매물 3차원 복원 서비스 OpenHouse의 구현과 평가 기록." />
+  <meta name="author" content="Wooseok Song" />
+  <meta property="og:title" content="[프로젝트] OpenHouse | Insighted" />
+  <meta property="og:description" content="스마트폰 이미지 기반 부동산 매물 3차원 복원 서비스" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="assets/image1.png" />
+  <title>[프로젝트] OpenHouse | Insighted</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="../../../assets/favicon.png" />
+  <link rel="stylesheet" href="../../../assets/site-theme.css?v=study-20260705" />
+  <link rel="stylesheet" href="../../../styles.css?v=project-20260722" />
+  <link rel="stylesheet" href="../../../assets/content-lightbox.css?v=20260722" />
+  <style>
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .project-shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 22px 0 48px;
+    }
+
+    .project-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      min-height: 58px;
+      background: var(--bg);
+    }
+
+    .project-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 760;
+      letter-spacing: -.01em;
+    }
+
+    .project-brand img {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .project-hero {
+      padding: 34px 0 26px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project-kicker {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 760;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .project-hero h1 {
+      max-width: 920px;
+      margin: 0;
+      font-size: clamp(27px, 4vw, 46px);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+
+    .project-lead {
+      max-width: 800px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    .project-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .project-meta-item {
+      min-height: 72px;
+      padding: 13px 14px;
+      border-top: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 34%, transparent);
+    }
+
+    .project-meta-item span {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 760;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .project-meta-item strong {
+      display: block;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .project-meta-link,
+    .project-text-link {
+      color: inherit;
+      text-decoration-color: color-mix(in srgb, currentColor 38%, transparent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .project-meta-link:hover,
+    .project-text-link:hover {
+      text-decoration-color: currentColor;
+    }
+
+    .project-article {
+      width: min(960px, 100%);
+      margin: 0 auto;
+    }
+
+    .project-section {
+      padding: 44px 0 28px;
+    }
+
+    .project-section + .project-section {
+      border-top: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+    }
+
+    .project-section h2 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.35;
+      letter-spacing: -.025em;
+    }
+
+    .project-section h3 {
+      margin: 34px 0 0;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: -.015em;
+    }
+
+    .project-section p {
+      margin: 14px 0 0;
+      font-size: 16px;
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .section-intro {
+      max-width: 840px;
+      color: color-mix(in srgb, var(--text) 84%, var(--muted));
+    }
+
+    .problem-note {
+      margin-top: 24px;
+      padding: 17px 19px;
+      border-left: 3px solid color-mix(in srgb, var(--muted) 52%, transparent);
+      background: color-mix(in srgb, var(--panel) 30%, transparent);
+    }
+
+    .problem-note strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .problem-note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .role-list {
+      display: grid;
+      gap: 8px;
+      margin: 20px 0 0;
+      padding-left: 20px;
+    }
+
+    .role-list li {
+      padding-left: 3px;
+      font-size: 15px;
+      line-height: 1.68;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 290px));
+      justify-content: center;
+      gap: clamp(56px, 9vw, 112px);
+      margin-top: 28px;
+    }
+
+    .demo-card {
+      min-width: 0;
+      margin: 0;
+    }
+
+    .demo-frame {
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+      border-radius: 5px;
+      background: #050505;
+    }
+
+    .demo-frame video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 720 / 1566;
+      background: #050505;
+      object-fit: contain;
+    }
+
+    .demo-card figcaption {
+      width: 100%;
+      max-width: none;
+      margin-top: 9px;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .market-item {
+      min-width: 0;
+      padding: 15px 16px;
+      border-top: 1px solid color-mix(in srgb, var(--muted) 44%, transparent);
+      background: color-mix(in srgb, var(--panel) 26%, transparent);
+    }
+
+    .market-item strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .market-item p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.64;
+    }
+
+    .journey-grid,
+    .metric-grid,
+    .decision-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .journey-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .metric-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .decision-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .journey-item,
+    .metric-item,
+    .decision-item {
+      min-width: 0;
+      padding: 16px 17px;
+      border-top: 2px solid color-mix(in srgb, var(--muted) 44%, transparent);
+      background: color-mix(in srgb, var(--panel) 28%, transparent);
+    }
+
+    .journey-item span,
+    .metric-item span,
+    .decision-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 780;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .journey-item strong,
+    .metric-item strong,
+    .decision-item strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .journey-item p,
+    .metric-item p,
+    .decision-item p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.62;
+    }
+
+    .metric-item strong {
+      font-size: 20px;
+    }
+
+    .selection-path {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 23px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .selection-step {
+      min-width: 0;
+      padding: 17px 16px 18px;
+      border-right: 1px solid var(--line);
+    }
+
+    .selection-step:last-child {
+      border-right: 0;
+    }
+
+    .selection-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .selection-step strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 14px;
+      line-height: 1.42;
+    }
+
+    .selection-step p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.62;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    figure a {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--panel) 24%, transparent);
+      object-fit: contain;
+    }
+
+    figcaption {
+      width: fit-content;
+      max-width: min(100%, 720px);
+      margin: 10px auto 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.58;
+      text-align: left;
+    }
+
+    figcaption strong {
+      color: var(--text);
+    }
+
+    .figure-wide {
+      width: min(940px, 100%);
+      margin: 28px auto 0;
+    }
+
+    .figure-wide img {
+      max-height: 620px;
+    }
+
+    .figure-medium {
+      width: min(760px, 100%);
+      margin: 26px auto 0;
+    }
+
+    .figure-medium img {
+      max-height: 580px;
+    }
+
+    .figure-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
+      margin-top: 26px;
+    }
+
+    .figure-pair img {
+      height: 340px;
+    }
+
+    .room-pair img {
+      height: 390px;
+    }
+
+    .pipeline-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 28px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: pipeline;
+    }
+
+    .pipeline-list li {
+      position: relative;
+      min-height: 96px;
+      padding: 17px 0 17px 44px;
+      border-top: 1px solid var(--line);
+      counter-increment: pipeline;
+    }
+
+    .pipeline-list li::before {
+      content: counter(pipeline, decimal-leading-zero);
+      position: absolute;
+      top: 18px;
+      left: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .03em;
+    }
+
+    .pipeline-list strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .pipeline-list span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.62;
+    }
+
+    .table-wrap {
+      margin-top: 24px;
+      overflow-x: auto;
+    }
+
+    .project-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .project-table th,
+    .project-table td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .project-table th {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .project-table td:first-child {
+      color: color-mix(in srgb, var(--text) 88%, var(--muted));
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .finding {
+      margin-top: 28px;
+      padding: 16px 18px;
+      border-left: 3px solid color-mix(in srgb, var(--muted) 52%, transparent);
+      background: color-mix(in srgb, var(--panel) 28%, transparent);
+    }
+
+    .finding strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .finding p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.76;
+    }
+
+    .roadmap-list {
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: roadmap;
+    }
+
+    .roadmap-list li {
+      position: relative;
+      display: grid;
+      grid-template-columns: 38px minmax(150px, 220px) minmax(0, 1fr);
+      gap: 14px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+      counter-increment: roadmap;
+    }
+
+    .roadmap-list li::before {
+      content: counter(roadmap, decimal-leading-zero);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .03em;
+    }
+
+    .roadmap-list strong {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .roadmap-list span {
+      color: color-mix(in srgb, var(--text) 84%, var(--muted));
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .comments {
+      margin-top: 46px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .comments h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    @media (max-width: 840px) {
+      .journey-grid,
+      .decision-grid,
+      .market-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .selection-path {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .selection-step:nth-child(2) {
+        border-right: 0;
+      }
+
+      .selection-step:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .project-shell {
+        width: min(100% - 24px, 1180px);
+        padding-top: 10px;
+      }
+
+      .project-hero h1 {
+        font-size: 30px;
+      }
+
+      .project-lead {
+        font-size: 15px;
+      }
+
+      .project-meta,
+      .pipeline-list,
+      .figure-pair {
+        grid-template-columns: 1fr;
+      }
+
+      .figure-pair figure {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .figure-pair img,
+      .room-pair img,
+      .figure-wide img,
+      .figure-medium img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+        margin: 0 auto;
+      }
+
+      .project-section {
+        padding: 40px 0 24px;
+      }
+
+      .project-section p {
+        font-size: 15px;
+      }
+
+      .roadmap-list li {
+        grid-template-columns: 32px minmax(0, 1fr);
+        gap: 8px 12px;
+      }
+
+      .roadmap-list span {
+        grid-column: 2;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .project-meta,
+      .metric-grid,
+      .selection-path,
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .selection-step,
+      .selection-step:nth-child(2),
+      .selection-step:nth-child(-n + 2) {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .selection-step:last-child {
+        border-bottom: 0;
+      }
+
+      .demo-grid {
+        justify-items: center;
+        gap: 30px;
+      }
+
+      .demo-card {
+        width: min(270px, 100%);
+      }
+
+      .project-table {
+        font-size: 13px;
+      }
+    }
+
+    /* LIMO case-study theme */
+    body {
+      background: #ffffff;
+      color: #1f2328;
+      line-height: 1.68;
+    }
+
+    .project-shell {
+      width: 100%;
+      padding: 0 0 48px;
+    }
+
+    .project-topbar {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 66px;
+      margin: 0 auto;
+      background: #ffffff;
+    }
+
+    .project-hero {
+      width: min(960px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 92px 0 64px;
+      border-bottom-color: #e4e7eb;
+    }
+
+    .project-kicker {
+      color: #2f6f62;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .project-hero h1 {
+      max-width: 760px;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 800;
+      letter-spacing: -.025em;
+    }
+
+    .project-lead {
+      max-width: none;
+      font-size: 18px;
+    }
+
+    .project-meta {
+      gap: 0;
+      border-top: 1px solid #e4e7eb;
+      border-bottom: 1px solid #e4e7eb;
+    }
+
+    .project-meta-item {
+      min-height: 116px;
+      padding: 20px 18px;
+      border-top: 0;
+      border-right: 1px solid #e4e7eb;
+      background: #ffffff;
+    }
+
+    .project-meta-item:last-child {
+      border-right: 0;
+    }
+
+    .project-article,
+    .comments {
+      width: min(960px, calc(100% - 48px));
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .project-section {
+      padding: 44px 0 30px;
+      border-bottom: 1px solid #e4e7eb;
+    }
+
+    .project-section + .project-section {
+      border-top: 0;
+    }
+
+    .project-section h2 {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 760;
+      line-height: 1.28;
+    }
+
+    .project-section h3 {
+      margin-top: 44px;
+      font-size: 20px;
+      font-weight: 730;
+    }
+
+    .project-section p {
+      line-height: 1.72;
+    }
+
+    .project-section > h2 + p {
+      margin-top: 20px;
+    }
+
+    .project-section > .demo-grid,
+    .project-section > .market-grid,
+    .project-section > .journey-grid,
+    .project-section > .metric-grid,
+    .project-section > .decision-grid,
+    .project-section > .selection-path,
+    .project-section > .pipeline-list,
+    .project-section > .figure-pair,
+    .project-section > .table-wrap,
+    .project-section > .roadmap-list {
+      margin-top: 36px;
+    }
+
+    .project-section > .figure-wide,
+    .project-section > .figure-medium {
+      margin-top: 38px;
+    }
+
+    .project-section > .problem-note,
+    .project-section > .finding {
+      margin-top: 34px;
+    }
+
+    .project-section > .demo-grid + p,
+    .project-section > .market-grid + p,
+    .project-section > .journey-grid + p,
+    .project-section > .selection-path + p,
+    .project-section > .metric-grid + p,
+    .project-section > .figure-pair + p,
+    .project-section > .decision-grid + p,
+    .project-section > .finding + p,
+    .project-section > .table-wrap + p {
+      margin-top: 32px;
+    }
+
+    .market-item,
+    .journey-item,
+    .metric-item,
+    .decision-item,
+    .demo-frame {
+      border: 1px solid #e4e7eb;
+      border-radius: 4px;
+      background: #ffffff;
+    }
+
+    .selection-path {
+      border: 1px solid #e4e7eb;
+    }
+
+    .selection-step span {
+      color: #2f6f62;
+    }
+
+    .problem-note,
+    .finding {
+      border: 1px solid #e4e7eb;
+      border-left: 3px solid #2f6f62;
+      border-radius: 4px;
+      background: #fafbfb;
+    }
+
+    .comments {
+      margin-top: 0;
+      padding-top: 52px;
+    }
+
+    @media (max-width: 760px) {
+      .project-topbar {
+        width: min(100% - 32px, 1120px);
+      }
+
+      .project-hero,
+      .project-article,
+      .comments {
+        width: min(100% - 32px, 960px);
+      }
+
+      .project-hero {
+        padding: 64px 0 44px;
+      }
+
+      .project-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-meta-item:nth-child(2),
+      .project-meta-item:last-child {
+        border-right: 0;
+      }
+
+      .project-meta-item:nth-child(-n + 2) {
+        border-bottom: 1px solid #e4e7eb;
+      }
+
+      .project-section {
+        padding: 38px 0 26px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .project-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .project-meta-item,
+      .project-meta-item:nth-child(2) {
+        border-right: 0;
+        border-bottom: 1px solid #e4e7eb;
+      }
+
+      .project-meta-item:last-child {
+        border-bottom: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="project-shell">
+    <header class="project-topbar">
+      <a class="project-brand" href="../../../index.html#projects" aria-label="Projects 목록으로 이동">
+        <img src="../../../assets/avatar.jpg" alt="Wooseok Song" />
+        <span>Projects</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="project-hero">
+        <p class="project-kicker">Graduate Project</p>
+        <h1>OpenHouse</h1>
+        <p class="project-lead">스마트폰 이미지 기반 부동산 매물 3차원 복원 서비스</p>
+        <div class="project-meta" aria-label="Project metadata">
+          <div class="project-meta-item"><span>Period</span><strong>2026.03.03 - 06.30</strong></div>
+          <div class="project-meta-item"><span>Client</span><strong>iOS · SwiftUI · SceneKit</strong></div>
+          <div class="project-meta-item"><span>Backend</span><strong>Flask · Status Polling</strong></div>
+          <div class="project-meta-item"><span>3D Pipeline</span><strong><a class="project-meta-link" href="../../paper_reviews/MapAnything/">MapAnything</a> · Open3D · Poisson</strong></div>
+        </div>
+      </section>
+
+      <article class="project-article">
+        <section class="project-section" aria-labelledby="role-title">
+          <h2 id="role-title">내가 맡은 일</h2>
+          <ul class="role-list">
+            <li>매물 복원에 적합한 3D reconstruction 방법 탐색</li>
+            <li>모바일 기기로 실제 가정집 데이터를 수집하고 3D reconstruction 진행 및 검증</li>
+            <li>후처리 천장 제거 알고리즘 구현</li>
+            <li>Poisson mesh reconstruction 파라미터 튜닝</li>
+          </ul>
+        </section>
+
+        <section class="project-section" aria-labelledby="overview-title">
+          <h2 id="overview-title">프로젝트 개요</h2>
+          <div class="demo-grid" aria-label="OpenHouse 데모 영상">
+            <figure class="demo-card">
+              <div class="demo-frame">
+                <video controls playsinline preload="metadata" poster="assets/one-room-poster.jpg">
+                  <source src="assets/one-room-demo.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption><strong>Demo 1. 방 1개 reconstruction.</strong> 스마트폰 촬영부터 생성된 mesh 확인까지의 전체 흐름.</figcaption>
+            </figure>
+            <figure class="demo-card">
+              <div class="demo-frame">
+                <video controls playsinline preload="metadata" poster="assets/many-rooms-poster.jpg">
+                  <source src="assets/many-rooms-demo.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption><strong>Demo 2. 여러 방 reconstruction.</strong> 복수 공간 촬영과 방·통로 단위 mesh 확인 과정.</figcaption>
+            </figure>
+          </div>
+          <p class="section-intro">직방, 다방, 네이버부동산 등 국내 플랫폼을 통한 온라인 매물 탐색이 보편화되었지만, 사진과 영상만으로는 방의 연결 관계, 실제 크기, 이동 동선을 판단하기 어렵다. 사진은 렌즈와 촬영 각도에 따라 공간감이 달라지고, 영상은 촬영자가 정한 경로 밖을 확인할 수 없다. Matterport와 같은 전문 3D 공간 서비스는 높은 품질을 제공하지만 촬영 조건과 운영 비용이 일반 매물 등록 과정에 부담이 될 수 있다.</p>
+          <div class="market-grid" aria-label="기존 매물 확인 방식의 한계">
+            <div class="market-item">
+              <strong>사진 중심 플랫폼</strong>
+              <p>각도, 렌즈, 편집에 따라 공간이 다르게 보이며 방 사이의 연결 관계를 한눈에 파악하기 어렵다.</p>
+            </div>
+            <div class="market-item">
+              <strong>영상 투어</strong>
+              <p>연속적인 분위기는 전달하지만 사용자가 원하는 위치와 시점을 자유롭게 다시 확인하기 어렵다.</p>
+            </div>
+            <div class="market-item">
+              <strong>Matterport 등 전문 서비스</strong>
+              <p>공간 탐색 품질은 높지만 별도 장비, 촬영 조건, 처리 비용이 일반 사용자에게 진입 장벽이 된다.</p>
+            </div>
+          </div>
+          <p class="section-intro">OpenHouse는 이 간극을 줄이기 위해 스마트폰으로 수집한 실내 이미지를 자동으로 3D mesh로 재구성하고, 사용자가 현장 방문 전에 구조와 동선을 자유 시점으로 살펴보도록 설계했다.</p>
+          <div class="problem-note">
+            <strong>해결하려는 문제</strong>
+            <p>별도 스캔 장비 없이도 방의 구조, 동선, 크기감, 가구 배치 가능성을 전달하고, 사진 중심 매물 정보에서 발생하는 공간 정보의 불확실성을 줄이는 것.</p>
+          </div>
+          <div class="journey-grid" aria-label="OpenHouse 사용자 흐름">
+            <div class="journey-item">
+              <span>01 Capture</span>
+              <strong>스마트폰 촬영</strong>
+              <p>iOS 앱과 AR 가이드로 실내 이미지를 수집하고 메타데이터와 함께 업로드한다.</p>
+            </div>
+            <div class="journey-item">
+              <span>02 Reconstruct</span>
+              <strong>3D mesh 생성</strong>
+              <p>MapAnything의 geometry를 Open3D와 Poisson reconstruction으로 surface mesh로 변환한다.</p>
+            </div>
+            <div class="journey-item">
+              <span>03 Explore</span>
+              <strong>자유 시점 확인</strong>
+              <p>완성된 mesh를 앱으로 전달하고 SceneKit viewer에서 매물 내부를 확인한다.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-section" aria-labelledby="pipeline-title">
+          <h2 id="pipeline-title">구현 파이프라인</h2>
+          <p class="section-intro">촬영 데이터가 앱을 떠난 뒤 서버에서 reconstruction과 mesh 후처리를 거쳐 다시 모바일 viewer로 돌아오는 과정을 하나의 비동기 파이프라인으로 연결했다.</p>
+          <figure class="figure-wide">
+            <a href="assets/image1.png" target="_blank" rel="noopener noreferrer">
+              <img src="assets/image1.png" width="1672" height="941" alt="촬영과 업로드부터 3D reconstruction, mesh 처리, 모바일 viewer까지 이어지는 OpenHouse 전체 파이프라인" />
+            </a>
+            <figcaption><strong>Figure 1. OpenHouse pipeline.</strong> 데이터 수집, 서버 처리, 3D reconstruction, mesh 생성, 앱 내 확인으로 이어지는 전체 흐름.</figcaption>
+          </figure>
+          <ol class="pipeline-list">
+            <li><strong>Data Capture &amp; Upload</strong><span>iOS 앱에서 촬영한 이미지와 메타데이터를 하나의 패킷으로 구성해 서버로 전송.</span></li>
+            <li><strong>Server Ingestion</strong><span>업로드 데이터를 저장하고 reconstruction에 필요한 frame과 metadata를 추출.</span></li>
+            <li><strong>MapAnything Reconstruction</strong><span>RGB image에서 camera pose와 dense point cloud를 생성.</span></li>
+            <li><strong>Open3D Mesh Processing</strong><span>ceiling removal, Poisson reconstruction, color와 normal transfer를 적용.</span></li>
+            <li><strong>Async Delivery</strong><span>상태 polling, reconstruction metadata 갱신, mesh caching과 preload를 처리.</span></li>
+            <li><strong>SceneKit Viewing</strong><span>완성된 mesh를 모바일 viewer에서 회전하고 자유 시점으로 확인.</span></li>
+          </ol>
+        </section>
+
+        <section class="project-section" aria-labelledby="baseline-title">
+          <h2 id="baseline-title">평가 1. Reconstruction baseline 선정</h2>
+          <p class="section-intro">초기에는 photorealistic한 결과를 목표로 3DGS와 COLMAP 기반 SfM을 검토했다. 그러나 가정집의 흰 벽과 바닥처럼 texture가 부족한 영역에서는 feature matching이 자주 실패했고, 안정적인 camera pose와 geometry를 확보하기 어려웠다.</p>
+          <div class="selection-path" aria-label="Reconstruction 방식 선정 과정">
+            <div class="selection-step">
+              <span>01 Initial Goal</span>
+              <strong>3DGS 기반 복원</strong>
+              <p>COLMAP SfM으로 pose를 구하고 photorealistic한 scene을 만드는 방향에서 출발.</p>
+            </div>
+            <div class="selection-step">
+              <span>02 Failure</span>
+              <strong>Texture-less 공간</strong>
+              <p>흰 벽과 바닥에서 feature matching이 끊기며 가정집 데이터의 SfM 안정성이 낮아짐.</p>
+            </div>
+            <div class="selection-step">
+              <span>03 Alternatives</span>
+              <strong>스티커와 Dense SLAM</strong>
+              <p>스티커는 사용 편의성을 해치고, 연속 image stream은 사용자의 촬영 부담을 키움.</p>
+            </div>
+            <div class="selection-step">
+              <span>04 Direction</span>
+              <strong>3D foundation model</strong>
+              <p>적은 수의 이미지에서도 data-driven prior로 pose와 dense geometry를 함께 추정하는 방식으로 전환.</p>
+            </div>
+          </div>
+          <p class="section-intro">최종 baseline은 image-only 환경에서 안정적인 모델을 고르기 위해 Isaac Simulator hospital scene의 3개 sector에서 7장씩, 총 21장의 입력 이미지를 사용해 선정했다. MapAnything, DUST3R, VGGT를 pose, geometry, depth와 runtime 관점에서 비교했다.</p>
+          <div class="metric-grid" aria-label="Baseline 평가 설계">
+            <div class="metric-item"><span>Input</span><strong>21 Images</strong><p>3 sectors × 7 views</p></div>
+            <div class="metric-item"><span>Methods</span><strong>3 Models</strong><p>MapAnything · DUST3R · VGGT</p></div>
+            <div class="metric-item"><span>Geometry</span><strong>Chamfer L1</strong><p>복원 구조와 GT 사이 거리</p></div>
+            <div class="metric-item"><span>Depth</span><strong>AbsRel / RMSE</strong><p>입력 view의 깊이 오차</p></div>
+          </div>
+          <figure class="figure-wide">
+            <a href="assets/image2.png" target="_blank" rel="noopener noreferrer">
+              <img src="assets/image2.png" width="2600" height="1308" alt="MapAnything, DUST3R, VGGT의 pose, geometry, depth, runtime 정량 비교" loading="lazy" />
+            </a>
+            <figcaption><strong>Figure 2. Baseline quantitative summary.</strong> MapAnything은 pose, geometry, projected depth에서 가장 안정적이었고 VGGT는 처리 시간이 가장 짧았다.</figcaption>
+          </figure>
+          <div class="figure-pair">
+            <figure>
+              <a href="assets/image3.png" target="_blank" rel="noopener noreferrer">
+                <img src="assets/image3.png" width="1222" height="549" alt="MapAnything, DUST3R, VGGT의 in-view color projection 비교" loading="lazy" />
+              </a>
+              <figcaption><strong>Figure 3. In-view projection.</strong> 입력 시점에서 각 모델이 복원한 color projection의 구조와 coverage 비교.</figcaption>
+            </figure>
+            <figure>
+              <a href="assets/image4.png" target="_blank" rel="noopener noreferrer">
+                <img src="assets/image4.png" width="1420" height="835" alt="MapAnything, DUST3R, VGGT의 in-view depth와 error 비교" loading="lazy" />
+              </a>
+              <figcaption><strong>Figure 4. Depth and error.</strong> GT depth와 모델별 projected depth, absolute error를 함께 비교.</figcaption>
+            </figure>
+          </div>
+          <figure class="figure-wide">
+            <a href="assets/image6.png" target="_blank" rel="noopener noreferrer">
+              <img src="assets/image6.png" width="3690" height="699" alt="천장을 제거한 MapAnything, DUST3R, VGGT의 BEV 비교" loading="lazy" />
+            </a>
+            <figcaption><strong>Figure 5. Ceiling-removed BEV.</strong> 천장과 외부 노이즈를 제거한 뒤 평면 구조가 얼마나 안정적으로 남는지 확인.</figcaption>
+          </figure>
+          <figure class="figure-wide">
+            <a href="assets/image7.png" target="_blank" rel="noopener noreferrer">
+              <img src="assets/image7.png" width="2652" height="654" alt="MapAnything, DUST3R, VGGT의 BEV false-positive 분포 비교" loading="lazy" />
+            </a>
+            <figcaption><strong>Figure 6. BEV false-positive diagnostic.</strong> 실제 공간 경계 밖에 생성된 geometry의 분포를 비교.</figcaption>
+          </figure>
+          <div class="finding">
+            <strong>선정 결과</strong>
+            <p>MapAnything은 pose error, geometry alignment, projected depth error와 BEV false-positive ratio에서 전반적으로 안정적인 결과를 보였다. OpenHouse의 기준 reconstruction 모델로 MapAnything을 채택하고, 이후 평가는 이 결과를 mesh로 변환하는 흐름을 중심으로 진행했다.</p>
+          </div>
+        </section>
+
+        <section class="project-section" aria-labelledby="mesh-title">
+          <h2 id="mesh-title">평가 2. Mesh의 서비스 적합성</h2>
+          <p class="section-intro">MapAnything 결과를 Poisson mesh로 변환했을 때 부동산 매물 확인 경험에 적합한지 검토했다. 비교 대상은 Mesh, 3D-GUT, PlanarGS이며, one-room과 many-room 환경에서 BEV, Room View, runtime, GPU memory, 최종 파일 크기를 확인했다.</p>
+          <figure class="figure-wide">
+            <a href="assets/image8.png" target="_blank" rel="noopener noreferrer">
+              <img src="assets/image8.png" width="2635" height="1158" alt="Mesh, 3D-GUT, PlanarGS의 runtime, GPU memory, file size 정량 비교" loading="lazy" />
+            </a>
+            <figcaption><strong>Figure 7. Deployment and UX metrics.</strong> Mesh는 생성 시간과 파일 크기가 크고, 3DGS 계열은 실행 비용과 결과 용량에서 유리한 구간이 있다.</figcaption>
+          </figure>
+          <div class="figure-pair room-pair">
+            <figure>
+              <a href="assets/image9.png" target="_blank" rel="noopener noreferrer">
+                <img src="assets/image9.png" width="1878" height="1192" alt="One-room 환경에서 3D-GUT, Mesh, PlanarGS의 BEV와 Room View 비교" loading="lazy" />
+              </a>
+              <figcaption><strong>Figure 8. One-room comparison.</strong> 단일 방에서 각 방식의 공간 구조와 내부 시점 표현 비교.</figcaption>
+            </figure>
+            <figure>
+              <a href="assets/image10.png" target="_blank" rel="noopener noreferrer">
+                <img src="assets/image10.png" width="1878" height="1192" alt="Many-room 환경에서 3D-GUT, Mesh, PlanarGS의 BEV와 Room View 비교" loading="lazy" />
+              </a>
+              <figcaption><strong>Figure 9. Many-room comparison.</strong> 여러 방이 연결된 환경에서 구조 연결성과 Room View 표현 비교.</figcaption>
+            </figure>
+          </div>
+          <div class="decision-grid" aria-label="Mesh 방식의 판단 근거">
+            <div class="decision-item">
+              <span>Structure</span>
+              <strong>명시적인 surface</strong>
+              <p>벽, 바닥, 방 경계를 읽기 쉽고 ceiling removal과 구조 후처리를 적용하기 편하다.</p>
+            </div>
+            <div class="decision-item">
+              <span>Integration</span>
+              <strong>표준 3D viewer 연동</strong>
+              <p>SceneKit에서 바로 다룰 수 있어 선택, 충돌, 측정 같은 상호작용으로 확장하기 쉽다.</p>
+            </div>
+            <div class="decision-item">
+              <span>Cost</span>
+              <strong>생성 시간과 용량</strong>
+              <p>many-room 환경에서는 처리 시간과 결과 크기가 증가해 simplification과 streaming이 필요하다.</p>
+            </div>
+          </div>
+          <div class="finding">
+            <strong>서비스 관점의 판단</strong>
+            <p>3DGS 계열은 렌더링 표현력과 결과 크기에서 강점이 있다. OpenHouse는 매물의 구조 확인, 후처리 가능성, 모바일 viewer 연동을 우선해 mesh를 최종 결과 형식으로 선택했다.</p>
+          </div>
+        </section>
+
+        <section class="project-section" aria-labelledby="service-title">
+          <h2 id="service-title">서비스 구조</h2>
+          <p class="section-intro">OpenHouse는 국내 부동산 플랫폼의 매물 탐색 흐름에 3D 실내 확인 기능을 연결하는 형태로 설계했다. 등록자는 매물 정보와 촬영 데이터를 올리고, 확인자는 지도와 상세 화면을 거쳐 3D Mesh Viewer를 실행한다.</p>
+          <div class="table-wrap">
+            <table class="project-table">
+              <thead>
+                <tr><th>사용자</th><th>주요 기능</th><th>제공 가치</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>매물 등록자</td><td>매물 정보 입력, 실내 촬영, 3D 모델 생성 요청</td><td>스마트폰만으로 입체적인 매물 정보 등록</td></tr>
+                <tr><td>매물 확인자</td><td>지도 탐색, 상세 정보 확인, 3D Mesh Viewer 실행</td><td>방문 전 구조, 동선, 공간감 확인</td></tr>
+                <tr><td>관리자</td><td>사용자, 매물, 처리 오류 관리</td><td>서비스 운영과 reconstruction 작업 관리</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="figure-medium">
+            <a href="assets/image11.png" target="_blank" rel="noopener noreferrer">
+              <img src="assets/image11.png" width="3200" height="1599" alt="매물 등록자, 매물 확인자, 관리자의 OpenHouse 유스케이스 다이어그램" loading="lazy" />
+            </a>
+            <figcaption><strong>Figure 10. OpenHouse use cases.</strong> 매물 등록, 3D 모델 생성, 지도 탐색, 상세 정보와 mesh 확인으로 이어지는 사용자 기능.</figcaption>
+          </figure>
+        </section>
+
+        <section class="project-section" aria-labelledby="result-title">
+          <h2 id="result-title">프로젝트 결과</h2>
+          <p class="section-intro">OpenHouse는 iOS 촬영, 서버 업로드, 3D reconstruction, mesh 후처리, SceneKit viewer를 하나의 서비스 흐름으로 연결했다. 평가를 통해 MapAnything을 기준 모델로 선정했고, 모바일 매물 확인에는 명시적인 surface와 viewer 연동성이 있는 mesh가 적합하다고 판단했다.</p>
+        </section>
+
+        <section class="project-section" aria-labelledby="roadmap-title">
+          <h2 id="roadmap-title">향후 계획</h2>
+          <p class="section-intro">향후 개발은 reconstruction 품질을 먼저 검증하고, 실제 사용자가 공간을 더 정확하고 빠르게 이해하는지 확인한 뒤 서비스 기능을 확장하는 순서로 진행한다.</p>
+          <ol class="roadmap-list">
+            <li>
+              <strong>품질 기준과 사용자 검증</strong>
+              <span>방 경계, 문 연결 관계, reconstruction 성공률, 공간 측정 오차와 viewer 로딩 시간을 측정하고, 사용자 테스트로 구조·동선 판단과 매물 검토 시간이 실제로 개선되는지 확인한다.</span>
+            </li>
+            <li>
+              <strong>Reconstruction 품질 개선</strong>
+              <span><a class="project-text-link" href="https://github.com/quan-meng/seen2scene" target="_blank" rel="noopener noreferrer">Scene2Scene</a>과 같은 scene completion 방법과 촬영 가이드를 검토하고, 원룸·다실·복층에서 구조 누락과 잘못된 연결이 발생하는 조건을 기록한다.</span>
+            </li>
+            <li>
+              <strong>배포 최적화와 기능 확장</strong>
+              <span>Mesh simplification, compression, streaming으로 모바일·서버 비용을 줄인 뒤 자동 평면도와 공간 측정을 연결한다. 가구 배치 기능은 측정 정확도와 모바일 성능이 확보된 이후 추가한다.</span>
+            </li>
+          </ol>
+        </section>
+      </article>
+
+      <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <script async crossorigin="anonymous"
+          src="https://giscus.app/client.js"
+          data-repo="noctml/noctml.github.io"
+          data-repo-id="R_kgDOQthLvQ"
+          data-category="General"
+          data-category-id="DIC_kwDOQthLvc4C1ZaY"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="light"
+          data-lang="ko">
+        </script>
+      </section>
+    </main>
+  </div>
+  <script defer src="../../../assets/content-lightbox.js?v=20260722"></script>
+</body>
+</html>

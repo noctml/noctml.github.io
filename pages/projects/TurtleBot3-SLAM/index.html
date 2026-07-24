@@ -75,9 +75,125 @@
       .project-lead{font-size:15px}
       .project-meta{grid-template-columns:1fr 1fr}
       .objective-grid,.world-grid,.map-grid,.media-pair{grid-template-columns:1fr}
-      .world-grid img,.map-grid img,.media-pair img{width:auto;height:auto;max-height:520px;margin:0 auto}
+      .world-grid figure,.map-grid figure,.media-pair figure{width:100%;min-width:0}
+      .world-grid figure a,.map-grid figure a,.media-pair figure a{width:100%}
+      .world-grid img,.map-grid img,.media-pair img{
+        width:100%;
+        max-width:100%;
+        height:auto;
+        max-height:none;
+        margin:0 auto;
+      }
       .project-section{padding-top:38px}
       .project-section p{font-size:15px}
+    }
+
+    /* LIMO case-study theme */
+    body{
+      background:#fff;
+      color:#1f2328;
+      line-height:1.68;
+    }
+    .project-shell{
+      width:100%;
+      padding:0 0 48px;
+    }
+    .project-topbar{
+      width:min(1120px,calc(100% - 40px));
+      min-height:66px;
+      margin:0 auto;
+      background:#fff;
+    }
+    .project-hero{
+      width:min(960px,calc(100% - 48px));
+      margin:0 auto;
+      padding:92px 0 64px;
+      border-bottom-color:#e4e7eb;
+    }
+    .project-kicker{
+      color:#2f6f62;
+      font-size:12px;
+      font-weight:800;
+    }
+    .project-hero h1{
+      max-width:760px;
+      font-size:clamp(36px,5vw,58px);
+      font-weight:800;
+      letter-spacing:-.025em;
+    }
+    .project-lead{
+      max-width:none;
+      font-size:18px;
+    }
+    .project-meta{
+      gap:0;
+      border-top:1px solid #e4e7eb;
+      border-bottom:1px solid #e4e7eb;
+    }
+    .project-meta-item{
+      min-height:116px;
+      padding:20px 18px;
+      border-top:0;
+      border-right:1px solid #e4e7eb;
+      background:#fff;
+    }
+    .project-meta-item:last-child{border-right:0}
+    .project-article,.comments{
+      width:min(960px,calc(100% - 48px));
+      margin-right:auto;
+      margin-left:auto;
+    }
+    .project-section{
+      padding:68px 0;
+      border-bottom:1px solid #e4e7eb;
+    }
+    .project-section h2{
+      font-size:clamp(24px,3vw,34px);
+      font-weight:760;
+      line-height:1.28;
+    }
+    .project-section h3{
+      margin-top:38px;
+      font-size:20px;
+      font-weight:730;
+    }
+    .project-section p{line-height:1.72}
+    .objective-item{
+      border:1px solid #e4e7eb;
+      border-radius:4px;
+      background:#fff;
+    }
+    figure img{
+      border:1px solid #e4e7eb;
+      border-radius:4px;
+      background:#fff;
+    }
+    .observation{
+      border:1px solid #e4e7eb;
+      border-left:3px solid #2f6f62;
+      border-radius:4px;
+      background:#fafbfb;
+    }
+    .comments{
+      margin-top:0;
+      padding-top:52px;
+    }
+    @media(max-width:760px){
+      .project-topbar{width:min(100% - 32px,1120px)}
+      .project-hero,.project-article,.comments{width:min(100% - 32px,960px)}
+      .project-hero{padding:64px 0 44px}
+      .project-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .project-meta-item:nth-child(2),.project-meta-item:last-child{border-right:0}
+      .project-meta-item:nth-child(-n + 2){border-bottom:1px solid #e4e7eb}
+      .project-section{padding:48px 0}
+    }
+    @media(max-width:520px){
+      .project-meta{grid-template-columns:1fr}
+      .project-meta-item,.project-meta-item:nth-child(2){
+        border-right:0;
+        border-bottom:1px solid #e4e7eb;
+      }
+      .project-meta-item:last-child{border-bottom:0}
     }
   </style>
 </head>
