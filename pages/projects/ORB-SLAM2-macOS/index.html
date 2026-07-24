@@ -57,6 +57,10 @@
           <section class="section">
             <h2>작업 개요</h2>
             <p>
+              코드 분석과 포팅 과정에서는 Codex를 활용해 빌드 오류를 추적하고 수정안을 적용·검증했으며,
+              이 페이지에는 그 과정에서 확인한 문제와 최종 실행·평가 결과를 재현 가능한 형태로 정리했다.
+            </p>
+            <p>
               ORB-SLAM2는 Linux 중심으로 작성된 고전적 Visual SLAM 코드베이스다. 이 프로젝트에서는 해당 코드를
               macOS에서 빌드하고, RGB-D 예제를 실행하며, Pangolin Viewer와 evo 평가까지 확인 가능한 형태로 정리했다.
             </p>
@@ -74,19 +78,19 @@
             <div class="goal-grid">
               <div class="goal-item">
                 <strong>macOS 빌드</strong>
-                <p>Homebrew 기반 의존성과 CMake preset을 정리해 ORB-SLAM2를 MacBook에서 빌드 가능하게 구성했다.</p>
+                <p>Homebrew 기반 의존성과 CMake preset을 정리한 macOS 빌드 환경</p>
               </div>
               <div class="goal-item">
                 <strong>Viewer 실행</strong>
-                <p>Pangolin Viewer가 macOS AppKit 제약을 만족하도록 thread 구조를 조정했다.</p>
+                <p>macOS AppKit 제약에 맞춘 Pangolin Viewer thread 구조</p>
               </div>
               <div class="goal-item">
                 <strong>RGB-D 시퀀스 실행</strong>
-                <p>TUM RGB-D <code>fr1_room</code> 시퀀스에서 map 생성과 trajectory 저장을 확인했다.</p>
+                <p>TUM RGB-D <code>fr1_room</code>의 map 생성과 trajectory 저장</p>
               </div>
               <div class="goal-item">
                 <strong>정량 평가</strong>
-                <p>evo로 APE와 RPE를 계산해 macOS 실행 결과를 수치로 점검했다.</p>
+                <p>evo APE·RPE를 이용한 macOS 실행 결과 점검</p>
               </div>
             </div>
           </section>
@@ -156,8 +160,8 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
               </div>
             </div>
             <p>
-              macOS용 build script와 dependency 설치 스크립트도 함께 추가했다.
-              결과적으로 Linux 중심이던 원본 프로젝트를 macOS에서 재현 가능한 절차로 실행할 수 있게 정리했다.
+              macOS용 build script와 dependency 설치 스크립트를 추가해
+              Linux 중심이던 원본 프로젝트를 macOS에서도 같은 절차로 재현하도록 정리했다.
             </p>
           </section>
 
@@ -173,7 +177,7 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
             <p>
               실행이 정상적으로 시작되면 vocabulary를 로드한 뒤 RGB-D frame을 처리하고, Viewer에는 current frame,
               keyframe graph, map point가 표시된다. 실행이 끝나면 <code>CameraTrajectory.txt</code>와
-              <code>KeyFrameTrajectory.txt</code>를 저장해 evo 평가에 사용할 수 있다.
+              <code>KeyFrameTrajectory.txt</code>를 저장하며, 두 파일은 evo 평가에 사용한다.
             </p>
           </section>
 
@@ -305,10 +309,10 @@ reason: 'nextEventMatchingMask should only be called from the Main Thread!'</cod
             </p>
             <p>
               성능 측정에서는 기본 동작이 thread/QoS tuning보다 더 낮은 mean tracking time을 보였다.
-              따라서 기본 실행 경로는 원본 동작에 가깝게 유지하고, 실험적 thread 옵션은 필요할 때만 켤 수 있도록 분리했다.
+              기본 실행 경로는 원본 동작에 가깝게 유지하고, 실험적 thread 옵션은 필요할 때만 켜도록 분리했다.
             </p>
             <p>
-              최종적으로 MacBook에서 ORB-SLAM2 RGB-D example을 실행하고, Pangolin Viewer 출력과
+              MacBook에서 ORB-SLAM2 RGB-D example을 실행하고, Pangolin Viewer 출력과
               evo 기반 trajectory 평가까지 확인한 재현 가능한 프로젝트로 정리했다.
             </p>
             <a class="repo-card" href="https://github.com/noctml/ORB-SLAM2-for-macOS" rel="noreferrer" target="_blank">

@@ -1109,6 +1109,34 @@
         min-height: auto;
       }
     }
+
+    .demo-media {
+      width: min(900px, 100%);
+      margin: 24px auto 0;
+      grid-template-columns: 1fr;
+    }
+
+    .demo-media .media-card {
+      grid-column: 1;
+    }
+
+    .demo-media .media-card video {
+      display: block;
+      width: 100%;
+      max-height: 560px;
+      object-fit: contain;
+    }
+
+    .result-media {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 680px) {
+      .demo-media,
+      .result-media {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1128,7 +1156,7 @@
       <p class="eyebrow">Side Project</p>
       <h1>LIMO 자율주행 프로젝트</h1>
       <p class="hero-copy">
-        RGB 카메라, 2D LiDAR, Depth 카메라를 활용해 트랙 주행과 장애물 회피를 위한 인지·판단·제어 로직을 구현했습니다.
+        RGB 카메라, 2D LiDAR, Depth 카메라를 활용한 트랙 주행 및 장애물 회피를 위한 인지·판단·제어 로직 구현
       </p>
       <ul class="tags" aria-label="기술 스택">
         <li>Python</li>
@@ -1146,6 +1174,7 @@
       <a class="brand" href="#">LIMO Autonomous Driving</a>
       <div class="nav-links">
         <a href="#overview">개요</a>
+        <a href="#demo">데모</a>
         <a href="#architecture">구조</a>
         <a href="#implementation">구현</a>
         <a href="#results">결과</a>
@@ -1178,27 +1207,47 @@
       </div>
     </section>
 
+    <section id="demo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">Demo</p>
+          <h2>데모 주행 영상</h2>
+        </div>
+        <div class="media-grid demo-media">
+          <article class="media-card">
+            <video controls preload="metadata" poster="실험 정리/poster_all_track_video.jpg">
+              <source src="실험 정리/all_track_video.mp4" type="video/mp4">
+            </video>
+            <div class="body">
+              <h3>전체 트랙 주행</h3>
+              <p>차선 인식과 조향 제어를 통합한 전체 트랙 주행</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section>
       <div class="wrap two-col">
         <div class="section-head">
           <p class="section-label">Problem</p>
           <h2>문제 정의</h2>
           <p class="lead">
-            실험 트랙에는 흰 배경, 지그재그 차선, 넓어지는 도로, 장애물이 함께 존재했습니다. 카메라 기반 차선 인식만으로는 오인식과 제어 진동이 반복되었습니다. 센서별 역할을 분리한 주행 파이프라인이 필요했습니다.
+            실험 트랙에는 흰 배경, 지그재그 차선, 넓어지는 도로, 장애물이 함께 존재했고, 카메라 기반 차선 인식만으로는 오인식과 제어 진동이 반복되어 센서별 역할을 분리한 주행 파이프라인이 필요했습니다.
           </p>
         </div>
         <ul class="problem-list">
           <li>
             <strong>차선 오인식</strong>
-            흰색 트랙 배경과 출발선, 장애물 배치 구역이 차선처럼 검출되었습니다.
+            흰색 트랙 배경과 출발선, 장애물 배치 구역을 차선으로 오검출
           </li>
           <li>
             <strong>코너링 불안정</strong>
-            조향각 한계와 PID 튜닝 문제로 직진 구간 진동과 코너 진입 실패가 발생했습니다.
+            조향각 한계와 PID 튜닝 문제로 직진 구간 진동과 코너 진입 실패
           </li>
           <li>
             <strong>장애물 회피 한계</strong>
-            LiDAR 단독 판단은 좌우 공간을 세밀하게 구분하기 어려워 무한 전진·후진 루프가 생겼습니다.
+            LiDAR 단독 판단의 공간 구분 한계로 무한 전진·후진 루프 발생
           </li>
         </ul>
       </div>
@@ -1210,7 +1259,7 @@
           <p class="section-label">Architecture</p>
           <h2>시스템 구조</h2>
           <p class="lead">
-            RGB 카메라는 차선 중심을 계산합니다. LiDAR는 장애물 접근을 트리거하고, Depth 카메라는 좌·중·우 빈 공간을 판단합니다. 최종 제어는 ROS2의 <code>/cmd_vel</code> 메시지로 통합했습니다.
+            RGB 카메라는 차선 중심을 계산하고, LiDAR는 장애물 접근을 트리거하며, Depth 카메라는 좌·중·우 빈 공간을 판단해 최종 제어를 ROS2의 <code>/cmd_vel</code> 메시지로 통합했습니다.
           </p>
         </div>
 
@@ -1250,26 +1299,26 @@
           <p class="section-label">Implementation</p>
           <h2>구현 범위</h2>
           <p class="lead">
-            원본 패키지를 단순 실행하는 데서 끝내지 않았습니다. 트랙 환경에서 실제로 실패하던 지점을 기준으로 인식·판단·제어 코드를 수정했습니다.
+            트랙 환경에서 실제로 실패한 지점을 기준으로 원본 패키지의 인식·판단·제어 코드를 수정했습니다.
           </p>
         </div>
 
         <div class="work-grid">
           <article class="work-item accent-green">
             <h3>차선 인식 파이프라인 재구성</h3>
-            <p>BEV 변환, ROI 제한, HLS 마스킹, Canny Edge, HoughLinesP를 조합했습니다. 기울기와 중심 margin으로 좌우 차선을 분리했습니다.</p>
+            <p>BEV·ROI·HLS·Canny·HoughLinesP 조합과 기울기·중심 margin 기반 좌우 차선 분리</p>
           </article>
           <article class="work-item accent-blue">
             <h3>PID 기반 조향·속도 제어</h3>
-            <p>차선 중심점과 ROI 기준점의 오차로 조향각을 계산했습니다. 코너 상황에서는 속도를 낮춰 급격한 회전을 완화했습니다.</p>
+            <p>차선 중심 오차를 이용한 조향각 계산과 코너 구간 감속</p>
           </article>
           <article class="work-item accent-amber">
             <h3>LiDAR 트리거와 안전 후진</h3>
-            <p>전방 0.3m 이내 장애물 감지를 회피 모드 트리거로 사용했습니다. 차선 이탈 가능성이 있을 때는 안전 후진 로직을 적용했습니다.</p>
+            <p>전방 0.3m 이내 장애물 감지와 차선 이탈 시 안전 후진</p>
           </article>
           <article class="work-item accent-red">
             <h3>Depth 카메라 기반 빈 공간 판단</h3>
-            <p>Depth 프레임 하단을 좌·중·우 ROI로 분할했습니다. 픽셀 합을 비교해 장애물이 적은 방향을 선택하도록 개선했습니다.</p>
+            <p>좌·중·우 Depth ROI의 픽셀 합을 비교한 빈 공간 선택</p>
           </article>
         </div>
       </div>
@@ -1281,7 +1330,7 @@
           <img src="실험 정리/image 11.png" alt="BEV와 ROI를 이용한 차선 인식 설명">
           <div class="body">
             <h3>ROI 기반 차선 인식</h3>
-            <p>RGB 카메라 영상을 BEV로 변환했습니다. 필요한 구간만 계산해 차선 후보를 안정적으로 추출했습니다.</p>
+            <p>RGB 영상을 BEV로 변환하고 필요한 구간만 계산해 차선 후보를 안정적으로 추출</p>
           </div>
         </article>
         <article class="media-card">
@@ -1295,14 +1344,14 @@
           <img src="실험 정리/image 10.png" alt="이동평균을 이용한 차선 검출 안정화 도식">
           <div class="body">
             <h3>검출 실패 보완</h3>
-            <p>한쪽 차선이 사라지는 순간을 보완했습니다. 이전 프레임의 이동평균으로 주행 판단을 안정화했습니다.</p>
+            <p>한쪽 차선이 사라질 때 이전 프레임의 이동평균으로 주행 판단을 안정화</p>
           </div>
         </article>
         <article class="media-card wide">
           <img src="실험 정리/스크린샷_2025-08-26_오전_9.43.01.png" alt="Depth 카메라 ROI를 좌측, 중간, 우측으로 나눈 설명 이미지">
           <div class="body">
             <h3>Depth ROI 회피 판단</h3>
-            <p>장애물 접근 시에만 Depth 카메라 판단을 활성화했습니다. 좌·중·우 영역을 비교해 빈 공간으로 이동하도록 설계했습니다.</p>
+            <p>장애물 접근 시 Depth 판단을 활성화하고 좌·중·우 영역을 비교해 빈 공간으로 이동</p>
           </div>
         </article>
       </div>
@@ -1314,21 +1363,21 @@
           <p class="section-label">Debugging</p>
           <h2>디버깅 및 개선</h2>
           <p class="lead">
-            실험 중 발생한 문제는 센서값 자체보다 판단 조건의 문제에 가까웠습니다. 프레임별 디버깅 화면과 실제 주행 영상을 함께 보며 조건을 좁혔습니다.
+            실험 중 발생한 문제는 센서값 자체보다 판단 조건에 가까워, 프레임별 디버깅 화면과 실제 주행 영상을 함께 보며 원인을 좁혔습니다.
           </p>
         </div>
         <ul class="challenge-list">
           <li>
             <strong>흰 배경 오인식</strong>
-            <span>HLS 범위를 다시 조정하고 ROI를 제한해 차선 이외의 흰색 영역 영향을 줄였습니다.</span>
+            <span>HLS 범위 재조정과 ROI 제한으로 차선 이외의 흰색 영역 영향 축소</span>
           </li>
           <li>
             <strong>지그재그 차선 다중 검출</strong>
-            <span>ROI 높이와 margin을 조정해 한 번에 한 패턴만 판단하도록 만들었습니다.</span>
+            <span>ROI 높이와 margin을 조정해 한 번에 한 패턴만 판별</span>
           </li>
           <li>
             <strong>LiDAR 단독 회피의 무한 루프</strong>
-            <span>LiDAR는 회피 트리거로만 사용했습니다. 방향 선택은 Depth ROI 비교로 분리했습니다.</span>
+            <span>LiDAR는 회피 트리거, 방향 선택은 Depth ROI 비교로 역할 분리</span>
           </li>
         </ul>
       </div>
@@ -1340,27 +1389,18 @@
           <p class="section-label">Results</p>
           <h2>검증 결과</h2>
           <p class="lead">
-            차선 기반 주행 흐름을 통합했습니다. 좌측·중앙·우측 중 빈 공간이 달라지는 회피 상황도 각각 테스트했습니다.
+            차선 기반 주행 흐름을 통합하고, 좌측·중앙·우측의 빈 공간이 달라지는 회피 상황을 각각 테스트했습니다.
           </p>
         </div>
 
         <div class="media-grid result-media">
-          <article class="media-card wide">
-            <video controls preload="metadata" poster="실험 정리/poster_all_track_video.jpg">
-              <source src="실험 정리/all_track_video.mp4" type="video/mp4">
-            </video>
-            <div class="body">
-              <h3>전체 트랙 주행</h3>
-              <p>차선 인식과 조향 제어를 통합해 트랙을 따라 주행하는 결과 영상입니다.</p>
-            </div>
-          </article>
           <article class="media-card">
             <video controls preload="metadata" poster="실험 정리/poster_obstacle_avoidance_video.jpg">
               <source src="실험 정리/obstacle_avoidance_video.mp4" type="video/mp4">
             </video>
             <div class="body">
               <h3>장애물 회피 동작</h3>
-              <p>LiDAR 트리거와 Depth ROI 판단을 결합한 회피 동작입니다.</p>
+              <p>LiDAR 트리거와 Depth ROI 판단을 결합한 회피 동작</p>
             </div>
           </article>
           <article class="media-card">
@@ -1369,7 +1409,7 @@
             </video>
             <div class="body">
               <h3>좌측 공간 회피</h3>
-              <p>왼쪽 영역이 비어 있는 상황에서 회피 방향을 선택합니다.</p>
+              <p>왼쪽 영역이 비어 있는 상황의 회피 방향 선택</p>
             </div>
           </article>
           <article class="media-card">
@@ -1378,7 +1418,7 @@
             </video>
             <div class="body">
               <h3>중앙 공간 통과</h3>
-              <p>좌우 장애물 사이의 중앙 빈 공간을 판단합니다.</p>
+              <p>좌우 장애물 사이의 중앙 빈 공간 통과</p>
             </div>
           </article>
           <article class="media-card">
@@ -1387,7 +1427,7 @@
             </video>
             <div class="body">
               <h3>우측 공간 회피</h3>
-              <p>오른쪽 영역이 비어 있는 상황에서 회피 방향을 선택합니다.</p>
+              <p>오른쪽 영역이 비어 있는 상황의 회피 방향 선택</p>
             </div>
           </article>
         </div>
@@ -1400,22 +1440,22 @@
           <p class="section-label">Retrospective</p>
           <h2>핵심 역량</h2>
           <p class="lead">
-            예제 코드를 실행하는 데서 멈추지 않았습니다. 실제 주행 실패를 분석하고 센서 처리, 판단 기준, 제어값을 반복적으로 개선했습니다.
+            실제 주행 실패를 분석하고 센서 처리, 판단 기준, 제어값을 반복적으로 개선했습니다.
           </p>
         </div>
 
         <div class="takeaway">
           <div>
             <b>센서 데이터 해석</b>
-            <p>카메라, LiDAR, Depth 데이터를 각각의 강점에 맞게 역할 분리했습니다.</p>
+            <p>카메라·LiDAR·Depth 데이터의 강점에 맞춘 역할 분리</p>
           </div>
           <div>
             <b>실험 기반 문제 해결</b>
-            <p>오인식, 진동, 무한 루프처럼 실제 하드웨어에서 나타나는 문제를 단계적으로 디버깅했습니다.</p>
+            <p>오인식·진동·무한 루프 등 실제 하드웨어 문제의 단계적 디버깅</p>
           </div>
           <div>
             <b>ROS2 통합 구현</b>
-            <p>노드, 토픽, launch, 파라미터를 연결해 하나의 주행 시스템으로 구성했습니다.</p>
+            <p>노드·토픽·launch·파라미터를 연결한 주행 시스템 구성</p>
           </div>
         </div>
       </div>

@@ -8,27 +8,81 @@
   touch-action: pan-y pinch-zoom;
 }
 
+.mobile-pdf-carousel {
+  display: none;
+}
+
 @media (max-width: 760px) {
   .pdf-viewer {
     position: relative;
     min-height: 0;
-    height: var(--pdf-mobile-height, 72dvh);
+    height: auto;
     overflow: visible;
     isolation: isolate;
   }
 
-  .pdf-viewer::after {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    inset: 56px 0 0;
-    background: transparent;
+  .pdf-viewer iframe {
+    display: none;
   }
 
-  .pdf-viewer iframe {
-    position: relative;
-    z-index: 1;
-    height: var(--pdf-mobile-height, 72dvh);
-    min-height: 0;
+  .mobile-pdf-carousel {
+    display: block;
+    min-width: 0;
+  }
+
+  .mobile-pdf-track {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y pinch-zoom;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-pdf-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-pdf-page {
+    flex: 0 0 100%;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #fff;
+    border: 1px solid var(--line, #d9d9d9);
+    border-radius: 6px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .mobile-pdf-page img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .mobile-pdf-count {
+    min-height: 18px;
+    margin-top: 8px;
+    color: var(--muted, #777);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    line-height: 18px;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-pdf-track {
+      scroll-behavior: auto;
+    }
   }
 }

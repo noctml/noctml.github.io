@@ -106,7 +106,7 @@
       <article class="project-article">
         <section class="project-section" aria-labelledby="overview-title">
           <h2 id="overview-title">실험 개요</h2>
-          <p>가구와 차량이 배치된 indoor world와 벽으로 구성된 maze world를 직접 구성했다. 각 world에서 서로 다른 세 구역을 mapping하고, 생성된 map마다 다섯 번의 자율주행 경로를 지정해 주행 결과를 확인했다.</p>
+          <p>가구와 차량이 배치된 indoor world와 벽으로 구성된 maze world를 직접 만든 뒤, 각 world의 서로 다른 세 구역을 mapping하고 생성된 map마다 다섯 경로의 자율주행 결과를 확인했다.</p>
           <div class="objective-grid" aria-label="실험 규모">
             <div class="objective-item"><strong>2 Worlds</strong><span>Indoor와 Maze custom world 비교</span></div>
             <div class="objective-item"><strong>6 Maps</strong><span>World별 세 구역에서 occupancy map 생성</span></div>
@@ -151,7 +151,7 @@
           <h3>Navigation 결과</h3>
           <div class="run-block">
             <span class="run-label">indoor_00</span>
-            <p><span class="route-color route-red">빨강</span>, <span class="route-color route-orange">주황</span>, <span class="route-color route-yellow">노랑</span>, <span class="route-color route-green">초록</span>, <span class="route-color route-blue">파랑</span> 순서로 다섯 경로를 추종했다. 오른쪽 그림은 <span class="route-color route-blue">5번 파란색</span> 경로를 주행하는 과정이다.</p>
+            <p><span class="route-color route-red">빨강</span>, <span class="route-color route-orange">주황</span>, <span class="route-color route-yellow">노랑</span>, <span class="route-color route-green">초록</span>, <span class="route-color route-blue">파랑</span> 순서로 다섯 경로를 추종했으며, 오른쪽 그림은 <span class="route-color route-blue">5번 파란색</span> 경로의 주행 과정이다.</p>
             <div class="media-pair">
               <figure>
                 <a href="assets/indoor-route-00.png" target="_blank" rel="noopener noreferrer"><img src="assets/indoor-route-00.png" alt="Indoor 00의 다섯 navigation 경로" loading="lazy" /></a>
@@ -202,7 +202,7 @@
 
         <section class="project-section" aria-labelledby="maze-title">
           <h2 id="maze-title">World 2. Maze</h2>
-          <p>Maze world는 벽과 좁은 통로를 중심으로 구성했다. 직선 구간과 큰 방향 전환이 반복되므로 코너에서의 경로 추종과 localization 안정성을 확인하기 적합했다.</p>
+          <p>Maze world는 벽과 좁은 통로를 중심으로 구성해, 직선 구간과 큰 방향 전환이 반복될 때의 경로 추종과 localization 안정성을 확인하기 적합했다.</p>
 
           <h3>Map 구성</h3>
           <figure class="map-overview">
@@ -227,7 +227,7 @@
           <h3>Navigation 결과</h3>
           <div class="run-block">
             <span class="run-label">maze_00</span>
-            <p>다섯 경로를 추종했다. <span class="route-color route-yellow">3번 노란색</span> 경로에서는 경로를 제대로 따라가지 못하면서 localization error가 함께 발생했다.</p>
+            <p>다섯 경로를 추종했으며, <span class="route-color route-yellow">3번 노란색</span> 경로에서는 경로 이탈과 localization error가 함께 발생했다.</p>
             <div class="media-pair">
               <figure>
                 <a href="assets/maze-route-00.png" target="_blank" rel="noopener noreferrer"><img src="assets/maze-route-00.png" alt="Maze 00의 다섯 navigation 경로" loading="lazy" /></a>
@@ -257,7 +257,7 @@
 
           <div class="run-block">
             <span class="run-label">maze_02</span>
-            <p>다섯 경로를 추종했다. 오른쪽 그림은 <span class="route-color route-green">4번 초록색</span> 경로를 주행하는 과정이다.</p>
+            <p>다섯 경로를 추종했으며, 오른쪽 그림은 <span class="route-color route-green">4번 초록색</span> 경로의 주행 과정이다.</p>
             <div class="media-pair">
               <figure>
                 <a href="assets/maze-route-02.png" target="_blank" rel="noopener noreferrer"><img src="assets/maze-route-02.png" alt="Maze 02의 다섯 navigation 경로" loading="lazy" /></a>

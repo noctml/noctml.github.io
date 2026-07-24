@@ -34,6 +34,19 @@
     .study-section h2{margin:0;font-size:22px;line-height:1.35;letter-spacing:-.02em}
     .study-section h3{margin:28px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.015em}
     .study-section p{margin:14px 0 0;font-size:16px;line-height:1.8;word-break:keep-all}
+    .study-section :not(pre)>code{
+      display:inline-block;
+      padding:.08em .38em;
+      border:1px solid #cbdff5;
+      border-radius:4px;
+      background:#edf5ff;
+      color:#5b89bd;
+      font-size:.92em;
+      font-weight:400;
+      line-height:1.35;
+      vertical-align:.02em;
+      white-space:nowrap;
+    }
     .flow-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:24px}
     .flow-step{min-height:92px;padding:12px;border-top:2px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent)}
     .flow-step span{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.06em}
@@ -107,7 +120,7 @@
       <article class="study-article">
         <section class="study-section" aria-labelledby="goal-title">
           <h2 id="goal-title">강의 목표</h2>
-          <p>Andrej Karpathy의 강의는 Tiny Shakespeare 데이터와 character-level tokenizer에서 출발해, next-token prediction을 수행하는 작은 GPT를 PyTorch로 직접 구현한다. Bigram language model을 기준선으로 만든 뒤 causal self-attention과 Transformer block을 차례로 추가하면서 각 구성 요소가 필요한 이유를 확인한다.</p>
+          <p>Andrej Karpathy의 강의는 Tiny Shakespeare 데이터와 character-level tokenizer에서 출발해 next-token prediction을 수행하는 작은 GPT를 PyTorch로 직접 구현하고, Bigram language model부터 causal self-attention과 Transformer block까지 차례로 추가하면서 각 구성 요소가 필요한 이유를 확인한다.</p>
           <div class="flow-grid" aria-label="GPT 구현 흐름">
             <div class="flow-step"><span>01</span><strong>Text corpus</strong></div>
             <div class="flow-step"><span>02</span><strong>Character tokens</strong></div>
@@ -119,20 +132,20 @@
 
         <section class="study-section" aria-labelledby="concept-title">
           <h2 id="concept-title">GPT와 확률적 생성</h2>
-          <p>GPT는 <strong>Generative Pre-trained Transformer</strong>의 약자이며, Transformer를 기반으로 다음 token의 확률분포를 예측한다. 이 강의에서 구현하는 작은 언어 모델도 같은 next-token prediction 원리를 따른다.</p>
+          <p>GPT는 <strong>Generative Pre-trained Transformer</strong>의 약자로, Transformer를 기반으로 다음 token의 확률분포를 예측하며 이 강의에서 구현하는 작은 언어 모델도 같은 원리를 따른다.</p>
           <div class="study-note"><strong>같은 prompt에서도 출력이 달라지는 이유</strong>모델은 예측한 확률분포에서 다음 token을 sampling한다. 따라서 입력이 같더라도 선택된 token sequence가 달라질 수 있다.</div>
         </section>
 
         <section class="study-section" aria-labelledby="data-title">
           <h2 id="data-title">1. 텍스트를 학습 데이터로 바꾸기</h2>
-          <p>강의에서는 데이터에 등장하는 고유 문자를 vocabulary로 만들고, 각 문자를 정수 ID와 양방향으로 매핑한다. 전체 텍스트를 token ID tensor로 변환한 뒤 train/validation split을 구성한다.</p>
+          <p>강의에서는 데이터에 등장하는 고유 문자를 vocabulary로 만들고 정수 ID와 양방향으로 매핑한 뒤, 전체 텍스트를 token ID tensor로 변환해 train/validation split을 구성한다.</p>
           <h3>Character-level tokenization</h3>
           <div class="table-wrap"><table class="study-table">
             <thead><tr><th>요소</th><th>역할</th></tr></thead>
             <tbody>
-              <tr><td><code>stoi</code></td><td>문자를 정수 token ID로 변환한다.</td></tr>
-              <tr><td><code>itos</code></td><td>token ID를 다시 문자로 복원한다.</td></tr>
-              <tr><td><code>vocab_size</code></td><td>데이터에 등장한 고유 문자의 개수다.</td></tr>
+              <tr><td><code>stoi</code></td><td>문자 → 정수 token ID 변환</td></tr>
+              <tr><td><code>itos</code></td><td>token ID → 문자 복원</td></tr>
+              <tr><td><code>vocab_size</code></td><td>데이터에 등장한 고유 문자 수</td></tr>
             </tbody>
           </table></div>
           <h3>Context와 batch</h3>
@@ -189,9 +202,9 @@ def get_batch(split):
           <div class="table-wrap"><table class="study-table">
             <thead><tr><th>요소</th><th>질문</th><th>기능</th></tr></thead>
             <tbody>
-              <tr><td>Query</td><td>현재 token이 무엇을 찾는가?</td><td>참고할 context의 조건을 표현한다.</td></tr>
-              <tr><td>Key</td><td>각 token이 무엇을 제공할 수 있는가?</td><td>Query와 비교되어 attention score를 만든다.</td></tr>
-              <tr><td>Value</td><td>선택된 token에서 어떤 정보를 가져오는가?</td><td>Attention weight에 따라 합산되는 실제 내용이다.</td></tr>
+              <tr><td>Query</td><td>현재 token이 무엇을 찾는가?</td><td>참고할 context의 조건 표현</td></tr>
+              <tr><td>Key</td><td>각 token이 무엇을 제공할 수 있는가?</td><td>Query와 비교해 attention score 생성</td></tr>
+              <tr><td>Value</td><td>선택된 token에서 어떤 정보를 가져오는가?</td><td>Attention weight에 따라 합산되는 실제 내용</td></tr>
             </tbody>
           </table></div>
           <h3>왜 \(\sqrt{d_k}\)로 나누는가?</h3>
@@ -227,11 +240,11 @@ out = wei @ v</code></pre></details>
           <div class="table-wrap"><table class="study-table">
             <thead><tr><th>구성 요소</th><th>핵심 역할</th></tr></thead>
             <tbody>
-              <tr><td>Multi-Head Attention</td><td>여러 attention subspace에서 서로 다른 관계를 병렬로 학습하고 결과를 이어 붙인다.</td></tr>
-              <tr><td>Feed-Forward Network</td><td>각 token 벡터를 독립적으로 변환한다. 내부 차원을 보통 4배 확장한 뒤 다시 줄인다.</td></tr>
-              <tr><td>Residual Connection</td><td>\(x + F(x)\) 경로로 원본 정보를 보존하고 깊은 network의 gradient 흐름을 안정화한다.</td></tr>
-              <tr><td>Pre-Norm</td><td>Attention과 Feed-Forward 전에 LayerNorm을 적용해 학습 안정성을 높인다.</td></tr>
-              <tr><td>Dropout</td><td>Attention weight와 projection 경로 일부를 무작위로 끄며 과적합을 완화한다.</td></tr>
+              <tr><td>Multi-Head Attention</td><td>여러 attention subspace에서 서로 다른 관계를 병렬로 학습한 뒤 결합</td></tr>
+              <tr><td>Feed-Forward Network</td><td>각 token 벡터를 독립적으로 변환하고 내부 차원을 확장한 뒤 축소</td></tr>
+              <tr><td>Residual Connection</td><td>\(x + F(x)\) 경로로 원본 정보와 gradient 흐름 보존</td></tr>
+              <tr><td>Pre-Norm</td><td>Attention과 Feed-Forward 전에 LayerNorm을 적용해 학습 안정성 향상</td></tr>
+              <tr><td>Dropout</td><td>Attention weight와 projection 경로 일부를 무작위로 꺼 과적합 완화</td></tr>
             </tbody>
           </table></div>
           <figure class="study-equation">
@@ -261,7 +274,7 @@ out = wei @ v</code></pre></details>
           <p>원 논문의 Transformer는 encoder와 decoder로 구성된다. Encoder는 입력 전체를 양방향으로 읽고, decoder는 causal mask를 사용하며 encoder output을 cross-attention으로 참고한다. 반면 이 강의에서 만든 언어 모델은 encoder와 cross-attention 없이 masked self-attention만 쌓은 decoder-only 구조다.</p>
           <figure class="study-figure is-narrow">
             <img src="assets/transformer-architecture.png?v=20260722" width="848" height="1304" alt="Attention Is All You Need의 전체 Transformer 구조" loading="lazy" />
-            <figcaption><strong>Original Transformer architecture.</strong> 강의 구현은 그림의 decoder를 단순히 복제한 것이 아니라, cross-attention을 제거한 causal decoder-only 변형이다.</figcaption>
+            <figcaption><strong>Original Transformer architecture.</strong> 강의 구현은 그림의 decoder에서 cross-attention을 제거한 causal decoder-only 변형이다.</figcaption>
           </figure>
           <div class="model-path" aria-label="Decoder-only GPT data flow">
             <span>Token + Position Embedding</span><i>→</i><span>N × Transformer Block</span><i>→</i><span>Final LayerNorm</span><i>→</i><span>Language Model Head</span><i>→</i><span>Next-token Sampling</span>
@@ -272,8 +285,8 @@ out = wei @ v</code></pre></details>
           <h2 id="gpt-title">6. GPT 학습 단계와 연결하기</h2>
           <p>여기서 구현한 next-token predictor는 대규모 corpus로 base language model을 만드는 <strong>pretraining</strong>의 축소판으로 볼 수 있다.</p>
           <div class="stage-grid">
-            <div class="stage-item"><h3>Pretraining</h3><p>대량의 text corpus에서 다음 token을 예측하며 언어의 통계적 구조를 학습한다. Karpathy의 nanoGPT는 이 단계의 학습을 재현하는 데 초점을 둔다.</p></div>
-            <div class="stage-item"><h3>Post-training</h3><p>Instruction data와 선호도 데이터를 사용해 사용자 의도에 더 잘 맞도록 모델을 조정한다. 원문 노트의 labeling → reward model → PPO 흐름은 일반적인 fine-tuning 전체라기보다 RLHF 기반 post-training을 설명한 것이다.</p></div>
+            <div class="stage-item"><h3>Pretraining</h3><p>대량의 text corpus에서 다음 token을 예측하며 언어의 통계적 구조를 학습하는 단계로, Karpathy의 nanoGPT는 이 과정을 재현하는 데 초점을 둔다.</p></div>
+            <div class="stage-item"><h3>Post-training</h3><p>Instruction data와 선호도 데이터로 사용자 의도에 맞게 모델을 조정하는 단계로, 원문 노트의 labeling → reward model → PPO 흐름은 RLHF 기반 post-training에 해당한다.</p></div>
           </div>
         </section>
       </article>
