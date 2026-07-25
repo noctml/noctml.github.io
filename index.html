@@ -105,7 +105,8 @@
       height:20px;
     }
     .contact-icon.github svg,
-    .contact-icon.linkedin svg{
+    .contact-icon.linkedin svg,
+    .contact-icon.youtube svg{
       fill:currentColor;
       stroke:none;
     }
@@ -779,8 +780,8 @@
         </div>
 
         <div class="sidebar-bottom">
-          <div class="contact-label"><span>contact</span></div>
-          <div class="contact-buttons" aria-label="Contact links">
+          <div class="contact-label"><span>info</span></div>
+          <div class="contact-buttons" aria-label="Information links">
             <a class="contact-icon github" href="https://github.com/noctml" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                 <path d="M12 .7a11.3 11.3 0 0 0-3.6 22c.6.1.8-.2.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.9 1.6 3.4 1.2.1-.7.4-1.2.7-1.5-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17.2 3.5 18.2 3.8 18.2 3.8c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.8c0 .4.2.7.8.6A11.3 11.3 0 0 0 12 .7Z"/>
@@ -789,6 +790,11 @@
             <a class="contact-icon linkedin" href="https://www.linkedin.com/in/우석-송-69995235a" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                 <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.4 8h4.2v14H.4V8Zm7.9 0h4v1.9h.1c.6-1.1 2-2.3 4.1-2.3 4.4 0 5.2 2.9 5.2 6.7V22h-4.2v-6.8c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V22H8.3V8Z"/>
+              </svg>
+            </a>
+            <a class="contact-icon youtube" href="https://www.youtube.com/@avcd-s8n/videos" target="_blank" rel="noreferrer" aria-label="YouTube" title="YouTube">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/>
               </svg>
             </a>
             <a class="contact-icon" href="mailto:pdwytime@gmail.com" aria-label="Email" title="Email">
@@ -823,14 +829,14 @@
           </div>
           <nav class="topnav" aria-label="Primary">
             <button class="topnav-btn" type="button" data-home-view="study">Study</button>
-            <button class="topnav-btn" type="button" data-home-view="projects">Projects</button>
-            <button class="topnav-btn is-active" type="button" data-home-view="papers">Paper Reviews</button>
+            <button class="topnav-btn is-active" type="button" data-home-view="projects">Projects</button>
+            <button class="topnav-btn" type="button" data-home-view="papers">Paper Reviews</button>
           </nav>
         </div>
       </header>
 
       <main id="main" class="container">
-        <section id="paper-reviews" class="section" data-home-section="papers">
+        <section id="paper-reviews" class="section" data-home-section="papers" hidden>
           <div class="section-head row">
             <div>
               <h2>Paper Reviews</h2>
@@ -861,7 +867,7 @@
           </div>
         </section>
 
-        <section id="work" class="section" data-home-section="projects" hidden>
+        <section id="work" class="section" data-home-section="projects">
           <div class="section-head row">
             <div>
               <h2>Projects</h2>
@@ -884,6 +890,6 @@
 
   <script src="data.js?v=study-takeout-opencv-20260717"></script>
   <script src="script.js?v=main-cleanup-20260525-light-only-bluegray-20260607"></script>
-  <script src="archive.js?v=study-takeout-opencv-20260717"></script>
+  <script src="archive.js?v=default-projects-20260725"></script>
 </body>
 </html>

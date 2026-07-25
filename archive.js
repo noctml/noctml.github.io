@@ -432,7 +432,10 @@
       });
     });
 
-    const initial = window.location.hash === "#projects" ? "projects" : (window.location.hash === "#study" ? "study" : "papers");
+    const hash = window.location.hash;
+    const initial = hash === "#study"
+      ? "study"
+      : (hash === "#papers" || hash === "#paper-reviews" ? "papers" : "projects");
     setView(initial);
   }
 })();

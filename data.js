@@ -266,6 +266,15 @@ window.SITE_DATA = {
         ],
         study: [
             {
+                title: "SLAM-Former 실습",
+                desc: "오픈소스 실습",
+                href: "pages/study/SLAM-Former-Practice/",
+                thumb: "pages/study/SLAM-Former-Practice/assets/thumbnail.png?v=20260725",
+                published: true,
+                date: "2026-06-28",
+                tags: ["Study", "SLAM-Former", "Visual SLAM", "Open Source", "Dense Reconstruction"]
+            },
+            {
                 title: "VGGT-SLAM 2.0: Real-time Dense Feed-forward Scene Reconstruction",
                 desc: "RAISE LAB Study",
                 href: "pages/study/VGGT-SLAM2.0/",

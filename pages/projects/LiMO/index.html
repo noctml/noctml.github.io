@@ -291,7 +291,7 @@
 
     .overview {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 12px;
       margin-top: -28px;
     }
@@ -608,6 +608,21 @@
       color: var(--muted);
     }
 
+    .future-link {
+      display: block;
+      width: fit-content;
+      margin: 10px auto 0;
+      color: var(--green);
+      font-size: 13px;
+      text-decoration: underline;
+      text-decoration-color: color-mix(in srgb, var(--green) 42%, transparent);
+      text-underline-offset: 4px;
+    }
+
+    .future-link:hover {
+      text-decoration-color: currentColor;
+    }
+
     footer {
       border-top: 1px solid var(--line);
       padding: 34px 0;
@@ -829,7 +844,7 @@
     }
 
     .overview {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 0;
       margin-top: 0;
       border-top: 1px solid var(--line);
@@ -1021,13 +1036,19 @@
       }
 
       .metric:nth-child(2),
+      .metric:nth-child(4),
       .step:nth-child(2),
       .step:nth-child(4) {
         border-right: 0;
       }
 
-      .metric:nth-child(-n + 2) {
+      .metric:nth-child(-n + 4) {
         border-bottom: 1px solid var(--line);
+      }
+
+      .metric:last-child {
+        grid-column: 1 / -1;
+        border-right: 0;
       }
 
       .pipeline {
@@ -1089,6 +1110,7 @@
       }
 
       .metric:last-child {
+        grid-column: auto;
         border-bottom: 0;
       }
 
@@ -1179,6 +1201,7 @@
         <a href="#implementation">구현</a>
         <a href="#results">결과</a>
         <a href="#retrospective">회고</a>
+        <a href="#future">향후 계획</a>
       </div>
     </div>
   </nav>
@@ -1190,6 +1213,10 @@
           <div class="metric">
             <b>기간</b>
             <span>2025.07 - 2025.08</span>
+          </div>
+          <div class="metric">
+            <b>주최</b>
+            <span>가천대학교 VIP-LAB</span>
           </div>
           <div class="metric">
             <b>역할</b>
@@ -1215,7 +1242,7 @@
         </div>
         <div class="media-grid demo-media">
           <article class="media-card">
-            <video controls preload="metadata" poster="실험 정리/poster_all_track_video.jpg">
+            <video controls muted preload="metadata" poster="실험 정리/poster_all_track_video.jpg">
               <source src="실험 정리/all_track_video.mp4" type="video/mp4">
             </video>
             <div class="body">
@@ -1233,7 +1260,7 @@
           <p class="section-label">Problem</p>
           <h2>문제 정의</h2>
           <p class="lead">
-            실험 트랙에는 흰 배경, 지그재그 차선, 넓어지는 도로, 장애물이 함께 존재했고, 카메라 기반 차선 인식만으로는 오인식과 제어 진동이 반복되어 센서별 역할을 분리한 주행 파이프라인이 필요했습니다.
+            실험 트랙에는 흰 배경, 지그재그 차선, 넓어지는 도로, 장애물이 함께 존재했고, 카메라 기반 차선 인식만으로는 오인식과 제어 진동이 반복되어 센서별 역할을 분리한 주행 파이프라인이 필요했다.
           </p>
         </div>
         <ul class="problem-list">
@@ -1259,7 +1286,7 @@
           <p class="section-label">Architecture</p>
           <h2>시스템 구조</h2>
           <p class="lead">
-            RGB 카메라는 차선 중심을 계산하고, LiDAR는 장애물 접근을 트리거하며, Depth 카메라는 좌·중·우 빈 공간을 판단해 최종 제어를 ROS2의 <code>/cmd_vel</code> 메시지로 통합했습니다.
+            RGB 카메라는 차선 중심을 계산하고, LiDAR는 장애물 접근을 트리거하며, Depth 카메라는 좌·중·우 빈 공간을 판단해 최종 제어를 ROS2의 <code>/cmd_vel</code> 메시지로 통합했다.
           </p>
         </div>
 
@@ -1299,7 +1326,7 @@
           <p class="section-label">Implementation</p>
           <h2>구현 범위</h2>
           <p class="lead">
-            트랙 환경에서 실제로 실패한 지점을 기준으로 원본 패키지의 인식·판단·제어 코드를 수정했습니다.
+            트랙 환경에서 실제로 실패한 지점을 기준으로 원본 패키지의 인식·판단·제어 코드를 수정했다.
           </p>
         </div>
 
@@ -1337,7 +1364,7 @@
           <img src="실험 정리/image 7.png" alt="중앙 margin을 이용해 좌우 차선을 구분하는 도식">
           <div class="body">
             <h3>좌우 차선 분리</h3>
-            <p>중앙 margin과 직선 기울기를 함께 사용해 왼쪽·오른쪽 차선을 구분했습니다.</p>
+            <p>중앙 margin과 직선 기울기를 함께 사용해 왼쪽·오른쪽 차선을 구분했다.</p>
           </div>
         </article>
         <article class="media-card">
@@ -1363,7 +1390,7 @@
           <p class="section-label">Debugging</p>
           <h2>디버깅 및 개선</h2>
           <p class="lead">
-            실험 중 발생한 문제는 센서값 자체보다 판단 조건에 가까워, 프레임별 디버깅 화면과 실제 주행 영상을 함께 보며 원인을 좁혔습니다.
+            실험 중 발생한 문제는 센서값 자체보다 판단 조건에 가까워, 프레임별 디버깅 화면과 실제 주행 영상을 함께 보며 원인을 좁혔다.
           </p>
         </div>
         <ul class="challenge-list">
@@ -1389,13 +1416,13 @@
           <p class="section-label">Results</p>
           <h2>검증 결과</h2>
           <p class="lead">
-            차선 기반 주행 흐름을 통합하고, 좌측·중앙·우측의 빈 공간이 달라지는 회피 상황을 각각 테스트했습니다.
+            차선 기반 주행 흐름을 통합하고, 좌측·중앙·우측의 빈 공간이 달라지는 회피 상황을 각각 테스트했다.
           </p>
         </div>
 
         <div class="media-grid result-media">
           <article class="media-card">
-            <video controls preload="metadata" poster="실험 정리/poster_obstacle_avoidance_video.jpg">
+            <video controls muted preload="metadata" poster="실험 정리/poster_obstacle_avoidance_video.jpg">
               <source src="실험 정리/obstacle_avoidance_video.mp4" type="video/mp4">
             </video>
             <div class="body">
@@ -1404,7 +1431,7 @@
             </div>
           </article>
           <article class="media-card">
-            <video controls preload="metadata" poster="실험 정리/poster_obs_av_left.jpg">
+            <video controls muted preload="metadata" poster="실험 정리/poster_obs_av_left.jpg">
               <source src="실험 정리/obs_av_left.mp4" type="video/mp4">
             </video>
             <div class="body">
@@ -1413,7 +1440,7 @@
             </div>
           </article>
           <article class="media-card">
-            <video controls preload="metadata" poster="실험 정리/poster_obs_av_middle.jpg">
+            <video controls muted preload="metadata" poster="실험 정리/poster_obs_av_middle.jpg">
               <source src="실험 정리/obs_av_middle.mp4" type="video/mp4">
             </video>
             <div class="body">
@@ -1422,7 +1449,7 @@
             </div>
           </article>
           <article class="media-card">
-            <video controls preload="metadata" poster="실험 정리/poster_obs_av_right.jpg">
+            <video controls muted preload="metadata" poster="실험 정리/poster_obs_av_right.jpg">
               <source src="실험 정리/obs_av_right.mp4" type="video/mp4">
             </video>
             <div class="body">
@@ -1440,7 +1467,7 @@
           <p class="section-label">Retrospective</p>
           <h2>핵심 역량</h2>
           <p class="lead">
-            실제 주행 실패를 분석하고 센서 처리, 판단 기준, 제어값을 반복적으로 개선했습니다.
+            실제 주행 실패를 분석하고 센서 처리, 판단 기준, 제어값을 반복적으로 개선했다.
           </p>
         </div>
 
@@ -1456,6 +1483,21 @@
           <div>
             <b>ROS2 통합 구현</b>
             <p>노드·토픽·launch·파라미터를 연결한 주행 시스템 구성</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="future">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">Future Plan</p>
+          <h2>향후 계획</h2>
+        </div>
+        <div class="takeaway">
+          <div>
+            <b>단안 카메라 이미지 기반 E2E 주행 시도</b>
+            <a class="future-link" href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12539820" target="_blank" rel="noopener noreferrer">paper</a>
           </div>
         </div>
       </div>
