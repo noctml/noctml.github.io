@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Isaac Sim과 Isaac Lab의 공식 튜토리얼, 강화학습, ROS 2와 LIMO SLAM 연동을 직접 실행한 입문 기록." />
+  <meta name="author" content="Wooseok Song" />
+  <title>[Study] Isaac-sim Tutorial | Insighted</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="../../../assets/favicon.png" />
+  <link rel="stylesheet" href="../../../assets/site-theme.css?v=study-20260726" />
+  <link rel="stylesheet" href="../../../styles.css?v=study-20260726" />
+  <link rel="stylesheet" href="../../../assets/content-lightbox.css?v=20260722" />
+  <link rel="stylesheet" href="styles.css?v=20260726m" />
+</head>
+<body>
+  <div class="study-shell">
+    <header class="study-topbar">
+      <a class="study-brand" href="../../../index.html#study" aria-label="Study 목록으로 이동">
+        <img src="../../../assets/avatar.jpg" alt="Wooseok Song" />
+        <span>Study</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="study-hero">
+        <p class="study-kicker">Tutorial · Practice Log</p>
+        <h1>Isaac-sim Tutorial</h1>
+        <p class="study-description">Isaac-sim 입문기</p>
+        <div class="study-meta" aria-label="Study metadata">
+          <div class="study-meta-item"><span>Period</span><strong>2025.12.17 - 2026.03.06</strong></div>
+          <div class="study-meta-item"><span>Environment</span><strong>Ubuntu 22.04 · Isaac Sim 5.0</strong></div>
+          <div class="study-meta-item"><span>Stack</span><strong>Isaac Lab · ROS 2 Humble</strong></div>
+          <div class="study-meta-item"><span>Tracks</span><strong>4</strong></div>
+        </div>
+      </section>
+
+      <div class="track-navigation">
+        <nav class="track-tabs" aria-label="진행 기록 필터">
+          <button type="button" class="track-tab is-active" data-track-filter="all" aria-pressed="true">전체</button>
+          <button type="button" class="track-tab official-track-tab" data-track-filter="official" aria-pressed="false" aria-haspopup="true">공식 튜토리얼</button>
+          <button type="button" class="track-tab" data-track-filter="guide" aria-pressed="false">가이드 영상 따라하기</button>
+          <button type="button" class="track-tab" data-track-filter="reinforcement" aria-pressed="false">강화학습 돌려보기</button>
+          <button type="button" class="track-tab" data-track-filter="limo" aria-pressed="false">LIMO SLAM</button>
+        </nav>
+        <div class="official-subnav">
+          <span class="official-subnav-label">공식 튜토리얼 세부 기록</span>
+          <nav class="module-tags" aria-label="공식 튜토리얼 세부 기록">
+            <button type="button" class="module-tag is-active" data-module-filter="001" aria-pressed="true"><span>001</span>Camera</button>
+            <button type="button" class="module-tag" data-module-filter="002" aria-pressed="false"><span>002</span>TurtleBot</button>
+            <button type="button" class="module-tag" data-module-filter="003" aria-pressed="false"><span>003</span>LiDAR · TF</button>
+            <button type="button" class="module-tag" data-module-filter="004" aria-pressed="false"><span>004</span>Publisher</button>
+            <button type="button" class="module-tag" data-module-filter="005" aria-pressed="false"><span>005</span>Navigation</button>
+          </nav>
+        </div>
+      </div>
+
+      <article class="study-article">
+        <section class="study-section track-section" id="official" data-track="official" aria-labelledby="official-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-index">Track 01</p>
+              <h2 id="official-title">공식 튜토리얼</h2>
+            </div>
+            <span class="status-token is-progress">진행 중</span>
+          </div>
+          <p>Isaac Sim 5.0의 ROS 2 튜토리얼을 따라 camera, robot control, LiDAR, publisher, navigation 기능을 직접 실행했다.</p>
+
+          <div class="module-list">
+            <div class="official-module-panel" data-official-module="001">
+            <section class="module-item" id="official-001">
+              <div class="module-number">001</div>
+              <div class="module-body">
+                <h3>카메라 모델과 ROS 2 topic</h3>
+                <p>카메라 영상과 ROS 2 message가 연결되는 기본 흐름을 확인했다.</p>
+                <ul class="scope-list">
+                  <li>Camera Noise 예제의 원본·노이즈 영상 비교</li>
+                  <li>Undistorted·Distorted camera와 OpenCV Pinhole·Fisheye 모델 비교</li>
+                  <li><code>camera_info</code>, RGB, depth topic과 camera frame을 RViz2에서 확인</li>
+                </ul>
+              </div>
+            </section>
+            <div class="module-chapters">
+              <section class="tutorial-chapter">
+                <div class="chapter-heading"><span>001</span><h4>원본 영상과 ROS 2 noisy stream</h4></div>
+                <p>시뮬레이터에서 빙글빙글 도는 camera 원본과 ROS 2로 전달된 noisy stream을 비교해 noise 적용 결과를 확인했다.</p>
+                <div class="chapter-media-grid" data-media-source="official-001" data-media-indices="0,1" data-archive-label="001"></div>
+              </section>
+            </div>
+            </div>
+
+            <div class="official-module-panel" data-official-module="002" hidden>
+            <section class="module-item" id="official-002">
+              <div class="module-number">002</div>
+              <div class="module-body">
+                <h3>TurtleBot과 simulation clock</h3>
+                <p>TurtleBot3 Burger를 가져와 controller와 simulation time의 동작을 확인했다.</p>
+                <ul class="scope-list">
+                  <li>URDF import와 wheel joint drive 설정</li>
+                  <li>Differential Controller와 Articulation Controller를 이용한 이동</li>
+                  <li><code>/clock</code>, <code>use_sim_time</code>, publisher·subscriber의 시간 동기화</li>
+                  <li>RTF를 이용한 simulation time과 wall-clock time 비교</li>
+                </ul>
+              </div>
+            </section>
+            <div class="module-chapters">
+              <section class="tutorial-chapter">
+                <div class="chapter-heading"><span>002</span><h4>TurtleBot3 URDF와 keyboard 주행</h4></div>
+                <p>TurtleBot3 URDF를 불러와 Differential Controller를 연결하고 keyboard command로 wheel joint를 제어했다.</p>
+                <div class="chapter-media-grid" data-media-source="official-002" data-media-indices="2,3,8" data-archive-label="002"></div>
+              </section>
+            </div>
+            </div>
+
+            <div class="official-module-panel" data-official-module="003" hidden>
+            <section class="module-item" id="official-003">
+              <div class="module-number">003</div>
+              <div class="module-body">
+                <h3>RTX LiDAR와 TF</h3>
+                <p>LiDAR와 camera sensor를 ROS 2에서 시각화하고 좌표계 관계를 점검했다.</p>
+                <ul class="scope-list">
+                  <li>2D·3D RTX LiDAR의 scan과 point cloud 시각화</li>
+                  <li>여러 LiDAR를 사용한 multi-sensor 구성 비교</li>
+                  <li>RGB camera pose와 robot TF Tree·TF Viewer 확인</li>
+                  <li>Frame 단위 scan과 <strong>Publish Full Scan</strong> 결과 비교</li>
+                </ul>
+              </div>
+            </section>
+            <div class="module-chapters">
+              <section class="tutorial-chapter">
+                <div class="chapter-heading"><span>003-A</span><h4>RTX LiDAR full scan</h4></div>
+                <p>2D·3D RTX LiDAR를 함께 구성하고 <strong>Publish Full Scan</strong> 적용 전후의 point cloud를 비교했다.</p>
+                <div class="chapter-media-grid" data-media-source="official-003" data-media-indices="3,6" data-archive-label="003"></div>
+              </section>
+              <section class="tutorial-chapter">
+                <div class="chapter-heading"><span>003-B</span><h4>Sensor frame의 TF Tree</h4></div>
+                <p>TF Tree에서 robot base와 camera·LiDAR frame의 연결 관계를 확인했다.</p>
+                <div class="chapter-media-grid" data-media-source="official-003" data-media-indices="14" data-archive-label="003"></div>
+              </section>
+            </div>
+            </div>
+
+            <div class="official-module-panel" data-official-module="004" hidden>
+            <section class="module-item" id="official-004">
+              <div class="module-number">004</div>
+              <div class="module-body">
+                <h3>Publisher와 controller 구성</h3>
+                <p>ROS 2 publisher와 외부 controller를 Isaac Sim의 Action Graph에 연결했다.</p>
+                <ul class="scope-list">
+                  <li>Publish Rate와 QoS profile 설정</li>
+                  <li>Generic Publisher와 Static Publisher</li>
+                  <li>Joint Control, NameOverride와 외부 message 연결</li>
+                  <li>Ackermann Control의 workspace·race track 예제</li>
+                  <li>Namespace를 적용한 single·dual robot 구성</li>
+                </ul>
+              </div>
+            </section>
+            <div class="module-chapters">
+              <section class="tutorial-chapter">
+                <div class="chapter-heading"><span>004-A</span><h4>Camera publish 병목</h4></div>
+                <p>큰 image 해상도로 network 병목이 생기면서 camera topic의 update가 중간중간 끊기는 현상을 확인했다.</p>
+                <div class="chapter-media-grid" data-media-source="official-004" data-media-indices="1" data-archive-label="004"></div>
+              </section>
+              <section class="tutorial-chapter">
+                <div class="chapter-heading"><span>004-B</span><h4>Joint state와 NameOverride</h4></div>
+                <p>Joint state를 ROS 2 message로 전달하고 <code>NameOverride</code>로 변경한 joint 이름이 반영되는지 확인했다.</p>
+                <div class="chapter-media-grid" data-media-source="official-004" data-media-indices="11,15" data-archive-label="004"></div>
+              </section>
+            </div>
+            </div>
+
+            <div class="official-module-panel" data-official-module="005" hidden>
+            <section class="module-item" id="official-005">
+              <div class="module-number">005</div>
+              <div class="module-body">
+                <h3>ROS 2 Navigation</h3>
+                <p>Standalone ROS 2 예제와 Nova Carter navigation을 실행했다.</p>
+                <ul class="scope-list">
+                  <li>Periodic·Manual Camera Publishing과 joint state 확인</li>
+                  <li>Occupancy Grid와 robot description을 이용한 navigation</li>
+                  <li>Waypoint와 다중 waypoint patrolling 비교</li>
+                  <li>Hospital scene의 multi-robot navigation과 relocalization</li>
+                  <li>MoveIt2와 Action Graph goal 전달, 코드로 goal을 보내는 단계의 실행 실패 확인</li>
+                </ul>
+              </div>
+            </section>
+            <div class="module-chapters">
+              <section class="tutorial-chapter">
+                <div class="chapter-heading"><span>005</span><h4>Multi-robot navigation과 waypoint</h4></div>
+                <p>Hospital environment에서 여러 robot의 navigation을 실행하고 waypoint 순회와 Occupancy Map Generator로 만든 map을 확인했다.</p>
+                <div class="chapter-media-grid" data-media-source="official-005" data-media-indices="2,18,21" data-archive-label="005"></div>
+              </section>
+            </div>
+            </div>
+
+          </div>
+
+          <section class="support-section" aria-labelledby="official-command-title">
+            <h3 id="official-command-title">실행 명령</h3>
+            <div class="command-block">
+              <pre><code>./python.sh standalone_examples/api/isaacsim.ros2.bridge/camera_noise.py
+
+ros2 run tf2_ros static_transform_publisher \
+  0 0 0 0 0 0 base_link base_scan</code></pre>
+            </div>
+          </section>
+
+          <section class="support-section" aria-labelledby="official-reference-title">
+            <h3 id="official-reference-title">참고 자료</h3>
+              <ul class="reference-list">
+                <li><a href="https://docs.isaacsim.omniverse.nvidia.com/5.0.0/ros2_tutorials/tutorial_ros2_camera_noise.html" target="_blank" rel="noreferrer">ROS 2 Camera Noise</a></li>
+                <li><a href="https://docs.isaacsim.omniverse.nvidia.com/5.0.0/ros2_tutorials/tutorial_ros2_rtx_lidar.html" target="_blank" rel="noreferrer">ROS 2 RTX LiDAR</a></li>
+                <li><a href="https://docs.isaacsim.omniverse.nvidia.com/5.0.0/ros2_tutorials/tutorial_ros2_publish_rate.html" target="_blank" rel="noreferrer">ROS 2 Publish Rate</a></li>
+                <li><a href="https://docs.isaacsim.omniverse.nvidia.com/5.0.0/ros2_tutorials/tutorial_ros2_multi_navigation.html" target="_blank" rel="noreferrer">ROS 2 Multi-robot Navigation</a></li>
+              </ul>
+          </section>
+
+          <section class="support-section troubleshooting-section" data-official-troubleshooting aria-labelledby="official-troubleshooting-title" hidden>
+            <h3 id="official-troubleshooting-title">실행 중 확인한 문제</h3>
+            <div class="experience-log">
+            <section class="experience-item" data-official-issue="002">
+              <h4>URDF joint 이름 정리</h4>
+              <p>TurtleBot URDF를 처음 가져왔을 때 joint 이름에 <code>a__name_</code> namespace가 붙어 controller 설정과 이름을 대응하기 어려웠다. 원본 Xacro를 다시 변환해 namespace가 제거된 URDF를 만들고 wheel joint 이름을 정리했다.</p>
+              <div class="media-pair">
+                <figure>
+                  <div class="media-frame"><img src="assets/turtlebot-urdf-before.webp?v=20260726d" width="997" height="602" alt="TurtleBot URDF joint 이름에 namespace가 붙은 초기 상태" loading="lazy" /></div>
+                  <figcaption><strong>Before.</strong> Joint 이름 앞에 <code>a__name_</code>이 붙은 초기 import 상태.</figcaption>
+                </figure>
+                <figure>
+                  <div class="media-frame"><img src="assets/turtlebot-urdf-after.webp?v=20260726d" width="997" height="602" alt="TurtleBot URDF joint namespace를 정리한 상태" loading="lazy" /></div>
+                  <figcaption><strong>After.</strong> Xacro를 다시 변환해 wheel joint 이름을 정리한 상태.</figcaption>
+                </figure>
+              </div>
+            </section>
+
+            <section class="experience-item" data-official-issue="003">
+              <h4>LiDAR frame의 TF 누락</h4>
+              <p><code>/tf</code>가 발행되지 않아 <code>base_link</code>와 <code>base_scan</code> 사이의 static transform을 직접 발행했다.</p>
+            </section>
+
+            <section class="experience-item" data-official-issue="003">
+              <h4>RTX LiDAR scan 주기</h4>
+              <p>3D point cloud가 회전 방향마다 끊겨 보이는 원인은 매 frame의 부분 scan을 표시하고 있었기 때문이었다. LiDAR Helper의 <strong>Publish Full Scan</strong>을 활성화해 한 회전 단위로 바꾸자 더 안정적으로 시각화됐다.</p>
+              <div class="media-pair">
+                <figure>
+                  <div class="media-frame">
+                    <video controls playsinline preload="metadata">
+                      <source src="assets/lidar-partial-scan.mp4?v=20260726d" type="video/mp4" />
+                    </video>
+                  </div>
+                  <figcaption><strong>Partial scan.</strong> Frame 단위 point cloud가 회전 방향마다 끊겨 보인 초기 결과.</figcaption>
+                </figure>
+                <figure>
+                  <div class="media-frame">
+                    <video controls playsinline preload="metadata">
+                      <source src="assets/lidar-full-scan.mp4?v=20260726" type="video/mp4" />
+                    </video>
+                  </div>
+                  <figcaption><strong>Full scan.</strong> 한 회전 단위로 발행해 point cloud가 안정된 결과.</figcaption>
+                </figure>
+              </div>
+            </section>
+
+            <section class="experience-item" data-official-issue="004">
+              <h4>Camera publish 병목</h4>
+              <p>큰 image 해상도로 network 병목이 생기면서 camera topic의 update가 중간중간 끊겼다.</p>
+              <figure class="study-video">
+                <video controls playsinline preload="metadata">
+                  <source src="assets/publish-rate-bottleneck.mp4?v=20260726d" type="video/mp4" />
+                </video>
+                <figcaption><strong>Publish rate bottleneck.</strong> 큰 camera image를 발행할 때 화면과 message update가 끊기는 현상.</figcaption>
+              </figure>
+            </section>
+
+            <section class="experience-item" data-official-issue="005">
+              <h4>RViz2 depth 표시 문제</h4>
+              <p>서로 다른 publish rate를 적용한 depth 영상이 간헐적으로 검게 보였다. 같은 topic을 <code>rqt_image_view</code>에서 열어 message가 정상적으로 발행되고 있으며 RViz2의 표시 문제임을 확인했다.</p>
+              <figure class="study-video">
+                <video controls playsinline preload="metadata">
+                  <source src="assets/depth-rviz-workaround.mp4?v=20260726d" type="video/mp4" />
+                </video>
+                <figcaption><strong>RViz2 display issue.</strong> 검게 보이던 depth stream을 <code>rqt_image_view</code>에서 다시 확인한 결과.</figcaption>
+              </figure>
+            </section>
+
+            <section class="experience-item" data-official-issue="005">
+              <h4>Multi-robot localization 이탈</h4>
+              <p><a href="https://docs.isaacsim.omniverse.nvidia.com/5.0.0/ros2_tutorials/tutorial_ros2_multi_navigation.html" target="_blank" rel="noreferrer">NVIDIA 공식 튜토리얼</a>은 이 예제의 CPU 사용량이 높아 Nav2와 sensor data의 동기화가 어긋날 경우 localization 문제가 생길 수 있다고 설명한다. 실제 실행에서도 일부 robot의 pose가 이탈했고, 우선 RViz2의 <strong>2D Pose Estimate</strong>로 pose를 다시 맞췄다. 코드로 여러 robot에 goal을 보내는 단계는 정상 동작을 확인하지 못했다.</p>
+              <figure class="study-video">
+                <video controls playsinline preload="metadata">
+                  <source src="assets/multi-robot-localization.mp4?v=20260726d" type="video/mp4" />
+                </video>
+                <figcaption><strong>Multi-robot localization.</strong> 실행 중 일부 robot의 pose가 이탈해 relocalization을 적용한 기록.</figcaption>
+              </figure>
+            </section>
+
+            <section class="experience-item" data-official-issue="005">
+              <h4>Python version 충돌</h4>
+              <p>ROS 2 Humble은 Python 3.10, Isaac Sim 5.0 standalone 환경은 Python 3.11을 사용했다. 이 차이로 <code>rclpy</code>를 직접 불러오는 Clock·Carter Stereo·message receiving 예제에서 충돌이 발생했다.</p>
+            </section>
+            </div>
+          </section>
+
+          <nav class="module-pagination" aria-label="공식 튜토리얼 세부 기록 이동">
+            <button type="button" class="module-page-button is-previous" data-module-previous hidden>
+              <span aria-hidden="true">←</span>
+              <span>
+                <small>이전</small>
+                <strong data-module-previous-label></strong>
+              </span>
+            </button>
+            <button type="button" class="module-page-button is-next" data-module-next>
+              <span>
+                <small>다음</small>
+                <strong data-module-next-label></strong>
+              </span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </nav>
+        </section>
+
+        <section class="study-section track-section" id="guide" data-track="guide" aria-labelledby="guide-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-index">Track 02</p>
+              <h2 id="guide-title">가이드 영상 따라하기</h2>
+            </div>
+            <span class="status-token is-done">완료</span>
+          </div>
+          <p><a href="https://www.youtube.com/watch?v=tQziqSx-F80" target="_blank" rel="noreferrer">Isaac Sim &amp; Isaac Lab 가이드 영상</a>의 흐름을 따라 mesh와 material, rigid body, local asset 예제를 확인한 뒤 Spider Bot과 JetBot으로 범위를 넓혔다.</p>
+          <h3 class="scope-heading">학습 범위</h3>
+          <ul class="scope-list track-scope">
+            <li>Mesh·material과 rigid body를 이용한 기본 scene 구성</li>
+            <li>Local asset import와 Spot·humanoid·gripper 예제 확인</li>
+            <li>Spider Bot의 URDF·joint 설정과 강화학습</li>
+            <li>JetBot의 differential controller, camera, LiDAR와 collision 구성</li>
+          </ul>
+
+          <div class="track-chapters">
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>G.1</span><h4>Spot 예제</h4></div>
+              <p>Isaac Sim의 Robotics Examples에서 Boston Dynamics Spot policy 예제를 불러와 걷는 모습을 확인했다.</p>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="0" data-archive-label="Guide"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>G.2</span><h4>학습 결과와 checkpoint</h4></div>
+              <p>화면이 많이 버벅여 environment 수를 줄였고, mean reward의 증가와 iteration별 checkpoint 생성을 확인했다.</p>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="6,7" data-archive-label="Guide"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>G.3</span><h4>Spider Bot asset 구성</h4></div>
+              <p>Linux에서 강의의 URDF 생성 도구를 사용할 수 없어 공개 URDF를 사용했다. URDF import 후 Physics Inspector로 joint motion을 확인하고 USD로 저장했다.</p>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="10,13,14" data-archive-label="Guide"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>G.4</span><h4>Spider Bot 강화학습</h4></div>
+              <p>강의의 학습 설정에 따라 base link가 바닥에 닿으면 해당 환경의 학습이 종료되도록 Spider Bot을 학습했다.</p>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="28" data-archive-label="Guide"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>G.5</span><h4>Spider Bot 학습 결과 재생</h4></div>
+              <p>학습 결과를 재생해 Spider Bot들이 균일하게 팔딱팔딱 뛰는 모습을 확인했다. 강의에서 소개한 motion file 기반 수동 제어 예시도 함께 살펴봤다.</p>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="33,36" data-archive-label="Guide"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>G.6</span><h4>JetBot Differential Controller</h4></div>
+              <p>Differential Controller를 연결한 뒤 keyboard로 움직여 보니 좌우가 반대로 동작했다. Action Graph에서 좌우 key mapping을 바꿔 방향을 맞췄다.</p>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="39,40" data-archive-label="Guide"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>G.7</span><h4>JetBot LiDAR와 collision</h4></div>
+              <p>Action Graph에 LiDAR와 collision 설정을 연결해 장애물 범위 인식과 물리적 접촉을 확인했다.</p>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="42,43" data-archive-label="Guide"></div>
+            </section>
+          </div>
+
+          <section class="support-section troubleshooting-section" aria-labelledby="guide-troubleshooting-title">
+              <h3 id="guide-troubleshooting-title">Spider Bot 환경 오류</h3>
+              <p>Spider Bot 학습 환경을 구성하는 과정에서 file watcher 제한, custom package 탐색, Windows asset path, contact sensor 설정 문제가 차례로 발생했다.</p>
+              <ul class="observation-list chapter-observations">
+                <li><code>max_user_watches</code>와 <code>max_user_instances</code>를 늘려 file watcher 제한 해결.</li>
+                <li>찾지 못하던 <code>spdrbot3</code> package를 설치.</li>
+                <li>환경 파일에 남아 있던 Windows asset path를 Linux 경로로 수정.</li>
+                <li>Contact sensor 오류가 남아 있어 강의에서 제공한 USD로 교체.</li>
+              </ul>
+              <div class="chapter-media-grid" data-media-source="guide" data-media-indices="18,22,23,27" data-archive-label="Guide"></div>
+          </section>
+        </section>
+
+        <section class="study-section track-section" id="reinforcement" data-track="reinforcement" aria-labelledby="reinforcement-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-index">Track 03</p>
+              <h2 id="reinforcement-title">강화학습 돌려보기</h2>
+            </div>
+            <span class="status-token is-done">완료</span>
+          </div>
+          <p>Isaac Lab의 <code>Isaac-Ant-v0</code> task를 직접 학습하고 TensorBoard에서 학습 로그를 확인했다. 재생 단계에서는 <code>--use_pretrained_checkpoint</code> 옵션으로 제공된 pretrained checkpoint를 불러왔다. 첫 설치에서는 Isaac Sim 5.0과 Isaac Lab 버전이 맞지 않아 재생에 실패했으며, Python·PyTorch·Isaac Sim·Isaac Lab 조합을 맞춘 뒤 정상 실행했다.</p>
+          <h3 class="scope-heading">학습 범위</h3>
+          <ul class="scope-list track-scope">
+            <li>Isaac Lab 설치와 Isaac Sim·Python·PyTorch 호환성 점검</li>
+            <li><code>Isaac-Ant-v0</code> task의 headless training</li>
+            <li>제공된 pretrained checkpoint로 Ant policy 재생</li>
+            <li>TensorBoard scalar를 이용한 학습 결과 확인</li>
+          </ul>
+
+          <div class="track-chapters">
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>RL.1</span><h4>Ant task 실행과 학습 흐름 확인</h4></div>
+              <p><code>Isaac-Ant-v0</code> task의 headless training을 실행하고 초기 상태와 학습 완료 결과만 비교했다.</p>
+              <div class="chapter-media-grid" data-media-source="reinforcement" data-media-indices="0,2" data-archive-label="RL"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>RL.2</span><h4>Pretrained checkpoint 재생과 TensorBoard 확인</h4></div>
+              <p>제공된 pretrained checkpoint를 32개 environment에서 재생하고, 직접 수행한 학습의 TensorBoard 그래프를 확인했다.</p>
+              <div class="command-block chapter-command" aria-label="학습 및 재생 명령">
+                  <pre><code>./isaaclab.sh -p scripts/reinforcement_learning/skrl/train.py \
+  --task Isaac-Ant-v0 --headless
+
+./isaaclab.sh -p scripts/reinforcement_learning/skrl/play.py \
+  --task Isaac-Ant-v0 --num_envs 32 --use_pretrained_checkpoint</code></pre>
+              </div>
+              <div class="chapter-media-grid" data-media-source="reinforcement" data-media-indices="5,6" data-archive-label="RL"></div>
+            </section>
+          </div>
+
+          <section class="support-section troubleshooting-section" aria-labelledby="reinforcement-troubleshooting-title">
+              <h3 id="reinforcement-troubleshooting-title">환경 호환성 문제</h3>
+              <p>Isaac Sim 5.0과 설치한 Isaac Lab 버전이 맞지 않아 학습 결과 재생에 실패했다. 새 conda 환경에 필요한 package를 직접 설치하는 방법도 먼저 시도했지만 해결되지 않았다. 이후 Python·PyTorch·CUDA 조합을 다시 맞추고 Isaac Lab을 <code>v2.2.0</code>으로 고정하자 학습과 재생이 정상 동작했다.</p>
+              <div class="compatibility-grid" aria-label="Isaac Lab 호환성 정리">
+                <div><span>Problem</span><strong>Isaac Sim 5.0과 Isaac Lab 조합 불일치</strong></div>
+                <div><span>Working setup</span><strong>Python 3.11 · PyTorch 2.7.0 · CUDA 12.8 · Isaac Lab v2.2.0</strong></div>
+                <div><span>Result</span><strong>RTX 5070 Ti에서 8,000 epoch 약 1분</strong></div>
+              </div>
+          </section>
+        </section>
+
+        <section class="study-section track-section" id="limo" data-track="limo" aria-labelledby="limo-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-index">Track 04</p>
+              <h2 id="limo-title">LIMO SLAM</h2>
+            </div>
+            <span class="status-token is-progress">진행 중</span>
+          </div>
+          <p>Hospital scene에 AgileX LIMO를 배치하고 camera, LiDAR, IMU와 ROS 2 bridge를 연결했다. 이후 FAST-LIO로 3D map을 만들고 HDL Localization에서 LIMO의 pose를 추정하는 흐름까지 확장했다.</p>
+
+          <h3 class="scope-heading">진행 흐름</h3>
+          <div class="timeline">
+            <div><span>01</span><strong>Sensor bridge</strong><p>Camera·LiDAR·IMU topic과 simulation clock 연결.</p></div>
+            <div><span>02</span><strong>LIMO drive</strong><p>JetBot용 2-wheel 설정과 LIMO의 4-wheel 구조 차이 확인.</p></div>
+            <div><span>03</span><strong>FAST-LIO mapping</strong><p>LiDAR·IMU를 동기화해 3D global map 생성.</p></div>
+            <div><span>04</span><strong>HDL Localization</strong><p>Global map에서 LIMO pose 추정과 relocalization 확인.</p></div>
+          </div>
+
+          <div class="track-chapters">
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>L.1</span><h4>Hospital scene과 LIMO asset 준비</h4></div>
+              <p>Hospital environment를 불러오고 AgileX LIMO asset을 배치해 주행과 sensor 실험을 위한 기본 scene을 구성했다.</p>
+              <div class="chapter-media-grid" data-media-source="limo-environment" data-media-indices="1" data-archive-label="LIMO"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>L.2</span><h4>Wheel geometry와 Differential Controller</h4></div>
+              <p>Wheel joint와 collision mesh에서 wheel base·radius를 확인해 Differential Controller에 입력했다. JetBot의 2-wheel 구성을 그대로 사용했더니 LIMO는 미동도 하지 않았다. 당시에는 JetBot과 LIMO의 wheel 구성 차이를 원인으로 추정했다.</p>
+              <div class="chapter-media-grid" data-media-source="limo-environment" data-media-indices="4,5,6" data-archive-label="LIMO"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>L.3</span><h4>Camera와 ROS 2 bridge 연결</h4></div>
+              <p>LIMO 상단의 실제 camera 위치에 맞춰 camera를 배치하고 ROS 2 Action Graph를 구성했다. 공식 camera publish 예제를 참고해 frame ID와 topic을 설정한 뒤 RViz2에서 stream 수신을 확인했다.</p>
+              <div class="chapter-media-grid" data-media-source="limo-environment" data-media-indices="8,11" data-archive-label="LIMO"></div>
+            </section>
+
+            <section class="tutorial-chapter">
+              <div class="chapter-heading"><span>L.4</span><h4>Camera·LiDAR 장착 후 주행</h4></div>
+              <p>Camera와 LiDAR를 장착한 LIMO를 scene에서 직접 움직이고, 이후 mapping과 localization 실험에 사용할 USD 구성을 저장했다.</p>
+              <div class="chapter-media-grid" data-media-source="limo-drive" data-media-indices="0" data-archive-label="LIMO"></div>
+            </section>
+          </div>
+
+          <section class="topic-section" aria-labelledby="kiss-failure-title">
+          <h3 id="kiss-failure-title">KISS-SLAM map에서 localization 실패</h3>
+          <p>처음에는 KISS-SLAM으로 만든 global map을 HDL Localization에 입력했지만 pose가 안정적으로 맞지 않았다. 처음에는 이유를 잘 몰랐지만 KISS-SLAM 실행 과정을 다시 보니 map 자체가 잘못 만들어지고 있었다. Parameter를 조정해도 큰 변화가 없어 FAST-LIO로 map을 다시 만들기로 했다.</p>
+          <div class="media-pair">
+            <figure>
+              <div class="media-frame"><img src="assets/kiss-global-map.webp?v=20260726c" width="1400" height="797" alt="KISS-SLAM으로 생성해 HDL Localization에 사용한 global map" loading="lazy" /></div>
+              <figcaption><strong>KISS-SLAM global map.</strong> 첫 localization 실험에 입력한 Hospital scene map.</figcaption>
+            </figure>
+            <figure>
+              <div class="media-frame">
+                <video controls playsinline preload="metadata" poster="assets/kiss-global-map.webp?v=20260726c">
+                  <source src="assets/kiss-localization-fail.mp4?v=20260726c" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption><strong>Localization failure.</strong> KISS-SLAM map에서 LIMO pose가 scene과 안정적으로 정렬되지 않은 결과.</figcaption>
+            </figure>
+          </div>
+
+          <h4>Mapping 과정 재확인</h4>
+          <p>KISS-SLAM 실행 화면에서 SLAM 결과가 어긋나는 과정을 확인했다. YAML parameter를 조정해 다시 실행했지만 큰 개선은 없었다.</p>
+          <figure class="study-video">
+            <video controls playsinline preload="metadata" poster="assets/kiss-global-map.webp?v=20260726c">
+              <source src="assets/kiss-mapping-fail.mp4?v=20260726c" type="video/mp4" />
+            </video>
+            <figcaption><strong>Mapping visualization.</strong> KISS-SLAM의 SLAM 결과가 어긋나는 과정. YAML parameter 조정 후에도 유사한 문제가 남았다.</figcaption>
+          </figure>
+          </section>
+
+          <section class="topic-section" aria-labelledby="fast-lio-title">
+          <h3 id="fast-lio-title">FAST-LIO로 global map 재구성</h3>
+          <p><a href="https://github.com/Taeyoung96/FAST_LIO_ROS2" target="_blank" rel="noreferrer">FAST_LIO_ROS2</a>를 Docker 환경에서 실행했다. M2DGR dataset으로 먼저 동작을 확인한 뒤 Isaac Sim topic을 연결했지만, 처음에는 mapping이 진행되지 않았다. 혹시 몰라 <code>/clock</code>을 발행하고 LiDAR와 IMU의 publish time을 simulation time으로 맞추자 정상적으로 map이 만들어졌다.</p>
+          <div class="media-pair">
+            <figure>
+              <div class="media-frame">
+                <video controls playsinline preload="metadata" poster="assets/fast-lio-map.webp?v=20260726b">
+                  <source src="assets/fast-lio-mapping.mp4?v=20260726b" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption><strong>FAST-LIO mapping.</strong> 동기화한 Isaac Sim LiDAR·IMU topic으로 point cloud와 map을 쌓은 과정.</figcaption>
+            </figure>
+            <figure>
+              <div class="media-frame"><img src="assets/fast-lio-map.webp?v=20260726b" width="1079" height="632" alt="FAST-LIO로 생성한 LIMO Hospital scene global map" loading="lazy" /></div>
+              <figcaption><strong>FAST-LIO global map.</strong> Mapping 종료 후 저장한 Hospital scene의 완성 map.</figcaption>
+            </figure>
+          </div>
+          <div class="study-note">
+            <strong>동작을 결정한 조건</strong>
+            이번 환경에서는 LiDAR와 IMU의 publish time을 simulation time으로 통일하고 <code>/clock</code>을 함께 발행한 뒤 mapping이 동작했다.
+          </div>
+          </section>
+
+          <section class="topic-section" aria-labelledby="hdl-localization-title">
+          <h3 id="hdl-localization-title">HDL Localization으로 pose 추정</h3>
+          <p>참고한 <a href="https://github.com/pyc5714/hdl-localization-ROS2" target="_blank" rel="noreferrer">hdl-localization-ROS2</a>는 ROS 2 Foxy 기준이어서 Docker image와 package 구성을 Humble 환경에 맞게 수정했다. 먼저 FAST-LIO에서 저장한 PCD와 LiDAR point만으로 localization을 실행했다. 위치 추정은 동작했지만 일부 구간에서는 pose가 벗어나 RViz의 relocalization으로 초기 pose를 다시 지정해야 했다.</p>
+          <div class="study-note">
+            <strong>ROS 2 Humble 대응</strong>
+            Foxy 기준 실행 구성을 Ubuntu 22.04와 ROS 2 Humble에 맞춘 저장소: <a href="https://github.com/noctml/hdl-localization-ROS2-Humble" target="_blank" rel="noreferrer">noctml/hdl-localization-ROS2-Humble</a>
+          </div>
+          <figure class="study-video">
+            <video controls playsinline preload="metadata" poster="assets/fast-lio-map.webp?v=20260726b">
+              <source src="assets/hdl-localization.mp4?v=20260726b" type="video/mp4" />
+            </video>
+            <figcaption><strong>LiDAR-only localization.</strong> FAST-LIO global map에서 LiDAR point만으로 LIMO의 pose를 추정한 결과.</figcaption>
+          </figure>
+          </section>
+
+          <section class="topic-section" aria-labelledby="imu-localization-title">
+          <h3 id="imu-localization-title">IMU angular velocity와 회전 안정성</h3>
+          <p>LiDAR-only 결과를 확인한 뒤 Isaac Sim의 IMU topic을 추가했다. IMU publisher에서 angular velocity를 포함했을 때 회전 구간의 localization이 조금 더 안정적이었다. 그러나 회전 속도를 크게 높이면 IMU 사용 여부와 관계없이 pose가 흔들렸고, launch parameter 조정만으로는 충분히 개선되지 않았다.</p>
+          <div class="media-pair">
+            <figure>
+              <div class="media-frame">
+                <video controls playsinline preload="metadata" poster="assets/imu-angular-on.webp?v=20260726b">
+                  <source src="assets/hdl-angular-on.mp4?v=20260726c" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption><strong>Angular velocity on.</strong> IMU angular velocity를 포함한 상태의 HDL Localization 결과.</figcaption>
+            </figure>
+            <figure>
+              <div class="media-frame">
+                <video controls playsinline preload="metadata" poster="assets/imu-angular-off.webp?v=20260726b">
+                  <source src="assets/hdl-angular-off.mp4?v=20260726c" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption><strong>Angular velocity off.</strong> IMU angular velocity를 제외한 상태의 비교 결과.</figcaption>
+            </figure>
+          </div>
+          <div class="study-note">
+            <strong>남은 문제</strong>
+            빠른 회전에서 pose가 흔들리는 원인을 더 확인하고, 수동 relocalization 없이도 안정적으로 동작하도록 보완할 필요가 있다.
+          </div>
+          </section>
+
+          <section class="support-section" aria-labelledby="limo-command-title">
+            <h3 id="limo-command-title">FAST-LIO·HDL Localization 실행 설정</h3>
+            <div class="command-block">
+              <pre><code># FAST-LIO map / trajectory 저장
+pcd_save = true
+traj_save_en = true
+
+# Dataset 재생 시 simulation clock 사용
+ros2 bag play gate_01.db3 --clock
+
+# LIMO localization
+ros2 launch hdl_localization hdl_localization_limo.launch.py
+rviz2 -d src/hdl_localization/rviz/hdl_localization_ros2.rviz</code></pre>
+            </div>
+          </section>
+        </section>
+      </article>
+
+      <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <script async crossorigin="anonymous"
+          src="https://giscus.app/client.js"
+          data-repo="noctml/noctml.github.io"
+          data-repo-id="R_kgDOQthLvQ"
+          data-category="General"
+          data-category-id="DIC_kwDOQthLvc4C1ZaY"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="light"
+          data-lang="ko">
+        </script>
+      </section>
+    </main>
+  </div>
+  <script defer src="evidence.js?v=20260726l"></script>
+  <script defer src="../../../assets/content-lightbox.js?v=20260722"></script>
+  <script defer src="script.js?v=20260726h"></script>
+</body>
+</html>

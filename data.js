@@ -266,6 +266,15 @@ window.SITE_DATA = {
         ],
         study: [
             {
+                title: "Isaac-sim Tutorial",
+                desc: "Isaac-sim 입문기",
+                href: "pages/study/Isaac-sim-Tutorial/",
+                thumb: "pages/study/Isaac-sim-Tutorial/assets/thumbnail.webp?v=20260726",
+                published: true,
+                date: "2026-03-06",
+                tags: ["Study", "Isaac Sim", "Isaac Lab", "ROS 2", "KISS-SLAM", "FAST-LIO", "HDL Localization", "LIMO"]
+            },
+            {
                 title: "SLAM-Former 실습",
                 desc: "오픈소스 실습",
                 href: "pages/study/SLAM-Former-Practice/",
@@ -273,6 +282,15 @@ window.SITE_DATA = {
                 published: true,
                 date: "2026-06-28",
                 tags: ["Study", "SLAM-Former", "Visual SLAM", "Open Source", "Dense Reconstruction"]
+            },
+            {
+                title: "MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors",
+                desc: "RAISE LAB Study",
+                href: "pages/study/MASt3R-SLAM/",
+                thumb: "pages/study/MASt3R-SLAM/assets/thumbnail.png?v=20260724",
+                published: true,
+                date: "2026-07-24",
+                tags: ["Study", "Visual SLAM", "Dense SLAM", "MASt3R", "3D Reconstruction"]
             },
             {
                 title: "VGGT-SLAM 2.0: Real-time Dense Feed-forward Scene Reconstruction",

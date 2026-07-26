@@ -6995,3 +6995,530 @@ body .post-body .sectioned-deep-content > details.supplement-toggle.is-focused-s
   font-weight: 760;
   letter-spacing: -0.01em;
 }
+
+/* MonST3R minimal theme pilot: flatter surfaces and a roomier reading rhythm. */
+:root{
+  --minimal-line: color-mix(in srgb, var(--line) 82%, var(--text) 7%);
+  --minimal-soft: color-mix(in srgb, var(--panel2) 62%, var(--bg) 38%);
+  --minimal-note: color-mix(in srgb, var(--panel2) 90%, var(--paper-blue) 2%);
+  --radius: 6px;
+  --shadow: none;
+}
+
+.section{
+  padding: 34px 0 68px;
+  border-top: 0;
+}
+
+.panel{
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.sidebar{
+  background: var(--bg);
+}
+
+.sidebar-card{
+  padding: 4px 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.section-bookmark{
+  gap: 14px;
+  padding-left: 0 !important;
+  border-left: 0 !important;
+}
+
+.bookmark-link{
+  padding: 8px 8px 8px 12px;
+  border-radius: 0;
+  background: transparent !important;
+}
+
+.bookmark-link:hover,
+.bookmark-link.active{
+  background: transparent !important;
+}
+
+.paper-identity{
+  margin-bottom: 0 !important;
+  padding: 0 0 38px !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-title-meta{
+  margin-bottom: 13px !important;
+  font-size: 13px !important;
+}
+
+.paper-meta-card,
+.paper-meta-card:hover{
+  padding: 15px 16px 14px !important;
+  border: 1px solid var(--minimal-line) !important;
+  border-left: 3px solid var(--paper-blue) !important;
+  border-radius: 4px !important;
+  background: var(--bg) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.paper-identity::before,
+.paper-identity::after,
+.paper-meta-card::before,
+.paper-meta-card::after{
+  display: none !important;
+}
+
+.paper-meta-venue,
+.paper-meta-links a,
+.paper-topic-chip{
+  border-radius: 3px !important;
+  box-shadow: none !important;
+}
+
+.paper-map{
+  margin: 0 0 72px !important;
+  padding: 46px 0 58px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-map-head{
+  margin-bottom: 28px;
+}
+
+.post-body .paper-map-head > p{
+  max-width: 780px;
+  padding-left: 18px;
+  line-height: 1.82;
+}
+
+.paper-map .tldr-cues,
+.tldr-cues{
+  gap: 0 !important;
+  margin: 28px 0 34px !important;
+  border-top: 1px solid var(--minimal-line);
+  border-bottom: 1px solid var(--minimal-line);
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.post-body .paper-map .cue-chip,
+.paper-map .cue-chip,
+.cue-chip{
+  min-height: 0 !important;
+  padding: 13px 16px !important;
+  border: 0 !important;
+  border-left: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-map .cue-chip:first-child,
+.cue-chip:first-child{
+  border-left: 0 !important;
+}
+
+.map-grid{
+  gap: 0 !important;
+  margin: 34px 0 !important;
+}
+
+.map-card,
+.map-card-wide{
+  padding: 18px 16px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.map-card-wide{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-bottom: 1px solid var(--minimal-line) !important;
+}
+
+.map-grid > .map-card:not(.map-card-wide) + .map-card:not(.map-card-wide){
+  border-left: 1px solid var(--minimal-line) !important;
+}
+
+.insight-box{
+  margin: 34px 0 40px !important;
+  padding: 10px 0 10px 18px !important;
+  border: 0 !important;
+  border-left: 3px solid color-mix(in srgb, var(--text) 38%, var(--line)) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.map-subsection-title{
+  margin: 44px 0 0 !important;
+  padding: 18px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.map-subsection-title span{
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.flow-diagram{
+  gap: 0 !important;
+  margin: 24px 0 8px !important;
+  padding: 0 !important;
+  border-top: 1px solid var(--minimal-line);
+  border-bottom: 1px solid var(--minimal-line);
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.flow-step{
+  min-height: 108px;
+  padding: 15px 13px !important;
+  border: 0 !important;
+  border-right: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.flow-step:last-child{
+  border-right: 0 !important;
+}
+
+.flow-step::after{
+  display: none !important;
+}
+
+.compare-grid{
+  gap: 0 !important;
+  margin-top: 24px !important;
+  border-top: 1px solid var(--minimal-line);
+  border-bottom: 1px solid var(--minimal-line);
+}
+
+.compare-grid article{
+  padding: 17px 18px !important;
+  border: 0 !important;
+  border-left: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.compare-grid article:first-child{
+  border-left: 0 !important;
+}
+
+.deep-dive{
+  margin-top: 0 !important;
+  padding-top: 54px !important;
+  border-top: 1px solid var(--minimal-line) !important;
+}
+
+.deep-dive-note{
+  margin: 20px 0 34px !important;
+  padding: 9px 0 9px 15px !important;
+  border: 0 !important;
+  border-left: 2px solid color-mix(in srgb, var(--text) 26%, var(--line)) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.post-body .deep-section{
+  margin-top: 76px !important;
+}
+
+.post-body .deep-section:first-child{
+  margin-top: 0 !important;
+}
+
+.post-body .deep-dive .deep-section > h3,
+.post-body .deep-dive .deep-section > h3[class*="block-color-"]{
+  margin: 0 0 28px !important;
+  padding: 16px 0 15px !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-bottom: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.post-body .deep-dive .deep-section > h3::before,
+.post-body .deep-dive .deep-section > h3[class*="block-color-"]::before{
+  display: none !important;
+}
+
+.post-body .deep-section > p{
+  margin-top: 24px !important;
+  margin-bottom: 0 !important;
+  line-height: 1.84;
+}
+
+.post-body .deep-section > figure.image,
+.post-body .deep-section > figure.table-figure,
+.post-body .deep-section > .method-equation-cluster{
+  margin-top: 38px !important;
+  margin-bottom: 42px !important;
+}
+
+.post-body .summary-panel,
+.post-body .summary-panel.summary-panel-soft,
+.post-body .module-note,
+.post-body .visual-summary{
+  margin-top: 38px !important;
+  margin-bottom: 42px !important;
+  padding: 22px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.post-body .problem-ladder,
+.post-body .design-choice-box,
+.post-body .evaluation-table-block,
+.post-body .evaluation-evidence-panel{
+  margin-top: 38px !important;
+  margin-bottom: 42px !important;
+  padding: 22px 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-bottom: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.post-body .section-note,
+.post-body .result-brief{
+  margin-top: 38px !important;
+  margin-bottom: 42px !important;
+  padding: 17px 19px !important;
+  border: 0 !important;
+  border-left: 3px solid color-mix(in srgb, var(--paper-blue) 62%, var(--line)) !important;
+  border-radius: 0 !important;
+  background: var(--minimal-note) !important;
+  box-shadow: none !important;
+}
+
+.post-body .summary-head{
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.post-body .summary-head .section-chip,
+.post-body .section-note-label,
+.post-body .section-note .section-chip,
+.post-body .result-brief .section-chip,
+.post-body .problem-ladder .section-chip,
+.post-body .design-choice-box .section-chip{
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.method-mini-label,
+.evidence-mini-label{
+  margin-top: 42px !important;
+  margin-bottom: 16px !important;
+  padding: 13px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body .post-body .deep-section > .method-step-block{
+  margin-top: 0 !important;
+  margin-bottom: 44px !important;
+}
+
+body .post-body .deep-section > .method-step-block > .subsection-label,
+.post-body .subsection-label{
+  padding: 4px 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.post-body .summary-table-wrap{
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.post-body table.summary-table{
+  border: 0 !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  border-collapse: collapse !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.post-body .summary-table th,
+.post-body .summary-table td{
+  border-right: 0 !important;
+  border-bottom: 1px solid var(--minimal-line) !important;
+}
+
+.post-body .summary-table th{
+  background: color-mix(in srgb, var(--panel) 52%, var(--bg)) !important;
+}
+
+.post-body details.supplement-toggle:not(.is-focused-supplement){
+  margin-top: 36px !important;
+  margin-bottom: 42px !important;
+  border: 0 !important;
+  border-top: 1px solid var(--minimal-line) !important;
+  border-bottom: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.post-body details.supplement-toggle:not(.is-focused-supplement) > summary,
+.post-body details.supplement-toggle:not(.is-focused-supplement)[open] > summary{
+  min-height: 42px;
+  padding: 12px 3px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.post-body details.supplement-toggle:not(.is-focused-supplement)[open]{
+  padding-bottom: 24px !important;
+}
+
+.post-body details.supplement-toggle .toggle-subheading-line > strong{
+  padding: 6px 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--minimal-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.post-body figure.equation{
+  margin-top: 34px !important;
+  margin-bottom: 38px !important;
+}
+
+.post-body figure.equation > .equation-container{
+  border: 1px solid var(--minimal-line) !important;
+  border-radius: 4px !important;
+  background: color-mix(in srgb, var(--panel2) 54%, var(--bg)) !important;
+  box-shadow: none !important;
+}
+
+.post-body figure.image,
+.post-body figure.table-figure{
+  margin-top: 38px !important;
+  margin-bottom: 42px !important;
+}
+
+.post-body figure.image img,
+.post-body figure.table-figure img,
+.copy-image-frame,
+.copy-image-frame > img{
+  border: 0 !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.post-body figure.image figcaption,
+.post-body figure.table-figure figcaption,
+.post-body figure.equation figcaption{
+  margin-top: 12px !important;
+}
+
+.deep-dive-more-btn{
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 720px){
+  .section{
+    padding-bottom: 52px;
+  }
+  .paper-identity{
+    padding-bottom: 30px !important;
+  }
+  .paper-map{
+    margin-bottom: 58px !important;
+    padding: 38px 0 48px !important;
+  }
+  .post-body .paper-map-head > p{
+    padding-left: 12px;
+  }
+  .paper-map .tldr-cues,
+  .tldr-cues{
+    grid-template-columns: 1fr !important;
+  }
+  .post-body .paper-map .cue-chip,
+  .paper-map .cue-chip,
+  .cue-chip{
+    border-left: 0 !important;
+    border-top: 1px solid var(--minimal-line) !important;
+  }
+  .post-body .paper-map .cue-chip:first-child,
+  .paper-map .cue-chip:first-child,
+  .cue-chip:first-child{
+    border-top: 0 !important;
+  }
+  .map-grid > .map-card:not(.map-card-wide) + .map-card:not(.map-card-wide),
+  .compare-grid article{
+    border-left: 0 !important;
+    border-top: 1px solid var(--minimal-line) !important;
+  }
+  .compare-grid article:first-child{
+    border-top: 0 !important;
+  }
+  .flow-step{
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--minimal-line) !important;
+  }
+  .flow-step:last-child{
+    border-bottom: 0 !important;
+  }
+  .post-body .deep-section{
+    margin-top: 60px !important;
+  }
+  .post-body .deep-dive .deep-section > h3,
+  .post-body .deep-dive .deep-section > h3[class*="block-color-"]{
+    padding: 14px 0 !important;
+  }
+}
+/* End MonST3R minimal theme pilot. */
