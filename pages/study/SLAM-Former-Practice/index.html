@@ -190,7 +190,7 @@
 
         <section class="study-section" aria-labelledby="euroc-title">
           <h2 id="euroc-title">3. EuRoC MH01 정량 평가</h2>
-          <p>EuRoC MH01의 cam0 image stream을 <span class="checkpoint-token">V1.1-long</span>으로 처리했다. EuRoC ground truth는 body/IMU pose로 제공되므로 <code>cam0/sensor.yaml</code>의 <code>T_BS</code> extrinsic을 적용해 cam0 pose로 변환하고, quaternion을 TUM 형식의 <code>qx qy qz qw</code> 순서로 저장했다.</p>
+          <p>EuRoC MH01의 cam0 image stream을 <span class="checkpoint-token">V1.1-long</span>으로 처리했다. 정량 평가에는 MASt3R-SLAM에서 제공하는 TUM 형식의 EuRoC ground truth를 가져와 사용했으며, SLAM-Former의 추정 trajectory에 Sim(3) Umeyama alignment를 적용해 비교했다.</p>
           <div class="metric-strip" aria-label="EuRoC MH01 측정 결과">
             <div class="metric-item"><span>Sequence</span><strong>MH01</strong><small>EuRoC Machine Hall 01</small></div>
             <div class="metric-item"><span>ATE RMSE</span><strong>0.584846 m</strong><small>Translation · Sim(3) alignment</small></div>
@@ -322,7 +322,11 @@
 
         <section class="study-section" aria-labelledby="future-title">
           <h2 id="future-title">향후 계획</h2>
-          <p>왜 반복 구조에서 SLAM-Former가 실패하는지 생각해보기.</p>
+          <ul class="observation-list">
+            <li>KITTI의 반복 구조에서 SLAM-Former가 실패하는 원인 분석</li>
+            <li>EuRoC MH01에 대한 3D reconstruction 정량 평가</li>
+            <li>EuRoC MH01에서 다른 baseline method보다 성능이 낮게 나온 원인 분석</li>
+          </ul>
         </section>
       </article>
 
