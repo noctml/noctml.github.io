@@ -124,10 +124,12 @@
       background:transparent;
       box-shadow:none;
     }
-    #paper-reviews{
+    #paper-reviews,
+    #paper-summary{
       padding-top:30px;
     }
-    #paper-reviews .section-head.row h2{
+    #paper-reviews .section-head.row h2,
+    #paper-summary .section-head.row h2{
       font-size:22px;
       letter-spacing:-0.018em;
     }
@@ -830,25 +832,41 @@
           <nav class="topnav" aria-label="Primary">
             <button class="topnav-btn" type="button" data-home-view="study">Study</button>
             <button class="topnav-btn is-active" type="button" data-home-view="projects">Projects</button>
-            <button class="topnav-btn" type="button" data-home-view="papers">Paper Reviews</button>
+            <button class="topnav-btn" type="button" data-home-view="reviews">Paper Reviews</button>
+            <button class="topnav-btn" type="button" data-home-view="summaries">Paper Summary</button>
           </nav>
         </div>
       </header>
 
       <main id="main" class="container">
-        <section id="paper-reviews" class="section" data-home-section="papers" hidden>
+        <section id="paper-reviews" class="section" data-home-section="reviews" hidden>
           <div class="section-head row">
             <div>
               <h2>Paper Reviews</h2>
+            </div>
+          </div>
+
+          <div class="paper-frame" id="reviewList" data-review-list data-mode="archive" data-page-size="5"></div>
+          <div class="pager paper-bottom-pager" aria-label="Paper reviews pagination">
+            <button class="pager-btn" id="reviewPrev" aria-label="Previous paper review page">←</button>
+            <div class="pager-pages" id="reviewPageList" aria-label="Paper review pages"></div>
+            <button class="pager-btn" id="reviewNext" aria-label="Next paper review page">→</button>
+          </div>
+        </section>
+
+        <section id="paper-summary" class="section" data-home-section="summaries" hidden>
+          <div class="section-head row">
+            <div>
+              <h2>Paper Summary</h2>
               <p class="section-credit">with codex</p>
             </div>
           </div>
 
           <div class="paper-frame" id="paperList" data-paper-list data-mode="archive" data-page-size="5"></div>
-          <div class="pager paper-bottom-pager" aria-label="Paper reviews pagination">
-            <button class="pager-btn" id="paperPrev" aria-label="Previous paper review page">←</button>
-            <div class="pager-pages" id="paperPageList" aria-label="Paper review pages"></div>
-            <button class="pager-btn" id="paperNext" aria-label="Next paper review page">→</button>
+          <div class="pager paper-bottom-pager" aria-label="Paper summaries pagination">
+            <button class="pager-btn" id="paperPrev" aria-label="Previous paper summary page">←</button>
+            <div class="pager-pages" id="paperPageList" aria-label="Paper summary pages"></div>
+            <button class="pager-btn" id="paperNext" aria-label="Next paper summary page">→</button>
           </div>
         </section>
 
@@ -888,8 +906,8 @@
     </div>
   </div>
 
-  <script src="data.js?v=isaac-sim-tutorial-20260726c"></script>
+  <script src="data.js?v=content-spaces-20260727"></script>
   <script src="script.js?v=main-cleanup-20260525-light-only-bluegray-20260607"></script>
-  <script src="archive.js?v=default-projects-20260725"></script>
+  <script src="archive.js?v=content-spaces-20260727"></script>
 </body>
 </html>

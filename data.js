@@ -8,7 +8,7 @@ window.SITE_DATA = {
             "Change Detection",
             "Neural Rendering"
         ],
-        paperReviews: [
+        paperSummaries: [
 
 
             {
@@ -264,6 +264,53 @@ window.SITE_DATA = {
                 tags: ["Visual SLAM", "ORB-SLAM2", "Classical SLAM", "Bundle Adjustment"]
             },
         ],
+        paperReviews: [
+            {
+                title: "MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors",
+                desc: "RAISE LAB Study",
+                href: "pages/study/MASt3R-SLAM/",
+                thumb: "pages/study/MASt3R-SLAM/assets/thumbnail.png?v=20260724",
+                published: true,
+                date: "2026-07-24",
+                tags: ["Paper Review", "Visual SLAM", "Dense SLAM", "MASt3R", "3D Reconstruction"]
+            },
+            {
+                title: "VGGT-SLAM 2.0: Real-time Dense Feed-forward Scene Reconstruction",
+                desc: "RAISE LAB Study",
+                href: "pages/study/VGGT-SLAM2.0/",
+                thumb: "pages/study/VGGT-SLAM2.0/assets/thumbnail.png?v=20260716",
+                published: true,
+                date: "2026-07-16",
+                tags: ["Paper Review", "Visual SLAM", "VGGT", "Dense Reconstruction"]
+            },
+            {
+                title: "VGGT4D: Mining Motion Cues in Visual Geometry Transformers for 4D Scene Reconstruction",
+                desc: "RAISE LAB Study",
+                href: "pages/study/VGGT4D/",
+                thumb: "pages/study/VGGT4D/assets/thumbnail.png?v=20260710",
+                published: true,
+                date: "2026-07-10",
+                tags: ["Paper Review", "4D Reconstruction", "VGGT", "Dynamic Scene"]
+            },
+            {
+                title: "Easi3R: Estimating Disentangled Motion from DUSt3R Without Training",
+                desc: "RAISE LAB Study",
+                href: "pages/study/Easi3R/",
+                thumb: "pages/study/Easi3R/assets/thumbnail.png?v=20260710",
+                published: true,
+                date: "2026-07-01",
+                tags: ["Paper Review", "3D Reconstruction", "DUSt3R", "Dynamic Scene"]
+            },
+            {
+                title: "SLAM-Former: Putting SLAM into One Transformer",
+                desc: "RAISE LAB Study",
+                href: "pages/study/SLAM-Former/",
+                thumb: "pages/study/SLAM-Former/assets/thumbnail.png?v=20260710",
+                published: true,
+                date: "2026-06-26",
+                tags: ["Paper Review", "Visual SLAM", "Transformer", "Dense SLAM"]
+            }
+        ],
         study: [
             {
                 title: "Isaac-sim Tutorial",
@@ -282,51 +329,6 @@ window.SITE_DATA = {
                 published: true,
                 date: "2026-06-28",
                 tags: ["Study", "SLAM-Former", "Visual SLAM", "Open Source", "Dense Reconstruction"]
-            },
-            {
-                title: "MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors",
-                desc: "RAISE LAB Study",
-                href: "pages/study/MASt3R-SLAM/",
-                thumb: "pages/study/MASt3R-SLAM/assets/thumbnail.png?v=20260724",
-                published: true,
-                date: "2026-07-24",
-                tags: ["Study", "Visual SLAM", "Dense SLAM", "MASt3R", "3D Reconstruction"]
-            },
-            {
-                title: "VGGT-SLAM 2.0: Real-time Dense Feed-forward Scene Reconstruction",
-                desc: "RAISE LAB Study",
-                href: "pages/study/VGGT-SLAM2.0/",
-                thumb: "pages/study/VGGT-SLAM2.0/assets/thumbnail.png?v=20260716",
-                published: true,
-                date: "2026-07-16",
-                tags: ["Study", "Visual SLAM", "VGGT", "Dense Reconstruction"]
-            },
-            {
-                title: "VGGT4D: Mining Motion Cues in Visual Geometry Transformers for 4D Scene Reconstruction",
-                desc: "RAISE LAB Study",
-                href: "pages/study/VGGT4D/",
-                thumb: "pages/study/VGGT4D/assets/thumbnail.png?v=20260710",
-                published: true,
-                date: "2026-07-10",
-                tags: ["Study", "4D Reconstruction", "VGGT", "Dynamic Scene"]
-            },
-            {
-                title: "Easi3R: Estimating Disentangled Motion from DUSt3R Without Training",
-                desc: "RAISE LAB Study",
-                href: "pages/study/Easi3R/",
-                thumb: "pages/study/Easi3R/assets/thumbnail.png?v=20260710",
-                published: true,
-                date: "2026-07-01",
-                tags: ["Study", "3D Reconstruction", "DUSt3R", "Dynamic Scene"]
-            },
-            {
-                title: "SLAM-Former: Putting SLAM into One Transformer",
-                desc: "RAISE LAB Study",
-                href: "pages/study/SLAM-Former/",
-                thumb: "pages/study/SLAM-Former/assets/thumbnail.png?v=20260710",
-                published: true,
-                date: "2026-06-26",
-                tags: ["Study", "Visual SLAM", "Transformer", "Dense SLAM"]
             },
             {
                 title: "ORB-SLAM2 in macOS",
