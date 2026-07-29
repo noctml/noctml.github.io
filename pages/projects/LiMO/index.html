@@ -1153,10 +1153,75 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .challenge {
+      display: block;
+    }
+
+    .debug-log {
+      border-top: 1px solid var(--line);
+    }
+
+    .debug-case {
+      display: grid;
+      grid-template-columns: minmax(150px, 0.28fr) minmax(0, 1fr);
+      gap: 32px;
+      border-bottom: 1px solid var(--line);
+      padding: 28px 0;
+    }
+
+    .debug-case h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .debug-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      margin: 0;
+    }
+
+    .debug-flow div {
+      min-width: 0;
+    }
+
+    .debug-flow dt {
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .debug-flow div:last-child dt {
+      color: #c94343;
+    }
+
+    .debug-flow dd {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
     @media (max-width: 680px) {
       .demo-media,
       .result-media {
         grid-template-columns: 1fr;
+      }
+
+      .debug-case,
+      .debug-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .debug-case {
+        gap: 18px;
+        padding: 24px 0;
+      }
+
+      .debug-flow {
+        gap: 18px;
       }
     }
   </style>
@@ -1199,6 +1264,7 @@
         <a href="#demo">데모</a>
         <a href="#architecture">구조</a>
         <a href="#implementation">구현</a>
+        <a href="#debugging">문제 해결</a>
         <a href="#results">결과</a>
         <a href="#retrospective">회고</a>
         <a href="#future">향후 계획</a>
@@ -1384,29 +1450,88 @@
       </div>
     </section>
 
-    <section>
+    <section id="debugging">
       <div class="wrap challenge">
         <div class="section-head">
           <p class="section-label">Debugging</p>
-          <h2>디버깅 및 개선</h2>
+          <h2>문제 해결 과정</h2>
           <p class="lead">
-            실험 중 발생한 문제는 센서값 자체보다 판단 조건에 가까워, 프레임별 디버깅 화면과 실제 주행 영상을 함께 보며 원인을 좁혔다.
+            실제 주행에서 발생한 문제를 프레임별 디버깅 화면과 주행 영상으로 확인하고, 실패한 접근의 원인을 다음 설계에 반영했다.
           </p>
         </div>
-        <ul class="challenge-list">
-          <li>
-            <strong>흰 배경 오인식</strong>
-            <span>HLS 범위 재조정과 ROI 제한으로 차선 이외의 흰색 영역 영향 축소</span>
-          </li>
-          <li>
-            <strong>지그재그 차선 다중 검출</strong>
-            <span>ROI 높이와 margin을 조정해 한 번에 한 패턴만 판별</span>
-          </li>
-          <li>
-            <strong>LiDAR 단독 회피의 무한 루프</strong>
-            <span>LiDAR는 회피 트리거, 방향 선택은 Depth ROI 비교로 역할 분리</span>
-          </li>
-        </ul>
+        <div class="debug-log">
+          <article class="debug-case">
+            <h3>흰 배경을 차선으로 오인식</h3>
+            <dl class="debug-flow">
+              <div>
+                <dt>발생한 문제</dt>
+                <dd>HLS 색상 범위만으로 차선을 분리하자 트랙 중앙과 외곽의 흰 배경, 출발선과 장애물 배치 구역까지 차선 후보에 포함됐다.</dd>
+              </div>
+              <div>
+                <dt>해결 과정</dt>
+                <dd>HLS 마스크에 Canny Edge를 결합해 경계 성분만 남기고, BEV·ROI와 Hough 직선 검출을 적용했다. 실제 트랙을 보며 밝기 범위도 다시 조정했다.</dd>
+              </div>
+              <div>
+                <dt>얻은 교훈</dt>
+                <dd>색상 임계값 하나에 의존하기보다 색과 형상 조건을 함께 사용하고, 실제 환경에서 발생하는 유사한 색의 구조물까지 검증해야 했다.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="debug-case">
+            <h3>지그재그와 한쪽 차선 소실</h3>
+            <dl class="debug-flow">
+              <div>
+                <dt>발생한 문제</dt>
+                <dd>지그재그 구간을 여러 차선으로 인식했고, 도로가 넓어져 한쪽 차선이 사라지면 기존 로직이 이를 좌·우회전으로 잘못 판단했다.</dd>
+              </div>
+              <div>
+                <dt>해결 과정</dt>
+                <dd>ROI에는 지그재그 한 패턴만 들어오도록 범위를 좁혔다. 직선의 기울기와 중앙 margin으로 좌우 차선을 구분하고, 검출이 끊기면 최근 대표 직선을 사용했다.</dd>
+              </div>
+              <div>
+                <dt>얻은 교훈</dt>
+                <dd>한 프레임의 검출 결과만으로 판단하면 순간적인 차선 소실에 취약했다. 이전 프레임의 상태를 보존하는 fallback이 주행의 급격한 변화를 줄였다.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="debug-case">
+            <h3>직진 진동과 부족한 조향각</h3>
+            <dl class="debug-flow">
+              <div>
+                <dt>발생한 문제</dt>
+                <dd>차선 중심 오차를 사용한 초기 PID 제어로도 좌우 진동이 남았고, 코너 진입 시점이 빨랐다. 실제 조향 범위와 바퀴 정렬에도 한계가 있었다.</dd>
+              </div>
+              <div>
+                <dt>해결 과정</dt>
+                <dd>ROI와 제어값을 다시 조정하고 회전량에 따라 속도를 낮췄다. 차선 기울기와 최근 대표선의 가중치를 조향에 반영하고, 이탈 가능성이 있을 때는 안전 후진을 사용했다.</dd>
+              </div>
+              <div>
+                <dt>얻은 교훈</dt>
+                <dd>제어 문제를 gain만으로 해결하기보다 인식 범위와 실제 구동계의 한계를 함께 확인해야 했다. 불확실한 상황을 위한 안전 동작도 제어기의 일부였다.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="debug-case">
+            <h3>LiDAR 단독 회피의 무한 루프</h3>
+            <dl class="debug-flow">
+              <div>
+                <dt>발생한 문제</dt>
+                <dd>LiDAR 데이터를 두 노드로 나누는 시도에서는 point cloud queue 문제가 발생했다. 단순 우측 후진 방식은 전진·후진을 반복했고, 중앙 통로도 장애물로 판단했다.</dd>
+              </div>
+              <div>
+                <dt>해결 과정</dt>
+                <dd>드라이버 구성을 원상복구하고 LiDAR ROI를 전방으로 좁혔다. LiDAR는 접근 감지와 안전 후진만 담당하고, Depth 카메라가 좌·중·우 빈 공간을 비교해 회피 방향을 선택하도록 역할을 분리했다.</dd>
+              </div>
+              <div>
+                <dt>얻은 교훈</dt>
+                <dd>센서 수를 늘리거나 데이터를 복제하는 것보다 각 센서가 잘하는 판단을 분리하는 편이 안정적이었다. 임시 보정의 한계가 반복되면 판단 구조 자체를 바꿔야 했다.</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
       </div>
     </section>
 
