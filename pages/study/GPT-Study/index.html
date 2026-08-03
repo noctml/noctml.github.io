@@ -1,123 +1,38 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Andrej Karpathy 유튜브 강의를 따라 character-level GPT를 구현한 학습 기록." />
-  <meta name="author" content="Wooseok Song" />
-  <title>[Study] GPT Study | Insighted</title>
-  <link rel="icon" type="image/png" sizes="48x48" href="../../../assets/favicon.png" />
-  <link rel="stylesheet" href="../../../assets/site-theme.css?v=study-20260705" />
-  <link rel="stylesheet" href="../../../styles.css?v=study-20260705" />
-  <link rel="stylesheet" href="../../../assets/content-lightbox.css?v=20260722" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
-  <style>
-    body{min-height:100vh;background:var(--bg);color:var(--text)}
-    .study-shell{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:22px 0 42px}
-    .study-topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 16px;background:var(--bg);backdrop-filter:none}
-    .study-brand{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-size:14px;font-weight:760;letter-spacing:-.01em}
-    .study-brand img{width:30px;height:30px;border-radius:8px;object-fit:cover}
-    .study-hero{padding:28px 0 20px;border-bottom:1px solid var(--line)}
-    .study-kicker{margin:0 0 9px;color:var(--muted);font-size:11px;font-weight:760;letter-spacing:.08em;text-transform:uppercase}
-    .study-hero h1{margin:0;max-width:900px;font-size:clamp(18px,2.6vw,28px);line-height:1.18;letter-spacing:-.025em}
-    .study-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
-    .study-meta-item{min-height:72px;padding:13px 14px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--panel) 34%,transparent)}
-    .study-meta-item span{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:760;letter-spacing:.06em;text-transform:uppercase}
-    .study-meta-item strong{display:block;color:var(--text);font-size:13px;line-height:1.35}
-    .study-source-link{display:inline;color:inherit;text-decoration:none}
-    .study-article{width:min(900px,100%);margin:0 auto}
-    .study-section{padding:38px 0 10px}
-    .study-section + .study-section{margin-top:4px}
-    .study-section h2{margin:0;font-size:22px;line-height:1.35;letter-spacing:-.02em}
-    .study-section h3{margin:28px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.015em}
-    .study-section p{margin:14px 0 0;font-size:16px;line-height:1.8;word-break:keep-all}
-    .study-section :not(pre)>code{
-      display:inline-block;
-      padding:.08em .38em;
-      border:1px solid #cbdff5;
-      border-radius:4px;
-      background:#edf5ff;
-      color:#5b89bd;
-      font-size:.92em;
-      font-weight:400;
-      line-height:1.35;
-      vertical-align:.02em;
-      white-space:nowrap;
-    }
-    .flow-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:24px}
-    .flow-step{min-height:92px;padding:12px;border-top:2px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent)}
-    .flow-step span{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.06em}
-    .flow-step strong{display:block;font-size:13px;line-height:1.45}
-    .table-wrap{margin-top:20px;overflow-x:auto}
-    .study-table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.6}
-    .study-table th,.study-table td{padding:11px 12px;border:0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-    .study-table th{color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-    .study-note{margin-top:22px;padding:14px 16px;border-left:3px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent);font-size:14px;line-height:1.7}
-    .study-note strong{display:block;margin-bottom:4px}
-    .study-figure{width:min(760px,100%);margin:24px auto 0}
-    .study-figure.is-narrow{width:min(520px,100%)}
-    .study-figure img{display:block;max-width:100%;max-height:560px;width:auto;height:auto;margin:0 auto;object-fit:contain}
-    .study-figure figcaption,.study-equation figcaption{width:fit-content;max-width:min(100%,680px);margin:9px auto 0;color:var(--muted);font-size:12px;line-height:1.5;text-align:left}
-    .study-equation{width:min(760px,100%);margin:24px auto 0}
-    .math-block{padding:18px 20px;background:color-mix(in srgb,var(--panel) 28%,transparent);font-size:17px;text-align:center}
-    .math-block .katex-display{margin:0}
-    .study-section .katex{line-height:1.2}
-    .figure-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;margin-top:24px}
-    .figure-pair .study-figure{display:grid;grid-template-rows:280px auto;width:100%;margin:0}
-    .figure-pair .study-figure img{align-self:center;width:100%;height:280px;max-height:none;object-fit:contain}
-    .code-details{margin-top:20px;border:1px solid var(--line);border-radius:6px;background:color-mix(in srgb,var(--panel) 18%,transparent)}
-    .code-details summary{padding:13px 14px;cursor:pointer;color:var(--text);font-size:13px;font-weight:760;list-style-position:inside}
-    .code-details pre{max-width:100%;margin:0 0 14px;padding:16px;overflow:auto;border-radius:5px;background:var(--code-bg);color:var(--code-text);font-size:12px;line-height:1.65;tab-size:2}
-    .model-path{display:flex;align-items:stretch;gap:8px;margin-top:24px}
-    .model-path span{display:flex;flex:1 1 0;align-items:center;justify-content:center;min-height:58px;padding:10px;border:1px solid var(--line);font-size:12px;font-weight:720;line-height:1.4;text-align:center}
-    .model-path i{display:flex;align-items:center;color:var(--muted);font-style:normal}
-    .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
-    .stage-item{padding:17px 18px;border-top:2px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent)}
-    .stage-item h3{margin:0;font-size:16px}
-    .stage-item p{margin-top:8px;font-size:14px;line-height:1.7}
-    .comments{margin-top:12px;padding-top:18px;border-top:1px solid var(--line)}
-    .comments h2{margin:0 0 14px;font-size:18px;line-height:1.3;letter-spacing:-.01em}
-    @media(max-width:760px){
-      .study-shell{width:min(100% - 24px,1120px);padding-top:10px}
-      .study-topbar{align-items:flex-start;flex-direction:column}
-      .study-hero h1{font-size:24px}
-      .study-meta{grid-template-columns:1fr 1fr}
-      .flow-grid{grid-template-columns:1fr 1fr}
-      .flow-step:last-child{grid-column:1/-1}
-      .figure-pair,.stage-grid{grid-template-columns:1fr}
-      .figure-pair .study-figure{display:block}
-      .figure-pair .study-figure img{width:auto;height:auto;max-height:420px}
-      .model-path{display:grid;grid-template-columns:1fr}
-      .model-path i{justify-content:center;transform:rotate(90deg)}
-      .study-section p{font-size:15px}
-    }
-  </style>
-</head>
-<body>
-  <div class="study-shell">
-    <header class="study-topbar">
-      <a class="study-brand" href="../../../index.html#study" aria-label="Study 목록으로 이동">
-        <img src="../../../assets/avatar.jpg" alt="Wooseok Song" />
-        <span>Study</span>
-      </a>
-    </header>
+---
+layout: single
+title: "GPT Study"
+description: "Andrej Karpathy 유튜브 강의 정리"
+permalink: /pages/study/GPT-Study/
+author_profile: true
+comments: true
+share: false
+related: false
+math: true
+classes:
+  - wide
+  - study-article-page
+page_css:
+  - /assets/css/study-article.css?v=20260803k
+  - /assets/content-lightbox.css?v=20260722
+page_js:
+  - /assets/content-lightbox.js?v=20260802
+---
 
-    <main>
-      <section class="study-hero">
-        <p class="study-kicker">Study Notes</p>
-        <h1>GPT Study</h1>
-        <div class="study-meta" aria-label="Study metadata">
-          <div class="study-meta-item"><span>Period</span><strong>2025.12.23 - 12.26</strong></div>
-          <div class="study-meta-item"><span>Format</span><strong>Lecture Notes · Code</strong></div>
-          <div class="study-meta-item"><span>Source</span><strong><a class="study-source-link" href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener noreferrer">Andrej Karpathy - Let's build GPT: from scratch, in code, spelled out.</a></strong></div>
-          <div class="study-meta-item"><span>Topic</span><strong>Decoder-only Transformer</strong></div>
-        </div>
-      </section>
+<div class="study-shell">
+  <header class="study-identity">
+    <a class="detail-category-link" href="/#study">Study</a>
+    <h1>GPT Study</h1>
+  </header>
+  <section class="study-hero" aria-label="Study metadata">
+    <div class="study-meta">
+      <div class="study-meta-item"><span>Period</span><strong>2025.12.23 - 12.26</strong></div>
+      <div class="study-meta-item"><span>Format</span><strong>Lecture Notes · Code</strong></div>
+      <div class="study-meta-item"><span>Source</span><strong><a class="study-source-link" href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener noreferrer">Andrej Karpathy - Let's build GPT: from scratch, in code, spelled out.</a></strong></div>
+      <div class="study-meta-item"><span>Topic</span><strong>Decoder-only Transformer</strong></div>
+    </div>
+  </section>
 
-      <article class="study-article">
+<article class="study-article">
         <section class="study-section" aria-labelledby="goal-title">
           <h2 id="goal-title">강의 목표</h2>
           <p>Andrej Karpathy의 강의는 Tiny Shakespeare 데이터와 character-level tokenizer에서 출발해 next-token prediction을 수행하는 작은 GPT를 PyTorch로 직접 구현하고, Bigram language model부터 causal self-attention과 Transformer block까지 차례로 추가하면서 각 구성 요소가 필요한 이유를 확인한다.</p>
@@ -210,7 +125,7 @@ def get_batch(split):
           <h3>왜 \(\sqrt{d_k}\)로 나누는가?</h3>
           <p>Query와 Key의 차원이 커질수록 내적의 분산도 커진다. 큰 score를 그대로 softmax에 넣으면 분포가 한 위치에 지나치게 몰려 gradient가 불안정해질 수 있으므로, \(\sqrt{d_k}\)로 나눠 scale을 맞춘다.</p>
           <figure class="study-figure">
-            <img src="assets/softmax-scale.png?v=20260722" width="2750" height="1038" alt="Attention score scale에 따른 softmax 분포 비교" loading="lazy" />
+            <img src="assets/softmax-scale.png?v=20260722" width="2750" height="1038" alt="Attention score scale에 따른 softmax 분포 비교" loading="lazy" class="content-lightbox-trigger">
             <figcaption><strong>Softmax scale experiment.</strong> Score의 크기가 커질수록 분포가 더 뾰족해지는 현상을 확인한다.</figcaption>
           </figure>
           <details class="code-details"><summary>Causal Self-Attention 핵심 코드 보기</summary><pre><code>k = self.key(x)
@@ -229,11 +144,11 @@ out = wei @ v</code></pre></details>
           <p>Karpathy는 Transformer block을 token 사이의 <strong>communication</strong>을 담당하는 Multi-Head Self-Attention과, 각 token이 얻은 정보를 개별적으로 처리하는 <strong>computation</strong> 단계인 Feed-Forward Network의 조합으로 설명한다.</p>
           <div class="figure-pair">
             <figure class="study-figure">
-              <img src="assets/transformer-block.png?v=20260722" width="1038" height="856" alt="Transformer encoder와 decoder block 구조" loading="lazy" />
+              <img src="assets/transformer-block.png?v=20260722" width="1038" height="856" alt="Transformer encoder와 decoder block 구조" loading="lazy" class="content-lightbox-trigger">
               <figcaption><strong>Transformer blocks.</strong> Attention과 Feed-Forward가 residual path 및 normalization과 결합된다.</figcaption>
             </figure>
             <figure class="study-figure">
-              <img src="assets/residual-learning.png?v=20260722" width="1206" height="680" alt="Residual connection 구조" loading="lazy" />
+              <img src="assets/residual-learning.png?v=20260722" width="1206" height="680" alt="Residual connection 구조" loading="lazy" class="content-lightbox-trigger">
               <figcaption><strong>Residual connection.</strong> 입력을 변환 경로의 출력에 직접 더해 gradient의 통로를 보존한다.</figcaption>
             </figure>
           </div>
@@ -273,7 +188,7 @@ out = wei @ v</code></pre></details>
           <h2 id="decoder-title">5. 구현 결과는 Decoder-only Transformer</h2>
           <p>원 논문의 Transformer는 encoder와 decoder로 구성된다. Encoder는 입력 전체를 양방향으로 읽고, decoder는 causal mask를 사용하며 encoder output을 cross-attention으로 참고한다. 반면 이 강의에서 만든 언어 모델은 encoder와 cross-attention 없이 masked self-attention만 쌓은 decoder-only 구조다.</p>
           <figure class="study-figure is-narrow">
-            <img src="assets/transformer-architecture.png?v=20260722" width="848" height="1304" alt="Attention Is All You Need의 전체 Transformer 구조" loading="lazy" />
+            <img src="assets/transformer-architecture.png?v=20260722" width="848" height="1304" alt="Attention Is All You Need의 전체 Transformer 구조" loading="lazy" class="content-lightbox-trigger">
             <figcaption><strong>Original Transformer architecture.</strong> 강의 구현은 그림의 decoder에서 cross-attention을 제거한 causal decoder-only 변형이다.</figcaption>
           </figure>
           <div class="model-path" aria-label="Decoder-only GPT data flow">
@@ -290,26 +205,4 @@ out = wei @ v</code></pre></details>
           </div>
         </section>
       </article>
-
-      <section class="comments" id="comments">
-        <h2>Comments</h2>
-        <script async crossorigin="anonymous"
-          src="https://giscus.app/client.js"
-          data-repo="noctml/noctml.github.io"
-          data-repo-id="R_kgDOQthLvQ"
-          data-category="General"
-          data-category-id="DIC_kwDOQthLvc4C1ZaY"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="light"
-          data-lang="ko">
-        </script>
-      </section>
-    </main>
-  </div>
-  <script defer src="../../../assets/content-lightbox.js?v=20260722"></script>
-</body>
-</html>
+</div>

@@ -1,0 +1,12 @@
+FROM ruby:3.3-alpine
+
+RUN apk add --no-cache build-base git nodejs openssl-dev yaml-dev
+
+WORKDIR /srv/jekyll
+
+COPY Gemfile ./
+RUN bundle install
+
+EXPOSE 4000
+
+CMD ["sh", "-c", "node scripts/build-search-index.mjs && bundle exec jekyll serve --host 0.0.0.0 --livereload"]

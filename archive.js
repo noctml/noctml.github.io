@@ -4,7 +4,13 @@
   const reviews = sortByDate(data.paperReviews || []);
   const studies = sortByDate(data.study || data.studies || []);
   const projects = sortByDate(data.projects || []);
-  const configuredPaperGroups = data.paperGroups || [];
+  let activeTags = Array.from(new Set(
+    new URLSearchParams(window.location.search)
+      .getAll("tag")
+      .map((tag) => tag.trim())
+      .filter(Boolean)
+  ));
+  const filterRenderers = [];
 
   const navArea = document.body?.dataset?.area || "";
   document.querySelectorAll("[data-nav-area]").forEach((link) => {
@@ -15,7 +21,10 @@
   renderReviews();
   renderStudy();
   renderProjects();
+  setupSidebarCounts();
   setupHomeViewSwitch();
+  setupTagControls();
+  renderActiveTagFilters();
 
   function sortByDate(items) {
     return items.slice().sort((a, b) => dateValue(b.date) - dateValue(a.date));
@@ -46,7 +55,10 @@
 
   function formatDate(value) {
     if (!value) return "";
-    return String(value).trim().replace(/-/g, ".");
+    const normalized = String(value).trim();
+    const match = normalized.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!match) return normalized.replace(/-/g, ".");
+    return `${match[1]}년 ${match[2]}월 ${match[3]}일`;
   }
 
   function parseNumber(value, fallback) {
@@ -54,66 +66,51 @@
     return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
   }
 
-  function uniquePaperGroups(visiblePapers) {
-    const discovered = Array.from(new Set(visiblePapers.map((item) => item.group).filter(Boolean)));
-    if (!configuredPaperGroups.length) return discovered;
-    const configured = configuredPaperGroups.filter((group) => discovered.includes(group));
-    const extras = discovered.filter((group) => !configured.includes(group));
-    return [...configured, ...extras];
+  function filterByActiveTags(items) {
+    if (!activeTags.length) return items;
+    const normalizedTags = activeTags.map((tag) => tag.toLocaleLowerCase());
+    return items.filter((item) => {
+      const tags = (Array.isArray(item.tags) ? item.tags : [])
+        .map((tag) => String(tag).toLocaleLowerCase());
+      return normalizedTags.every((tag) => tags.includes(tag));
+    });
+  }
+
+  function renderArchiveItems(items, renderer) {
+    if (items.length) return items.map(renderer).join("");
+    return `<p class="archive-filter-empty">선택한 태그 조합에 해당하는 게시물이 없습니다.</p>`;
   }
 
   function renderPapers() {
     const listEl = document.querySelector("[data-paper-list]");
     if (!listEl) return;
 
-    const groupEl = document.getElementById("paperGroupList");
     const prevEl = document.getElementById("paperPrev");
     const nextEl = document.getElementById("paperNext");
     const infoEl = document.getElementById("paperPageInfo");
     const pageListEl = document.getElementById("paperPageList");
+    const pagerEl = pageListEl?.closest(".pager");
     const mode = listEl.dataset.mode || "archive";
     const isPreview = mode === "preview";
-    const published = papers.filter((item) => item.published !== false);
+    const basePublished = papers.filter((item) => item.published !== false);
     const pageSize = parseNumber(listEl.dataset.pageSize, isPreview ? parseNumber(listEl.dataset.limit, 5) : 12);
     const limit = isPreview ? parseNumber(listEl.dataset.limit, pageSize) : Infinity;
 
-    let activeGroup = "All";
     let pageIndex = 0;
 
-    const paperGroupCount = (group) => {
-      if (group === "All") return published.length;
-      return published.filter((item) => item.group === group).length;
-    };
-
-    const renderGroups = () => {
-      if (!groupEl || isPreview) return;
-      const groups = ["All", ...uniquePaperGroups(published)];
-      groupEl.innerHTML = groups.map((group) => {
-        const active = group === activeGroup ? " is-active" : "";
-        return `
-          <button class="paper-group-btn${active}" type="button" data-paper-group="${safeAttr(group)}" aria-pressed="${group === activeGroup}">
-            <span>${safeText(group)}</span>
-            <span class="paper-group-count">${paperGroupCount(group)}</span>
-          </button>
-        `;
-      }).join("");
-    };
-
     const render = (shouldAlignList = false) => {
-      const filtered = activeGroup === "All"
-        ? published
-        : published.filter((item) => item.group === activeGroup);
-      const scoped = isPreview ? filtered.slice(0, limit) : filtered;
+      const published = filterByActiveTags(basePublished);
+      const scoped = isPreview ? published.slice(0, limit) : published;
       const pages = chunk(scoped, pageSize);
       const total = Math.max(1, pages.length);
       if (pageIndex >= total) pageIndex = 0;
       const pageItems = isPreview ? scoped : (pages[pageIndex] || []);
 
-      renderGroups();
-      listEl.innerHTML = pageItems.map(renderPaperCard).join("");
+      listEl.innerHTML = renderArchiveItems(pageItems, renderPaperCard);
 
       if (infoEl) infoEl.textContent = `${pageIndex + 1} / ${total}`;
       if (pageListEl) renderPageNumbers(total);
+      if (pagerEl) pagerEl.hidden = scoped.length === 0;
       if (prevEl) prevEl.disabled = pageIndex === 0;
       if (nextEl) nextEl.disabled = pageIndex >= total - 1;
       if (shouldAlignList) alignPaperListToTop();
@@ -138,16 +135,6 @@
       });
     };
 
-    if (groupEl && !isPreview) {
-      groupEl.addEventListener("click", (event) => {
-        const btn = event.target.closest("[data-paper-group]");
-        if (!btn) return;
-        activeGroup = btn.dataset.paperGroup || "All";
-        pageIndex = 0;
-        render(true);
-      });
-    }
-
     if (prevEl) {
       prevEl.addEventListener("click", () => {
         if (pageIndex === 0) return;
@@ -158,10 +145,7 @@
 
     if (nextEl) {
       nextEl.addEventListener("click", () => {
-        const filtered = activeGroup === "All"
-          ? published
-          : published.filter((item) => item.group === activeGroup);
-        const total = Math.max(1, chunk(filtered, pageSize).length);
+        const total = Math.max(1, chunk(filterByActiveTags(basePublished), pageSize).length);
         if (pageIndex >= total - 1) return;
         pageIndex += 1;
         render(true);
@@ -179,29 +163,15 @@
       });
     }
 
+    filterRenderers.push(() => {
+      pageIndex = 0;
+      render();
+    });
     render();
   }
 
   function renderPaperCard(item) {
-    const title = safeText(item.title);
-    const titleAttr = safeAttr(item.title);
-    const desc = safeText(item.desc);
-    const date = safeText(formatDate(item.date));
-    const thumb = safeAttr(item.thumb || "");
-    const href = safeAttr(item.href || "#");
-
-    return `
-      <a class="paper-card" href="${href}">
-        <div class="paper-thumb">
-          ${thumb ? `<img src="${thumb}" alt="${titleAttr} thumbnail" loading="lazy" />` : ``}
-        </div>
-        <div class="paper-body">
-          <div class="row-title">${title}</div>
-          <div class="row-sub muted">${desc}</div>
-          ${date ? `<div class="paper-date">${date}</div>` : ``}
-        </div>
-      </a>
-    `;
+    return renderArchiveItem(item, "paper-summary");
   }
 
   function renderReviews() {
@@ -211,23 +181,26 @@
     const prevEl = document.getElementById("reviewPrev");
     const nextEl = document.getElementById("reviewNext");
     const pageListEl = document.getElementById("reviewPageList");
+    const pagerEl = pageListEl?.closest(".pager");
     const mode = listEl.dataset.mode || "archive";
     const isPreview = mode === "preview";
-    const published = reviews.filter((item) => item.published !== false);
+    const basePublished = reviews.filter((item) => item.published !== false);
     const pageSize = parseNumber(listEl.dataset.pageSize, isPreview ? parseNumber(listEl.dataset.limit, 5) : 5);
     const limit = isPreview ? parseNumber(listEl.dataset.limit, pageSize) : Infinity;
 
     let pageIndex = 0;
 
     const render = (shouldAlignList = false) => {
+      const published = filterByActiveTags(basePublished);
       const scoped = published.slice(0, limit);
       const pages = chunk(scoped, pageSize);
       const total = Math.max(1, pages.length);
       if (pageIndex >= total) pageIndex = 0;
       const pageItems = isPreview ? scoped : (pages[pageIndex] || []);
 
-      listEl.innerHTML = pageItems.map(renderPaperCard).join("");
+      listEl.innerHTML = renderArchiveItems(pageItems, (item) => renderArchiveItem(item, "paper-review"));
       if (pageListEl) renderPageNumbers(total);
+      if (pagerEl) pagerEl.hidden = scoped.length === 0;
       if (prevEl) prevEl.disabled = pageIndex === 0;
       if (nextEl) nextEl.disabled = pageIndex >= total - 1;
       if (shouldAlignList) alignReviewListToTop();
@@ -262,7 +235,7 @@
 
     if (nextEl) {
       nextEl.addEventListener("click", () => {
-        const total = Math.max(1, chunk(published, pageSize).length);
+        const total = Math.max(1, chunk(filterByActiveTags(basePublished), pageSize).length);
         if (pageIndex >= total - 1) return;
         pageIndex += 1;
         render(true);
@@ -280,6 +253,10 @@
       });
     }
 
+    filterRenderers.push(() => {
+      pageIndex = 0;
+      render();
+    });
     render();
   }
 
@@ -290,23 +267,26 @@
     const prevEl = document.getElementById("studyPrev");
     const nextEl = document.getElementById("studyNext");
     const pageListEl = document.getElementById("studyPageList");
+    const pagerEl = pageListEl?.closest(".pager");
     const mode = listEl.dataset.mode || "archive";
     const isPreview = mode === "preview";
-    const published = studies.filter((item) => item.published !== false);
+    const basePublished = studies.filter((item) => item.published !== false);
     const pageSize = parseNumber(listEl.dataset.pageSize, isPreview ? parseNumber(listEl.dataset.limit, 5) : 5);
     const limit = isPreview ? parseNumber(listEl.dataset.limit, pageSize) : Infinity;
 
     let pageIndex = 0;
 
     const render = (shouldAlignList = false) => {
+      const published = filterByActiveTags(basePublished);
       const scoped = published.slice(0, limit);
       const pages = chunk(scoped, pageSize);
       const total = Math.max(1, pages.length);
       if (pageIndex >= total) pageIndex = 0;
       const pageItems = isPreview ? scoped : (pages[pageIndex] || []);
 
-      listEl.innerHTML = pageItems.map(renderStudyCard).join("");
+      listEl.innerHTML = renderArchiveItems(pageItems, renderStudyCard);
       if (pageListEl) renderPageNumbers(total);
+      if (pagerEl) pagerEl.hidden = scoped.length === 0;
       if (prevEl) prevEl.disabled = pageIndex === 0;
       if (nextEl) nextEl.disabled = pageIndex >= total - 1;
       if (shouldAlignList) alignStudyListToTop();
@@ -341,7 +321,7 @@
 
     if (nextEl) {
       nextEl.addEventListener("click", () => {
-        const total = Math.max(1, chunk(published, pageSize).length);
+        const total = Math.max(1, chunk(filterByActiveTags(basePublished), pageSize).length);
         if (pageIndex >= total - 1) return;
         pageIndex += 1;
         render(true);
@@ -359,29 +339,15 @@
       });
     }
 
+    filterRenderers.push(() => {
+      pageIndex = 0;
+      render();
+    });
     render();
   }
 
   function renderStudyCard(item) {
-    const title = safeText(item.title);
-    const titleAttr = safeAttr(item.title);
-    const desc = safeText(item.desc);
-    const date = safeText(formatDate(item.date));
-    const thumb = safeAttr(item.thumb || "");
-    const href = safeAttr(item.href || "#");
-
-    return `
-      <a class="paper-card" href="${href}">
-        <div class="paper-thumb">
-          ${thumb ? `<img src="${thumb}" alt="${titleAttr} thumbnail" loading="lazy" />` : ``}
-        </div>
-        <div class="paper-body">
-          <div class="row-title">${title}</div>
-          <div class="row-sub muted">${desc}</div>
-          ${date ? `<div class="paper-date">${date}</div>` : ``}
-        </div>
-      </a>
-    `;
+    return renderArchiveItem(item, "study");
   }
 
   function renderProjects() {
@@ -391,23 +357,26 @@
     const prevEl = document.getElementById("projectPrev");
     const nextEl = document.getElementById("projectNext");
     const pageListEl = document.getElementById("projectPageList");
+    const pagerEl = pageListEl?.closest(".pager");
     const mode = gridEl.dataset.mode || "archive";
     const isPreview = mode === "preview";
-    const published = projects.filter((item) => item.published !== false);
+    const basePublished = projects.filter((item) => item.published !== false);
     const pageSize = parseNumber(gridEl.dataset.pageSize, isPreview ? parseNumber(gridEl.dataset.limit, 4) : 5);
     const limit = isPreview ? parseNumber(gridEl.dataset.limit, pageSize) : Infinity;
 
     let pageIndex = 0;
 
     const render = (shouldAlignList = false) => {
+      const published = filterByActiveTags(basePublished);
       const scoped = published.slice(0, limit);
       const pages = chunk(scoped, pageSize);
       const total = Math.max(1, pages.length);
       if (pageIndex >= total) pageIndex = 0;
       const pageItems = isPreview ? scoped : (pages[pageIndex] || []);
 
-      gridEl.innerHTML = pageItems.map(renderProjectCard).join("");
+      gridEl.innerHTML = renderArchiveItems(pageItems, renderProjectCard);
       if (pageListEl) renderPageNumbers(total);
+      if (pagerEl) pagerEl.hidden = scoped.length === 0;
       if (prevEl) prevEl.disabled = pageIndex === 0;
       if (nextEl) nextEl.disabled = pageIndex >= total - 1;
       if (shouldAlignList) alignProjectListToTop();
@@ -442,7 +411,7 @@
 
     if (nextEl) {
       nextEl.addEventListener("click", () => {
-        const total = Math.max(1, chunk(published, pageSize).length);
+        const total = Math.max(1, chunk(filterByActiveTags(basePublished), pageSize).length);
         if (pageIndex >= total - 1) return;
         pageIndex += 1;
         render(true);
@@ -460,28 +429,129 @@
       });
     }
 
+    filterRenderers.push(() => {
+      pageIndex = 0;
+      render();
+    });
     render();
   }
 
   function renderProjectCard(item) {
+    return renderArchiveItem(item, "project");
+  }
+
+  function renderArchiveItem(item, type) {
     const title = safeText(item.title);
     const desc = safeText(item.desc);
     const date = safeText(formatDate(item.date));
-    const thumb = safeAttr(item.thumb || "");
     const href = safeAttr(item.href || "#");
+    const tags = Array.isArray(item.tags) ? item.tags.filter(Boolean) : [];
+    const titlePrefixes = {
+      project: "[프로젝트] ",
+      study: "[스터디] ",
+      "paper-review": "[논문리뷰] ",
+      "paper-summary": "[논문요약] ",
+    };
+    const titlePrefix = titlePrefixes[type] || "";
+    const sectionHash = {
+      project: "#work",
+      study: "#study",
+      "paper-review": "#paper-reviews",
+      "paper-summary": "#paper-summary",
+    }[type] || "#work";
+    const tagsMarkup = tags.length
+      ? `<p class="archive__item-tags"><i class="fas fa-fw fa-tags" aria-hidden="true"></i><span class="archive__tags-label">Tags:</span>${tags.map((tag) => {
+        const active = activeTags.some((selected) => selected.toLocaleLowerCase() === String(tag).toLocaleLowerCase());
+        return `<button class="archive__tag${active ? " is-active" : ""}" type="button" data-filter-tag="${safeAttr(tag)}" data-filter-hash="${sectionHash}" aria-pressed="${active}" aria-label="${safeAttr(tag)} 태그 ${active ? "해제" : "선택"}">${safeText(tag)}</button>`;
+      }).join("")}</p>`
+      : "";
 
     return `
-      <a class="project-card" href="${href}">
-        <div class="project-thumb">
-          ${thumb ? `<img src="${thumb}" alt="${safeAttr(item.title)} thumbnail" loading="lazy" />` : ``}
-        </div>
-        <div class="project-body">
-          <div class="row-title">${title}</div>
-          <div class="row-sub muted">${desc}</div>
-          ${date ? `<div class="project-date">${date}</div>` : ``}
-        </div>
-      </a>
+      <article class="archive__item archive__item--${safeAttr(type)}">
+        <h2 class="archive__item-title no_toc"><a href="${href}">${titlePrefix}${title}</a></h2>
+        ${date ? `<p class="page__meta"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i>${date}</p>` : ``}
+        ${desc ? `<p class="archive__item-excerpt">${desc}</p>` : ``}
+        ${tagsMarkup}
+      </article>
     `;
+  }
+
+  function setupSidebarCounts() {
+    const counts = {
+      projects: projects.filter((item) => item.published !== false).length,
+      study: studies.filter((item) => item.published !== false).length,
+      reviews: reviews.filter((item) => item.published !== false).length,
+      summaries: papers.filter((item) => item.published !== false).length,
+    };
+
+    Object.entries(counts).forEach(([key, count]) => {
+      document.querySelectorAll(`[data-sidebar-count="${key}"]`).forEach((element) => {
+        element.textContent = `(${count})`;
+      });
+    });
+  }
+
+  function updateTagUrl(hash = window.location.hash || "#work") {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.delete("tag");
+    activeTags.forEach((tag) => nextUrl.searchParams.append("tag", tag));
+    nextUrl.hash = hash;
+    history.replaceState(null, "", `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
+  }
+
+  function refreshTagFilters() {
+    filterRenderers.forEach((render) => render());
+    renderActiveTagFilters();
+  }
+
+  function renderActiveTagFilters() {
+    document.querySelectorAll(".active-tag-filter").forEach((element) => element.remove());
+    if (!activeTags.length) return;
+
+    const view = window.location.hash || "#work";
+    const section = document.querySelector(view) || document.querySelector('[data-home-section="projects"]');
+    const header = section?.querySelector(".home-section-head");
+    if (!header) return;
+
+    const filter = document.createElement("div");
+    filter.className = "active-tag-filter";
+    filter.setAttribute("aria-label", "선택된 태그 필터");
+    filter.innerHTML = `
+      <span class="active-tag-filter__label">선택된 태그</span>
+      ${activeTags.map((tag) => `<button class="active-tag-filter__chip" type="button" data-remove-tag="${safeAttr(tag)}" aria-label="${safeAttr(tag)} 태그 해제">#${safeText(tag)} <span aria-hidden="true">&times;</span></button>`).join("")}
+      <button class="active-tag-filter__clear-all" type="button" data-clear-tags>전체 해제</button>
+    `;
+    header.insertAdjacentElement("afterend", filter);
+  }
+
+  function setupTagControls() {
+    document.addEventListener("click", (event) => {
+      const tagButton = event.target.closest("[data-filter-tag]");
+      const removeButton = event.target.closest("[data-remove-tag]");
+      const clearButton = event.target.closest("[data-clear-tags]");
+      if (!tagButton && !removeButton && !clearButton) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (tagButton) {
+        const tag = tagButton.dataset.filterTag?.trim();
+        if (!tag) return;
+        const index = activeTags.findIndex((selected) => selected.toLocaleLowerCase() === tag.toLocaleLowerCase());
+        if (index >= 0) activeTags.splice(index, 1);
+        else activeTags.push(tag);
+        updateTagUrl(tagButton.dataset.filterHash || window.location.hash);
+      } else if (removeButton) {
+        const tag = removeButton.dataset.removeTag?.trim();
+        activeTags = activeTags.filter((selected) => selected.toLocaleLowerCase() !== tag?.toLocaleLowerCase());
+        updateTagUrl();
+      } else {
+        activeTags = [];
+        updateTagUrl();
+      }
+
+      refreshTagFilters();
+    });
   }
 
   function setupHomeViewSwitch() {
@@ -489,7 +559,21 @@
     const sections = Array.from(document.querySelectorAll("[data-home-section]"));
     if (!buttons.length || !sections.length) return;
 
-    const setView = (view, shouldScroll = false) => {
+    const viewFromHash = () => {
+      const hash = window.location.hash;
+      if (hash === "#study") return "study";
+      if (hash === "#papers" || hash === "#paper-reviews") return "reviews";
+      if (hash === "#summaries" || hash === "#paper-summary") return "summaries";
+      return "projects";
+    };
+
+    const hashForView = (view) => view === "projects"
+      ? "#work"
+      : (view === "reviews"
+        ? "#paper-reviews"
+        : (view === "summaries" ? "#paper-summary" : "#study"));
+
+    const setView = (view, shouldScroll = false, shouldUpdateHash = false) => {
       const nextView = sections.some((section) => section.dataset.homeSection === view) ? view : "projects";
       buttons.forEach((button) => {
         const active = button.dataset.homeView === nextView;
@@ -500,6 +584,13 @@
         section.hidden = section.dataset.homeSection !== nextView;
       });
 
+      if (shouldUpdateHash) {
+        const nextHash = hashForView(nextView);
+        if (window.location.hash !== nextHash) {
+          history.replaceState(null, "", `${window.location.pathname}${window.location.search}${nextHash}`);
+        }
+      }
+
       if (shouldScroll) {
         const target = document.querySelector(`[data-home-section="${nextView}"]`);
         target?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -508,17 +599,22 @@
 
     buttons.forEach((button) => {
       button.setAttribute("aria-pressed", String(button.classList.contains("is-active")));
-      button.addEventListener("click", () => {
-        setView(button.dataset.homeView || "papers", true);
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const nextView = button.dataset.homeView || "projects";
+        if (activeTags.length) {
+          activeTags = [];
+          updateTagUrl(hashForView(nextView));
+          refreshTagFilters();
+        }
+        setView(nextView, true, true);
       });
     });
 
-    const hash = window.location.hash;
-    const initial = hash === "#study"
-      ? "study"
-      : (hash === "#papers" || hash === "#paper-reviews"
-        ? "reviews"
-        : (hash === "#summaries" || hash === "#paper-summary" ? "summaries" : "projects"));
-    setView(initial);
+    window.addEventListener("hashchange", () => {
+      setView(viewFromHash(), false);
+    });
+
+    setView(viewFromHash());
   }
 })();

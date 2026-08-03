@@ -372,6 +372,18 @@ a:hover{ opacity: .9; }
 }
 .brandtext{ font-weight: 750; color: var(--text); }
 
+a.study-brand,
+a.project-brand,
+a.brandtext,
+a.study-brand:hover,
+a.project-brand:hover,
+a.brandtext:hover,
+a.study-brand:focus-visible,
+a.project-brand:focus-visible,
+a.brandtext:focus-visible {
+  text-decoration: none !important;
+}
+
 .icon-btn{
   width: 40px;              /* 고정 */
   height: 40px;             /* 고정 */

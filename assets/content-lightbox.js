@@ -10,7 +10,9 @@
   ready(() => {
     if (document.getElementById("lightbox") || document.getElementById("contentLightbox")) return;
 
-    const eligibleImages = Array.from(document.querySelectorAll("main img")).filter((image) => {
+    const eligibleImages = Array.from(
+      document.querySelectorAll("main img, .project-case-study img")
+    ).filter((image) => {
       if (image.closest("[data-no-lightbox], .bookmark, .study-brand, .project-brand, .project-home-profile")) return false;
       return !image.classList.contains("icon") && !image.classList.contains("bookmark-image");
     });

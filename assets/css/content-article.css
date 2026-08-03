@@ -1,0 +1,1907 @@
+/* Shared Minimal Mistakes article surface for migrated content pages. */
+
+body.content-article-page {
+  --article-text: #3d4144;
+  --article-muted: #70777c;
+  --article-line: #e2e5e7;
+  --article-soft: #f7f8f8;
+  --article-link: #527b95;
+  --article-link-hover: #315a74;
+  margin: 0;
+  background: #fff;
+  color: var(--article-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", "Apple SD Gothic Neo", Arial, sans-serif;
+  line-height: 1.68;
+}
+
+.content-article-page .masthead {
+  background: #fff;
+}
+
+/* The legacy paper stylesheet also defines .sidebar. Restore the theme layout. */
+.content-article-page .sidebar {
+  grid-column: auto;
+  grid-row: auto;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.content-article-page .page__inner-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 1.65rem;
+}
+
+.content-article-page .detail-category-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--article-link);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  line-height: 1.35;
+  text-decoration: none !important;
+  text-transform: uppercase;
+}
+
+.content-article-page .detail-category-link:hover,
+.content-article-page .detail-category-link:focus-visible {
+  color: var(--article-link-hover);
+  text-decoration: none !important;
+}
+
+.content-article-page .page {
+  padding-right: 0 !important;
+}
+
+.content-article-page .page__inner-wrap,
+.content-article-page .page__content,
+.content-article-page .page__title {
+  width: 100% !important;
+}
+
+.content-article-page .page__title {
+  max-width: none;
+  margin-bottom: 1.25rem;
+  color: #303438;
+  font-size: clamp(1.75rem, 2.6vw, 2.35rem);
+  line-height: 1.24;
+  letter-spacing: 0;
+}
+
+.content-article-page .page__content {
+  position: static !important;
+  color: var(--article-text);
+  font-size: 0.94rem;
+  line-height: 1.72;
+}
+
+.content-article-page .page__content a {
+  color: var(--article-link);
+  text-decoration: none;
+}
+
+.content-article-page .page__content a:hover {
+  color: var(--article-link-hover);
+  text-decoration: underline;
+}
+
+.paper-article-shell {
+  width: 100%;
+  max-width: none;
+}
+
+.article-tools {
+  display: flex;
+  justify-content: flex-end;
+  margin: -0.45rem 0 0.3rem;
+}
+
+.article-tools .lang-toggle {
+  width: auto;
+  height: 1.75rem;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--article-muted) !important;
+  box-shadow: none !important;
+  font-size: 0.65rem;
+}
+
+.article-tools .lang-toggle span {
+  min-width: 1.7rem;
+  height: 1.65rem;
+  border-radius: 0;
+  border-bottom: 1px solid transparent;
+}
+
+.article-tools .lang-toggle[data-lang="ko"] [data-lang-option="ko"],
+.article-tools .lang-toggle[data-lang="en"] [data-lang-option="en"] {
+  border-bottom-color: #596066;
+  background: transparent;
+  color: #303438;
+  box-shadow: none;
+}
+
+.paper-article-page .paper-identity {
+  position: relative;
+  margin: 0 0 3.4rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .paper-identity::before,
+.paper-article-page .paper-identity::after,
+.paper-article-page .paper-meta-card::before,
+.paper-article-page .paper-meta-card::after {
+  display: none !important;
+}
+
+.paper-article-page .paper-meta-card,
+.paper-article-page .paper-meta-card:hover {
+  margin: 0 !important;
+  padding: 0.05rem 0 0.05rem 1.05rem !important;
+  border: 0 !important;
+  border-left: 3px solid #969da2 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.paper-article-page .paper-meta-card > * {
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.paper-article-page .paper-meta-primary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin: 0 0 0.18rem;
+}
+
+.paper-article-page .paper-meta-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+
+.paper-article-page .paper-meta-venue {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #3f4549 !important;
+  font-size: 0.86rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page :is(.paper-meta-authors, .paper-meta-affiliations, .paper-meta-date) {
+  margin: 0.12rem 0 !important;
+  padding: 0 !important;
+  color: #4e5458 !important;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.paper-article-page .paper-meta-date {
+  color: var(--article-muted) !important;
+  font-size: 0.78rem;
+  text-align: left !important;
+}
+
+.paper-article-page .paper-meta-grid {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0 0 0.75rem;
+}
+
+.paper-article-page .paper-meta-item {
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr);
+  gap: 0.7rem;
+  margin: 0;
+}
+
+.paper-article-page .paper-meta-item dt,
+.paper-article-page .paper-meta-topic-label {
+  color: var(--article-muted) !important;
+  font-size: 0.69rem;
+  font-weight: 650;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.paper-article-page .paper-meta-item dd {
+  margin: 0;
+  color: var(--article-text) !important;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.paper-article-page .paper-meta-links {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.paper-article-page .paper-meta-links a,
+.paper-article-page .paper-meta-links a:hover {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--article-link) !important;
+  font-size: 0.82rem;
+  font-weight: 650;
+  box-shadow: none !important;
+}
+
+.paper-article-page .paper-meta-topics {
+  display: flex !important;
+  align-items: baseline;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.paper-article-page .paper-meta-topic-label {
+  display: none;
+}
+
+.paper-article-page .paper-topic-list {
+  display: flex;
+  gap: 0.35rem 0.5rem;
+  flex-wrap: wrap;
+}
+
+.paper-article-page .paper-topic-chip {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #858b8f !important;
+  font-size: 0.68rem;
+  font-weight: 500;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body {
+  width: 100%;
+  padding: 0 !important;
+  background: transparent !important;
+  color: var(--article-text);
+  font-size: inherit;
+}
+
+.paper-article-page .post-body .paper-map {
+  margin: 0 0 4.8rem !important;
+  padding: 0 0 4rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body .paper-map h2,
+.paper-article-page .post-body .deep-dive > h2 {
+  margin: 0 0 1.3rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #34393d;
+  font-size: 1.55rem !important;
+  line-height: 1.35;
+}
+
+.paper-article-page .post-body .paper-map h2::before,
+.paper-article-page .post-body .paper-map h2::after,
+.paper-article-page .post-body .deep-dive > h2::before,
+.paper-article-page .post-body .deep-dive > h2::after {
+  display: none !important;
+}
+
+.paper-article-page .paper-map .tldr-cues,
+.paper-article-page .tldr-cues {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 !important;
+  margin: 2.15rem 0 2.7rem !important;
+  border: 0 !important;
+  border-top: 1px solid var(--article-line) !important;
+  border-bottom: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .paper-map .cue-chip,
+.paper-article-page .cue-chip {
+  min-height: 0 !important;
+  padding: 0.8rem 0.9rem !important;
+  border: 0 !important;
+  border-left: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .paper-map .cue-chip:first-child,
+.paper-article-page .cue-chip:first-child {
+  border-left: 0 !important;
+}
+
+.paper-article-page .paper-map .cue-chip strong,
+.paper-article-page .cue-chip strong {
+  margin-right: 0.55rem;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #3f4549 !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .paper-map .cue-chip small,
+.paper-article-page .cue-chip small {
+  color: var(--article-muted);
+}
+
+.paper-article-page .map-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 !important;
+  margin: 2.5rem 0 !important;
+  border-top: 1px solid var(--article-line);
+}
+
+.paper-article-page .map-card,
+.paper-article-page .map-card-wide {
+  margin: 0 !important;
+  padding: 1.25rem 1.15rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .map-card-wide {
+  grid-column: 1 / -1;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.paper-article-page .map-grid > .map-card:not(.map-card-wide) {
+  border-left: 0 !important;
+}
+
+.paper-article-page .map-grid > .map-card:not(.map-card-wide):nth-child(odd) {
+  border-left: 1px solid var(--article-line) !important;
+}
+
+.paper-article-page .map-label,
+.paper-article-page .compare-kicker {
+  color: #858b8f !important;
+  font-size: 0.66rem !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.paper-article-page .insight-box {
+  padding: 0.15rem 0 0.15rem 1rem !important;
+  border: 0 !important;
+  border-left: 3px solid #a2a8ac !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .map-subsection-title {
+  margin-top: 3rem !important;
+  padding-top: 0.8rem !important;
+  border-top: 1px solid var(--article-line) !important;
+  color: #545a5e;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.paper-article-page .flow-diagram,
+.paper-article-page .compare-grid {
+  display: grid !important;
+  gap: 0 !important;
+  border-top: 1px solid var(--article-line) !important;
+  border-bottom: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .flow-diagram {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.paper-article-page .compare-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.paper-article-page .flow-step,
+.paper-article-page .compare-grid > article {
+  padding: 1rem !important;
+  border: 0 !important;
+  border-right: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .flow-step:nth-child(3n),
+.paper-article-page .compare-grid > article:last-child {
+  border-right: 0 !important;
+}
+
+.paper-article-page .flow-step:nth-child(-n + 3) {
+  border-bottom: 1px solid var(--article-line) !important;
+}
+
+.paper-article-page .flow-step::before,
+.paper-article-page .flow-step::after {
+  display: none !important;
+}
+
+.paper-article-page .post-body .paper-map-head > p {
+  max-width: none;
+  margin: 0 0 1.8rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #4b5155;
+  line-height: 1.78;
+}
+
+.paper-article-page .post-body .paper-map-head > p::before {
+  display: none !important;
+}
+
+.paper-article-page .post-body .deep-dive-note {
+  margin: 0 0 3rem !important;
+  padding: 0.15rem 0 0.15rem 0.95rem !important;
+  border: 0 !important;
+  border-left: 2px solid #b3b8bc !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--article-muted);
+  box-shadow: none !important;
+  font-size: 0.83rem;
+  line-height: 1.7;
+}
+
+.paper-article-page .post-body .deep-section {
+  margin-top: 4.7rem !important;
+}
+
+.paper-article-page .post-body .deep-section:first-child {
+  margin-top: 0 !important;
+}
+
+.paper-article-page .post-body .deep-dive .deep-section > h3,
+.paper-article-page .post-body .deep-dive .deep-section > h3[class*="block-color-"] {
+  margin: 0 0 1.65rem !important;
+  padding: 0 0 0.55rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #3b4044 !important;
+  box-shadow: none !important;
+  font-size: 1.3rem !important;
+  line-height: 1.42;
+}
+
+.paper-article-page .post-body .deep-dive .deep-section > h3::before,
+.paper-article-page .post-body .deep-dive .deep-section > h3::after {
+  display: none !important;
+}
+
+.paper-article-page .post-body .deep-section > p {
+  margin-top: 1.2rem !important;
+  line-height: 1.78;
+}
+
+.paper-article-page .post-body h4,
+.paper-article-page .post-body .subsection-label,
+.paper-article-page .post-body h4.subsection-label {
+  color: #4b5054 !important;
+  font-size: 1rem !important;
+  line-height: 1.5;
+}
+
+.paper-article-page .post-body :is(.summary-panel, .module-note, .visual-summary, .problem-ladder, .design-choice-box, .evaluation-table-block, .evaluation-evidence-panel) {
+  border-color: var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body :is(.section-note, .result-brief) {
+  border: 0 !important;
+  border-left: 3px solid #a6adb2 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body :is(.section-chip, .section-note-label, .subsection-label) {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #666d72 !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body .deep-section > :is(p, ul, ol, blockquote, figure, details.supplement-toggle, .summary-panel, .result-brief, .section-note, .summary-table-wrap, .method-equation-cluster, .problem-ladder, .design-choice-box, .method-step-block, .evidence-cluster, .evaluation-evidence-panel, .module-note, .visual-summary, .visual-pair, .flow-diagram, .compare-grid, .next-question-note, .equation-explain),
+.paper-article-page .post-body .deep-section > section:not(.no-hierarchy-offset),
+.paper-article-page .post-body .deep-section > div:not(.section-chip-row):not(.no-hierarchy-offset) {
+  width: 100% !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.paper-article-page .post-body details.supplement-toggle:not(.is-focused-supplement) {
+  border-color: var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body details.supplement-toggle:not(.is-focused-supplement) > summary {
+  background: transparent !important;
+  color: #43484c;
+}
+
+.paper-article-page .post-body .supplement-content {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 2.4rem 0 3.2rem !important;
+  padding: 1.1rem 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body .supplement-title {
+  margin: 0 0 1.15rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #4d5357 !important;
+  font-size: 1rem !important;
+  line-height: 1.5;
+}
+
+.paper-article-page .post-body .supplement-content > .appendix-details,
+.paper-article-page .post-body .supplement-content > .supplement-details {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.paper-article-page .post-body .supplement-content .summary-panel {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
+}
+
+.paper-article-page .post-body .supplement-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 !important;
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--article-line);
+}
+
+.paper-article-page .post-body .supplement-card {
+  padding: 1rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body .supplement-card:nth-child(even) {
+  border-left: 1px solid var(--article-line) !important;
+}
+
+.paper-article-page .post-body .supplement-badge {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #8b9195 !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body figure.image,
+.paper-article-page .post-body figure.table-figure,
+.paper-article-page .post-body figure.equation {
+  max-width: 100%;
+}
+
+/* Minimal Mistakes makes every figure a horizontal flex row. Paper figures
+   need a stable media-then-caption flow, including images wrapped for copy. */
+.paper-article-page .post-body figure.image,
+.paper-article-page .post-body figure.table-figure {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.paper-article-page .post-body figure.image > :is(img, .copy-image-frame),
+.paper-article-page .post-body figure.table-figure > :is(img, .copy-image-frame) {
+  order: 1;
+}
+
+.paper-article-page .post-body figure.image > figcaption,
+.paper-article-page .post-body figure.table-figure > figcaption {
+  order: 2;
+  position: static !important;
+}
+
+.paper-article-page .post-body figure.image img,
+.paper-article-page .post-body figure.table-figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body figure figcaption {
+  color: var(--article-muted) !important;
+  font-size: 0.76rem !important;
+  line-height: 1.58;
+}
+
+.paper-article-page .post-body figure.equation > .equation-container {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body .summary-table-wrap {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body table.summary-table {
+  border-color: var(--article-line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .post-body .summary-table th {
+  background: #f3f4f4 !important;
+}
+
+.paper-article-page .deep-dive-more-btn {
+  border: 1px solid var(--article-line) !important;
+  border-radius: 3px !important;
+  background: #f5f6f6 !important;
+  color: #41464a !important;
+  box-shadow: none !important;
+}
+
+.paper-article-page .deep-dive-more-btn:hover {
+  background: #eceeef !important;
+}
+
+.paper-article-page .page__footer-follow,
+.paper-article-page .page__share,
+.paper-article-page .page__related {
+  display: none;
+}
+
+@media (min-width: 64em) {
+  .content-article-page .sidebar {
+    float: left;
+    width: calc(200px - 1em);
+    opacity: 0.78;
+  }
+}
+
+@media (min-width: 80em) {
+  .content-article-page .sidebar {
+    width: calc(300px - 1em);
+  }
+}
+
+@media (max-width: 63.99em) {
+  .content-article-page .sidebar {
+    display: none;
+  }
+
+  .paper-article-shell {
+    max-width: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .content-article-page .page__title {
+    margin-bottom: 1rem;
+    font-size: 1.58rem;
+  }
+
+  .content-article-page .page__content {
+    font-size: 0.9rem;
+  }
+
+  .article-tools {
+    margin-top: -0.15rem;
+  }
+
+  .paper-article-page .paper-meta-item {
+    grid-template-columns: 1fr;
+    gap: 0.12rem;
+  }
+
+  .paper-article-page .paper-map .tldr-cues,
+  .paper-article-page .tldr-cues,
+  .paper-article-page .map-grid,
+  .paper-article-page .flow-diagram,
+  .paper-article-page .compare-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .paper-article-page .post-body .supplement-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .paper-article-page .post-body .supplement-card:nth-child(even) {
+    border-left: 0 !important;
+  }
+
+  .paper-article-page .paper-map .cue-chip,
+  .paper-article-page .cue-chip,
+  .paper-article-page .map-grid > .map-card:not(.map-card-wide),
+  .paper-article-page .flow-step,
+  .paper-article-page .compare-grid > article {
+    border-right: 0 !important;
+    border-left: 0 !important;
+    border-bottom: 1px solid var(--article-line) !important;
+  }
+
+  .paper-article-page .paper-meta-topics {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .paper-article-page .post-body .paper-map {
+    margin-bottom: 3.4rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .paper-article-page .post-body .deep-section {
+    margin-top: 3.7rem !important;
+  }
+
+  .paper-article-page .post-body .deep-dive .deep-section > h3,
+  .paper-article-page .post-body .deep-dive .deep-section > h3[class*="block-color-"] {
+    font-size: 1.16rem !important;
+  }
+}
+
+/* MonST3R: keep display equations unframed with their explanation below. */
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .method-equation-cluster,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure.equation,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure.equation > .equation-container,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure.equation .equation-render,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure.equation .equation-main {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure.equation {
+  display: block !important;
+  width: 100% !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure.equation > .equation-container {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure.equation > figcaption {
+  position: static !important;
+  display: block !important;
+  width: fit-content !important;
+  max-width: min(100%, 760px) !important;
+  margin: 8px auto 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  text-align: left !important;
+  transform: none !important;
+}
+
+/* Preserve the typography used by the original MonST3R page. */
+:is(.monst3r-article-page, .paper-reader-v2) {
+  --paper-reader-text-font: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", "Apple SD Gothic Neo", Arial, sans-serif;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .page__title,
+:is(.monst3r-article-page, .paper-reader-v2) .page__content,
+:is(.monst3r-article-page, .paper-reader-v2) .page__content :is(
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  li,
+  dt,
+  dd,
+  th,
+  td,
+  figcaption,
+  button,
+  summary,
+  label,
+  .caption-main,
+  .caption-note,
+  .section-chip,
+  .subsection-label,
+  .paper-meta-card,
+  .paper-topic-chip
+) {
+  font-family: var(--paper-reader-text-font) !important;
+}
+
+/* MonST3R: render inline equations as text, without gray chips. */
+:is(.monst3r-article-page, .paper-reader-v2) .post-body :is(
+  p,
+  li,
+  td,
+  th,
+  figcaption,
+  .summary-term,
+  .caption-note
+) > :is(
+  .inline-math,
+  .inline-equation-token,
+  .inline-fraction-token,
+  .math-token,
+  .model-token,
+  .state-token,
+  .equation-token,
+  .formula-token,
+  .equation-chip-part,
+  [data-tex-inline]
+),
+:is(.monst3r-article-page, .paper-reader-v2) .post-body :is(
+  p,
+  li,
+  td,
+  th,
+  figcaption,
+  .summary-term,
+  .caption-note
+) > .notion-text-equation-token:not(.equation-split-source) {
+  margin: 0 0.04em !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* MonST3R: fully veil the collapsed detail preview behind the More button. */
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active {
+  position: relative;
+  overflow: hidden !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-content.is-collapsed {
+  max-height: 300px !important;
+  overflow: hidden !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active .deep-dive-content.is-collapsed::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 88px 0 auto !important;
+  z-index: 2 !important;
+  display: block !important;
+  height: 110px !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.98) 50%,
+    #fff 78%,
+    #fff 100%
+  ) !important;
+  backdrop-filter: none !important;
+  pointer-events: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active .deep-dive-content.is-collapsed::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 198px 0 0 !important;
+  z-index: 2 !important;
+  display: block !important;
+  background: #fff !important;
+  pointer-events: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-more {
+  top: auto !important;
+  bottom: 22px !important;
+  z-index: 3 !important;
+}
+
+/* MonST3R: one separator system and a quiet blue subheading hierarchy. */
+:is(.monst3r-article-page, .paper-reader-v2) {
+  --paper-reader-subheading: #628fab;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-dive {
+  border: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .map-subsection-title,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .method-mini-label,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .evidence-mini-label {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body :is(
+  .deep-dive .deep-section > h3,
+  .deep-dive .deep-section > h3[class*="block-color-"],
+  h4,
+  .map-card h3,
+  .compare-grid h3,
+  .map-subsection-title,
+  .method-mini-label,
+  .evidence-mini-label,
+  .subsection-label,
+  .supplement-title,
+  .section-chip,
+  .section-note-label
+) {
+  color: var(--paper-reader-subheading) !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body :is(
+  .section-chip,
+  .section-note-label,
+  .subsection-label,
+  .supplement-title
+) {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  .section-chip,
+  .section-note-label,
+  .subsection-label,
+  .supplement-title
+) {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-dive .deep-section > h3,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-dive .deep-section > h3[class*="block-color-"] {
+  border: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body :is(
+  .summary-panel,
+  .summary-panel.summary-panel-soft,
+  .module-note,
+  .visual-summary,
+  .problem-ladder,
+  .design-choice-box,
+  .evaluation-table-block,
+  .evaluation-evidence-panel
+) {
+  border: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .flow-diagram,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .compare-grid {
+  border-right: 0 !important;
+  border-left: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .problem-ladder-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--article-line) !important;
+  border-bottom: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .problem-ladder-grid > article {
+  border: 0 !important;
+  border-right: 1px solid var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .problem-ladder-grid > article:last-child {
+  border-right: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .problem-ladder-grid > article::after {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  :is(.monst3r-article-page, .paper-reader-v2) .post-body .problem-ladder-grid {
+    grid-template-columns: 1fr;
+  }
+
+  :is(.monst3r-article-page, .paper-reader-v2) .post-body .problem-ladder-grid > article {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--article-line) !important;
+  }
+
+  :is(.monst3r-article-page, .paper-reader-v2) .post-body .problem-ladder-grid > article:last-child {
+    border-bottom: 0 !important;
+  }
+}
+
+/* MonST3R: explicit hierarchy, balanced spacing, and consistent equation scale. */
+:is(.monst3r-article-page, .paper-reader-v2) {
+  --paper-reader-heading-level-1: #255c7e;
+  --paper-reader-heading-level-2: #326b8d;
+  --paper-reader-heading-level-3: #407695;
+  --paper-reader-heading-level-4: #4f7f9e;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content [hidden] {
+  display: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) .bookmark-link,
+html body:is(.monst3r-article-page, .paper-reader-v2) .bookmark-link:hover,
+html body:is(.monst3r-article-page, .paper-reader-v2) .bookmark-link:focus-visible {
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--article-muted) !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) .bookmark-link.active {
+  border-left-color: var(--paper-reader-heading-level-2) !important;
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--paper-reader-heading-level-2) !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .paper-map-head > h2,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-dive > h2 {
+  color: var(--paper-reader-heading-level-1) !important;
+  font-size: 1.55rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-dive .deep-section > h3,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-dive .deep-section > h3[class*="block-color-"] {
+  color: var(--paper-reader-heading-level-2) !important;
+  font-size: 1.3rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  .map-card h3,
+  .compare-grid h3,
+  h4,
+  .supplement-title,
+  .method-mini-label
+) {
+  color: var(--paper-reader-heading-level-3) !important;
+  font-size: 1.08rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  .map-subsection-title,
+  .subsection-label,
+  .evidence-mini-label,
+  .section-chip,
+  .section-note-label,
+  .evaluation-table-label
+) {
+  color: var(--paper-reader-heading-level-4) !important;
+  font-size: 0.98rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .map-subsection-title,
+  .method-mini-label,
+  .evidence-mini-label,
+  .subsection-label,
+  .supplement-title,
+  .section-chip,
+  .section-note-label,
+  .evaluation-table-label
+) {
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .map-grid > article.map-card:not(.map-card-wide) {
+  border-left: 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .map-grid > article.map-card:nth-child(3),
+html body:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .map-grid > article.map-card:nth-child(5) {
+  border-left: 1px solid var(--article-line) !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .katex {
+  font-size: 1.5em !important;
+}
+
+/* Keep evaluation briefs within the reader's cool gray-blue palette. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .result-brief {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .result-brief article {
+  border-left-color: color-mix(in srgb, var(--paper-reader-heading-level-4) 48%, var(--article-line)) !important;
+  background: transparent !important;
+  background-image: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .result-brief article strong {
+  color: var(--paper-reader-heading-level-4) !important;
+}
+
+/* Neutralize legacy warm fills without flattening functional tables or controls. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  .section-note,
+  .section-note-label,
+  .result-brief,
+  .result-brief-head,
+  .result-brief-grid > article,
+  [class*="block-color-yellow"],
+  [class*="block-color-brown"]
+) {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .map-subsection-title,
+  .method-mini-label,
+  .evidence-mini-label,
+  .subsection-label,
+  .supplement-title,
+  .section-chip,
+  .section-note-label,
+  .evaluation-table-label
+) {
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .dataset-evidence-grid > article {
+  border-color: var(--article-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .supplement-figure-divider {
+  height: 1px !important;
+  background: var(--article-line) !important;
+  background-image: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .katex-display > .katex {
+  font-size: 1.53em !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .katex-display {
+  margin: 1.7rem 0 !important;
+  overflow: visible !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map-head {
+  margin-bottom: 2.1rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .tldr-cues {
+  margin: 2.2rem 0 2.9rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .map-grid {
+  margin: 2.7rem 0 3.1rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .insight-box {
+  margin: 3rem 0 3.2rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .map-subsection-title {
+  margin: 3.4rem 0 0.85rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-dive-note {
+  margin-bottom: 3.5rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section {
+  margin-top: 4.8rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section:first-child {
+  margin-top: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-dive .deep-section > h3,
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-dive .deep-section > h3[class*="block-color-"] {
+  margin-bottom: 1.9rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section > p {
+  margin: 0 0 1.25rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section > .method-mini-label {
+  margin: 3.6rem 0 1.35rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section > .method-mini-label:first-of-type {
+  margin-top: 2.8rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-section > .method-step-block {
+  margin-top: 0 !important;
+  margin-bottom: 2.2rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > .subsection-label {
+  display: block;
+  margin: 0 0 1rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > p {
+  margin: 0 0 1.45rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > :is(figure, .method-equation-cluster, .summary-table-wrap) {
+  margin-top: 2.1rem !important;
+  margin-bottom: 2.1rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > .notation-panel {
+  margin: 2.7rem 0 0 !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid var(--article-line) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .notation-panel .summary-head {
+  margin-bottom: 1.15rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .notation-panel .summary-head > .subsection-label {
+  display: block;
+  margin: 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .notation-panel .summary-head > p {
+  margin: 0.6rem 0 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .notation-panel .summary-table-wrap {
+  margin: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section > :is(
+  figure,
+  .summary-panel,
+  .problem-ladder,
+  .design-choice-box,
+  .method-step-block,
+  .method-equation-cluster,
+  .evidence-cluster,
+  .evaluation-evidence-panel,
+  .evaluation-table-block,
+  .module-note,
+  .visual-summary,
+  .visual-pair,
+  .flow-diagram,
+  .compare-grid,
+  .section-note,
+  .result-brief
+) {
+  margin-top: 2.45rem !important;
+  margin-bottom: 2.45rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .supplement-content {
+  margin-top: 2.9rem !important;
+  margin-bottom: 3.6rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-section > .result-brief {
+  margin-top: 3.4rem !important;
+  margin-bottom: 3.4rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body .evidence-cluster + .evidence-cluster {
+  margin-top: 3.8rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body :is(.summary-head, .evaluation-table-head) {
+  margin-bottom: 1.25rem !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .post-body figure figcaption {
+  margin-top: 0.7rem !important;
+}
+
+@media (max-width: 720px) {
+  html body:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .map-grid > article.map-card:nth-child(3),
+  html body:is(.monst3r-article-page, .paper-reader-v2) .post-body .paper-map .map-grid > article.map-card:nth-child(5) {
+    border-left: 0 !important;
+  }
+
+  :is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section {
+    margin-top: 4.1rem !important;
+  }
+
+  :is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section > .method-mini-label {
+    margin-top: 3rem !important;
+  }
+
+  html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-section > .method-step-block {
+    margin-bottom: 2.8rem !important;
+  }
+
+  :is(.monst3r-article-page, .paper-reader-v2) .post-body .deep-section > :is(
+    figure,
+    .summary-panel,
+    .problem-ladder,
+    .design-choice-box,
+    .method-step-block,
+    .method-equation-cluster,
+    .evidence-cluster,
+    .evaluation-evidence-panel,
+    .evaluation-table-block,
+    .module-note,
+    .visual-summary,
+    .visual-pair,
+    .section-note,
+    .result-brief
+  ) {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+}
+
+/* MonST3R: tighten local reading flow without flattening the page hierarchy. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-dive .deep-section > h3 {
+  position: relative;
+  padding-bottom: 0.82rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-dive .deep-section > h3::after {
+  content: "" !important;
+  display: block !important;
+  width: 2.8rem;
+  height: 2px;
+  margin-top: 0.72rem;
+  background: var(--paper-reader-heading-level-2) !important;
+  opacity: 0.7;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  #ko-evidence,
+  #en-evidence,
+  #ko-usage,
+  #en-usage
+) {
+  margin-bottom: 1.1rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-section > h3 + :is(
+  .evaluation-evidence-panel,
+  .when-use-panel
+) {
+  margin-top: 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  .evaluation-evidence-panel,
+  .evaluation-table-block
+) {
+  border: 0 !important;
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+  border-left: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .evaluation-evidence-panel,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .evaluation-table-block,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .when-use-panel {
+  padding-top: 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .evaluation-table-block {
+  margin-top: 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .evaluation-table-label {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > .notation-panel {
+  order: 1;
+  margin: 2.1rem 0 2.35rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > .method-equation-cluster {
+  order: 2;
+  margin-top: 0 !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-more {
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translateY(-50%);
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active::before,
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 0 !important;
+  left: 0 !important;
+  z-index: 2 !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active::after {
+  top: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.28) 0,
+    rgba(255, 255, 255, 0.7) 28%,
+    rgba(255, 255, 255, 0.96) 54%,
+    #fff 74%,
+    #fff 100%
+  ) !important;
+  backdrop-filter: blur(4.5px) !important;
+  -webkit-backdrop-filter: blur(4.5px) !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active::before {
+  top: 178px !important;
+  bottom: 0 !important;
+  background: #fff !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active .deep-dive-content.is-collapsed::before,
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active .deep-dive-content.is-collapsed::after {
+  content: none !important;
+  display: none !important;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-body.has-collapsed-active {
+  contain: paint;
+  isolation: isolate;
+}
+
+:is(.monst3r-article-page, .paper-reader-v2) .deep-dive-content.is-collapsed {
+  filter: blur(4.5px);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 24px,
+    #000 72%,
+    rgba(0, 0, 0, 0.42) 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 24px,
+    #000 72%,
+    rgba(0, 0, 0, 0.42) 90%,
+    transparent 100%
+  );
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .article-tools .lang-toggle,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .article-tools .lang-toggle:hover,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .article-tools .lang-toggle:active,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .article-tools .lang-toggle:focus,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .article-tools .lang-toggle:focus-visible {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* MonST3R: retain the original pill treatment for the collapsed-detail action. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .deep-dive-more-btn {
+  min-width: 122px;
+  padding: 14px 28px !important;
+  border: 1px solid color-mix(in srgb, var(--text) 22%, var(--line)) !important;
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--bg) 88%, var(--panel2)) !important;
+  color: color-mix(in srgb, var(--text) 88%, var(--muted)) !important;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12) !important;
+  font-size: 15px;
+  font-weight: 820;
+  line-height: 1;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .deep-dive-more-btn:hover {
+  border-color: color-mix(in srgb, var(--text) 28%, var(--line)) !important;
+  background: color-mix(in srgb, var(--bg) 80%, var(--panel2)) !important;
+  color: var(--text) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-venue {
+  color: var(--paper-reader-heading-level-1) !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.015em !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-authors {
+  font-size: 0.88rem !important;
+  line-height: 1.5 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-authors a {
+  color: #6a8ca3 !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-authors a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 0.18em;
+}
+
+/* Collapsed content is a visual preview only; links and heading permalinks stay inert. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .deep-dive-content.is-collapsed {
+  pointer-events: none !important;
+  user-select: none;
+}
+
+/* Keep overview flows typographic instead of turning their labels or steps into cards. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .map-subsection-title > span,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .flow-diagram,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .flow-step {
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-card > .paper-meta-links {
+  gap: 0.42rem !important;
+  margin: 0.62rem 0 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-links a {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 1.8rem;
+  padding: 0.26rem 0.56rem !important;
+  border: 1px solid color-mix(in srgb, var(--article-line) 82%, var(--article-text)) !important;
+  border-radius: 3px !important;
+  background: #fff !important;
+  color: color-mix(in srgb, var(--article-link) 78%, var(--article-text)) !important;
+  font-size: 0.76rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-links a:hover {
+  border-color: color-mix(in srgb, var(--article-link) 45%, var(--article-line)) !important;
+  background: color-mix(in srgb, #fff 94%, var(--article-link)) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .paper-meta-card > .paper-meta-links + .paper-meta-topics {
+  margin-top: 0.5rem !important;
+}
+
+/* Keep method groups typographic even when older page CSS turns them into cards. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* MonST3R: one indentation rhythm for section, subsection, and body content. */
+:is(.monst3r-article-page, .paper-reader-v2) {
+  --paper-reader-section-indent: 1.1rem;
+  --paper-reader-step-indent: 1.75rem;
+  --paper-reader-body-indent: 0.65rem;
+}
+
+html body.flash-mono-article-page #main-content .post-body .deep-section[data-section-title="Mechanism"] > .method-mini-label {
+  width: calc(100% - var(--paper-reader-step-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: var(--paper-reader-step-indent) !important;
+}
+
+html body.flash-mono-article-page #main-content .post-body .deep-section[data-section-title="Mechanism"] > .method-mini-label ~ :is(
+  p,
+  figure,
+  .summary-panel,
+  .supplement-content
+) {
+  width: calc(100% - var(--paper-reader-step-indent) - var(--paper-reader-body-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: calc(var(--paper-reader-step-indent) + var(--paper-reader-body-indent)) !important;
+}
+
+html body.flash-mono-article-page #main-content .post-body .deep-section[data-section-title="Mechanism"] > .method-mini-label ~ .method-mini-label {
+  width: calc(100% - var(--paper-reader-step-indent)) !important;
+  margin-left: var(--paper-reader-step-indent) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-section > :is(
+  p,
+  ul,
+  ol,
+  blockquote,
+  figure,
+  h4,
+  .method-mini-label,
+  .summary-panel,
+  .result-brief,
+  .section-note,
+  .summary-table-wrap,
+  .problem-ladder,
+  .design-choice-box,
+  .evidence-cluster,
+  .evaluation-evidence-panel,
+  .module-note,
+  .visual-summary,
+  .visual-pair,
+  .flow-diagram,
+  .compare-grid,
+  .supplement-content
+) {
+  width: calc(100% - var(--paper-reader-section-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: var(--paper-reader-section-indent) !important;
+}
+
+html body.paper-reader-v2 #main-content .post-body .deep-dive-content > .supplement-content {
+  width: calc(100% - var(--paper-reader-section-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: var(--paper-reader-section-indent) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .deep-section > .method-step-block {
+  width: calc(100% - var(--paper-reader-step-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: var(--paper-reader-step-indent) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > :is(
+  p,
+  figure,
+  .summary-table-wrap,
+  .method-equation-cluster
+) {
+  width: calc(100% - var(--paper-reader-body-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: var(--paper-reader-body-indent) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > div[style*="display:contents"] > figure,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .evidence-cluster > div[style*="display:contents"] > figure {
+  width: calc(100% - var(--paper-reader-body-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: var(--paper-reader-body-indent) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .method-step-block > .notation-panel {
+  width: calc(100% - var(--paper-reader-body-indent)) !important;
+  margin: 2.1rem 0 2.35rem var(--paper-reader-body-indent) !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body .evidence-cluster > :is(
+  p,
+  figure,
+  .summary-table-wrap
+) {
+  width: calc(100% - var(--paper-reader-body-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: var(--paper-reader-body-indent) !important;
+}
+
+/* Legacy Notion subheadings follow the same quiet hierarchy as MonST3R. */
+html body.paper-reader-v2 #main-content .post-body .deep-section blockquote {
+  margin: 2.55rem 0 1.25rem var(--paper-reader-section-indent) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--paper-reader-heading-level-3) !important;
+  font-size: 1.08rem !important;
+  font-style: normal !important;
+  line-height: 1.45 !important;
+}
+
+html body.paper-reader-v2 #main-content .post-body .deep-section blockquote strong {
+  color: inherit !important;
+  font: inherit !important;
+}
+
+html body.paper-reader-v2 #main-content .post-body .deep-section > .section-chip-row {
+  margin: 2rem 0 1rem var(--paper-reader-step-indent) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body.paper-reader-v2 #main-content .post-body .deep-section > .section-chip-row > .section-chip {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--paper-reader-heading-level-4) !important;
+  font-size: 0.98rem !important;
+  line-height: 1.45 !important;
+}
+
+html body.paper-reader-v2 #main-content .post-body .deep-section > .section-chip-row + div[style*="display:contents"] > :is(p, ul, ol) {
+  width: calc(100% - var(--paper-reader-step-indent) - var(--paper-reader-body-indent)) !important;
+  margin-right: 0 !important;
+  margin-left: calc(var(--paper-reader-step-indent) + var(--paper-reader-body-indent)) !important;
+}
+
+@media (max-width: 720px) {
+  :is(.monst3r-article-page, .paper-reader-v2) {
+    --paper-reader-section-indent: 0.75rem;
+    --paper-reader-step-indent: 1.15rem;
+    --paper-reader-body-indent: 0.4rem;
+  }
+}
+
+/* MonST3R parity: normalize legacy page geometry and equation rhythm. */
+html body.paper-reader-v2 #main-content .post-body .deep-section {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body figure.equation,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body details.supplement-toggle[open] figure.equation {
+  margin-top: 34px !important;
+  margin-bottom: 38px !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body :is(
+  .deep-section,
+  .method-step-block,
+  .summary-panel,
+  .result-brief,
+  .section-note,
+  .supplement-content,
+  .evidence-cluster
+) > figure.equation {
+  margin-top: 34px !important;
+  margin-bottom: 38px !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body figure.equation .equation-main,
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body figure.equation .equation-main-original {
+  font-size: 1.607rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body figure.equation .katex-display > .katex {
+  font-size: 1.607rem !important;
+}
+
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body figure.equation .equation-main > math[display="block"] {
+  font-size: 1em !important;
+}
+
+html body.paper-reader-v2 #main-content .post-body .notion-text-equation-token:not(.equation-split-source) {
+  font-size: 1em !important;
+}
+
+html body.paper-reader-v2 #main-content .post-body .notion-text-equation-token:not(.equation-split-source) .katex {
+  font-size: 1.5em !important;
+}
+
+/* KaTeX positions equation numbers absolutely; reserve a clean number gutter. */
+html body:is(.monst3r-article-page, .paper-reader-v2) #main-content .post-body figure.equation .katex-html:has(.tag) {
+  box-sizing: border-box !important;
+  padding-right: 3.5rem !important;
+}

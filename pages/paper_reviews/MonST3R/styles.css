@@ -1,22 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Noto+Serif+KR:wght@500;600;700&display=swap");
-
 :root{
   /* Light (default) */
   --bg: #ffffff;
-  --panel: #f6f7f9;
-  --panel2: #fbfbfc;
-  --text: #0f172a;
-  --muted: #6b7280;
-  --line: rgba(15, 23, 42, .10);
-  --accent: #111827;
-  --code-bg: #f3f5f9;
-  --code-text: #182033;
-  --code-muted: #64748b;
-  --code-line: rgba(15, 23, 42, .12);
-  --inline-code-bg: #eef2f7;
-  --inline-code-text: #182033;
-  --syntax-comment: #64748b;
-  --syntax-punctuation: #475569;
+  --panel: #f3f3f3;
+  --panel2: #fafafa;
+  --text: #494e52;
+  --muted: #6f777d;
+  --line: rgba(57, 62, 70, .16);
+  --accent: #5f6368;
+  --code-bg: #f2f3f3;
+  --code-text: #3f4549;
+  --code-muted: #737a7f;
+  --code-line: rgba(57, 62, 70, .16);
+  --inline-code-bg: #f0f1f1;
+  --inline-code-text: #3f4549;
+  --syntax-comment: #737a7f;
+  --syntax-punctuation: #555d62;
   --syntax-property: #0f766e;
   --syntax-string: #047857;
   --syntax-function: #2563eb;
@@ -24,8 +22,8 @@
   --syntax-number: #c2410c;
   --syntax-operator: #334155;
 
-  --radius: 16px;
-  --shadow: 0 10px 30px rgba(15, 23, 42, .06);
+  --radius: 4px;
+  --shadow: none;
   --max: 980px;
   --page-max: 1500px;
   --right-rail: 330px;
@@ -36,8 +34,8 @@
   --section-subheading-size: 17px;
   --bookmark-size: 12px;
   --bookmark-minor-size: 11.5px;
-  --note-font-ko: "Noto Serif KR", "Noto Serif Korean", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
-  --note-font-en: "EB Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --note-font-ko: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", "Apple SD Gothic Neo", Arial, sans-serif;
+  --note-font-en: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
   --note-font: var(--note-font-ko);
 }
 
@@ -154,13 +152,23 @@ html{
 }
 body{
   margin:0;
-  /* font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Apple SD Gothic Neo", "Noto Sans KR", Arial; */
-  /* font-family: 'Inter', 'Noto Sans KR', 'Spoqa Han Sans', 'Apple SD Gothic Neo', 'Segoe UI', Roboto, Arial, sans-serif; */
-  font-family: 'Manrope', 'Pretendard', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", "Apple SD Gothic Neo", Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.8;
   overflow-anchor: none;
+}
+
+.paper-theme-pilot > .masthead{
+  position:relative;
+  z-index:40;
+  border-bottom:1px solid var(--line);
+  background:#fff;
+}
+
+.paper-theme-pilot > .masthead + .skip + .layout,
+.paper-theme-pilot > .masthead + .layout{
+  min-height:calc(100vh - 72px);
 }
 
 a{ color: inherit; text-decoration: none; }
@@ -7522,3 +7530,143 @@ body .post-body .deep-section > .method-step-block > .subsection-label,
   }
 }
 /* End MonST3R minimal theme pilot. */
+
+/* Minimal Mistakes alignment: system typography and a neutral gray hierarchy. */
+:root{
+  --paper-blue: #5f6368;
+  --paper-blue-strong: #3f4448;
+  --paper-blue-border: rgba(95, 99, 104, .34);
+  --paper-blue-soft: rgba(95, 99, 104, .07);
+  --minimal-line: rgba(57, 62, 70, .16);
+  --minimal-soft: #f7f7f7;
+  --minimal-note: #f6f6f6;
+}
+
+body.paper-theme-pilot,
+body.paper-theme-pilot :is(
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  .topbar,
+  .sidebar,
+  .paper-identity,
+  .post-body,
+  .paper-title-meta,
+  .paper-meta-card,
+  .bookmark-link,
+  .caption-main,
+  .caption-note
+){
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", "Apple SD Gothic Neo", Arial, sans-serif;
+}
+
+body.paper-theme-pilot :is(
+  h1,
+  h2,
+  h3,
+  h4,
+  .brandtext,
+  .map-label,
+  .section-chip,
+  .section-note-label,
+  .subsection-label
+){
+  letter-spacing: normal;
+}
+
+body.paper-theme-pilot ::selection{
+  background: #d9dcde;
+  color: #2f3437;
+}
+
+.paper-theme-pilot > .masthead,
+.paper-theme-pilot .topbar{
+  border-color: var(--minimal-line);
+  background: #fff;
+}
+
+.paper-meta-card,
+.paper-meta-card:hover{
+  border-color: var(--minimal-line) !important;
+  border-left-color: var(--paper-blue) !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+.paper-meta-venue,
+.paper-meta-links a,
+.paper-topic-chip{
+  border-color: var(--minimal-line) !important;
+  background: #f3f3f3 !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.paper-meta-links a:hover{
+  border-color: #949a9e !important;
+  background: #e9eaea !important;
+  color: #2f3437 !important;
+}
+
+.paper-title-meta,
+.paper-meta-date,
+.paper-meta-item dt,
+.paper-meta-topic-label{
+  color: var(--muted) !important;
+}
+
+.paper-meta-item dd{
+  color: var(--text) !important;
+}
+
+.bookmark-link.active{
+  border-left-color: var(--paper-blue) !important;
+  background: #f3f3f3 !important;
+  color: var(--text) !important;
+}
+
+.post-body .section-note,
+.post-body .result-brief{
+  border-left-color: var(--paper-blue) !important;
+  background: var(--minimal-note) !important;
+}
+
+.post-body .section-note-label,
+.post-body .section-note .section-chip,
+.post-body .section-note > strong,
+.post-body .result-brief .section-chip{
+  border-color: var(--minimal-line) !important;
+  background: transparent !important;
+  color: var(--text) !important;
+}
+
+.post-body .result-brief article{
+  border-left-color: var(--minimal-line) !important;
+  background: transparent !important;
+}
+
+.post-body .summary-table th{
+  background: #f3f3f3 !important;
+  color: var(--text);
+}
+
+.post-body :is(.insight-box, .section-note, .result-brief, .deep-dive-note){
+  font-family: inherit !important;
+}
+
+.lang-toggle,
+.deep-dive-more-btn{
+  border-color: var(--minimal-line) !important;
+  border-radius: 4px !important;
+  background: #f3f3f3 !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+}
+
+.lang-toggle:hover,
+.deep-dive-more-btn:hover{
+  background: #e9eaea !important;
+}

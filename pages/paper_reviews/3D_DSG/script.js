@@ -14,7 +14,7 @@
   const skip = document.querySelector(".skip");
   const deepDiveTitle = document.getElementById("deep-dive-title");
   const deepDiveNote = document.querySelector(".deep-dive-note");
-  const revealBtn = document.getElementById("deepDiveReveal");
+  const revealBtn = document.getElementById("deepDiveMoreBtn");
   const commentsTitle = document.getElementById("commentsTitle");
   const giscusScript = document.querySelector(".comments script[src*=\"giscus\"]");
 
@@ -61,8 +61,8 @@
 
 (() => {
   const contents = Array.from(document.querySelectorAll(".deep-dive-content"));
-  const wrap = document.getElementById("deepDiveRevealWrap");
-  const button = document.getElementById("deepDiveReveal");
+  const wrap = document.getElementById("deepDiveMore");
+  const button = document.getElementById("deepDiveMoreBtn");
   const body = wrap?.closest(".deep-dive-body");
   if (!contents.length || !wrap || !button) return;
 

@@ -5892,3 +5892,13 @@ body .post-body .sectioned-deep-content > details.supplement-toggle.is-focused-s
   font-weight: 760;
   letter-spacing: -0.01em;
 }
+/* Keep translated summary panels inside one MonST3R-style paper map. */
+.paper-map-lang {
+  display: contents;
+}
+
+/* Match the shared reader width instead of extending the reveal mask past it. */
+.paper-reader-v2 .post-body .deep-dive-body {
+  margin-inline: 0 !important;
+  padding-inline: 0 !important;
+}

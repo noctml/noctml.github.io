@@ -1,0 +1,83 @@
+remote_theme: "mmistakes/minimal-mistakes@4.28.0"
+minimal_mistakes_skin: "air"
+
+locale: "ko-KR"
+title: "Insighted"
+title_separator: "|"
+name: "Wooseok Song"
+description: "SLAM, 3D perception, paper notes, studies, and projects."
+url: "https://noctml.github.io"
+baseurl: ""
+repository: "noctml/noctml.github.io"
+masthead_title: "Insighted"
+
+include:
+  - _pages
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-include-cache
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+author:
+  name: "Wooseok Song"
+  home: "/about/"
+  bio: "Visual SLAM · 3D Perception"
+  location: "Korea"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/noctml"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/우석-송-69995235a"
+    - label: "YouTube"
+      icon: "fab fa-fw fa-youtube"
+      url: "https://www.youtube.com/@avcd-s8n/videos"
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:pdwytime@gmail.com"
+    - label: "CV"
+      icon: "fas fa-fw fa-id-card"
+      url: "/assets/cv.pdf"
+
+search: true
+search_full_content: true
+search_provider: lunr
+
+comments:
+  provider: "giscus"
+  giscus:
+    repo_id: "R_kgDOQthLvQ"
+    category_name: "General"
+    category_id: "DIC_kwDOQthLvc4C1ZaY"
+    discussion_term: "pathname"
+    reactions_enabled: "1"
+    theme: "light"
+    strict: "0"
+    input_position: "bottom"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "single"
+      author_profile: true
+      comments: false
+      share: false
+      related: false
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+atom_feed:
+  hide: false
+
+exclude:
+  - SUMMARY_HTML_REDESIGN_MANUAL.md
+  - workers
+  - scripts
+  - vendor

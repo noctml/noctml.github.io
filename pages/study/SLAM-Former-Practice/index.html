@@ -1,354 +1,217 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SLAM-Former 공개 코드를 EuRoC, KITTI, 실내 데이터에서 실행하고 checkpoint별 동작과 장기 시퀀스 한계를 확인한 기록." />
-  <meta name="author" content="Wooseok Song" />
-  <title>[Study] SLAM-Former 실습 | Insighted</title>
-  <link rel="icon" type="image/png" sizes="48x48" href="../../../assets/favicon.png" />
-  <link rel="stylesheet" href="../../../assets/site-theme.css?v=study-20260725" />
-  <link rel="stylesheet" href="../../../styles.css?v=study-20260725" />
-  <link rel="stylesheet" href="../../../assets/content-lightbox.css?v=20260722" />
-  <style>
-    body{min-height:100vh;background:var(--bg);color:var(--text)}
-    .study-shell{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:22px 0 42px}
-    .study-topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 16px;background:var(--bg)}
-    .study-brand{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-size:14px;font-weight:760;letter-spacing:-.01em}
-    .study-brand img{width:30px;height:30px;border-radius:8px;object-fit:cover}
-    .study-hero{padding:28px 0 20px;border-bottom:1px solid var(--line)}
-    .study-kicker{margin:0 0 9px;color:var(--muted);font-size:11px;font-weight:760;letter-spacing:.08em;text-transform:uppercase}
-    .study-hero h1{margin:0;max-width:900px;font-size:clamp(18px,2.6vw,28px);line-height:1.18;letter-spacing:-.025em}
-    .study-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
-    .study-meta-item{min-height:72px;padding:13px 14px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--panel) 34%,transparent)}
-    .study-meta-item span{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:760;letter-spacing:.06em;text-transform:uppercase}
-    .study-meta-item strong{display:block;color:var(--text);font-size:13px;line-height:1.35}
-    .study-meta-item a{color:inherit;text-decoration:none}
-    .study-article{width:min(900px,100%);margin:0 auto}
-    .study-section{padding:46px 0 16px}
-    .study-section + .study-section{margin-top:10px}
-    .study-section h2{margin:0;font-size:22px;line-height:1.35;letter-spacing:-.02em}
-    .study-section h3{margin:36px 0 0;font-size:17px;line-height:1.45;letter-spacing:-.015em}
-    .study-section h4{margin:36px 0 0;font-size:15px;line-height:1.45;letter-spacing:-.01em}
-    .study-section p{margin:17px 0 0;font-size:16px;line-height:1.8;word-break:keep-all}
-    .study-section :not(pre)>code{
-      display:inline-block;
-      padding:.08em .38em;
-      border:1px solid #cbdff5;
-      border-radius:4px;
-      background:#edf5ff;
-      color:#5b89bd;
-      font-size:.92em;
-      font-weight:400;
-      line-height:1.35;
-      vertical-align:.02em;
-      white-space:nowrap;
-    }
-    .checkpoint-token{
-      display:inline;
-      padding:0;
-      border:0;
-      border-radius:0;
-      background:none;
-      color:#bd6a6a;
-      font-size:inherit;
-      font-weight:720;
-      line-height:inherit;
-      vertical-align:baseline;
-      white-space:nowrap;
-    }
-    .finding-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
-    .finding-item{min-height:128px;padding:15px 16px;border-top:2px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent)}
-    .finding-item span{display:block;margin-bottom:8px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-    .finding-item strong{display:block;font-size:14px;line-height:1.5}
-    .finding-item p{margin-top:7px;font-size:13px;line-height:1.65}
-    .flow-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:28px}
-    .flow-step{min-height:92px;padding:12px;border-top:2px solid color-mix(in srgb,var(--muted) 46%,transparent);background:color-mix(in srgb,var(--panel) 28%,transparent)}
-    .flow-step span{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.06em}
-    .flow-step strong{display:block;font-size:13px;line-height:1.45}
-    .table-wrap{margin-top:24px;overflow-x:auto}
-    .study-table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.6}
-    .study-table th,.study-table td{padding:11px 12px;border:0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-    .study-table th{color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-    .study-note{margin-top:27px;padding:15px 17px;border-left:3px solid #1f5fae;background:color-mix(in srgb,var(--panel) 28%,transparent);font-size:14px;line-height:1.7}
-    .study-note strong{display:block;margin-bottom:5px;color:#596273}
-    .study-figure,.study-video{width:min(780px,100%);margin:32px auto 0}
-    .study-figure.is-narrow{width:min(560px,100%)}
-    .study-figure.is-wide{width:min(860px,100%)}
-    .study-figure img{display:block;max-width:100%;max-height:590px;width:auto;height:auto;margin:0 auto;object-fit:contain}
-    .study-video video{display:block;width:100%;max-height:540px;margin:0 auto;background:#111;object-fit:contain}
-    .study-figure figcaption,.study-video figcaption{width:fit-content;max-width:min(100%,700px);margin:10px auto 0;color:var(--muted);font-size:12px;line-height:1.55;text-align:left}
-    .media-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-top:32px}
-    .media-pair > figure{display:grid;grid-template-rows:330px auto;width:100%;margin:0}
-    .media-pair .media-frame{display:flex;align-items:center;justify-content:center;min-width:0;height:330px;background:color-mix(in srgb,var(--panel) 20%,transparent)}
-    .media-pair img,.media-pair video{display:block;max-width:100%;max-height:330px;width:auto;height:auto;margin:auto;object-fit:contain}
-    .media-pair video{width:100%;height:330px;background:#111}
-    .media-pair figcaption{width:fit-content;max-width:100%;margin:10px auto 0;color:var(--muted);font-size:12px;line-height:1.55;text-align:left}
-    .media-pair.is-compact > figure{grid-template-rows:176px auto}
-    .media-pair.is-compact .media-frame{height:176px;background:transparent}
-    .media-pair.is-compact img{max-height:176px}
-    .metric-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:27px;background:var(--line)}
-    .metric-item{padding:16px;background:var(--bg)}
-    .metric-item span{display:block;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
-    .metric-item strong{display:block;margin-top:7px;font-size:18px;line-height:1.25}
-    .metric-item small{display:block;margin-top:5px;color:var(--muted);font-size:12px;line-height:1.45}
-    .code-details{margin-top:25px;border:1px solid var(--line);border-radius:6px;background:color-mix(in srgb,var(--panel) 18%,transparent)}
-    .code-details summary{padding:13px 14px;cursor:pointer;color:var(--text);font-size:13px;font-weight:760;list-style-position:inside}
-    .code-details pre{max-width:100%;margin:0 0 14px;padding:16px;overflow:auto;border-radius:5px;background:var(--code-bg);color:var(--code-text);font-size:12px;line-height:1.65;tab-size:2}
-    .observation-list{margin:23px 0 0;padding-left:20px}
-    .observation-list li{margin-top:9px;padding-left:3px;font-size:15px;line-height:1.75}
-    .comments{margin-top:12px;padding-top:18px;border-top:1px solid var(--line)}
-    .comments h2{margin:0 0 14px;font-size:18px;line-height:1.3;letter-spacing:-.01em}
-    @media(max-width:760px){
-      .study-shell{width:min(100% - 24px,1120px);padding-top:10px}
-      .study-topbar{align-items:flex-start;flex-direction:column}
-      .study-hero h1{font-size:24px}
-      .study-meta{grid-template-columns:1fr 1fr}
-      .finding-grid{grid-template-columns:1fr}
-      .flow-grid{grid-template-columns:1fr 1fr}
-      .media-pair{grid-template-columns:1fr;gap:28px}
-      .media-pair > figure{display:block}
-      .media-pair .media-frame{height:auto;min-height:0;background:transparent}
-      .media-pair.is-compact .media-frame{height:auto}
-      .media-pair img,.media-pair video{width:100%;height:auto;max-height:460px}
-      .metric-strip{grid-template-columns:1fr}
-      .study-section p{font-size:15px}
-    }
-  </style>
-</head>
-<body>
-  <div class="study-shell">
-    <header class="study-topbar">
-      <a class="study-brand" href="../../../index.html#study" aria-label="Study 목록으로 이동">
-        <img src="../../../assets/avatar.jpg" alt="Wooseok Song" />
-        <span>Study</span>
-      </a>
-    </header>
+---
+layout: single
+title: "SLAM-Former 실습"
+description: "오픈소스 실습"
+permalink: /pages/study/SLAM-Former-Practice/
+author_profile: true
+comments: true
+share: false
+related: false
+classes:
+  - wide
+  - study-article-page
+  - study-practice-page
+page_css:
+  - /assets/css/study-article.css?v=20260803k
+  - /assets/content-lightbox.css?v=20260722
+page_js:
+  - /assets/content-lightbox.js?v=20260802
+---
+<div class="study-shell">
+<header class="study-identity">
+  <a class="detail-category-link" href="/#study">Study</a>
+  <h1>SLAM-Former 실습</h1>
+</header>
+<section aria-label="Study metadata" class="study-hero">
 
-    <main>
-      <section class="study-hero">
-        <p class="study-kicker">Open-source Practice</p>
-        <h1>SLAM-Former 실습</h1>
-        <div class="study-meta" aria-label="Study metadata">
-          <div class="study-meta-item"><span>Period</span><strong>2026.07.17 - 07.23</strong></div>
-          <div class="study-meta-item"><span>Format</span><strong>Open-source Practice</strong></div>
-          <div class="study-meta-item"><span>Model</span><strong>V1 · V1.1 · V1.1-long</strong></div>
-          <div class="study-meta-item"><span>Related</span><strong><a href="../../paper_reviews/SLAM-Former/">SLAM-Former Review</a></strong></div>
-        </div>
-      </section>
 
-      <article class="study-article">
-        <section class="study-section" aria-labelledby="scope-title">
-          <h2 id="scope-title">실습 범위</h2>
-          <p>SLAM-Former 공개 코드를 실행해 입력이 순차적으로 처리되는 구조를 확인하고, <strong>EuRoC MH01</strong>, <strong>KITTI</strong>, 직접 촬영한 실내 데이터에서 trajectory와 dense reconstruction의 동작을 살펴봤다. 서로 다른 checkpoint를 비교하고 긴 시퀀스에서 발생한 메모리 한계도 함께 기록했다.</p>
-          <div class="finding-grid" aria-label="실습 핵심 결과">
-            <div class="finding-item"><span>Execution</span><strong>Frame-by-frame update</strong><p>각 이미지를 차례로 읽어 frontend와 backend를 호출하는 online 처리 구조를 확인했다.</p></div>
-            <div class="finding-item"><span>Measured</span><strong>EuRoC MH01 evaluation</strong><p>Sim(3) Umeyama alignment 기준 ATE RMSE는 0.584846 m였다.</p></div>
-            <div class="finding-item"><span>Limits</span><strong>Repeated structure · Keyframe growth</strong><p>반복적인 도로 구조에서 drift가 나타났고, keyframe이 누적된 긴 sequence에서 OOM이 발생했다.</p></div>
-          </div>
-        </section>
-
-        <section class="study-section" aria-labelledby="online-title">
-          <h2 id="online-title">1. 순차 처리 구조 확인</h2>
-          <p><code>demo.py</code>는 image folder의 frame을 하나씩 읽고 각 frame마다 <code>slam.step(frame_id, img)</code>을 호출한다. <code>step</code> 내부에서는 frontend update와 backend update가 이어지므로, 저장된 전체 시퀀스를 한 번에 입력하는 batch reconstruction이 아니라 <strong>frame 단위로 state를 갱신하는 구조</strong>임을 확인했다.</p>
-          <div class="flow-grid" aria-label="SLAM-Former 실행 흐름">
-            <div class="flow-step"><span>01</span><strong>Frame loading</strong></div>
-            <div class="flow-step"><span>02</span><strong><code>slam.step</code></strong></div>
-            <div class="flow-step"><span>03</span><strong>Frontend + Backend</strong></div>
-            <div class="flow-step"><span>04</span><strong>State / map update</strong></div>
-          </div>
-          <figure class="study-figure">
-            <img src="assets/online-loop.png?v=20260725" width="1440" height="776" alt="demo.py에서 이미지를 순차적으로 처리하는 SLAM-Former 실행 루프" />
-            <figcaption><strong>Sequential execution loop.</strong> 입력 frame을 순회하며 <code>slam.step</code>을 호출하고, 처리가 끝나면 결과를 저장한다.</figcaption>
-          </figure>
-          <div class="study-note"><strong>Online 처리와 real-time 성능의 구분</strong><code>--vis</code>가 real-time visualization으로 설명되어 있어 실행 중 결과를 확인할 수는 있었지만, 이번 실습에서는 FPS와 frame latency를 별도로 측정하지 않았다. 따라서 sequential online 처리 여부는 확인했지만 wall-clock real-time 성능까지 검증한 것은 아니다.</div>
-        </section>
-
-        <section class="study-section" aria-labelledby="setup-title">
-          <h2 id="setup-title">2. Checkpoint와 실행 설정</h2>
-          <p>공개 checkpoint는 입력 해상도와 sequence 길이에 맞춰 구분되어 있었다. 커스텀 데이터와 EuRoC, KITTI 실험에서는 긴 시퀀스를 대상으로 학습된 <span class="checkpoint-token">V1.1-long</span>을 주로 사용하고, <code>target_size=224</code>와 <code>retention_ratio=0.5</code>를 적용했다.</p>
-          <div class="table-wrap"><table class="study-table">
-            <thead><tr><th>Checkpoint</th><th>Target size</th><th>실습에서 확인한 특징</th></tr></thead>
-            <tbody>
-              <tr><td><span class="checkpoint-token">V1</span></td><td>518</td><td>기본 checkpoint. 실내 회전 구간과 KITTI에서 reconstruction이 무너지는 사례가 있었다.</td></tr>
-              <tr><td><span class="checkpoint-token">V1.1</span></td><td>518</td><td>ConvHead를 사용하는 후속 checkpoint.</td></tr>
-              <tr><td><span class="checkpoint-token">V1.1-long</span></td><td>224</td><td>더 긴 sequence 길이로 학습된 checkpoint. office에서는 V1보다 회전 구간이 안정적이었다.</td></tr>
-            </tbody>
-          </table></div>
-          <figure class="study-figure">
-            <img src="assets/checkpoint-list.png?v=20260725" width="1036" height="188" alt="SLAM-Former 공개 checkpoint 목록" loading="lazy" />
-            <figcaption><strong>Checkpoint configuration.</strong> <span class="checkpoint-token">V1.1-long</span>은 224 입력과 긴 sequence 학습 설정을 사용한다.</figcaption>
-          </figure>
-          <details class="code-details"><summary>공통 실행 명령 보기</summary><pre><code>python slam/demo.py \
+<div aria-label="Study metadata" class="study-meta">
+<div class="study-meta-item"><span>Period</span><strong>2026.07.17 - 07.23</strong></div>
+<div class="study-meta-item"><span>Format</span><strong>Open-source Practice</strong></div>
+<div class="study-meta-item"><span>Model</span><strong>V1 · V1.1 · V1.1-long</strong></div>
+<div class="study-meta-item"><span>Related</span><strong><a href="../../paper_reviews/SLAM-Former/">SLAM-Former Review</a></strong></div>
+</div>
+</section>
+<article class="study-article">
+<section aria-labelledby="scope-title" class="study-section">
+<h2 id="scope-title">실습 범위</h2>
+<p>SLAM-Former 공개 코드를 실행해 입력이 순차적으로 처리되는 구조를 확인하고, <strong>EuRoC MH01</strong>, <strong>KITTI</strong>, 직접 촬영한 실내 데이터에서 trajectory와 dense reconstruction의 동작을 살펴봤다. 서로 다른 checkpoint를 비교하고 긴 시퀀스에서 발생한 메모리 한계도 함께 기록했다.</p>
+<div aria-label="실습 핵심 결과" class="finding-grid">
+<div class="finding-item"><span>Execution</span><strong>Frame-by-frame update</strong><p>각 이미지를 차례로 읽어 frontend와 backend를 호출하는 online 처리 구조를 확인했다.</p></div>
+<div class="finding-item"><span>Measured</span><strong>EuRoC MH01 evaluation</strong><p>Sim(3) Umeyama alignment 기준 ATE RMSE는 0.584846 m였다.</p></div>
+<div class="finding-item"><span>Limits</span><strong>Repeated structure · Keyframe growth</strong><p>반복적인 도로 구조에서 drift가 나타났고, keyframe이 누적된 긴 sequence에서 OOM이 발생했다.</p></div>
+</div>
+</section>
+<section aria-labelledby="online-title" class="study-section">
+<h2 id="online-title">1. 순차 처리 구조 확인</h2>
+<p><code>demo.py</code>는 image folder의 frame을 하나씩 읽고 각 frame마다 <code>slam.step(frame_id, img)</code>을 호출한다. <code>step</code> 내부에서는 frontend update와 backend update가 이어지므로, 저장된 전체 시퀀스를 한 번에 입력하는 batch reconstruction이 아니라 <strong>frame 단위로 state를 갱신하는 구조</strong>임을 확인했다.</p>
+<div aria-label="SLAM-Former 실행 흐름" class="flow-grid">
+<div class="flow-step"><span>01</span><strong>Frame loading</strong></div>
+<div class="flow-step"><span>02</span><strong><code>slam.step</code></strong></div>
+<div class="flow-step"><span>03</span><strong>Frontend + Backend</strong></div>
+<div class="flow-step"><span>04</span><strong>State / map update</strong></div>
+</div>
+<figure class="study-figure">
+<img alt="demo.py에서 이미지를 순차적으로 처리하는 SLAM-Former 실행 루프" height="776" src="assets/online-loop.png?v=20260725" width="1440"/>
+<figcaption><strong>Sequential execution loop.</strong> 입력 frame을 순회하며 <code>slam.step</code>을 호출하고, 처리가 끝나면 결과를 저장한다.</figcaption>
+</figure>
+<div class="study-note"><strong>Online 처리와 real-time 성능의 구분</strong><code>--vis</code>가 real-time visualization으로 설명되어 있어 실행 중 결과를 확인할 수는 있었지만, 이번 실습에서는 FPS와 frame latency를 별도로 측정하지 않았다. 따라서 sequential online 처리 여부는 확인했지만 wall-clock real-time 성능까지 검증한 것은 아니다.</div>
+</section>
+<section aria-labelledby="setup-title" class="study-section">
+<h2 id="setup-title">2. Checkpoint와 실행 설정</h2>
+<p>공개 checkpoint는 입력 해상도와 sequence 길이에 맞춰 구분되어 있었다. 커스텀 데이터와 EuRoC, KITTI 실험에서는 긴 시퀀스를 대상으로 학습된 <span class="checkpoint-token">V1.1-long</span>을 주로 사용하고, <code>target_size=224</code>와 <code>retention_ratio=0.5</code>를 적용했다.</p>
+<div class="table-wrap"><table class="study-table">
+<thead><tr><th>Checkpoint</th><th>Target size</th><th>실습에서 확인한 특징</th></tr></thead>
+<tbody>
+<tr><td><span class="checkpoint-token">V1</span></td><td>518</td><td>기본 checkpoint. 실내 회전 구간과 KITTI에서 reconstruction이 무너지는 사례가 있었다.</td></tr>
+<tr><td><span class="checkpoint-token">V1.1</span></td><td>518</td><td>ConvHead를 사용하는 후속 checkpoint.</td></tr>
+<tr><td><span class="checkpoint-token">V1.1-long</span></td><td>224</td><td>더 긴 sequence 길이로 학습된 checkpoint. office에서는 V1보다 회전 구간이 안정적이었다.</td></tr>
+</tbody>
+</table></div>
+<figure class="study-figure">
+<img alt="SLAM-Former 공개 checkpoint 목록" height="188" loading="lazy" src="assets/checkpoint-list.png?v=20260725" width="1036"/>
+<figcaption><strong>Checkpoint configuration.</strong> <span class="checkpoint-token">V1.1-long</span>은 224 입력과 긴 sequence 학습 설정을 사용한다.</figcaption>
+</figure>
+<details class="code-details"><summary>공통 실행 명령 보기</summary><pre><code>python slam/demo.py \
   --ckpt_path ./weights/V1.1-long.pth \
   --image_folder &lt;IMAGE_FOLDER&gt; \
   --output_dir &lt;OUTPUT_DIR&gt; \
   --target_size 224 \
   --retention_ratio 0.5 \
   --vis</code></pre></details>
-        </section>
-
-        <section class="study-section" aria-labelledby="euroc-title">
-          <h2 id="euroc-title">3. EuRoC MH01 정량 평가</h2>
-          <p>EuRoC MH01의 cam0 image stream을 <span class="checkpoint-token">V1.1-long</span>으로 처리했다. 정량 평가에는 MASt3R-SLAM에서 제공하는 TUM 형식의 EuRoC ground truth를 가져와 사용했으며, SLAM-Former의 추정 trajectory에 Sim(3) Umeyama alignment를 적용해 비교했다.</p>
-          <div class="metric-strip" aria-label="EuRoC MH01 측정 결과">
-            <div class="metric-item"><span>Sequence</span><strong>MH01</strong><small>EuRoC Machine Hall 01</small></div>
-            <div class="metric-item"><span>ATE RMSE</span><strong>0.584846 m</strong><small>Translation · Sim(3) alignment</small></div>
-            <div class="metric-item"><span>Keyframes</span><strong>87</strong><small>최종 출력에서 확인</small></div>
-          </div>
-          <figure class="study-figure is-narrow">
-            <img src="assets/euroc-map.png?v=20260725" width="682" height="746" alt="SLAM-Former로 복원한 EuRoC MH01 point cloud와 camera trajectory" loading="lazy" />
-            <figcaption><strong>EuRoC MH01 reconstruction.</strong> Dense point cloud 위에 추정 camera pose와 trajectory를 함께 표시한 결과다.</figcaption>
-          </figure>
-          <div class="media-pair is-compact">
-            <figure>
-              <div class="media-frame"><img src="assets/euroc-ape.png?v=20260725" width="710" height="276" alt="EuRoC MH01 evo APE 측정 결과" loading="lazy" /></div>
-              <figcaption><strong>ATE evaluation.</strong> <code>evo_ape</code>에서 Sim(3) Umeyama alignment를 적용해 RMSE 0.584846 m를 얻었다.</figcaption>
-            </figure>
-            <figure>
-              <div class="media-frame"><img src="assets/euroc-keyframes.png?v=20260725" width="844" height="272" alt="SLAM-Former가 EuRoC MH01에서 생성한 keyframe 파일 목록" loading="lazy" /></div>
-              <figcaption><strong>Keyframe output.</strong> 최종 point cloud 출력 폴더에서 87개 keyframe을 확인했다.</figcaption>
-            </figure>
-          </div>
-          <div class="media-pair">
-            <figure>
-              <div class="media-frame"><img src="assets/euroc-ape-series.png?v=20260725" width="1068" height="1064" alt="EuRoC MH01 timestamp별 translation APE 그래프" loading="lazy" /></div>
-              <figcaption><strong>APE over time.</strong> Timestamp별 translation error와 RMSE, mean, median, standard deviation 범위를 함께 표시한다.</figcaption>
-            </figure>
-            <figure>
-              <div class="media-frame"><img src="assets/euroc-ape-trajectory.png?v=20260725" width="1068" height="1064" alt="EuRoC MH01 reference trajectory와 translation APE를 표시한 3D plot" loading="lazy" /></div>
-              <figcaption><strong>Trajectory error map.</strong> 점선 reference trajectory와 추정 trajectory의 위치별 APE를 색으로 비교한다.</figcaption>
-            </figure>
-          </div>
-          <figure class="study-figure is-wide">
-            <img src="assets/mast3r-euroc-table9.png?v=20260725" width="1597" height="410" alt="MASt3R-SLAM과 여러 baseline의 EuRoC ATE 비교 결과" loading="lazy" />
-            <figcaption><strong>MASt3R-SLAM Table 9.</strong> EuRoC에서 ORB-SLAM, DROID-SLAM, MASt3R-SLAM 등 baseline의 ATE를 비교한 결과.</figcaption>
-          </figure>
-          <div class="study-note"><strong>EuRoC baseline과의 비교</strong>이번 SLAM-Former MH01 실행의 ATE RMSE는 0.584846 m였다. Table 9의 calibrated MASt3R-SLAM은 0.023 m, uncalibrated 설정은 0.180 m로, 이번 설정에서 SLAM-Former가 EuRoC에서 우수한 성능을 보였다고 보기는 어렵다. 다만 구현과 checkpoint, 평가 절차가 완전히 같지 않으므로 직접적인 method ranking으로 해석하지 않았다.</div>
-        </section>
-
-        <section class="study-section" aria-labelledby="indoor-title">
-          <h2 id="indoor-title">4. 실내 데이터 실습</h2>
-          <p>직접 촬영한 office와 room sequence에서는 checkpoint에 따른 안정성, 회전 구간, texture-less surface, 움직이는 사람의 영향을 중심으로 관찰했다.</p>
-
-          <h3>Office · static scene</h3>
-          <p><span class="checkpoint-token">V1</span>은 camera가 회전하는 구간에서 map이 무너졌지만, <span class="checkpoint-token">V1.1-long</span>은 같은 유형의 회전을 비교적 안정적으로 통과했다. 복원 결과에서는 벽과 바닥처럼 texture가 적은 영역도 연속적인 구조로 남았다.</p>
-          <div class="media-pair">
-            <figure>
-              <div class="media-frame"><img src="assets/office-result.png?v=20260725" width="685" height="754" alt="SLAM-Former V1.1-long office reconstruction 결과" loading="lazy" /></div>
-              <figcaption><strong>Office reconstruction.</strong> <span class="checkpoint-token">V1.1-long</span>의 point cloud와 camera trajectory 결과.</figcaption>
-            </figure>
-            <figure>
-              <div class="media-frame"><video controls muted playsinline preload="metadata" poster="assets/office-result.png?v=20260725"><source src="assets/office-v11-long.mp4?v=20260725" type="video/mp4" /></video></div>
-              <figcaption><strong>Office sequence.</strong> <span class="checkpoint-token">V1.1-long</span>이 frame을 순차 처리하는 과정.</figcaption>
-            </figure>
-          </div>
-
-          <h3>Room · dynamic + static scene</h3>
-          <p>작은 room sequence에서는 <span class="checkpoint-token">V1</span>, <span class="checkpoint-token">V1.1</span>, <span class="checkpoint-token">V1.1-long</span>을 비교했다. 이 데이터에서는 <span class="checkpoint-token">V1 · 518</span>이 가장 안정적인 정성 결과를 보였다. 움직이는 사람이 포함되어도 static reconstruction이 즉시 붕괴하는 현상은 보이지 않았다.</p>
-          <div class="media-pair">
-            <figure>
-              <div class="media-frame"><img src="assets/small-room-v1.png?v=20260725" width="682" height="759" alt="SLAM-Former V1 518 checkpoint의 small room reconstruction 결과" loading="lazy" /></div>
-              <figcaption><strong>SLAM-Former <span class="checkpoint-token">V1 · 518</span>.</strong> Small room sequence에서 얻은 point cloud와 camera trajectory.</figcaption>
-            </figure>
-            <figure>
-              <div class="media-frame"><img src="assets/room-result.png?v=20260725" width="681" height="746" alt="SLAM-Former V1.1-long 224 checkpoint의 small room reconstruction 결과" loading="lazy" /></div>
-              <figcaption><strong>SLAM-Former <span class="checkpoint-token">V1.1-long · 224</span>.</strong> 같은 유형의 small room sequence에서 얻은 비교 결과.</figcaption>
-            </figure>
-          </div>
-          <h4>Small room 실행 비교</h4>
-          <p><span class="checkpoint-token">SLAM-Former V1 · 518</span>의 실행 결과와 MASt3R-SLAM의 texture-less 구간 relocalization 실패 사례를 나란히 비교했다.</p>
-          <div class="media-pair">
-            <figure>
-              <div class="media-frame"><video controls muted playsinline preload="metadata" poster="assets/small-room-v1.png?v=20260725"><source src="assets/room-v1-518.mp4?v=20260725" type="video/mp4" /></video></div>
-              <figcaption><strong>SLAM-Former <span class="checkpoint-token">V1 · 518</span>.</strong> Dynamic object와 static background가 함께 있는 small room sequence의 처리 과정.</figcaption>
-            </figure>
-            <figure>
-              <div class="media-frame"><video controls muted playsinline preload="metadata" poster="assets/mast3r-small-room-poster.png?v=20260725"><source src="assets/mast3r-small-room.mp4?v=20260725" type="video/mp4" /></video></div>
-              <figcaption><strong>MASt3R-SLAM comparison.</strong> 같은 규모의 room sequence에서 texture-less 영역을 지난 뒤 relocalization에 실패하는 사례.</figcaption>
-            </figure>
-          </div>
-          <div class="study-note"><strong>정성 비교의 해석 범위</strong>SLAM-Former에는 dynamic object를 명시적으로 제거하는 별도 module이 없다. MASt3R-SLAM과의 비교도 같은 camera trajectory나 입력 frame을 엄밀히 통제한 정량 실험은 아니므로, texture-less 영역과 dynamic scene에 대한 상대 성능을 입증한 결과로 해석하지 않았다.</div>
-        </section>
-
-        <section class="study-section" aria-labelledby="kitti-title">
-          <h2 id="kitti-title">5. KITTI 반복 구조 실험</h2>
-          <p>KITTI에서는 도로, 차량, 건물, 가로수처럼 비슷한 형태가 반복되는 장면에서 불안정한 동작이 나타났다. <span class="checkpoint-token">V1</span>은 회전 구간에서 쉽게 무너졌고, <span class="checkpoint-token">V1.1-long</span>은 초반에는 진행했지만 일부 sequence에서 keyframe pose가 실제 진행 방향과 다르게 이동했다.</p>
-          <div class="table-wrap"><table class="study-table">
-            <thead><tr><th>Sequence</th><th>관찰한 현상</th><th>해석</th></tr></thead>
-            <tbody>
-              <tr><td>KITTI 0018</td><td>초반 진행 후 전방 이동이 정체되고 pose가 흔들림</td><td>반복 구조에서 backend matching이 불안정했을 가능성</td></tr>
-              <tr><td>KITTI 0028</td><td>차량은 전진하지만 일부 keyframe pose가 뒤쪽으로 이동</td><td>유사한 도로 장면 사이의 잘못된 대응으로 추정</td></tr>
-              <tr><td>KITTI 0047</td><td>흰색 point noise가 나타난 뒤 일부 구간에서 회복</td><td>Backend correction이 항상 안정적이지는 않음</td></tr>
-            </tbody>
-          </table></div>
-          <div class="media-pair">
-            <figure>
-              <div class="media-frame"><img src="assets/kitti-result.png?v=20260725" width="692" height="749" alt="SLAM-Former KITTI reconstruction 결과" loading="lazy" /></div>
-              <figcaption><strong>KITTI reconstruction.</strong> 반복적인 outdoor scene에서 trajectory와 geometry가 흐트러진 사례.</figcaption>
-            </figure>
-            <figure>
-              <div class="media-frame"><video controls muted playsinline preload="metadata" poster="assets/kitti-result.png?v=20260725"><source src="assets/kitti-0018.mp4?v=20260725" type="video/mp4" /></video></div>
-              <figcaption><strong>KITTI 0018.</strong> <span class="checkpoint-token">V1.1-long</span> 실행 중 keyframe과 point cloud가 갱신되는 과정.</figcaption>
-            </figure>
-          </div>
-          <div class="study-note"><strong>원인에 대한 추정</strong>이번 기록에서는 correspondence나 attention weight를 직접 분석하지 않았다. 따라서 반복 구조에서 잘못된 backend matching이 발생했다는 설명은 관찰된 keyframe drift를 바탕으로 한 가설이다.</div>
-        </section>
-
-        <section class="study-section" aria-labelledby="long-title">
-          <h2 id="long-title">6. 긴 시퀀스와 메모리 한계</h2>
-          <p><span class="checkpoint-token">V1.1-long</span>에 2,000 frame으로 구성한 <code>in_2000</code> sequence를 입력했을 때 약 1,000 frame을 넘긴 시점부터 OOM이 발생했다. 핵심은 입력 frame 수 자체보다 <strong>선택되어 남는 keyframe 수</strong>다. Keyframe이 증가하면 frontend가 유지하는 KV cache와 backend가 갱신할 map token도 함께 쌓이고, backend가 누적 state를 처리하는 연산량과 memory cost가 커진다.</p>
-          <ul class="observation-list">
-            <li><strong>확인한 현상:</strong> 1,000 frame 이후 GPU memory 부족으로 실행이 중단됐다.</li>
-            <li><strong>가능한 원인:</strong> Keyframe과 함께 누적되는 KV cache·map token, 그리고 이를 다시 처리하는 backend의 비용 증가.</li>
-            <li><strong>추가로 필요한 검증:</strong> Keyframe 수에 따른 memory profile, backend 호출 주기와 retention ratio 변화에 따른 사용량 측정.</li>
-          </ul>
-        </section>
-
-        <section class="study-section" aria-labelledby="summary-title">
-          <h2 id="summary-title">정리</h2>
-          <div class="table-wrap"><table class="study-table">
-            <thead><tr><th>구분</th><th>확인한 내용</th></tr></thead>
-            <tbody>
-              <tr><td>실행 구조</td><td>Frame을 하나씩 입력하고 frontend와 backend state를 순차 갱신하는 online 구조.</td></tr>
-              <tr><td>정량 결과</td><td>EuRoC MH01에서 Sim(3) alignment 기준 ATE RMSE 0.584846 m, keyframe 87개.</td></tr>
-              <tr><td>잘 동작한 조건</td><td><span class="checkpoint-token">V1.1-long</span>은 office 회전 구간에서 <span class="checkpoint-token">V1</span>보다 안정적인 정성 결과를 보였다.</td></tr>
-              <tr><td>불안정한 조건</td><td>KITTI의 반복 구조에서 keyframe drift와 geometry noise가 나타났다.</td></tr>
-              <tr><td>시스템 한계</td><td>긴 sequence에서 keyframe, KV cache, map token이 누적되어 1,000 frame 이후 OOM이 발생했다.</td></tr>
-              <tr><td>남은 검증</td><td>FPS·latency, dynamic robustness, checkpoint별 정량 비교, 장기 sequence memory profile.</td></tr>
-            </tbody>
-          </table></div>
-        </section>
-
-        <section class="study-section" aria-labelledby="future-title">
-          <h2 id="future-title">향후 계획</h2>
-          <ul class="observation-list">
-            <li>KITTI의 반복 구조에서 SLAM-Former가 실패하는 원인 분석</li>
-            <li>EuRoC MH01에 대한 3D reconstruction 정량 평가</li>
-            <li>EuRoC MH01에서 다른 baseline method보다 성능이 낮게 나온 원인 분석</li>
-          </ul>
-        </section>
-      </article>
-
-      <section class="comments" id="comments">
-        <h2>Comments</h2>
-        <script async crossorigin="anonymous"
-          src="https://giscus.app/client.js"
-          data-repo="noctml/noctml.github.io"
-          data-repo-id="R_kgDOQthLvQ"
-          data-category="General"
-          data-category-id="DIC_kwDOQthLvc4C1ZaY"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="light"
-          data-lang="ko">
-        </script>
-      </section>
-    </main>
-  </div>
-  <script defer src="../../../assets/content-lightbox.js?v=20260722"></script>
-</body>
-</html>
+</section>
+<section aria-labelledby="euroc-title" class="study-section">
+<h2 id="euroc-title">3. EuRoC MH01 정량 평가</h2>
+<p>EuRoC MH01의 cam0 image stream을 <span class="checkpoint-token">V1.1-long</span>으로 처리했다. 정량 평가에는 MASt3R-SLAM에서 제공하는 TUM 형식의 EuRoC ground truth를 가져와 사용했으며, SLAM-Former의 추정 trajectory에 Sim(3) Umeyama alignment를 적용해 비교했다.</p>
+<div aria-label="EuRoC MH01 측정 결과" class="metric-strip">
+<div class="metric-item"><span>Sequence</span><strong>MH01</strong><small>EuRoC Machine Hall 01</small></div>
+<div class="metric-item"><span>ATE RMSE</span><strong>0.584846 m</strong><small>Translation · Sim(3) alignment</small></div>
+<div class="metric-item"><span>Keyframes</span><strong>87</strong><small>최종 출력에서 확인</small></div>
+</div>
+<figure class="study-figure is-narrow">
+<img alt="SLAM-Former로 복원한 EuRoC MH01 point cloud와 camera trajectory" height="746" loading="lazy" src="assets/euroc-map.png?v=20260725" width="682"/>
+<figcaption><strong>EuRoC MH01 reconstruction.</strong> Dense point cloud 위에 추정 camera pose와 trajectory를 함께 표시한 결과다.</figcaption>
+</figure>
+<div class="media-pair is-compact">
+<figure>
+<div class="media-frame"><img alt="EuRoC MH01 evo APE 측정 결과" height="276" loading="lazy" src="assets/euroc-ape.png?v=20260725" width="710"/></div>
+<figcaption><strong>ATE evaluation.</strong> <code>evo_ape</code>에서 Sim(3) Umeyama alignment를 적용해 RMSE 0.584846 m를 얻었다.</figcaption>
+</figure>
+<figure>
+<div class="media-frame"><img alt="SLAM-Former가 EuRoC MH01에서 생성한 keyframe 파일 목록" height="272" loading="lazy" src="assets/euroc-keyframes.png?v=20260725" width="844"/></div>
+<figcaption><strong>Keyframe output.</strong> 최종 point cloud 출력 폴더에서 87개 keyframe을 확인했다.</figcaption>
+</figure>
+</div>
+<div class="media-pair">
+<figure>
+<div class="media-frame"><img alt="EuRoC MH01 timestamp별 translation APE 그래프" height="1064" loading="lazy" src="assets/euroc-ape-series.png?v=20260725" width="1068"/></div>
+<figcaption><strong>APE over time.</strong> Timestamp별 translation error와 RMSE, mean, median, standard deviation 범위를 함께 표시한다.</figcaption>
+</figure>
+<figure>
+<div class="media-frame"><img alt="EuRoC MH01 reference trajectory와 translation APE를 표시한 3D plot" height="1064" loading="lazy" src="assets/euroc-ape-trajectory.png?v=20260725" width="1068"/></div>
+<figcaption><strong>Trajectory error map.</strong> 점선 reference trajectory와 추정 trajectory의 위치별 APE를 색으로 비교한다.</figcaption>
+</figure>
+</div>
+<figure class="study-figure is-wide">
+<img alt="MASt3R-SLAM과 여러 baseline의 EuRoC ATE 비교 결과" height="410" loading="lazy" src="assets/mast3r-euroc-table9.png?v=20260725" width="1597"/>
+<figcaption><strong>MASt3R-SLAM Table 9.</strong> EuRoC에서 ORB-SLAM, DROID-SLAM, MASt3R-SLAM 등 baseline의 ATE를 비교한 결과.</figcaption>
+</figure>
+<div class="study-note"><strong>EuRoC baseline과의 비교</strong>이번 SLAM-Former MH01 실행의 ATE RMSE는 0.584846 m였다. Table 9의 calibrated MASt3R-SLAM은 0.023 m, uncalibrated 설정은 0.180 m로, 이번 설정에서 SLAM-Former가 EuRoC에서 우수한 성능을 보였다고 보기는 어렵다. 다만 구현과 checkpoint, 평가 절차가 완전히 같지 않으므로 직접적인 method ranking으로 해석하지 않았다.</div>
+</section>
+<section aria-labelledby="indoor-title" class="study-section">
+<h2 id="indoor-title">4. 실내 데이터 실습</h2>
+<p>직접 촬영한 office와 room sequence에서는 checkpoint에 따른 안정성, 회전 구간, texture-less surface, 움직이는 사람의 영향을 중심으로 관찰했다.</p>
+<h3>Office · static scene</h3>
+<p><span class="checkpoint-token">V1</span>은 camera가 회전하는 구간에서 map이 무너졌지만, <span class="checkpoint-token">V1.1-long</span>은 같은 유형의 회전을 비교적 안정적으로 통과했다. 복원 결과에서는 벽과 바닥처럼 texture가 적은 영역도 연속적인 구조로 남았다.</p>
+<div class="media-pair">
+<figure>
+<div class="media-frame"><img alt="SLAM-Former V1.1-long office reconstruction 결과" height="754" loading="lazy" src="assets/office-result.png?v=20260725" width="685"/></div>
+<figcaption><strong>Office reconstruction.</strong> <span class="checkpoint-token">V1.1-long</span>의 point cloud와 camera trajectory 결과.</figcaption>
+</figure>
+<figure>
+<div class="media-frame"><video controls="" muted="" playsinline="" poster="assets/office-result.png?v=20260725" preload="metadata"><source src="assets/office-v11-long.mp4?v=20260725" type="video/mp4"/></video></div>
+<figcaption><strong>Office sequence.</strong> <span class="checkpoint-token">V1.1-long</span>이 frame을 순차 처리하는 과정.</figcaption>
+</figure>
+</div>
+<h3>Room · dynamic + static scene</h3>
+<p>작은 room sequence에서는 <span class="checkpoint-token">V1</span>, <span class="checkpoint-token">V1.1</span>, <span class="checkpoint-token">V1.1-long</span>을 비교했다. 이 데이터에서는 <span class="checkpoint-token">V1 · 518</span>이 가장 안정적인 정성 결과를 보였다. 움직이는 사람이 포함되어도 static reconstruction이 즉시 붕괴하는 현상은 보이지 않았다.</p>
+<div class="media-pair">
+<figure>
+<div class="media-frame"><img alt="SLAM-Former V1 518 checkpoint의 small room reconstruction 결과" height="759" loading="lazy" src="assets/small-room-v1.png?v=20260725" width="682"/></div>
+<figcaption><strong>SLAM-Former <span class="checkpoint-token">V1 · 518</span>.</strong> Small room sequence에서 얻은 point cloud와 camera trajectory.</figcaption>
+</figure>
+<figure>
+<div class="media-frame"><img alt="SLAM-Former V1.1-long 224 checkpoint의 small room reconstruction 결과" height="746" loading="lazy" src="assets/room-result.png?v=20260725" width="681"/></div>
+<figcaption><strong>SLAM-Former <span class="checkpoint-token">V1.1-long · 224</span>.</strong> 같은 유형의 small room sequence에서 얻은 비교 결과.</figcaption>
+</figure>
+</div>
+<h4>Small room 실행 비교</h4>
+<p><span class="checkpoint-token">SLAM-Former V1 · 518</span>의 실행 결과와 MASt3R-SLAM의 texture-less 구간 relocalization 실패 사례를 나란히 비교했다.</p>
+<div class="media-pair">
+<figure>
+<div class="media-frame"><video controls="" muted="" playsinline="" poster="assets/small-room-v1.png?v=20260725" preload="metadata"><source src="assets/room-v1-518.mp4?v=20260725" type="video/mp4"/></video></div>
+<figcaption><strong>SLAM-Former <span class="checkpoint-token">V1 · 518</span>.</strong> Dynamic object와 static background가 함께 있는 small room sequence의 처리 과정.</figcaption>
+</figure>
+<figure>
+<div class="media-frame"><video controls="" muted="" playsinline="" poster="assets/mast3r-small-room-poster.png?v=20260725" preload="metadata"><source src="assets/mast3r-small-room.mp4?v=20260725" type="video/mp4"/></video></div>
+<figcaption><strong>MASt3R-SLAM comparison.</strong> 같은 규모의 room sequence에서 texture-less 영역을 지난 뒤 relocalization에 실패하는 사례.</figcaption>
+</figure>
+</div>
+<div class="study-note"><strong>정성 비교의 해석 범위</strong>SLAM-Former에는 dynamic object를 명시적으로 제거하는 별도 module이 없다. MASt3R-SLAM과의 비교도 같은 camera trajectory나 입력 frame을 엄밀히 통제한 정량 실험은 아니므로, texture-less 영역과 dynamic scene에 대한 상대 성능을 입증한 결과로 해석하지 않았다.</div>
+</section>
+<section aria-labelledby="kitti-title" class="study-section">
+<h2 id="kitti-title">5. KITTI 반복 구조 실험</h2>
+<p>KITTI에서는 도로, 차량, 건물, 가로수처럼 비슷한 형태가 반복되는 장면에서 불안정한 동작이 나타났다. <span class="checkpoint-token">V1</span>은 회전 구간에서 쉽게 무너졌고, <span class="checkpoint-token">V1.1-long</span>은 초반에는 진행했지만 일부 sequence에서 keyframe pose가 실제 진행 방향과 다르게 이동했다.</p>
+<div class="table-wrap"><table class="study-table">
+<thead><tr><th>Sequence</th><th>관찰한 현상</th><th>해석</th></tr></thead>
+<tbody>
+<tr><td>KITTI 0018</td><td>초반 진행 후 전방 이동이 정체되고 pose가 흔들림</td><td>반복 구조에서 backend matching이 불안정했을 가능성</td></tr>
+<tr><td>KITTI 0028</td><td>차량은 전진하지만 일부 keyframe pose가 뒤쪽으로 이동</td><td>유사한 도로 장면 사이의 잘못된 대응으로 추정</td></tr>
+<tr><td>KITTI 0047</td><td>흰색 point noise가 나타난 뒤 일부 구간에서 회복</td><td>Backend correction이 항상 안정적이지는 않음</td></tr>
+</tbody>
+</table></div>
+<div class="media-pair">
+<figure>
+<div class="media-frame"><img alt="SLAM-Former KITTI reconstruction 결과" height="749" loading="lazy" src="assets/kitti-result.png?v=20260725" width="692"/></div>
+<figcaption><strong>KITTI reconstruction.</strong> 반복적인 outdoor scene에서 trajectory와 geometry가 흐트러진 사례.</figcaption>
+</figure>
+<figure>
+<div class="media-frame"><video controls="" muted="" playsinline="" poster="assets/kitti-result.png?v=20260725" preload="metadata"><source src="assets/kitti-0018.mp4?v=20260725" type="video/mp4"/></video></div>
+<figcaption><strong>KITTI 0018.</strong> <span class="checkpoint-token">V1.1-long</span> 실행 중 keyframe과 point cloud가 갱신되는 과정.</figcaption>
+</figure>
+</div>
+<div class="study-note"><strong>원인에 대한 추정</strong>Correspondence와 attention weight를 분석하지 않은 상태이므로, 반복 구조에서의 backend matching 실패는 관찰된 keyframe drift를 바탕으로 한 가설이다.</div>
+</section>
+<section aria-labelledby="long-title" class="study-section">
+<h2 id="long-title">6. 긴 시퀀스와 메모리 한계</h2>
+<p><span class="checkpoint-token">V1.1-long</span>에 2,000 frame으로 구성한 <code>in_2000</code> sequence를 입력했을 때 약 1,000 frame을 넘긴 시점부터 OOM이 발생했다. 핵심은 입력 frame 수 자체보다 <strong>선택되어 남는 keyframe 수</strong>다. Keyframe이 증가하면 frontend가 유지하는 KV cache와 backend가 갱신할 map token도 함께 쌓이고, backend가 누적 state를 처리하는 연산량과 memory cost가 커진다.</p>
+<ul class="observation-list">
+<li><strong>확인한 현상:</strong> 1,000 frame 이후 GPU memory 부족으로 실행이 중단됐다.</li>
+<li><strong>가능한 원인:</strong> Keyframe과 함께 누적되는 KV cache·map token, 그리고 이를 다시 처리하는 backend의 비용 증가.</li>
+<li><strong>추가로 필요한 검증:</strong> Keyframe 수에 따른 memory profile, backend 호출 주기와 retention ratio 변화에 따른 사용량 측정.</li>
+</ul>
+</section>
+<section aria-labelledby="summary-title" class="study-section">
+<h2 id="summary-title">정리</h2>
+<div class="table-wrap"><table class="study-table">
+<thead><tr><th>구분</th><th>확인한 내용</th></tr></thead>
+<tbody>
+<tr><td>실행 구조</td><td>Frame을 하나씩 입력하고 frontend와 backend state를 순차 갱신하는 online 구조.</td></tr>
+<tr><td>정량 결과</td><td>EuRoC MH01에서 Sim(3) alignment 기준 ATE RMSE 0.584846 m, keyframe 87개.</td></tr>
+<tr><td>잘 동작한 조건</td><td><span class="checkpoint-token">V1.1-long</span>은 office 회전 구간에서 <span class="checkpoint-token">V1</span>보다 안정적인 정성 결과를 보였다.</td></tr>
+<tr><td>불안정한 조건</td><td>KITTI의 반복 구조에서 keyframe drift와 geometry noise가 나타났다.</td></tr>
+<tr><td>시스템 한계</td><td>긴 sequence에서 keyframe, KV cache, map token이 누적되어 1,000 frame 이후 OOM이 발생했다.</td></tr>
+<tr><td>남은 검증</td><td>FPS·latency, dynamic robustness, checkpoint별 정량 비교, 장기 sequence memory profile.</td></tr>
+</tbody>
+</table></div>
+</section>
+<section aria-labelledby="future-title" class="study-section">
+<h2 id="future-title">향후 계획</h2>
+<ul class="observation-list">
+<li>KITTI의 반복 구조에서 SLAM-Former가 실패하는 원인 분석</li>
+<li>EuRoC MH01에 대한 3D reconstruction 정량 평가</li>
+<li>EuRoC MH01에서 다른 baseline method보다 성능이 낮게 나온 원인 분석</li>
+</ul>
+</section>
+</article>
+</div>

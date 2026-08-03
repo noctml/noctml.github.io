@@ -1,291 +1,60 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Take-Out 동아리 신입부원 5주차 스터디 멘토링 자료." />
-  <meta name="author" content="Wooseok Song" />
-  <title>[Study] OpenCV Study | Insighted</title>
-  <link rel="icon" type="image/png" sizes="48x48" href="../../../assets/favicon.png" />
-  <link rel="stylesheet" href="../../../assets/site-theme.css?v=study-20260705" />
-  <link rel="stylesheet" href="../../../styles.css?v=study-20260705" />
-  <link rel="stylesheet" href="../../../assets/content-lightbox.css?v=20260722" />
-  <style>
-    body{
-      min-height:100vh;
-      background:var(--bg);
-      color:var(--text);
-    }
-    .study-shell{
-      width:min(1120px, calc(100% - 40px));
-      margin:0 auto;
-      padding:22px 0 42px;
-    }
-    .study-topbar{
-      position:sticky;
-      top:0;
-      z-index:20;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:12px 0 16px;
-      background:var(--bg);
-      backdrop-filter:none;
-    }
-    .study-brand{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      color:var(--text);
-      text-decoration:none;
-      font-size:14px;
-      font-weight:760;
-      letter-spacing:-0.01em;
-    }
-    .study-brand img{
-      width:30px;
-      height:30px;
-      border-radius:8px;
-      object-fit:cover;
-    }
-    .study-hero{
-      padding:28px 0 20px;
-      border-bottom:1px solid var(--line);
-    }
-    .study-kicker{
-      margin:0 0 9px;
-      color:var(--muted);
-      font-size:11px;
-      font-weight:760;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .study-hero h1{
-      margin:0;
-      max-width:900px;
-      font-size:clamp(18px, 2.6vw, 28px);
-      line-height:1.18;
-      letter-spacing:-0.025em;
-    }
-    .study-meta{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:12px;
-      margin-top:22px;
-    }
-    .study-meta-item{
-      min-height:72px;
-      padding:13px 14px;
-      border-top:1px solid var(--line);
-      background:color-mix(in srgb, var(--panel) 34%, transparent);
-    }
-    .study-meta-item span{
-      display:block;
-      margin-bottom:7px;
-      color:var(--muted);
-      font-size:10px;
-      font-weight:760;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
-    .study-meta-item strong{
-      display:block;
-      color:var(--text);
-      font-size:13px;
-      line-height:1.35;
-    }
-    .pdf-section{
-      padding-top:24px;
-    }
-    .pdf-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:12px;
-    }
-    .pdf-head h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:-0.02em;
-    }
-    .pdf-viewer{
-      width:100%;
-      min-height:calc(100vh - 190px);
-      border:1px solid var(--line);
-      border-radius:6px;
-      background:#f8fafc;
-      overflow:hidden;
-    }
-    .pdf-viewer iframe{
-      width:100%;
-      height:calc(100vh - 190px);
-      min-height:620px;
-      border:0;
-      display:block;
-      background:#f8fafc;
-    }
-    .study-photo{
-      width:min(640px, 100%);
-      margin:32px auto 0;
-    }
-    .study-photo img{
-      display:block;
-      width:100%;
-      height:auto;
-      border:1px solid var(--line);
-      border-radius:5px;
-    }
-    .study-photo figcaption{
-      margin-top:9px;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.45;
-      text-align:center;
-    }
-    .study-context{
-      width:100%;
-      margin:14px 0 0;
-      color:var(--text);
-      font-size:16px;
-      line-height:1.8;
-      word-break:keep-all;
-    }
-    .study-notes{
-      width:min(680px, 100%);
-      margin:40px auto 0;
-      padding-top:26px;
-      border-top:1px solid var(--line);
-    }
-    .study-notes h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:-0.02em;
-    }
-    .study-notes .study-photo{
-      margin-top:18px;
-    }
-    .study-context p{
-      margin:0;
-    }
-    .study-context p + p{
-      margin-top:1em;
-    }
-    .comments{
-      margin-top:32px;
-      padding-top:18px;
-      border-top:1px solid var(--line);
-    }
-    .comments h2{
-      margin:0 0 14px;
-      font-size:18px;
-      line-height:1.3;
-      letter-spacing:-0.01em;
-    }
-    @media (max-width:760px){
-      .study-shell{
-        width:min(100% - 24px, 1120px);
-        padding-top:10px;
-      }
-      .study-topbar{
-        align-items:flex-start;
-        flex-direction:column;
-      }
-      .study-hero h1{
-        font-size:24px;
-      }
-      .study-meta{
-        grid-template-columns:1fr 1fr;
-      }
-      .pdf-head{
-        align-items:flex-start;
-        flex-direction:column;
-      }
-      .pdf-viewer iframe{
-        min-height:520px;
-      }
-      .study-photo{
-        margin-top:24px;
-      }
-      .study-context{
-        margin-top:14px;
-        font-size:16px;
-        line-height:1.75;
-      }
-      .study-notes{
-        margin-top:32px;
-      }
-    }
-  </style>
-  <link rel="stylesheet" href="../../../assets/study-pdf-viewer.css?v=20260723b" />
-</head>
-<body>
-  <div class="study-shell">
-    <header class="study-topbar">
-      <a class="study-brand" href="../../../index.html#study" aria-label="Study 목록으로 이동">
-        <img src="../../../assets/avatar.jpg" alt="Wooseok Song" />
-        <span>Study</span>
-      </a>
-    </header>
+---
+layout: single
+title: "OpenCV Study"
+description: "Take-Out 동아리 신입부원 5주차 스터디 멘토링"
+permalink: /pages/study/Take-Out-OpenCV/
+author_profile: true
+comments: true
+share: false
+related: false
+classes:
+  - wide
+  - study-article-page
+  - study-pdf-page
+page_css:
+  - /assets/study-pdf-viewer.css?v=20260723b
+  - /assets/css/study-article.css?v=20260803k
+  - /assets/content-lightbox.css?v=20260722
+page_js:
+  - /assets/study-pdf-viewer.js?v=20260723b
+  - /assets/content-lightbox.js?v=20260802
+---
+<div class="study-shell">
+<header class="study-identity">
+  <a class="detail-category-link" href="/#study">Study</a>
+  <h1>OpenCV Study</h1>
+</header>
+<section aria-label="Study metadata" class="study-hero">
 
-    <main>
-      <section class="study-hero">
-        <p class="study-kicker">Study Material</p>
-        <h1>OpenCV Study</h1>
-        <div class="study-meta" aria-label="Study metadata">
-          <div class="study-meta-item"><span>Date</span><strong>2025.11.11</strong></div>
-          <div class="study-meta-item"><span>Format</span><strong>PDF · 25 slides</strong></div>
-          <div class="study-meta-item"><span>Usage</span><strong>TAKE OUT Study</strong></div>
-          <div class="study-meta-item"><span>Topic</span><strong>OpenCV · Image Processing</strong></div>
-        </div>
-      </section>
 
-      <section class="pdf-section" aria-labelledby="pdf-title">
-        <div class="pdf-head">
-          <div>
-            <h2 id="pdf-title">Slides</h2>
-          </div>
-        </div>
-        <div class="pdf-viewer" data-pages="25" data-slide-base="assets/slides">
-          <iframe src="assets/Take-Out-OpenCV-Study.pdf?v=20260717#toolbar=1&navpanes=0" title="Take Out OpenCV study slides" scrolling="yes"></iframe>
-        </div>
-      </section>
-
-      <section class="study-notes" aria-labelledby="reflection-title">
-        <h2 id="reflection-title">스터디 후기</h2>
-        <figure class="study-photo">
-          <img src="assets/study-session.jpg?v=20260717" width="1600" height="1200" alt="Take Out OpenCV 스터디에 참여 중인 신입 부원들" loading="lazy" />
-          <figcaption><strong>Figure 1.</strong> 스터디를 받고 있는 신입부원들</figcaption>
-        </figure>
-        <div class="study-context">
-          <p>Take Out 자율주행 동아리의 임원진으로 활동하며 신입 부원을 위한 스터디를 진행했다.</p>
-          <p>그중 5주차 OpenCV 세션을 맡아, 이후 신입 부원들이 수행할 미니 프로젝트인 ‘아두이노 차선 인식 자율주행’에 활용할 수 있는 개념을 중심으로 발표를 구성했다.</p>
-          <p>진행 중 일부 부원의 PC 환경에서 패키지가 정상적으로 실행되지 않아 당황했지만, 함께 오류 원인을 찾고 해결책을 제시해 준 분들 덕분에 무사히 마칠 수 있었다.</p>
-          <p>도움을 주신 분들께 특히 감사했던 경험으로 남았다.</p>
-        </div>
-      </section>
-
-      <section class="comments" id="comments">
-        <h2>Comments</h2>
-        <script async crossorigin="anonymous"
-          src="https://giscus.app/client.js"
-          data-repo="noctml/noctml.github.io"
-          data-repo-id="R_kgDOQthLvQ"
-          data-category="General"
-          data-category-id="DIC_kwDOQthLvc4C1ZaY"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="light"
-          data-lang="ko">
-        </script>
-      </section>
-    </main>
-  </div>
-  <script defer src="../../../assets/content-lightbox.js?v=20260722"></script>
-  <script defer src="../../../assets/study-pdf-viewer.js?v=20260723b"></script>
-</body>
-</html>
+<div aria-label="Study metadata" class="study-meta">
+<div class="study-meta-item"><span>Date</span><strong>2025.11.11</strong></div>
+<div class="study-meta-item"><span>Format</span><strong>PDF · 25 slides</strong></div>
+<div class="study-meta-item"><span>Usage</span><strong>TAKE OUT Study</strong></div>
+<div class="study-meta-item"><span>Topic</span><strong>OpenCV · Image Processing</strong></div>
+</div>
+</section>
+<section aria-labelledby="pdf-title" class="pdf-section">
+<div class="pdf-head">
+<div>
+<h2 id="pdf-title">Slides</h2>
+</div>
+</div>
+<div class="pdf-viewer" data-pages="25" data-slide-base="assets/slides">
+<iframe scrolling="yes" src="assets/Take-Out-OpenCV-Study.pdf?v=20260717#toolbar=1&amp;navpanes=0" title="Take Out OpenCV study slides"></iframe>
+</div>
+</section>
+<section aria-labelledby="reflection-title" class="study-notes study-section">
+<h2 id="reflection-title">스터디 후기</h2>
+<figure class="study-photo">
+<img alt="Take Out OpenCV 스터디에 참여 중인 신입 부원들" height="1200" loading="lazy" src="assets/study-session.jpg?v=20260717" width="1600"/>
+<figcaption><strong>Figure 1.</strong> 스터디를 받고 있는 신입부원들</figcaption>
+</figure>
+<div class="study-context">
+<p>Take Out 자율주행 동아리의 임원진으로 활동하며 신입 부원을 위한 스터디를 진행했다.</p>
+<p>그중 5주차 OpenCV 세션을 맡아, 이후 신입 부원들이 수행할 미니 프로젝트인 ‘아두이노 차선 인식 자율주행’에 활용할 수 있는 개념을 중심으로 발표를 구성했다.</p>
+<p>진행 중 일부 부원의 PC 환경에서 패키지가 정상적으로 실행되지 않아 당황했지만, 함께 오류 원인을 찾고 해결책을 제시해 준 분들 덕분에 무사히 마칠 수 있었다.</p>
+<p>도움을 주신 분들께 특히 감사했던 경험으로 남았다.</p>
+</div>
+</section>
+</div>

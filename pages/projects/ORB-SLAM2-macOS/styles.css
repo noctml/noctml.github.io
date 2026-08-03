@@ -855,4 +855,5 @@ figcaption {
   font-size: 14px;
   font-weight: 760;
   letter-spacing: -0.01em;
+  text-decoration: none !important;
 }

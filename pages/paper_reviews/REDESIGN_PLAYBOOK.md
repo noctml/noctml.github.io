@@ -258,7 +258,7 @@ ORB-SLAM2처럼 단계 사이가 실제로 이어져 보여야 한다. DROID-SLA
 <section class="deep-dive" aria-labelledby="deep-dive-title">
   <h2 id="deep-dive-title">논문 상세 정리</h2>
   <p class="deep-dive-note">
-    아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 핵심 흐름에서 벗어나는 배경지식, notation, 부가 자료는 접어두었다.
+    아래부터는 기존 논문 내용을 최대한 담은 상세 해석이다. 배경지식, notation, 부가 자료까지 본문 흐름에 따라 함께 정리했다.
   </p>
   <div class="deep-dive-body">
     <div class="deep-dive-content is-collapsed" id="deepDiveContent">

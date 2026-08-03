@@ -1,0 +1,16 @@
+<meta name="visit-counter-endpoint" content="https://wooseok-visit-counter.pdwytime.workers.dev">
+<link rel="icon" type="image/png" sizes="48x48" href="{{ '/assets/favicon.png' | relative_url }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&amp;display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/reference-archive.css?v=20260803i' | relative_url }}">
+{% if page.math %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+{% endif %}
+{% if page.page_css %}
+  {% for stylesheet in page.page_css %}
+<link rel="stylesheet" href="{{ stylesheet | relative_url }}">
+  {% endfor %}
+{% endif %}

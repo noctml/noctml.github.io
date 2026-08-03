@@ -9,6 +9,8 @@
 (() => {
   const root = document.documentElement;
   const langBtn = document.getElementById("langBtn");
+  const panels = Array.from(document.querySelectorAll("[data-lang-panel]"));
+  const moreBtn = document.getElementById("deepDiveMoreBtn");
 
   const storageGet = (key) => {
     try {
@@ -39,7 +41,7 @@
     [".compare-grid article:nth-child(2) p", "Stereo correspondences can strengthen depth and scale constraints without retraining."],
     [".compare-grid article:nth-child(3) p", "Depth measurements are added as test-time observation constraints to improve robustness and accuracy."],
     [".paper-map > .section-note p", "When reading DROID-SLAM, first track <strong>which variables the DBA layer updates</strong> (pose and depth) and <strong>which observations it fits them to</strong> (flow/correspondence). That makes the architecture much easier to parse than starting from the network diagram alone."],
-    [".deep-dive-note", "From here, the detailed notes preserve as much of the paper content as possible. Background knowledge, notation, and supplementary material that interrupt the core reading flow are folded away."],
+    [".deep-dive-note", "From here, the detailed notes preserve the paper content and place background, notation, equations, and supporting evidence alongside the relevant discussion."],
     ["[id=\"2d0f65f1-13f4-8028-aa6f-f85e802b222a\"]", "DROID-SLAM is a deep-learning-based SLAM system that repeatedly updates camera pose and pixelwise depth through a Dense Bundle Adjustment layer. It achieves a large accuracy improvement over prior methods, is robust enough to reduce catastrophic failures, and improves further when stereo or RGB-D video is provided at test time, even though the model is trained with monocular video."],
     ["[id=\"2d0f65f1-13f4-80e4-892b-f8f9edd422e5\"]", "SLAM is a special form of Structure-from-Motion (SfM) focused on long-term trajectory tracking, and it plays an important role in robotics, especially autonomous driving. DROID-SLAM addresses visual SLAM, where the usual camera sensors are monocular, stereo, and RGB-D cameras."],
     ["[id=\"2d6f65f1-13f4-800a-a4c3-e2422db297d6\"]", "The SLAM problem has been approached from many directions. Early methods used probabilistic and filtering-based approaches, alternating between map optimization and camera-pose optimization."],
@@ -125,7 +127,7 @@
   const textTranslations = {
     "핵심 요약": "Key Summary",
     "한 문장 요약": "One-sentence Summary",
-    "내가 얻은 인사이트": "My Insight",
+    "핵심 인사이트": "Key Insight",
     "학습의 기본 입력": "Base Training Input",
     "추가 기하 제약": "Additional Geometry Constraint",
     "깊이 관측 활용": "Using Depth Observations",
@@ -137,7 +139,6 @@
     "Full SLAM 구성 요약": "Full SLAM Structure Summary",
     "Encoder 역할 정리": "Encoder Roles",
     "RAFT에서 DROID로": "From RAFT to DROID",
-    "Approach 읽는 순서": "Approach Reading Order",
     "본문으로 바로가기": "Skip to content",
     "특히 아래와 같은 이점을 가진다.": "In particular, it has the following advantages.",
     "Introduction에서 제시한 장점은 정확도, 실패율, 일반화 성능으로 나눠 읽으면 논문의 주장 구조가 선명해진다.": "The Introduction's claims become clearer when separated into accuracy, failure rate, and generalization.",
@@ -150,7 +151,6 @@
     "Contribution 세부 수치 보기": "View Contribution Evidence Details",
     "DeepV2D / BA-Net 비교 메모 보기": "View DeepV2D / BA-Net Comparison Notes",
     "Related Work 자세히 보기": "View Related Work Details",
-    "원문 표현 확인": "Check the Original Wording",
     "TartanAir 세부 결과 보기": "View TartanAir Detailed Results",
     "EuRoC 세부 결과 보기": "View EuRoC Detailed Results",
     "TUM-RGBD 세부 결과 보기": "View TUM-RGBD Detailed Results",
@@ -588,7 +588,8 @@
     richTranslations.forEach(([selector, en]) => {
       let matches = [];
       try {
-        matches = document.querySelectorAll(selector);
+        matches = Array.from(document.querySelectorAll(selector))
+          .filter((el) => !el.closest("[data-lang-panel]"));
       } catch {
         return;
       }
@@ -599,6 +600,7 @@
     });
 
     document.querySelectorAll(".paper-identity :not(script):not(style), .post-body :not(script):not(style), .brandtext, .skip").forEach((el) => {
+      if (el.closest("[data-lang-panel]")) return;
       Array.from(el.childNodes).forEach((node) => {
         if (node.nodeType !== Node.TEXT_NODE) return;
         if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
@@ -621,6 +623,13 @@
       });
     });
 
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.langPanel !== currentLang;
+    });
+    if (moreBtn) {
+      moreBtn.textContent = currentLang === "en" ? moreBtn.dataset.en : moreBtn.dataset.ko;
+    }
+
     document.querySelectorAll('script[src*="giscus.app/client.js"]').forEach((script) => {
       script.setAttribute("data-lang", currentLang);
     });
@@ -640,14 +649,17 @@
 })();
 
 (() => {
-  const content = document.getElementById("deepDiveContent");
-  const button = document.getElementById("deepDiveReveal");
-  const wrap = document.getElementById("deepDiveRevealWrap");
+  const contents = Array.from(document.querySelectorAll(".deep-dive-content[data-lang-panel]"));
+  const button = document.getElementById("deepDiveMoreBtn");
+  const wrap = document.getElementById("deepDiveMore");
   const body = wrap?.closest(".deep-dive-body");
 
-  if (!content || !button || !wrap) return;
+  if (!contents.length || !button || !wrap) return;
+
+  const activeContent = () => contents.find((content) => !content.hidden) || contents[0];
 
   const syncRevealState = () => {
+    const content = activeContent();
     const collapsed = content.classList.contains("is-collapsed");
     body?.classList.toggle("has-collapsed-active", collapsed);
     button.setAttribute("aria-expanded", String(!collapsed));
@@ -661,14 +673,15 @@
   };
 
   const reveal = () => {
-    content.classList.remove("is-collapsed");
+    contents.forEach((content) => content.classList.remove("is-collapsed"));
     syncRevealState();
     document.dispatchEvent(new CustomEvent("paper-deep-dive-reveal"));
   };
 
-  content.classList.add("is-collapsed");
+  contents.forEach((content) => content.classList.add("is-collapsed"));
   syncRevealState();
   button.addEventListener("click", reveal);
+  document.addEventListener("paper-lang-change", syncRevealState);
   window.addEventListener("pageshow", syncRevealState);
   window.revealDeepDive = reveal;
   window.syncDeepDiveReveal = syncRevealState;
@@ -1832,4 +1845,51 @@
       html: tableToHtml(table)
     }));
   });
+})();
+
+(() => {
+  const captions = [
+    ["2d7f65f1-13f4-80bc-9eda-c6bd5b5fcd97", "Eq. (1). Feature correlation volume.", "두 feature map의 모든 pixel pair에 대해 내적 유사도를 계산한 4D correlation volume.", "Eq. (1). Feature correlation volume.", "A 4D correlation volume built from inner-product similarities over every pixel pair in two feature maps."],
+    ["2d7f65f1-13f4-804b-9944-ecada994ed4b", "Local correlation lookup operator.", "현재 correspondence 주변의 local correlation feature를 가져오는 lookup 연산자.", "Local correlation lookup operator.", "The lookup operator that retrieves local correlation features around the current correspondence estimate."],
+    ["2d7f65f1-13f4-801a-8f73-e006444b1321", "Eq. (2). Recurrent pose and depth update.", "update operator가 예측한 pose increment와 inverse-depth increment를 현재 상태에 누적하는 식.", "Eq. (2). Recurrent pose and depth update.", "The update that accumulates predicted pose and inverse-depth increments into the current state."],
+    ["2d9f65f1-13f4-80a0-816a-f467f7ca01e0", "Eq. (3). Geometry-induced correspondence field.", "현재 pose와 depth로 frame 간 dense correspondence를 projection한 식.", "Eq. (3). Geometry-induced correspondence field.", "Dense frame-to-frame correspondences projected from the current pose and depth estimates."],
+    ["2daf65f1-13f4-80b1-9244-ff564257df7a", "Eq. (4). Dense bundle-adjustment objective.", "수정된 correspondence와 geometry-induced correspondence 사이의 confidence-weighted reprojection error.", "Eq. (4). Dense bundle-adjustment objective.", "The confidence-weighted reprojection error between revised and geometry-induced correspondences."],
+    ["2daf65f1-13f4-8017-96d3-cc50299db788", "Eq. (5). Schur-complement update.", "normal equation에서 depth 변수를 소거한 뒤 pose와 depth increment를 계산하는 식.", "Eq. (5). Schur-complement update.", "The pose and depth increments obtained after eliminating the depth variables from the normal equations."],
+    ["2daf65f1-13f4-8058-a810-d69f7441ca00", "Pose supervision loss.", "예측 pose와 ground-truth pose 사이의 SE(3) geodesic error를 합산한 학습 손실.", "Pose supervision loss.", "The training loss that sums the SE(3) geodesic error between predicted and ground-truth poses."]
+  ];
+
+  const installed = [];
+  captions.forEach(([id, koTitle, koNote, enTitle, enNote]) => {
+    const figure = document.getElementById(id);
+    if (!figure) return;
+    let caption = figure.querySelector(":scope > figcaption");
+    if (!caption) {
+      caption = document.createElement("figcaption");
+      figure.appendChild(caption);
+    }
+    let title = caption.querySelector(":scope > .caption-main");
+    let note = caption.querySelector(":scope > .caption-note");
+    if (!title) {
+      title = document.createElement("span");
+      title.className = "caption-main";
+      caption.appendChild(title);
+    }
+    if (!note) {
+      note = document.createElement("span");
+      note.className = "caption-note";
+      caption.appendChild(note);
+    }
+    installed.push({ title, note, koTitle, koNote, enTitle, enNote });
+  });
+
+  const syncCaptions = (lang = document.documentElement.lang) => {
+    const english = lang === "en";
+    installed.forEach(({ title, note, koTitle, koNote, enTitle, enNote }) => {
+      title.textContent = english ? enTitle : koTitle;
+      note.textContent = english ? enNote : koNote;
+    });
+  };
+
+  syncCaptions();
+  document.addEventListener("paper-lang-change", (event) => syncCaptions(event.detail?.lang));
 })();

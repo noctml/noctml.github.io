@@ -339,7 +339,7 @@ a:hover{ opacity: .9; }
 }
 .bookmark-link.active{
   border-left-color: color-mix(in srgb, #c99722 70%, var(--text));
-  background: color-mix(in srgb, #f8e7a5 28%, var(--panel));
+  background: color-mix(in srgb, #e5e7eb 28%, var(--panel));
   color: var(--text);
 }
 :root[data-theme="dark-gray"] .bookmark-link.active,
@@ -1183,7 +1183,7 @@ a:hover{ opacity: .9; }
   padding: 2px 7px;
   border: 1px solid color-mix(in srgb, var(--accent) 12%, var(--line));
   border-radius: 6px;
-  background: color-mix(in srgb, #f8e7a5 14%, var(--inline-code-bg));
+  background: color-mix(in srgb, #e5e7eb 14%, var(--inline-code-bg));
   color: var(--inline-code-text);
   font-family: "KaTeX_Math", "Times New Roman", serif;
   font-size: .94em;
@@ -1219,10 +1219,10 @@ a:hover{ opacity: .9; }
 .section-note{
   margin: 18px 0 24px;
   padding: 14px 16px;
-  border: 1px solid color-mix(in srgb, #d4a017 28%, var(--line));
+  border: 1px solid color-mix(in srgb, #9ca3af 28%, var(--line));
   border-left: 4px solid color-mix(in srgb, #b7791f 68%, var(--line));
   border-radius: 8px;
-  background: color-mix(in srgb, #f8e7a5 36%, var(--panel2));
+  background: color-mix(in srgb, #e5e7eb 36%, var(--panel2));
   color: var(--text);
   font-family: var(--note-font);
   letter-spacing: .01em;
@@ -1232,7 +1232,7 @@ a:hover{ opacity: .9; }
   align-items: center;
   width: fit-content;
   margin-bottom: 6px;
-  color: color-mix(in srgb, #7c520c 76%, var(--text));
+  color: color-mix(in srgb, #4b5563 76%, var(--text));
   font-size: 13px;
   font-weight: 850;
   line-height: 1.3;
@@ -1294,10 +1294,10 @@ a:hover{ opacity: .9; }
 .result-brief{
   margin: 20px 0 26px;
   padding: 16px;
-  border: 1px solid color-mix(in srgb, #d4a017 28%, var(--line));
+  border: 1px solid color-mix(in srgb, #9ca3af 28%, var(--line));
   border-left: 4px solid color-mix(in srgb, #b7791f 68%, var(--line));
   border-radius: 8px;
-  background: color-mix(in srgb, #f8e7a5 32%, var(--panel2));
+  background: color-mix(in srgb, #e5e7eb 32%, var(--panel2));
   font-family: var(--note-font);
   letter-spacing: .01em;
 }
@@ -1340,10 +1340,10 @@ a:hover{ opacity: .9; }
 .result-brief .section-chip{
   min-height: 28px;
   padding: 4px 9px;
-  border: 1px solid color-mix(in srgb, #d4a017 30%, var(--line));
+  border: 1px solid color-mix(in srgb, #9ca3af 30%, var(--line));
   border-radius: 999px;
-  background: color-mix(in srgb, #f8e7a5 42%, var(--panel2));
-  color: color-mix(in srgb, #7c520c 76%, var(--text));
+  background: color-mix(in srgb, #e5e7eb 42%, var(--panel2));
+  color: color-mix(in srgb, #4b5563 76%, var(--text));
   font-size: 13px;
   font-weight: 850;
   letter-spacing: 0;
@@ -1572,18 +1572,18 @@ a:hover{ opacity: .9; }
 
 .post-body{
   --notion-gray: #6b7280;
-  --notion-brown: #8b5e34;
+  --notion-brown: #4b5563;
   --notion-orange: #b45309;
-  --notion-yellow: #8a6d1f;
+  --notion-yellow: #4b5563;
   --notion-green: #15803d;
   --notion-blue: #2563eb;
   --notion-purple: #7c3aed;
   --notion-pink: #be185d;
   --notion-red: #dc2626;
   --notion-bg-gray: rgba(107,114,128,.14);
-  --notion-bg-brown: rgba(139,94,52,.16);
+  --notion-bg-brown: rgba(107,114,128,.12);
   --notion-bg-orange: rgba(245,158,11,.18);
-  --notion-bg-yellow: rgba(234,179,8,.24);
+  --notion-bg-yellow: rgba(107,114,128,.12);
   --notion-bg-green: rgba(34,197,94,.16);
   --notion-bg-blue: rgba(59,130,246,.16);
   --notion-bg-purple: rgba(124,58,237,.16);
@@ -1599,18 +1599,18 @@ a:hover{ opacity: .9; }
 :root[data-theme="dark-gray"] .post-body,
 :root[data-theme="dark"] .post-body{
   --notion-gray: #a8afc0;
-  --notion-brown: #d2a679;
+  --notion-brown: #d1d5db;
   --notion-orange: #f59e0b;
-  --notion-yellow: #facc15;
+  --notion-yellow: #d1d5db;
   --notion-green: #4ade80;
   --notion-blue: #60a5fa;
   --notion-purple: #c084fc;
   --notion-pink: #f472b6;
   --notion-red: #f87171;
   --notion-bg-gray: rgba(168,175,192,.16);
-  --notion-bg-brown: rgba(210,166,121,.18);
+  --notion-bg-brown: rgba(209,213,219,.14);
   --notion-bg-orange: rgba(245,158,11,.20);
-  --notion-bg-yellow: rgba(250,204,21,.20);
+  --notion-bg-yellow: rgba(209,213,219,.14);
   --notion-bg-green: rgba(74,222,128,.18);
   --notion-bg-blue: rgba(96,165,250,.18);
   --notion-bg-purple: rgba(192,132,252,.18);
@@ -2607,7 +2607,7 @@ html[lang="en"] .post-body details.supplement-toggle > summary::after{
   padding: .03em .34em .05em;
   border: 1px solid color-mix(in srgb, var(--accent) 11%, var(--line));
   border-radius: 6px;
-  background: color-mix(in srgb, #f8e7a5 18%, var(--inline-code-bg));
+  background: color-mix(in srgb, #e5e7eb 18%, var(--inline-code-bg));
   color: var(--text);
   line-height: 1.08;
   white-space: nowrap;
@@ -2623,7 +2623,7 @@ html[lang="en"] .post-body details.supplement-toggle > summary::after{
   padding: .03em .34em .05em;
   border: 1px solid color-mix(in srgb, var(--accent) 11%, var(--line));
   border-radius: 6px;
-  background: color-mix(in srgb, #f8e7a5 18%, var(--inline-code-bg));
+  background: color-mix(in srgb, #e5e7eb 18%, var(--inline-code-bg));
   vertical-align: .26em;
 }
 .post-body .notion-text-equation-token.equation-split-source{
@@ -2645,7 +2645,7 @@ html[lang="en"] .post-body details.supplement-toggle > summary::after{
   padding: .02em .36em .05em;
   border: 1px solid color-mix(in srgb, var(--accent) 11%, var(--line));
   border-radius: 6px;
-  background: color-mix(in srgb, #f8e7a5 18%, var(--inline-code-bg));
+  background: color-mix(in srgb, #e5e7eb 18%, var(--inline-code-bg));
   color: var(--text);
   font-family: "KaTeX_Math", "Times New Roman", serif;
   font-size: .92em;
@@ -4479,38 +4479,6 @@ html[data-theme="dark"]{
   line-height:1 !important;
 }
 
-/* Keep section-note titles aligned with emphasis evaluation chips. */
-.section-note .section-chip,
-.section-note-label,
-.section-note > strong{
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  max-width: 100%;
-  min-height: 28px;
-  margin-bottom: 6px;
-  padding: 4px 9px;
-  border: 1px solid color-mix(in srgb, #d4a017 30%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, #f8e7a5 42%, var(--panel2));
-  color: color-mix(in srgb, #7c520c 76%, var(--text));
-  font-size: 13px;
-  font-weight: 850;
-  letter-spacing: 0;
-  line-height: 1.35;
-}
-:root[data-theme="dark-gray"] .section-note .section-chip,
-:root[data-theme="dark"] .section-note .section-chip,
-:root[data-theme="dark-gray"] .section-note-label,
-:root[data-theme="dark"] .section-note-label,
-:root[data-theme="dark-gray"] .section-note > strong,
-:root[data-theme="dark"] .section-note > strong{
-  border-color: color-mix(in srgb, #d6a21f 36%, var(--line));
-  background: color-mix(in srgb, #6b4b12 28%, var(--panel2));
-  color: #f0cf73;
-}
-
-
 /* Refined paper metadata strip under the title. */
 .paper-meta-card{
   position: relative;
@@ -6196,157 +6164,6 @@ body .post-body .deep-section > .method-step-block > .subsection-label{
     margin-right: 0 !important;
     max-width: 100% !important;
   }
-}
-
-/* Sepia emphasis sync: MonST3R reference 2026-06-08 */
-:root{
-  --paper-blue: #8A5526;
-  --paper-blue-strong: #573316;
-  --paper-blue-border: rgba(138, 85, 38, .38);
-  --paper-blue-soft: rgba(138, 85, 38, .085);
-}
-.paper-identity{
-  border-top-color: color-mix(in srgb, var(--paper-blue) 78%, var(--line)) !important;
-  background:
-    linear-gradient(160deg,
-      color-mix(in srgb, var(--bg) 97%, #f0dfcc 3%) 0%,
-      color-mix(in srgb, var(--panel2) 94%, var(--bg) 6%) 55%,
-      color-mix(in srgb, var(--panel) 94%, #f6eadb 6%) 100%) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.86),
-    0 12px 28px rgba(15, 23, 42, .052) !important;
-}
-.paper-identity::before{
-  content: "";
-  display: block !important;
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background:
-    linear-gradient(118deg,
-      color-mix(in srgb, var(--paper-blue) 5%, transparent) 0%,
-      transparent 30%),
-    radial-gradient(circle at 9% 0%,
-      color-mix(in srgb, var(--paper-blue) 6%, transparent) 0,
-      transparent 31%);
-  opacity: .42 !important;
-  pointer-events: none;
-}
-.paper-identity::after{
-  display: none !important;
-}
-.paper-title-meta{
-  color: color-mix(in srgb, var(--paper-blue-strong) 62%, var(--muted)) !important;
-  font-size: 12.6px !important;
-  font-weight: 620 !important;
-  letter-spacing: .008em !important;
-}
-.paper-meta-venue{
-  position: relative !important;
-  isolation: isolate !important;
-  overflow: hidden !important;
-  border-color: color-mix(in srgb, var(--paper-blue) 52%, var(--line)) !important;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--bg) 88%, #f0dfcc 12%) 0%,
-      color-mix(in srgb, var(--bg) 96%, #f6eadb 4%) 100%) !important;
-  background-size: 100% 100% !important;
-  background-position: 0 0 !important;
-  color: color-mix(in srgb, var(--paper-blue-strong) 92%, var(--text)) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .76),
-    inset 0 -1px 0 color-mix(in srgb, var(--paper-blue) 18%, transparent),
-    0 1px 2px rgba(15, 23, 42, .055) !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .72) !important;
-  font-size: 11.2px !important;
-  font-weight: 900 !important;
-  letter-spacing: .085em !important;
-  text-transform: uppercase !important;
-  animation: none !important;
-}
-.paper-meta-venue::before,
-.paper-meta-venue::after{
-  display: none !important;
-}
-.paper-meta-date{
-  color: color-mix(in srgb, var(--paper-blue-strong) 30%, var(--muted)) !important;
-  font-size: 11.1px !important;
-  font-weight: 520 !important;
-  letter-spacing: .01em !important;
-}
-.paper-meta-item dt{
-  color: color-mix(in srgb, var(--paper-blue-strong) 58%, var(--muted)) !important;
-  font-size: 9.8px !important;
-  font-weight: 850 !important;
-  letter-spacing: .11em !important;
-  text-transform: uppercase !important;
-}
-.paper-meta-item dd{
-  color: color-mix(in srgb, var(--paper-blue-strong) 28%, var(--text)) !important;
-  font-size: 12.25px !important;
-  font-weight: 470 !important;
-  letter-spacing: 0 !important;
-}
-.paper-meta-links a{
-  border-color: color-mix(in srgb, var(--paper-blue) 34%, var(--line)) !important;
-  background: color-mix(in srgb, var(--bg) 94%, #f0dfcc 6%) !important;
-  color: color-mix(in srgb, var(--paper-blue-strong) 72%, var(--text)) !important;
-  font-size: 11.35px !important;
-  font-weight: 760 !important;
-  letter-spacing: .015em !important;
-}
-.paper-meta-links a:hover{
-  border-color: color-mix(in srgb, var(--paper-blue) 58%, var(--line)) !important;
-  background: color-mix(in srgb, var(--bg) 88%, #f0dfcc 12%) !important;
-  color: var(--paper-blue-strong) !important;
-}
-.paper-meta-topic-label{
-  color: color-mix(in srgb, var(--paper-blue-strong) 32%, var(--muted)) !important;
-  font-size: 9.6px !important;
-  font-weight: 820 !important;
-  letter-spacing: .12em !important;
-}
-.paper-topic-chip{
-  color: color-mix(in srgb, var(--paper-blue-strong) 24%, var(--muted)) !important;
-  font-size: 10.6px !important;
-  font-weight: 560 !important;
-}
-.bookmark-link.active{
-  border-left-color: var(--paper-blue) !important;
-  background: color-mix(in srgb, var(--bg) 95%, #f0dfcc 5%) !important;
-  color: color-mix(in srgb, var(--paper-blue-strong) 58%, var(--text)) !important;
-}
-.post-body .section-note,
-.post-body .result-brief{
-  border-left-color: color-mix(in srgb, var(--paper-blue) 72%, var(--line)) !important;
-  background:
-    linear-gradient(135deg,
-      color-mix(in srgb, var(--panel2) 91%, #f0dfcc 7%) 0%,
-      color-mix(in srgb, var(--bg) 96%, #f6eadb 4%) 58%,
-      color-mix(in srgb, var(--panel) 92%, #ead6bd 6%) 100%) !important;
-}
-.post-body .section-note-label,
-.post-body .section-note .section-chip,
-.post-body .section-note > strong,
-.post-body .result-brief .section-chip{
-  border-color: color-mix(in srgb, var(--paper-blue) 40%, var(--line)) !important;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--bg) 88%, #f0dfcc 12%) 0%,
-      color-mix(in srgb, var(--bg) 96%, #f6eadb 4%) 100%) !important;
-  color: color-mix(in srgb, var(--paper-blue-strong) 88%, var(--text)) !important;
-}
-.post-body .result-brief article{
-  border-left-color: color-mix(in srgb, var(--paper-blue) 46%, var(--line)) !important;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--bg) 96%, #f0dfcc 3%) 0%,
-      color-mix(in srgb, var(--panel2) 95%, #f6eadb 4%) 100%) !important;
-}
-.post-body .result-brief article strong,
-.post-body .section-note strong{
-  color: color-mix(in srgb, var(--paper-blue-strong) 48%, var(--text)) !important;
 }
 
 /* Paper metadata title merge sync: MonST3R reference 2026-06-08 */

@@ -1,0 +1,22 @@
+---
+# Minimal Mistakes entry point.
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/air";
+
+$background-color: #fff;
+$footer-background-color: #fff;
+$text-color: #3d4144;
+$muted-text-color: #6f777d;
+$border-color: #e5e5e5;
+$primary-color: #5f6368;
+$link-color: #545b60;
+$link-color-hover: #2f3437;
+$link-color-visited: #73797d;
+$masthead-link-color: $text-color;
+$masthead-link-color-hover: #2f3437;
+
+@import "minimal-mistakes";
+@import "pilot";
