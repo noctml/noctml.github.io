@@ -1,4 +1,11 @@
 {% if page.classes contains "home-archive" %}
+  <li class="sidebar-visit-card" aria-label="Visitor count">
+    <div class="sidebar-visit-head"><i class="fas fa-fw fa-chart-line" aria-hidden="true"></i> Visits</div>
+    <div class="sidebar-visit-grid">
+      <span><small>Today</small><strong id="visitToday">--</strong></span>
+      <span><small>Yesterday</small><strong id="visitYesterday">--</strong></span>
+    </div>
+  </li>
   <li class="sidebar-archive-block">
     <nav class="sidebar-archive-nav" aria-label="Archive sections">
       <a href="{{ '/#work' | relative_url }}" data-home-view="projects">

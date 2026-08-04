@@ -721,6 +721,37 @@
   width: min(700px, 100%);
 }
 
+.project-variant-gazebo .compact-reference-figure {
+  width: min(560px, 100%);
+}
+
+.project-variant-openhouse .section-head {
+  margin-bottom: 2.1rem;
+}
+
+.project-variant-openhouse .section-intro {
+  margin-bottom: 1.75rem;
+}
+
+.project-variant-openhouse :is(
+  .figure-wide,
+  .figure-medium,
+  .figure-pair,
+  .selection-path,
+  .metric-grid,
+  .pipeline-list,
+  .table-wrap,
+  .finding,
+  .problem-note
+) {
+  margin-top: 2rem;
+}
+
+.project-variant-openhouse .market-grid + .section-intro,
+.project-variant-openhouse .problem-note + .journey-grid {
+  margin-top: 2rem;
+}
+
 .project-case-study .figure-pair,
 .project-case-study .world-grid,
 .project-case-study .media-pair,
@@ -838,6 +869,10 @@
   width: 100%;
   min-width: 680px;
   table-layout: fixed;
+}
+
+.project-variant-openhouse .pipeline-list {
+  margin-top: 2rem;
 }
 
 .project-case-study :is(.project-table, .result-table) th,

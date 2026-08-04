@@ -104,14 +104,21 @@ html {
   display: none;
 }
 
-.author__name {
+.sidebar .author__name {
   margin-top: 0;
+  font-size: 1.08em;
+}
+
+.author__bio {
+  font-size: 0.84em;
+}
+
+.author__urls {
   font-size: 1em;
 }
 
-.author__bio,
-.author__urls {
-  font-size: 0.78em;
+.author__urls > li {
+  font-size: 0.76rem;
 }
 
 .author__urls a {
@@ -123,6 +130,61 @@ html {
   margin-top: 1.15em;
   padding-top: 0.8em;
   border-top: 1px solid #e5e5e5;
+}
+
+.author__urls li.sidebar-visit-card {
+  display: block;
+  margin-top: 1.1rem;
+  padding: 0.75rem 0 0.85rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.sidebar-visit-head {
+  margin-bottom: 0.55rem;
+  color: #3d4144;
+  font-weight: 650;
+}
+
+.sidebar-visit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.sidebar-visit-grid span {
+  min-width: 0;
+}
+
+.sidebar-visit-grid small,
+.sidebar-visit-grid strong {
+  display: block;
+}
+
+.sidebar-visit-grid small {
+  margin-bottom: 0.18rem;
+  color: #6f777d;
+  font-size: 0.68rem;
+}
+
+.sidebar-visit-grid strong {
+  color: #3d4144;
+  font-size: 0.94rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.sidebar-visit-grid span:first-child strong {
+  font-size: 1.05rem;
+}
+
+.sidebar-visit-grid span:last-child {
+  opacity: 0.68;
+}
+
+@media (min-width: 80em) {
+  .layout--archive.home-archive .sidebar {
+    width: 260px;
+  }
 }
 
 .sidebar-archive-nav {
@@ -222,6 +284,10 @@ html {
     grid-column: 1 / -1;
     margin-top: 0.65rem;
     padding-top: 0.6rem;
+  }
+
+  .author__urls li.sidebar-visit-card {
+    grid-column: 1 / -1;
   }
 
   .sidebar-archive-nav {

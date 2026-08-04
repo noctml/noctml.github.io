@@ -23,7 +23,7 @@ plugins:
 
 author:
   name: "Wooseok Song"
-  home: "/about/"
+  home: "/"
   bio: "Visual SLAM · 3D Perception"
   location: "Korea"
   links:
