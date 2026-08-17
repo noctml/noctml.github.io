@@ -266,6 +266,15 @@ window.SITE_DATA = {
         ],
         paperReviews: [
             {
+                title: "UniSim-SLAM: Feed-Forward SLAM with Unified Sim(3) Optimization",
+                desc: "RAISE LAB Study",
+                href: "pages/study/UniSim-SLAM/",
+                thumb: "pages/study/UniSim-SLAM/assets/thumbnail.png?v=20260814",
+                published: true,
+                date: "2026-08-14",
+                tags: ["Paper Review", "Visual SLAM", "Feed-forward SLAM", "Sim(3)", "Geometric Foundation Model"]
+            },
+            {
                 title: "MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors",
                 desc: "RAISE LAB Study",
                 href: "pages/study/MASt3R-SLAM/",

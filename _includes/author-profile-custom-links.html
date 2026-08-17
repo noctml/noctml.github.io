@@ -8,10 +8,6 @@
   </li>
   <li class="sidebar-archive-block">
     <nav class="sidebar-archive-nav" aria-label="Archive sections">
-      <a href="{{ '/#work' | relative_url }}" data-home-view="projects">
-        <span><i class="fas fa-fw fa-folder" aria-hidden="true"></i> Projects</span>
-        <span class="sidebar-archive-count" data-sidebar-count="projects"></span>
-      </a>
       <a href="{{ '/#study' | relative_url }}" data-home-view="study">
         <span><i class="fas fa-fw fa-book" aria-hidden="true"></i> Study</span>
         <span class="sidebar-archive-count" data-sidebar-count="study"></span>
@@ -20,9 +16,15 @@
         <span><i class="fas fa-fw fa-file-lines" aria-hidden="true"></i> Paper Reviews</span>
         <span class="sidebar-archive-count" data-sidebar-count="reviews"></span>
       </a>
-      <a href="{{ '/#paper-summary' | relative_url }}" data-home-view="summaries">
-        <span><i class="fas fa-fw fa-layer-group" aria-hidden="true"></i> Paper Summary</span>
-        <span class="sidebar-archive-count" data-sidebar-count="summaries"></span>
+      {% if site.paper_summary_enabled %}
+        <a href="{{ '/#paper-summary' | relative_url }}" data-home-view="summaries">
+          <span><i class="fas fa-fw fa-layer-group" aria-hidden="true"></i> Paper Summary</span>
+          <span class="sidebar-archive-count" data-sidebar-count="summaries"></span>
+        </a>
+      {% endif %}
+      <a href="{{ '/#work' | relative_url }}" data-home-view="projects">
+        <span><i class="fas fa-fw fa-folder" aria-hidden="true"></i> Projects</span>
+        <span class="sidebar-archive-count" data-sidebar-count="projects"></span>
       </a>
     </nav>
   </li>

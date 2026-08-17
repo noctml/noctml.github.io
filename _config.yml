@@ -10,6 +10,7 @@ url: "https://noctml.github.io"
 baseurl: ""
 repository: "noctml/noctml.github.io"
 masthead_title: "Insighted"
+paper_summary_enabled: false
 
 include:
   - _pages

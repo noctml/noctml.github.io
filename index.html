@@ -18,20 +18,22 @@ classes: wide home-archive
   </div>
 </section>
 
-<section id="paper-summary" class="home-archive-section" data-home-section="summaries" hidden>
-  <header class="home-section-head">
-    <h3 class="archive__subtitle">Paper Summary</h3>
-    <small>with codex</small>
-  </header>
-  <div class="paper-frame" id="paperList" data-paper-list data-mode="archive" data-page-size="5"></div>
-  <div class="pager paper-bottom-pager" aria-label="Paper summaries pagination">
-    <button class="pager-btn" id="paperPrev" aria-label="Previous paper summary page">←</button>
-    <div class="pager-pages" id="paperPageList" aria-label="Paper summary pages"></div>
-    <button class="pager-btn" id="paperNext" aria-label="Next paper summary page">→</button>
-  </div>
-</section>
+{% if site.paper_summary_enabled %}
+  <section id="paper-summary" class="home-archive-section" data-home-section="summaries" hidden>
+    <header class="home-section-head">
+      <h3 class="archive__subtitle">Paper Summary</h3>
+      <small>with codex</small>
+    </header>
+    <div class="paper-frame" id="paperList" data-paper-list data-mode="archive" data-page-size="5"></div>
+    <div class="pager paper-bottom-pager" aria-label="Paper summaries pagination">
+      <button class="pager-btn" id="paperPrev" aria-label="Previous paper summary page">←</button>
+      <div class="pager-pages" id="paperPageList" aria-label="Paper summary pages"></div>
+      <button class="pager-btn" id="paperNext" aria-label="Next paper summary page">→</button>
+    </div>
+  </section>
+{% endif %}
 
-<section id="study" class="home-archive-section" data-home-section="study" hidden>
+<section id="study" class="home-archive-section" data-home-section="study">
   <header class="home-section-head">
     <h3 class="archive__subtitle">Study</h3>
   </header>
@@ -43,7 +45,7 @@ classes: wide home-archive
   </div>
 </section>
 
-<section id="work" class="home-archive-section" data-home-section="projects">
+<section id="work" class="home-archive-section" data-home-section="projects" hidden>
   <header class="home-section-head">
     <h3 class="archive__subtitle">Projects</h3>
   </header>
@@ -57,4 +59,4 @@ classes: wide home-archive
 
 <script src="{{ '/data.js?v=20260731' | relative_url }}"></script>
 <script src="{{ '/script.js?v=20260731' | relative_url }}"></script>
-<script src="{{ '/archive.js?v=20260801d' | relative_url }}"></script>
+<script src="{{ '/archive.js?v=20260817a' | relative_url }}"></script>

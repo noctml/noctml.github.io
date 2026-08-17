@@ -491,7 +491,7 @@
     });
   }
 
-  function updateTagUrl(hash = window.location.hash || "#work") {
+  function updateTagUrl(hash = window.location.hash || "#study") {
     const nextUrl = new URL(window.location.href);
     nextUrl.searchParams.delete("tag");
     activeTags.forEach((tag) => nextUrl.searchParams.append("tag", tag));
@@ -508,8 +508,8 @@
     document.querySelectorAll(".active-tag-filter").forEach((element) => element.remove());
     if (!activeTags.length) return;
 
-    const view = window.location.hash || "#work";
-    const section = document.querySelector(view) || document.querySelector('[data-home-section="projects"]');
+    const view = window.location.hash || "#study";
+    const section = document.querySelector(view) || document.querySelector('[data-home-section="study"]');
     const header = section?.querySelector(".home-section-head");
     if (!header) return;
 
@@ -564,7 +564,7 @@
       if (hash === "#study") return "study";
       if (hash === "#papers" || hash === "#paper-reviews") return "reviews";
       if (hash === "#summaries" || hash === "#paper-summary") return "summaries";
-      return "projects";
+      return "study";
     };
 
     const hashForView = (view) => view === "projects"
@@ -574,7 +574,7 @@
         : (view === "summaries" ? "#paper-summary" : "#study"));
 
     const setView = (view, shouldScroll = false, shouldUpdateHash = false) => {
-      const nextView = sections.some((section) => section.dataset.homeSection === view) ? view : "projects";
+      const nextView = sections.some((section) => section.dataset.homeSection === view) ? view : "study";
       buttons.forEach((button) => {
         const active = button.dataset.homeView === nextView;
         button.classList.toggle("is-active", active);
@@ -601,7 +601,7 @@
       button.setAttribute("aria-pressed", String(button.classList.contains("is-active")));
       button.addEventListener("click", (event) => {
         event.preventDefault();
-        const nextView = button.dataset.homeView || "projects";
+        const nextView = button.dataset.homeView || "study";
         if (activeTags.length) {
           activeTags = [];
           updateTagUrl(hashForView(nextView));
