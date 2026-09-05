@@ -5,7 +5,9 @@ GitHub Pages처럼 정적 호스팅되는 메인 페이지에서 `오늘 / 어�
 ## 동작 방식
 
 - `POST /visit`: Asia/Seoul 기준 오늘 방문자를 기록하고 `today`, `yesterday`를 반환합니다.
-- `GET /stats`: 카운트 증가 없이 `today`, `yesterday`만 반환합니다.
+- `GET /stats`: 카운트 증가 없이 `today`, `yesterday`, `total`을 반환합니다. `POST /visit`도 동일한 집계 항목을 반환합니다.
+- `total`은 저장된 `daily_counts.visits`의 전체 합계입니다. 같은 방문자가 다른 날 재방문하면 다시 합산되며, 집계 시작 이전 방문은 포함되지 않습니다.
+- Total 표시를 사용하려면 Worker도 갱신해 배포해야 합니다. 이전 API가 `total`을 제공하지 않으면 화면에는 `--`가 표시됩니다.
 - IP, User-Agent, Accept-Language는 원문 저장하지 않고 날짜별 hash로만 저장합니다.
 - 같은 브라우저/환경의 사용자는 하루에 한 번만 카운트됩니다.
 

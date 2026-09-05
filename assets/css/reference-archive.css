@@ -173,7 +173,11 @@ html {
   line-height: 1.15;
 }
 
-.sidebar-visit-grid span:first-child strong {
+.sidebar-visit-grid .sidebar-visit-total {
+  grid-column: 1 / -1;
+}
+
+.sidebar-visit-grid .sidebar-visit-total strong {
   font-size: 1.05rem;
 }
 

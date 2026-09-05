@@ -11,13 +11,15 @@
   // <meta name="visit-counter-endpoint" content="https://...workers.dev" />
   const visitToday = document.getElementById("visitToday");
   const visitYesterday = document.getElementById("visitYesterday");
+  const visitTotal = document.getElementById("visitTotal");
   const endpointMeta = document.querySelector('meta[name="visit-counter-endpoint"]');
   const endpoint = endpointMeta?.content?.trim();
 
-  const setVisitCounts = (today, yesterday) => {
+  const setVisitCounts = (today, yesterday, total) => {
     const formatter = new Intl.NumberFormat("ko-KR");
     if (visitToday) visitToday.textContent = Number.isFinite(today) ? formatter.format(today) : "--";
     if (visitYesterday) visitYesterday.textContent = Number.isFinite(yesterday) ? formatter.format(yesterday) : "--";
+    if (visitTotal) visitTotal.textContent = Number.isFinite(total) ? formatter.format(total) : "--";
   };
 
   const visitUrl = (() => {
@@ -44,7 +46,7 @@
           return response.json();
         })
         .then((data) => {
-          setVisitCounts(Number(data.today), Number(data.yesterday));
+          setVisitCounts(Number(data.today), Number(data.yesterday), data.total == null ? NaN : Number(data.total));
         })
         .catch(() => {
           setVisitCounts(NaN, NaN);

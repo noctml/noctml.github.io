@@ -77,9 +77,10 @@ async function recordVisit(request, env) {
 async function readStats(env) {
   const todayDay = kstDay();
   const yesterdayDay = kstDay(-1);
-  const [today, yesterday] = await Promise.all([
+  const [today, yesterday, totalRow] = await Promise.all([
     readCount(env, todayDay),
-    readCount(env, yesterdayDay)
+    readCount(env, yesterdayDay),
+    env.DB.prepare("SELECT COALESCE(SUM(visits), 0) AS total FROM daily_counts").first()
   ]);
 
   return {
@@ -87,7 +88,8 @@ async function readStats(env) {
     todayDay,
     yesterdayDay,
     today,
-    yesterday
+    yesterday,
+    total: Number(totalRow?.total || 0)
   };
 }
 

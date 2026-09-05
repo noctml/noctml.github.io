@@ -266,6 +266,15 @@ window.SITE_DATA = {
         ],
         paperReviews: [
             {
+                title: "AIM-SLAM: Dense Monocular SLAM via Adaptive and Informative Multi-View Keyframe Prioritization with Foundation Model",
+                desc: "RAISE LAB Study",
+                href: "pages/study/AIM-SLAM/",
+                thumb: "pages/study/AIM-SLAM/assets/thumbnail.png?v=20260821",
+                published: true,
+                date: "2026-08-21",
+                tags: ["Paper Review", "Visual SLAM", "Dense SLAM", "Foundation Model", "Keyframe Selection"]
+            },
+            {
                 title: "UniSim-SLAM: Feed-Forward SLAM with Unified Sim(3) Optimization",
                 desc: "RAISE LAB Study",
                 href: "pages/study/UniSim-SLAM/",
